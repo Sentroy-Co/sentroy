@@ -1,0 +1,16 @@
+# gitleaks configuration.
+#
+# The docs pages (apps/core/app/docs/**) contain API-usage EXAMPLES — curl
+# commands with placeholder tokens (stk_env_…, client_abc123:secret_xxx) and
+# sample JWTs — that gitleaks' curl-auth / generic-api-key rules flag as
+# secrets. They are illustrative placeholders, not real credentials, so the
+# docs tree is allowlisted. All other paths are scanned with the default rules.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Documentation pages contain placeholder API tokens, not real secrets"
+paths = [
+  '''apps/core/app/docs/.*''',
+]
