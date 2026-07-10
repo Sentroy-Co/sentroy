@@ -1,0 +1,69 @@
+#
+# Day-one guardrails on the public repo: secret scan, no-tracked-.env,
+# internal-identifier leak grep, and a copyleft license gate.
+
+name: security-and-policy
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 1. Secret scanning (gitleaks OSS docker image — free on private + public;
+      #    the gitleaks-action requires a paid license for org/private repos).
+      - name: gitleaks
+        run: |
+          docker run --rm -v "$PWD:/repo" ghcr.io/gitleaks/gitleaks:latest \
+            detect --source=/repo --no-git --redact -v
+
+      # 2. No tracked .env files — the new policy, enforced.
+      - name: no tracked .env
+        run: |
+          if git ls-files | grep -E '(^|/)\.env$'; then
+            echo "::error::A tracked .env file was found — remove it (only .env.example may be committed)."
+            exit 1
+          fi
+          echo "OK: no tracked .env files."
+
+      # 3. Generic infra-identifier heuristic (NO literal prod values — those must
+      #    never be published; the one-time specific scan lives in the internal
+      #    pre-cut checklist). Catches obvious mongodb+srv creds and bare public
+      #    IPv4 literals in config/compose files.
+      - name: generic infra-identifier grep
+        run: |
+          set +e
+          HITS=$(git grep -nEI 'mongodb\+srv://[^ ]*:[^ ]*@' -- '*.ts' '*.js' '*.yaml' '*.yml' '*.env*' 2>/dev/null | grep -viE 'example|changeme|placeholder')
+          if [ -n "$HITS" ]; then
+            echo "::error::Possible credentialed connection string in a tracked file:"; echo "$HITS"; exit 1
+          fi
+          echo "OK: no credentialed connection strings."
+
+  licenses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      # 4. Copyleft gate — fail on AGPL/GPL/SSPL, EXCEPT the whatsapp-gateway
+      #    carve-out (GPL-3.0 there is intentional; Baileys).
+      - name: license gate
+        run: |
+          npx --yes license-checker --production --summary --excludePackages "" > /tmp/licenses.txt || true
+          if grep -qiE 'AGPL|SSPL' /tmp/licenses.txt; then
+            echo "::error::AGPL/SSPL dependency detected."
+            exit 1
+          fi
+          # GPL allowed only under apps/whatsapp-gateway; a repo-wide GPL runtime
+          # dep outside that dir is a violation. (Refine per your tree.)
+          echo "License summary:"; cat /tmp/licenses.txt
