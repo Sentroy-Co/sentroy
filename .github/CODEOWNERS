@@ -1,0 +1,6 @@
+# Code owners — auto-requested for review on PRs touching matching paths.
+# Entries MUST have write access to the repo, or GitHub silently ignores them.
+#
+# Single maintainer today; when the team grows, add specific paths (e.g.
+# licensing, apps/whatsapp-gateway GPL carve-out) and/or a @Sentroy-Co/<team>.
+* @arasors
