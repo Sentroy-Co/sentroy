@@ -1,0 +1,156 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Domain {
+  id             String          @id @default(uuid())
+  domain         String          @unique
+  // UI tarafindaki Company.id — company bazli izolasyon icin.
+  // NULL = legacy (setup.sh ile yaratilan master key ile erisim gerekir).
+  companyId      String?
+  status         String          @default("pending") // pending|verifying|active|failed
+  spfVerified    Boolean         @default(false)
+  dkimVerified   Boolean         @default(false)
+  dmarcVerified  Boolean         @default(false)
+  dkimSelector   String          @default("mail")
+  dkimPublicKey  String?
+  dkimPrivateKey String?
+  trackOpens     Boolean         @default(true)
+  trackClicks    Boolean         @default(true)
+  bimiLogoUrl    String?         // BIMI SVG logo URL (https)
+  bimiVmcUrl     String?         // BIMI VMC certificate URL (.pem)
+  bimiVerified   Boolean         @default(false)
+  // Catch-all mailbox — set'liyse `*@domain` adreslerine gelen tum mail
+  // bu adrese yonlendirilir (Postfix virtual_alias_maps uzerinden).
+  // NULL = catch-all yok, default davranis (tanimsiz adres reject).
+  catchAllMailboxEmail String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  templates      Template[]
+  logs           MailLog[]
+  webhooks       Webhook[]
+  suppressions   Suppression[]
+
+  @@index([companyId])
+  // Liste `where(companyId) + orderBy(createdAt desc)` yapıyor → composite index
+  // scoped listede Sort node'unu eler; plain createdAt index'i master-key
+  // (where={}) sıralı taramasını index'ten çeker (full-scan+external-sort yerine).
+  @@index([companyId, createdAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+  @@map("domains")
+}
+
+model Template {
+  id        String   @id @default(uuid())
+  // Multilang destekli alanlar — string (tek dil) veya { en: "...", tr: "..." } (çok dil) olabilir
+  name      Json
+  subject   Json
+  mjmlBody  Json
+  htmlBody  Json
+  variables String[]
+  domainId  String
+  domain    Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("templates")
+}
+
+model MailLog {
+  id          String          @id @default(uuid())
+  to          String
+  from        String
+  subject     String
+  status      String          @default("queued") // queued|processing|sent|bounced|failed
+  messageId   String?
+  domainId    String
+  domain      Domain          @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  templateId  String?
+  variables   Json?
+  scheduledAt DateTime?       // null = hemen gönder
+  createdAt   DateTime        @default(now())
+  sentAt      DateTime?
+  bouncedAt   DateTime?
+  openedAt    DateTime?
+  clickedAt   DateTime?
+  error       String?
+  events      TrackingEvent[]
+
+  @@index([domainId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([to])
+  @@map("mail_logs")
+}
+
+model ApiKey {
+  id        String    @id @default(uuid())
+  name      String
+  // Key prefix (ilk 12 karakter, plaintext) — hizli indexli lookup icin.
+  // Legacy kayitlarda null olabilir; auth plugin null prefix'leri linear
+  // tarar (geriye uyumluluk; bu key'lerin tekrar uretilmesi onerilir).
+  keyPrefix String?
+  keyHash   String    @unique
+  scopes    String[]
+  domainId  String?
+  // UI tarafindaki Company.id — key'in hangi company icin uretildigi.
+  // NULL = legacy master key (setup.sh), tum companyId'lere ve
+  // companyId = NULL olan domain'lere erisir.
+  companyId String?
+  lastUsed  DateTime?
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+
+  @@index([keyPrefix])
+  @@index([companyId])
+  @@map("api_keys")
+}
+
+model Webhook {
+  id        String   @id @default(uuid())
+  url       String
+  events    String[] // ["sent","bounced","failed","opened","clicked","unsubscribed"]
+  secret    String   // HMAC signing secret
+  active    Boolean  @default(true)
+  domainId  String
+  domain    Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([domainId])
+  @@map("webhooks")
+}
+
+model Suppression {
+  id        String   @id @default(uuid())
+  email     String
+  reason    String   // bounce|unsubscribe|complaint|manual
+  domainId  String
+  domain    Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([email, domainId])
+  @@index([domainId])
+  @@index([email])
+  @@map("suppressions")
+}
+
+model TrackingEvent {
+  id        String   @id @default(uuid())
+  mailLogId String
+  mailLog   MailLog  @relation(fields: [mailLogId], references: [id], onDelete: Cascade)
+  type      String   // open|click|unsubscribe
+  url       String?  // click event için tıklanan URL
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([mailLogId])
+  @@index([type])
+  @@map("tracking_events")
+}

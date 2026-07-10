@@ -1,0 +1,2 @@
+# Dovecot users — API tarafindan yonetilir
+# Format: user@domain:{scheme}hash:uid:gid::home::

@@ -1,0 +1,46 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Env files — Faz 0: artık HİÇBİR .env tracked DEĞİL (open-source hijyeni).
+# Yalnız .env.example (placeholder) commit'lenir. Runtime değerleri Coolify
+# env'inde; build değerleri .env.deploy'da (untracked); lokal dev .env'de.
+.env
+.env.*
+!.env.example
+!.env.deploy.example
+.env.local
+.env.*.local
+.env.deploy
+# Faz 0 rotasyon ara dosyaları — asla commit'lenmez
+secrets.rotated
+*.rotated
+
+# Stray/local-only dirs (untracked, repo dışı)
+_.github/
+
+# Testing
+coverage
+
+# Turbo
+.turbo
+
+# Vercel
+.vercel
+
+# Build Outputs
+.next/
+out/
+build
+dist
+
+
+# Debug
+npm-debug.log*
+
+# Misc
+.DS_Store
+*.pem

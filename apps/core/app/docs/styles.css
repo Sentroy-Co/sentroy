@@ -1,0 +1,45 @@
+/*
+ * Shiki dual-theme bridge.
+ *
+ * `defaultColor: false` in highlight.ts emits both `--shiki-light` and
+ * `--shiki-dark` custom properties on every span. We pick the right one
+ * based on the document `.dark` class set by next-themes, and expose a
+ * matching `--shiki-bg` so the surrounding panel can adopt the theme's
+ * code background instead of the app's `bg-muted` default.
+ */
+
+:root {
+  --shiki-bg: #ffffff;
+}
+
+.dark {
+  --shiki-bg: #07060e;
+}
+
+.docs-shiki .shiki,
+.docs-shiki .shiki span {
+  background-color: var(--shiki-light-bg, transparent) !important;
+  color: var(--shiki-light) !important;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.dark .docs-shiki .shiki,
+.dark .docs-shiki .shiki span {
+  background-color: var(--shiki-dark-bg, transparent) !important;
+  color: var(--shiki-dark) !important;
+}
+
+.docs-shiki .shiki {
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+}
+
+/*
+ * Anchor-scroll ofseti — sticky header (h-16 = 4rem) hedef başlığın üstünü
+ * örtmesin. Hem sol nav hem sağ TOC JS `scrollIntoView` ile smooth kaydırıyor;
+ * scroll-margin-top scrollIntoView + native anchor navigasyonunda saygı görür.
+ */
+main [id] {
+  scroll-margin-top: 5.5rem;
+}

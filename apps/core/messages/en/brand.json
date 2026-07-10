@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Brand",
+  "metaDescription": "Sentroy brand assets — logos, marks and colors.",
+  "title": "Brand",
+  "subtitle": "Sentroy's logos, marks and colors. Preview the assets, download what you need, and follow the palette.",
+  "back": "Back to Sentroy",
+  "logos": "Logos",
+  "logosDesc": "Use the light logo on dark surfaces and the dark logo on light surfaces. SVG is preferred; PNG is provided for raster use.",
+  "onDark": "On dark",
+  "onLight": "On light",
+  "colored": "Colored",
+  "download": "Download",
+  "colors": "Colors",
+  "colorsDesc": "Click a swatch to copy its hex.",
+  "copied": "Copied",
+  "note": "Keep clear space around the logo and never stretch, recolor or add effects to the mark."
+}

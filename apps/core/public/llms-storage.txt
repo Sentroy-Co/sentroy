@@ -1,0 +1,120 @@
+# Sentroy Storage + CDN
+
+> S3-backed object storage with on-the-fly image transformations served from `cdn.sentroy.com`. Drop-in replacement for **AWS S3 + CloudFront**, **Cloudflare R2**, and **Backblaze B2** — without the IAM, signed-URL, and CDN-edge-cache wiring.
+
+## Quickstart
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { Sentroy } from "@sentroy-co/client-sdk";
+
+const sentroy = new Sentroy({
+  baseUrl: "https://sentroy.com",
+  companySlug: "acme",
+  accessToken: process.env.SENTROY_API_KEY!, // stk_...
+});
+
+const { data } = await sentroy.media.upload({
+  bucketId: "bkt_avatars",
+  file: fileFromInput, // browser File / Node Buffer / RN { uri, name, type }
+  contentType: "image/png",
+});
+// data.cdnUrl -> https://cdn.sentroy.com/f/<mediaId>
+```
+
+## Authentication
+
+- **Header:** `Authorization: Bearer stk_<48-hex>` for admin (upload, delete, list).
+- **Required permissions:** `storage.view`, `buckets.{create,edit,delete}`, `media.{upload,delete,reorder}`.
+- **Public CDN reads are anonymous** — `mediaId` is a 24-char unguessable ULID; no token required for `GET /f/:mediaId`.
+
+## Endpoints
+
+Base: `https://sentroy.com/api/storage/...` (SDK rewrites `/api/storage/*` automatically). Public CDN: `https://cdn.sentroy.com`.
+
+| Verb | Path | Purpose | Permission |
+|---|---|---|---|
+| `GET` | `/buckets` | List buckets | `storage.view` |
+| `GET` | `/buckets/:id` | Bucket detail (size, count, settings) | `storage.view` |
+| `POST` | `/buckets` | Create bucket | `buckets.create` |
+| `PATCH` / `DELETE` | `/buckets/:id` | Update / delete (cascade-purges media) | `buckets.edit` / `buckets.delete` |
+| `GET` | `/buckets/:id/media` | List media (paginated, `?cursor=`, `?limit=`) | `storage.view` |
+| `GET` | `/media/:id` | Media metadata | `storage.view` |
+| `POST` | `/media` | Upload (multipart) — returns `{id, cdnUrl}` | `media.upload` |
+| `DELETE` | `/media/:id` | Delete + purge CDN edges | `media.delete` |
+| `GET` | `/usage` | Per-bucket storage + bandwidth usage | `storage.view` |
+| `GET` | `/storage-quota` | Company-wide quota (used / limit) | `storage.view` |
+| `GET` | `/f/:mediaId[/:quality]` | Public CDN read | _none_ |
+
+## Recipes
+
+### Upload a single file
+
+```ts
+const { data } = await sentroy.media.upload({
+  bucketId: "bkt_uploads",
+  file,
+  contentType: file.type,
+  filename: file.name,
+});
+console.log(data.cdnUrl);
+```
+
+### List bucket media paginated
+
+```ts
+let cursor: string | undefined;
+do {
+  const page = await sentroy.media.list({ bucketId: "bkt_uploads", cursor, limit: 50 });
+  for (const m of page.data.items) console.log(m.id, m.cdnUrl);
+  cursor = page.data.nextCursor;
+} while (cursor);
+```
+
+### Fetch storage quota
+
+```ts
+const { data } = await sentroy.storage.quota();
+// { usedBytes, limitBytes, bandwidth30dBytes }
+```
+
+## CDN URL pattern
+
+```
+https://cdn.sentroy.com/f/<mediaId>             # original
+https://cdn.sentroy.com/f/<mediaId>/<quality>   # transformed variant
+```
+
+`<mediaId>` is 24-char ULID; URLs are stable, immutable, and safe to embed in marketing emails, HTML, and public RSS.
+
+## Image transformations
+
+`<quality>` segment selects a server-rendered Sharp variant:
+
+| Preset | Description |
+|---|---|
+| `thumb` | 128 px max edge, 80% q, WebP |
+| `small` | 320 px max edge, 82% q, WebP |
+| `medium` | 768 px max edge, 84% q, WebP |
+| `large` | 1600 px max edge, 86% q, WebP |
+| `avatar` | 256x256 cover crop, 85% q, WebP |
+| `og` | 1200x630 cover crop, 85% q, JPEG |
+
+Variants are computed on first request and edge-cached; subsequent requests are CDN-served.
+
+## Gotchas
+
+- **Multipart parallel pool.** Large uploads (> 16 MB) chunk into 3 parallel parts; SDK exposes `onProgress` callback. Resumable multipart sessions land in the next minor.
+- **React Native file shape.** Pass `file: { uri, name, type }` — the SDK detects RN and builds the multipart form correctly. Browser `File` and Node `Buffer` also work.
+- **Tailwind v4 `@source` requirement.** If consuming `MediaManager` from `@sentroy-co/client-sdk/react`, add `@source "../node_modules/@sentroy-co/client-sdk/dist/react";` to `globals.css` so Tailwind picks up the SDK's utility classes — otherwise the picker renders unstyled.
+- **mediaId is unguessable but public.** Anyone with the URL can read the file. For private documents, gate access at your application layer (signed URL feature in roadmap).
+- **CDN purge is cascade on bucket delete.** `DELETE /buckets/:id` schedules edge purge for every media in the bucket — irreversible.
+
+## Competitors
+
+Sentroy Storage + CDN is a direct alternative to **AWS S3** (+ CloudFront), **Cloudflare R2** (+ Workers), and **Backblaze B2**. Migration guides at `/compare/s3` and `/compare/r2`. Differences: no IAM policies, no signed URLs needed for public reads, image transforms built-in (no separate Lambda@Edge / Worker), single bearer token shared with Mail / Auth.
+
+For full reference: https://docs.sentroy.com/storage

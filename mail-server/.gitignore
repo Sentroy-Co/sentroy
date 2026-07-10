@@ -1,0 +1,30 @@
+# Environment (private repo — .env tracked intentionally)
+# .env
+.env.local
+.env.production
+
+# Node
+node_modules/
+dist/
+api/node_modules/
+api/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# DKIM keys (sensitive)
+*.private
+*.key
+
+# Logs
+*.log

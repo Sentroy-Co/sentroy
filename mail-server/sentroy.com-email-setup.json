@@ -1,0 +1,109 @@
+{
+    "providerId": "sentroy.com",
+    "providerName": "Sentroy",
+    "serviceId": "sentroy_mail",
+    "serviceName": "Sentroy",
+    "sharedServiceName": true,
+    "logoUrl": "https://sentroy.com/svg/logo-light.svg",
+    "description": "This is a template to enable mail hosting with Sentroy",
+    "variableDescription": "",
+    "syncBlock": false,
+    "hostRequired": false,
+    "version": 1,
+    "syncPubKeyDomain": "sentroy.com",
+    "records": [
+    {
+        "groupId": "sentroy-verification",
+        "type": "CNAME",
+        "host": "%cname_host%",
+        "pointsTo": "%cname_points%",
+        "ttl": 600
+    },
+    {
+        "groupId": "website-redirection",
+        "type": "CNAME",
+        "host": "%website_host%",
+        "pointsTo": "%website_points%",
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-mx",
+        "type": "MX",
+        "host": "@",
+        "pointsTo": "%mx_points%",
+        "priority": 10,
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-mx2",
+        "type": "MX",
+        "host": "@",
+        "pointsTo": "%mx2_points%",
+        "priority": 20,
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-mx3",
+        "type": "MX",
+        "host": "@",
+        "pointsTo": "%mx3_points%",
+        "priority": 50,
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-spf",
+        "type": "SPFM",
+        "host": "@",
+        "spfRules": "%spf_data%"
+    },
+    {
+        "groupId": "sentroy-dkim",
+        "type": "TXT",
+        "host": "%dkim_host%._domainkey",
+        "data": "%dkim_data%",
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-dkim1",
+        "type": "TXT",
+        "host": "%dkim_host1%._domainkey",
+        "data": "%dkim_data1%",
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-dkim2",
+        "type": "TXT",
+        "host": "%dkim_host2%._domainkey",
+        "data": "%dkim_data2%",
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-dmarc",
+        "type": "TXT",
+        "host": "_dmarc",
+        "data": "%dmarc_data%",
+        "txtConflictMatchingMode": "All",
+        "essential": "OnApply",
+        "ttl": 600
+    },
+    {
+        "groupId": "sentroy-redir301",
+        "type": "REDIR301",
+        "target": "%target%",
+        "host": "@"
+    },
+    {
+        "groupId": "sentroy-redir302",
+        "type": "REDIR302",
+        "target": "%target%",
+        "host": "@"
+    },
+    {
+        "groupId": "general-text",
+        "type": "TXT",
+        "host": "%txt_host%",
+        "data": "%txt_points%",
+        "ttl": 600
+    }
+    ]
+}

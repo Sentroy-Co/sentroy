@@ -1,0 +1,29 @@
+{
+  "name": "whatsapp-gateway",
+  "version": "1.64.216",
+  "type": "module",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc --outDir dist",
+    "start": "node --import tsx src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,tsx}\""
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.18",
+    "@workspace/db": "workspace:*",
+    "mongodb": "^7.1.1",
+    "pino": "^9.6.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/node": "^25.1.0",
+    "@types/qrcode": "^1.5.5",
+    "@workspace/eslint-config": "workspace:^",
+    "@workspace/typescript-config": "workspace:*",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

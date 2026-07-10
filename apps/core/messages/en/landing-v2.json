@@ -1,0 +1,359 @@
+{
+  "nav": {
+    "build": "Build",
+    "operate": "Operate",
+    "create": "Create",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "dashboard": "Dashboard",
+    "signIn": "Sign in",
+    "getStarted": "Get started",
+    "dev": "Dev"
+  },
+  "products": {
+    "mail": "Mail",
+    "storage": "Storage",
+    "auth": "Auth",
+    "vault": "Env Vault",
+    "status": "Status",
+    "meet": "Meet",
+    "whatsapp": "WhatsApp",
+    "linear": "Linear Lite",
+    "studio": "Studio",
+    "opencut": "OpenCut",
+    "tools": "Tools",
+    "os": "Sentroy OS"
+  },
+  "manifesto": {
+    "kicker": "The one-session thesis",
+    "body": "Every tool used to mean another tab, another invoice, another login. We put 12 products on one desktop. One cookie, one session, zero tab chaos. Keep scrolling — the windows are already opening.",
+    "products": {
+      "mail": "Mail",
+      "storage": "Storage",
+      "auth": "Auth",
+      "vault": "Env Vault",
+      "status": "Status Pages",
+      "meet": "Meet",
+      "whatsapp": "WhatsApp Santral",
+      "linear": "Linear Lite",
+      "studio": "Studio",
+      "opencut": "OpenCut",
+      "tools": "Tools",
+      "os": "Sentroy OS"
+    }
+  },
+  "proof": {
+    "eyebrow": "Proof",
+    "title": "Numbers, not promises.",
+    "description": "How big, how stable, how open — all on the table.",
+    "stats": {
+      "products": "products on one desktop",
+      "session": "session for all of them",
+      "tools": "free tools included",
+      "uptime": "uptime target"
+    },
+    "statusNote": "Health data comes live from our own Status Pages product.",
+    "statusCta": "See live status",
+    "faqTitle": "Common questions",
+    "faqDescription": "Short questions, straight answers.",
+    "faq": {
+      "session": {
+        "q": "What does \"one session\" actually mean?",
+        "a": "You sign in once; mail, storage, auth and every other product see the same session. No separate account, password or tab per product."
+      },
+      "alacarte": {
+        "q": "Can I use the products individually?",
+        "a": "Yes. Open only what you need; the rest of the dock stays put. Adding another one later is a single click."
+      },
+      "sdk": {
+        "q": "Is there an API and SDK?",
+        "a": "Yes. One access token covers the TypeScript, Python, Go and PHP SDKs — or plain REST. Start with npm i @sentroy-co/client-sdk."
+      },
+      "free": {
+        "q": "Can I start for free?",
+        "a": "Yes, and nobody asks for a credit card. Upgrade as you grow; pricing is right above, no surprises."
+      },
+      "data": {
+        "q": "Is my data safe?",
+        "a": "We run our own company on this platform every day. Access is scoped per company, and every critical action lands in the audit log."
+      }
+    }
+  },
+  "cta": {
+    "title": "This desktop is yours.",
+    "subtitle": "12 products installed, session ready. The only thing missing is you.",
+    "primary": "Start for free",
+    "secondary": "Docs",
+    "note": "No credit card required."
+  },
+  "sdk": {
+    "eyebrow": "Developers",
+    "title": "One SDK. Every product.",
+    "description": "Send mail, upload to the CDN, sign in users and read secrets with the same client. TypeScript, Python, PHP and Go.",
+    "terminalTitle": "Terminal — sentroy",
+    "copy": "Copy install command",
+    "copied": "Copied",
+    "scaffoldNote": "Starting fresh?",
+    "docsCta": "Read the docs"
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "Pick your plan.",
+    "subtitle": "Every plan includes all 12 products. Upgrade when you outgrow the limits.",
+    "billingAria": "Billing period",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "popular": "Popular",
+    "free": "Free",
+    "perMonth": "/mo",
+    "perYear": "/yr",
+    "cta": "Get started",
+    "ctaFree": "Start free",
+    "unlimited": "Unlimited",
+    "featEmails": "{count} emails / month",
+    "featStorage": "{value} storage",
+    "featDomains": "{count} domains",
+    "featMembers": "{count} team members"
+  },
+  "boot": {
+    "eyebrow": "Sentroy OS",
+    "title": "12 products. One desktop.",
+    "subtitle": "Mail, storage, auth and 9 more — one session, zero tabs.",
+    "cta": "Start free",
+    "scrollHint": "Scroll to step inside",
+    "carousel": {
+      "0": "Your mail, files and users — behind the same glass.",
+      "1": "No tab chaos; every tool on one desktop.",
+      "2": "One account, one bill, one session."
+    }
+  },
+  "expose": {
+    "title": "Everything. One session.",
+    "punchline": "One cookie. One bill. Zero tabs.",
+    "stats": {
+      "products": {
+        "label": "products"
+      },
+      "session": {
+        "label": "shared session"
+      },
+      "setup": {
+        "label": "setup",
+        "suffix": " min"
+      }
+    },
+    "cards": {
+      "mail": {
+        "title": "Mail",
+        "line": "Send with templates, track delivery."
+      },
+      "storage": {
+        "title": "Storage",
+        "line": "Upload, grab the CDN link."
+      },
+      "auth": {
+        "title": "Auth",
+        "line": "OAuth + your own user pool."
+      },
+      "vault": {
+        "title": "Vault",
+        "line": "Your env vars in one vault."
+      },
+      "status": {
+        "title": "Status",
+        "line": "Uptime at a glance."
+      },
+      "meet": {
+        "title": "Meet",
+        "line": "Calls on your own domain."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "line": "Switchboard + template sends."
+      },
+      "linear": {
+        "title": "Linear Lite",
+        "line": "Issues on a lightweight board."
+      },
+      "studio": {
+        "title": "Studio",
+        "line": "A DAW in the browser."
+      },
+      "opencut": {
+        "title": "OpenCut",
+        "line": "Video editing in a tab."
+      },
+      "tools": {
+        "title": "Tools",
+        "line": "30+ free tools."
+      }
+    }
+  },
+  "operate": {
+    "eyebrow": "Scene 02 — Operate",
+    "title": "Run the company. Same desktop.",
+    "subtitle": "Status, Meet, WhatsApp and Linear stay open side by side — one session, zero tab chaos.",
+    "live": "In focus: {name}",
+    "windows": {
+      "status": {
+        "name": "Status",
+        "title": "Status — status.sentroy.com",
+        "desc": "Public status pages with real-time uptime.",
+        "operational": "All systems operational",
+        "uptime": "90-day uptime",
+        "services": {
+          "mail": "Mail API",
+          "storage": "Storage",
+          "cdn": "CDN",
+          "db": "Database"
+        }
+      },
+      "meet": {
+        "name": "Meet",
+        "title": "Meet — meet.sentroy.com",
+        "desc": "Video calls on your own domain.",
+        "room": "Weekly sync",
+        "speaking": "Speaking"
+      },
+      "whatsapp": {
+        "name": "WhatsApp Santral",
+        "title": "WhatsApp — whatsapp.sentroy.com",
+        "desc": "A team inbox for your WhatsApp numbers.",
+        "contact": "Support line",
+        "online": "online",
+        "msg1": "Hi — my invoice looks wrong.",
+        "msg2": "Fixed. The new invoice is on its way."
+      },
+      "linear": {
+        "name": "Linear Lite",
+        "title": "Linear — linear.sentroy.com",
+        "desc": "Issues that actually reach Done.",
+        "inProgress": "In Progress",
+        "done": "Done",
+        "issueMoving": "Rotate staging API keys",
+        "issueSecond": "Write incident postmortem",
+        "issueDone": "Ship status page embeds"
+      }
+    }
+  },
+  "create": {
+    "eyebrow": "Create",
+    "title": "Not just infrastructure.",
+    "subtitle": "A DAW, a video editor and 30+ tools — behind the same glass.",
+    "studio": {
+      "window": "Sentroy Studio",
+      "heading": "Produce the track.",
+      "desc": "A DJ-first DAW in the browser. 30 effects, zero install.",
+      "bpm": "128 BPM",
+      "track1": "Drums",
+      "track2": "Bass",
+      "track3": "Synth"
+    },
+    "opencut": {
+      "window": "OpenCut",
+      "heading": "Cut the video.",
+      "desc": "Trim on the timeline; exports land in your storage.",
+      "clip": "Clip 01",
+      "audio": "Audio",
+      "preview": "Preview"
+    },
+    "tools": {
+      "heading": "And 30+ free tools.",
+      "desc": "Image, PDF, audio, video, developer — no sign-up.",
+      "cta": "Open tools",
+      "more": "+12 more"
+    },
+    "marqueeAria": "Free tool catalog",
+    "marquee": {
+      "i1": "HEIC → JPG",
+      "i2": "Video → GIF",
+      "i3": "PDF merge",
+      "i4": "PDF split",
+      "i5": "Image compress",
+      "i6": "Image resize",
+      "i7": "AVIF convert",
+      "i8": "WEBP convert",
+      "i9": "Audio trim",
+      "i10": "Audio convert",
+      "i11": "Video trim",
+      "i12": "Video compress",
+      "i13": "WHOIS lookup",
+      "i14": "DNS lookup",
+      "i15": "JSON formatter",
+      "i16": "Base64 encode",
+      "i17": "URL encode",
+      "i18": "UUID generator",
+      "i19": "Hash generator",
+      "i20": "QR generator",
+      "i21": "Color picker",
+      "i22": "Excel → CSV",
+      "i23": "CSV → Excel",
+      "i24": "Markdown preview",
+      "i25": "Regex tester",
+      "i26": "JWT decoder",
+      "i27": "Cron parser",
+      "i28": "Diff checker",
+      "i29": "Lorem ipsum",
+      "i30": "Password generator"
+    }
+  },
+  "build": {
+    "kicker": "Scene 01 — Build",
+    "heading": "Build your app on Sentroy.",
+    "docsCta": "Docs",
+    "mail": {
+      "window": "Sentroy Mail",
+      "rail": "Mail that just sends.",
+      "p1": "Send with templates or the API.",
+      "p2": "Delivery status in real time.",
+      "p3": "Your domain — SPF and DKIM handled.",
+      "mock": {
+        "templates": "Templates",
+        "tpl1": "Welcome email",
+        "tpl2": "Password reset",
+        "tpl3": "Invoice notice",
+        "compose": "New send",
+        "to": "To",
+        "subject": "Subject",
+        "subjectValue": "Welcome aboard",
+        "delivered": "Delivered"
+      }
+    },
+    "storage": {
+      "window": "Sentroy Storage",
+      "rail": "Upload. It lands on the CDN.",
+      "p1": "Multipart upload, 3 parallel streams.",
+      "p2": "Instant CDN URL for every file.",
+      "p3": "Image processing at the edge.",
+      "mock": {
+        "uploading": "Uploading",
+        "ready": "Live on CDN"
+      }
+    },
+    "auth": {
+      "window": "Sentroy Auth",
+      "rail": "Add auth in minutes.",
+      "p1": "OAuth 2.0 + OIDC, standard endpoints.",
+      "p2": "Your own user pool, JWT issued.",
+      "p3": "RS256 signing, JWKS published.",
+      "mock": {
+        "signIn": "Sign in",
+        "email": "Email",
+        "password": "Password",
+        "continue": "Continue",
+        "token": "JWT issued"
+      }
+    },
+    "vault": {
+      "window": "Sentroy Vault",
+      "rail": "Secrets in one vault.",
+      "p1": "Encrypted, versioned env variables.",
+      "p2": "Fetch at runtime with getEnv().",
+      "p3": "Token-scoped access, audit logged.",
+      "mock": {
+        "title": "Environment variables",
+        "injected": "Injected at runtime"
+      }
+    }
+  }
+}

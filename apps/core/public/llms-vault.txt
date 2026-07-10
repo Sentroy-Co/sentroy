@@ -1,0 +1,96 @@
+# Sentroy Env Vault
+
+> Public/private environment variable + secret sync — SDK and CLI parity, webhook invalidation, per-token `--public-only` scoping. Drop-in replacement for **Doppler**, **Infisical**, and **AWS Secrets Manager**.
+
+## Install
+
+```bash
+npm install @sentroy-co/client-sdk
+export SENTROY_ENV_API_KEY=stk_env_<48-hex>
+```
+
+`stk_env_` tokens are per-environment (`dev`, `staging`, `prod`); rotate independently of company-wide `stk_` tokens.
+
+## SDK
+
+```ts
+import { getEnv, getEnvOrThrow, preloadEnv } from "@sentroy-co/client-sdk/env";
+
+// Cold start: hydrate once
+await preloadEnv();
+
+const url = getEnvOrThrow("DATABASE_URL");  // throws if missing
+const flag = getEnv("FEATURE_X", "off");    // typed default
+```
+
+`preloadEnv()` fetches the full vault snapshot for the environment, caches it in memory, and subscribes to webhook invalidations when wired up. Without webhooks the cache TTL is 5 minutes.
+
+## CLI
+
+The TypeScript SDK ships the `sentroy` CLI:
+
+```bash
+npx sentroy env list                          # current environment
+npx sentroy env list --public-only            # only NEXT_PUBLIC_* / EXPO_PUBLIC_*
+npx sentroy env pull --env prod > .env.prod   # write to disk
+npx sentroy env push --env staging .env       # upload local .env (overwrites)
+npx sentroy env diff --env prod               # diff local vs remote
+```
+
+`--public-only` enforces the public/private split at fetch time and is the only safe mode for shipping into a client bundle.
+
+## Endpoints
+
+Base: `https://sentroy.com/api/env-vault/...`
+
+| Verb | Path | Purpose | Auth |
+|---|---|---|---|
+| `POST` | `/push` | Bulk upsert keys for an environment | `stk_env_` |
+| `GET` | `/fetch` | Full snapshot (public + private) for the env | `stk_env_` |
+| `GET` | `/public` | Public-only snapshot — safe for browser bundles | `stk_env_` (any) |
+
+## React Provider
+
+```tsx
+import { EnvProvider, useEnv } from "@sentroy-co/client-sdk/react/env";
+
+<EnvProvider environment="prod" publicOnly>
+  <App />
+</EnvProvider>;
+
+function FeatureFlagged() {
+  const value = useEnv("NEXT_PUBLIC_FEATURE_X", "off");
+  return value === "on" ? <Beta /> : null;
+}
+```
+
+`publicOnly` is the safe default for client-side React; the provider will only request `/public`.
+
+## Webhook real-time invalidation
+
+Configure a webhook in the dashboard → on every push the SDK cache is invalidated within ~1 s. Without a webhook the SDK falls back to a 5-minute TTL.
+
+```ts
+// Server-side webhook receiver
+import { invalidateEnvCache } from "@sentroy-co/client-sdk/env";
+
+app.post("/webhooks/sentroy-env", async (req, res) => {
+  if (!verifyWebhookSignature(req)) return res.sendStatus(401);
+  invalidateEnvCache();
+  res.sendStatus(200);
+});
+```
+
+## Gotchas
+
+- **Public/private split is enforced server-side.** Calling `/public` with a private-scoped token still only returns keys flagged `public`. Don't rely on client filtering.
+- **5-minute cache TTL without webhook.** Rotating a secret without a webhook means clients can read stale values for up to 5 minutes. Wire the webhook in production.
+- **`stk_env_` ≠ `stk_`.** The env vault uses its own token namespace so you can rotate vault access without invalidating Mail / Storage credentials.
+- **`.env` push is destructive.** `sentroy env push --env <env> .env` replaces the entire environment payload — diff first.
+- **Don't commit `stk_env_` tokens.** Store in CI / Vercel / Coolify environment, not in the repo.
+
+## Competitors
+
+Sentroy Env Vault is a direct alternative to **Doppler**, **Infisical**, and **AWS Secrets Manager**. Differences: same bearer-token UX as the rest of Sentroy (no extra CLI auth dance, no separate dashboard account), public/private split is first-class (no manual `NEXT_PUBLIC_` filtering on push), webhook-driven cache invalidation rather than polling. Migration guides at `/compare/doppler` and `/compare/infisical`.
+
+For full reference: https://docs.sentroy.com/env-vault

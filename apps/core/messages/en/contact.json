@@ -1,0 +1,45 @@
+{
+  "metaTitle": "Contact",
+  "metaDescription": "Get in touch with the Sentroy team.",
+  "title": "Get in touch",
+  "subtitle": "To keep our inbox free of bots, confirm you're human and we'll reveal our contact email.",
+  "back": "Back to Sentroy",
+  "reveal": {
+    "button": "Show contact email",
+    "verifying": "Verifying…",
+    "humanCheck": "Confirm you're human to reveal our email",
+    "error": "Could not verify — please try again",
+    "unavailable": "Contact is temporarily unavailable"
+  },
+  "form": {
+    "title": "Send us a message",
+    "subtitle": "Hit a problem or have a question? Tell us — we read every message.",
+    "name": "Your name",
+    "namePh": "Jane Doe",
+    "email": "Email",
+    "emailPh": "you@example.com",
+    "emailOptional": "Optional — add it and we'll email you a confirmation and our reply.",
+    "category": "Topic",
+    "subject": "Subject",
+    "subjectPh": "Short summary (optional)",
+    "message": "Message",
+    "messagePh": "How can we help?",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "sentTitle": "Message sent",
+    "sentBody": "Thanks — we've got your message and will get back to you soon.",
+    "error": "Could not send — please try again."
+  },
+  "categories": {
+    "general": "General question",
+    "support": "Problem / support",
+    "billing": "Billing",
+    "partnership": "Partnership",
+    "feedback": "Feedback",
+    "other": "Other"
+  },
+  "investors": {
+    "title": "Investors & press",
+    "body": "For investor relations or press, reach us directly by email — we prefer to stay in touch that way."
+  }
+}

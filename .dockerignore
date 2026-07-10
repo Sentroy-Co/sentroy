@@ -1,0 +1,53 @@
+# Dependencies — installed fresh in each build
+node_modules
+**/node_modules
+
+# Next.js build output — regenerated in builder stage
+.next
+**/.next
+.turbo
+**/.turbo
+
+# Env files — supplied at runtime via docker-compose env_file or Coolify UI.
+# Keeping them out of the image prevents secrets from leaking into layers.
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Git + editor
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+**/.DS_Store
+
+# Test artifacts + coverage (if any)
+coverage
+**/coverage
+
+# Stale build outputs
+dist
+**/dist
+*.tsbuildinfo
+**/*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docker itself
+Dockerfile
+**/Dockerfile
+.dockerignore
+**/.dockerignore
+docker-compose*.yaml
+docker-compose*.yml
+
+# Misc
+*.pem
+certificates
+README.md

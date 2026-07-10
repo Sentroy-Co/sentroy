@@ -1,0 +1,359 @@
+{
+  "nav": {
+    "build": "Kur",
+    "operate": "İşlet",
+    "create": "Üret",
+    "pricing": "Fiyatlandırma",
+    "faq": "SSS",
+    "dashboard": "Panel",
+    "signIn": "Giriş yap",
+    "getStarted": "Hemen başla",
+    "dev": "Dev"
+  },
+  "products": {
+    "mail": "Mail",
+    "storage": "Storage",
+    "auth": "Auth",
+    "vault": "Env Vault",
+    "status": "Status",
+    "meet": "Meet",
+    "whatsapp": "WhatsApp",
+    "linear": "Linear Lite",
+    "studio": "Studio",
+    "opencut": "OpenCut",
+    "tools": "Tools",
+    "os": "Sentroy OS"
+  },
+  "manifesto": {
+    "kicker": "Tek oturum tezi",
+    "body": "Her araç ayrı bir tab, ayrı bir fatura, ayrı bir şifre demekti. Biz 12 ürünü tek masaüstünde topladık. Tek cookie, tek oturum, sıfır tab kaosu. Kaydırmaya devam et — pencereler açılıyor.",
+    "products": {
+      "mail": "Mail",
+      "storage": "Storage",
+      "auth": "Auth",
+      "vault": "Env Vault",
+      "status": "Status Pages",
+      "meet": "Meet",
+      "whatsapp": "WhatsApp Santral",
+      "linear": "Linear Lite",
+      "studio": "Studio",
+      "opencut": "OpenCut",
+      "tools": "Tools",
+      "os": "Sentroy OS"
+    }
+  },
+  "proof": {
+    "eyebrow": "Kanıt",
+    "title": "Söz değil, sayı.",
+    "description": "Ne kadar büyük, ne kadar ayakta, ne kadar açık — hepsi ortada.",
+    "stats": {
+      "products": "ürün, tek masaüstünde",
+      "session": "oturum, hepsine yetiyor",
+      "tools": "ücretsiz araç dahil",
+      "uptime": "uptime hedefi"
+    },
+    "statusNote": "Durum verisi, kendi Status Pages ürünümüzden canlı geliyor.",
+    "statusCta": "Canlı durumu gör",
+    "faqTitle": "Merak edilenler",
+    "faqDescription": "Kısa sorular, net cevaplar.",
+    "faq": {
+      "session": {
+        "q": "\"Tek oturum\" tam olarak ne demek?",
+        "a": "Bir kez giriş yaparsın; mail, storage, auth ve diğer tüm ürünler aynı oturumu görür. Ürün başına ayrı hesap, ayrı şifre, ayrı sekme yok."
+      },
+      "alacarte": {
+        "q": "Ürünleri tek tek kullanabilir miyim?",
+        "a": "Evet. Sadece ihtiyacın olanı açarsın; dock'taki diğerleri yerinde durur. Sonradan yenisini eklemek tek tık."
+      },
+      "sdk": {
+        "q": "API ve SDK var mı?",
+        "a": "Var. Tek access token ile TypeScript, Python, Go ve PHP SDK'ları — ya da düz REST. npm i @sentroy-co/client-sdk ile başlarsın."
+      },
+      "free": {
+        "q": "Ücretsiz başlayabilir miyim?",
+        "a": "Evet, kimse kredi kartı sormaz. Büyüdükçe planını yükseltirsin; fiyatlar hemen yukarıda, sürpriz yok."
+      },
+      "data": {
+        "q": "Verilerim güvende mi?",
+        "a": "Kendi şirketimizi her gün bu platformda çalıştırıyoruz. Erişim şirket bazında ayrılır, her kritik işlem audit log'a düşer."
+      }
+    }
+  },
+  "cta": {
+    "title": "Bu masaüstü senin.",
+    "subtitle": "12 ürün kurulu, oturum hazır. Tek eksik sensin.",
+    "primary": "Ücretsiz başla",
+    "secondary": "Docs",
+    "note": "Kredi kartı gerekmez."
+  },
+  "sdk": {
+    "eyebrow": "Geliştiriciler",
+    "title": "Tek SDK. Bütün ürünler.",
+    "description": "Aynı client ile mail gönder, CDN'e yükle, kullanıcı doğrula, secret oku. TypeScript, Python, PHP ve Go.",
+    "terminalTitle": "Terminal — sentroy",
+    "copy": "Kurulum komutunu kopyala",
+    "copied": "Kopyalandı",
+    "scaffoldNote": "Sıfırdan mı başlıyorsun?",
+    "docsCta": "Docs'a git"
+  },
+  "pricing": {
+    "eyebrow": "Fiyatlandırma",
+    "title": "Planını seç.",
+    "subtitle": "Her plan 12 ürünün tamamını içerir. Limitler yetmeyince yükselt.",
+    "billingAria": "Faturalama dönemi",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "popular": "Popüler",
+    "free": "Ücretsiz",
+    "perMonth": "/ay",
+    "perYear": "/yıl",
+    "cta": "Hemen başla",
+    "ctaFree": "Ücretsiz başla",
+    "unlimited": "Sınırsız",
+    "featEmails": "{count} e-posta / ay",
+    "featStorage": "{value} depolama",
+    "featDomains": "{count} domain",
+    "featMembers": "{count} ekip üyesi"
+  },
+  "boot": {
+    "eyebrow": "Sentroy OS",
+    "title": "12 ürün. Tek masaüstü.",
+    "subtitle": "Mail, storage, auth ve 9 ürün daha — tek oturum, sıfır sekme.",
+    "cta": "Ücretsiz başla",
+    "scrollHint": "Kaydır, ekrana gir",
+    "carousel": {
+      "0": "E-postan, dosyaların, kullanıcıların — aynı camın arkasında.",
+      "1": "Sekme kaosu yok; her araç aynı masaüstünde.",
+      "2": "Tek hesap, tek fatura, tek oturum."
+    }
+  },
+  "expose": {
+    "title": "Hepsi. Tek oturumda.",
+    "punchline": "Tek çerez. Tek fatura. Sıfır sekme.",
+    "stats": {
+      "products": {
+        "label": "ürün"
+      },
+      "session": {
+        "label": "ortak oturum"
+      },
+      "setup": {
+        "label": "kurulum",
+        "suffix": " dk"
+      }
+    },
+    "cards": {
+      "mail": {
+        "title": "Mail",
+        "line": "Şablonla gönder, teslimi izle."
+      },
+      "storage": {
+        "title": "Storage",
+        "line": "Yükle, CDN linkini al."
+      },
+      "auth": {
+        "title": "Auth",
+        "line": "OAuth + kendi kullanıcı havuzun."
+      },
+      "vault": {
+        "title": "Vault",
+        "line": "Env'lerin tek kasada."
+      },
+      "status": {
+        "title": "Status",
+        "line": "Uptime tek bakışta."
+      },
+      "meet": {
+        "title": "Meet",
+        "line": "Görüşme kendi alan adında."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "line": "Santral + şablonlu gönderim."
+      },
+      "linear": {
+        "title": "Linear Lite",
+        "line": "Issue'lar hafif panoda."
+      },
+      "studio": {
+        "title": "Studio",
+        "line": "Tarayıcıda DAW."
+      },
+      "opencut": {
+        "title": "OpenCut",
+        "line": "Video kurgu, sekmede."
+      },
+      "tools": {
+        "title": "Tools",
+        "line": "30+ ücretsiz araç."
+      }
+    }
+  },
+  "operate": {
+    "eyebrow": "Sahne 02 — İşlet",
+    "title": "Şirketini işlet. Aynı masaüstünde.",
+    "subtitle": "Status, Meet, WhatsApp ve Linear yan yana açık durur — tek oturum, sıfır tab kaosu.",
+    "live": "Odakta: {name}",
+    "windows": {
+      "status": {
+        "name": "Status",
+        "title": "Status — status.sentroy.com",
+        "desc": "Gerçek zamanlı uptime gösteren herkese açık status sayfaları.",
+        "operational": "Tüm sistemler çalışıyor",
+        "uptime": "90 günlük uptime",
+        "services": {
+          "mail": "Mail API",
+          "storage": "Storage",
+          "cdn": "CDN",
+          "db": "Veritabanı"
+        }
+      },
+      "meet": {
+        "name": "Meet",
+        "title": "Meet — meet.sentroy.com",
+        "desc": "Kendi domaininde görüntülü görüşme.",
+        "room": "Haftalık senkron",
+        "speaking": "Konuşuyor"
+      },
+      "whatsapp": {
+        "name": "WhatsApp Santral",
+        "title": "WhatsApp — whatsapp.sentroy.com",
+        "desc": "WhatsApp numaraların için takım gelen kutusu.",
+        "contact": "Destek hattı",
+        "online": "çevrimiçi",
+        "msg1": "Merhaba — faturam hatalı görünüyor.",
+        "msg2": "Düzelttik, yeni fatura yolda."
+      },
+      "linear": {
+        "name": "Linear Lite",
+        "title": "Linear — linear.sentroy.com",
+        "desc": "Gerçekten Done'a ulaşan issue'lar.",
+        "inProgress": "In Progress",
+        "done": "Done",
+        "issueMoving": "Staging API anahtarlarını döndür",
+        "issueSecond": "Incident postmortem'i yaz",
+        "issueDone": "Status embed'lerini yayınla"
+      }
+    }
+  },
+  "create": {
+    "eyebrow": "Üret",
+    "title": "Sadece altyapı değil.",
+    "subtitle": "Bir DAW, bir video editörü ve 30+ araç — aynı camın arkasında.",
+    "studio": {
+      "window": "Sentroy Studio",
+      "heading": "Parçayı üret.",
+      "desc": "Tarayıcıda DJ-öncelikli DAW. 30 efekt, sıfır kurulum.",
+      "bpm": "128 BPM",
+      "track1": "Davul",
+      "track2": "Bas",
+      "track3": "Synth"
+    },
+    "opencut": {
+      "window": "OpenCut",
+      "heading": "Videoyu kurgula.",
+      "desc": "Timeline'da kırp; çıktın doğrudan storage'ına düşer.",
+      "clip": "Klip 01",
+      "audio": "Ses",
+      "preview": "Önizleme"
+    },
+    "tools": {
+      "heading": "Ve 30+ ücretsiz araç.",
+      "desc": "Görsel, PDF, ses, video, developer — kayıt yok.",
+      "cta": "Araçları aç",
+      "more": "+12 araç daha"
+    },
+    "marqueeAria": "Ücretsiz araç kataloğu",
+    "marquee": {
+      "i1": "HEIC → JPG",
+      "i2": "Video → GIF",
+      "i3": "PDF birleştir",
+      "i4": "PDF böl",
+      "i5": "Görsel sıkıştır",
+      "i6": "Görsel boyutlandır",
+      "i7": "AVIF dönüştür",
+      "i8": "WEBP dönüştür",
+      "i9": "Ses kırp",
+      "i10": "Ses dönüştür",
+      "i11": "Video kırp",
+      "i12": "Video sıkıştır",
+      "i13": "WHOIS sorgu",
+      "i14": "DNS sorgu",
+      "i15": "JSON biçimlendir",
+      "i16": "Base64 kodla",
+      "i17": "URL kodla",
+      "i18": "UUID üret",
+      "i19": "Hash üret",
+      "i20": "QR üret",
+      "i21": "Renk seçici",
+      "i22": "Excel → CSV",
+      "i23": "CSV → Excel",
+      "i24": "Markdown önizleme",
+      "i25": "Regex test",
+      "i26": "JWT çöz",
+      "i27": "Cron çözümle",
+      "i28": "Diff karşılaştır",
+      "i29": "Lorem ipsum",
+      "i30": "Şifre üret"
+    }
+  },
+  "build": {
+    "kicker": "Sahne 01 — Build",
+    "heading": "Uygulamanı Sentroy üstüne kur.",
+    "docsCta": "Docs",
+    "mail": {
+      "window": "Sentroy Mail",
+      "rail": "Mail altyapın hazır.",
+      "p1": "Şablonla ya da API ile gönder.",
+      "p2": "Teslimat durumunu anlık izle.",
+      "p3": "Kendi domainin — SPF ve DKIM otomatik.",
+      "mock": {
+        "templates": "Şablonlar",
+        "tpl1": "Hoş geldin e-postası",
+        "tpl2": "Şifre sıfırlama",
+        "tpl3": "Fatura bildirimi",
+        "compose": "Yeni gönderim",
+        "to": "Alıcı",
+        "subject": "Konu",
+        "subjectValue": "Aramıza hoş geldin",
+        "delivered": "Teslim edildi"
+      }
+    },
+    "storage": {
+      "window": "Sentroy Storage",
+      "rail": "Yükle. CDN'e düşsün.",
+      "p1": "Multipart upload, 3 paralel akış.",
+      "p2": "Her dosyaya anında CDN URL.",
+      "p3": "Görselleri uçta, anında işle.",
+      "mock": {
+        "uploading": "Yükleniyor",
+        "ready": "CDN'de yayında"
+      }
+    },
+    "auth": {
+      "window": "Sentroy Auth",
+      "rail": "Auth'u dakikalar içinde ekle.",
+      "p1": "OAuth 2.0 + OIDC, standart uçlar.",
+      "p2": "Kendi kullanıcı havuzun, JWT hazır.",
+      "p3": "RS256 imza, JWKS yayında.",
+      "mock": {
+        "signIn": "Oturum aç",
+        "email": "E-posta",
+        "password": "Parola",
+        "continue": "Devam et",
+        "token": "JWT verildi"
+      }
+    },
+    "vault": {
+      "window": "Sentroy Vault",
+      "rail": "Sırların tek kasada.",
+      "p1": "Env'lerin şifreli ve versiyonlu.",
+      "p2": "Runtime'da getEnv() ile çek.",
+      "p3": "Token kapsamlı erişim, audit log'lu.",
+      "mock": {
+        "title": "Ortam değişkenleri",
+        "injected": "Runtime'a enjekte edildi"
+      }
+    }
+  }
+}

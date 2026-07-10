@@ -1,0 +1,620 @@
+{
+  "systemSettings": "Sistem Ayarları…",
+  "selectCompany": "Şirket seç",
+  "companies": "Şirketler",
+  "createCompany": "Şirket oluştur",
+  "language": "Dil",
+  "search": "Ara",
+  "profile": "Profil",
+  "overview": "Genel Bakış",
+  "signOut": "Çıkış yap",
+  "account": "Hesap",
+  "toggleTheme": "Temayı değiştir",
+  "showDesktop": "Masaüstünü göster / pencereleri geri getir",
+  "wallpaper": "Duvar kâğıdı",
+  "changeWallpaper": "Duvar kâğıdını değiştir",
+  "widgets": "Widget'lar",
+  "activity": "Etkinlik",
+  "noPublicProfile": "Henüz herkese açık bir profil oluşturmadın.",
+  "noAccessibleSections": "Erişilebilir bölüm yok.",
+  "domainGate": {
+    "title": "Önce bir alan adı doğrula",
+    "desc": "Bu servis en az bir doğrulanmış alan adı gerektirir. Mail gönderip almaya başlamak için bir alan adı ekleyip doğrula.",
+    "cta": "Alan adlarına git",
+    "loadingHint": "Alan adları kontrol ediliyor…"
+  },
+  "appSections": {
+    "groupAdmin": "Yönetim",
+    "inbox": "Gelen kutusu",
+    "send": "Gönder",
+    "templates": "Şablonlar",
+    "audience": "Kitle",
+    "validate": "Doğrula",
+    "analytics": "Analitik",
+    "domains": "Alan adları",
+    "mailboxes": "Posta kutuları",
+    "logs": "Kayıtlar",
+    "webhooks": "Webhook'lar",
+    "suppressions": "Engellenenler",
+    "smtp": "SMTP",
+    "usage": "Kullanım",
+    "buckets": "Bucket'lar",
+    "accessTokens": "Erişim token'ları",
+    "team": "Ekip",
+    "settings": "Ayarlar",
+    "overview": "Genel Bakış",
+    "oauthClients": "OAuth İstemcileri",
+    "authProjects": "Auth Projeleri",
+    "chats": "Sohbetler",
+    "requests": "Gelen Kutusu",
+    "newTask": "Yeni görev",
+    "metrics": "Metrikler",
+    "linearSettings": "Linear Ayarları"
+  },
+  "searchAppsTools": "Uygulama ve araç ara…",
+  "noResults": "Sonuç yok",
+  "app": "Uygulama",
+  "tool": "Araç",
+  "searchTools": "Araç ara…",
+  "noToolsFound": "Araç bulunamadı.",
+  "pinToDock": "Dock'a sabitle",
+  "unpinFromDock": "Dock'tan kaldır",
+  "downloaders": "İndiriciler",
+  "yourApps": "Uygulamaların",
+  "launchpad": "Uygulamalar",
+  "launchpadSearch": "Uygulama ara…",
+  "appStore": "Uygulama Mağazası",
+  "store": {
+    "back": "Mağaza",
+    "by": "geliştirici:",
+    "verified": "Doğrulanmış geliştirici",
+    "paid": "Ücretli",
+    "free": "Ücretsiz",
+    "install": "Kur",
+    "buy": "Satın al",
+    "open": "Aç",
+    "remove": "Kaldır",
+    "confirmInstallTitle": "{app} kurulsun mu?",
+    "confirmInstallDesc": "Bu uygulama Sentroy OS'una eklenecek.",
+    "confirmRemoveTitle": "{app} kaldırılsın mı?",
+    "confirmRemoveDesc": "Sentroy OS'undan kaldırılacak. İstediğin zaman tekrar kurabilirsin.",
+    "installedToast": "{app} kuruldu",
+    "installFailed": "Kurulamadı",
+    "removedToast": "{app} kaldırıldı",
+    "removeFailed": "Kaldırılamadı",
+    "loadStoreFailed": "Mağaza yüklenemedi",
+    "loadAppFailed": "Uygulama yüklenemedi",
+    "checkoutFailed": "Ödeme başlatılamadı",
+    "reviewFailed": "Yorum gönderilemedi",
+    "reviewSaved": "Yorum kaydedildi",
+    "installed": "Kuruldu",
+    "reviews": "Yorumlar",
+    "reviewPlaceholder": "Deneyimini paylaş (isteğe bağlı)",
+    "updateReview": "Yorumu güncelle",
+    "submitReview": "Yorum gönder",
+    "installToReview": "Yorum bırakmak için uygulamayı kur.",
+    "noReviews": "Henüz yorum yok.",
+    "anonymous": "Biri",
+    "privacy": "Gizlilik",
+    "support": "Destek",
+    "consentTitle": "{app} uygulamasını kur",
+    "consentDesc": "Bu uygulama şunlara erişebilecek:",
+    "allowInstall": "İzin ver ve kur",
+    "searchPlaceholder": "Uygulama Mağazası'nda ara…",
+    "all": "Tümü",
+    "empty": "Henüz uygulama yok.",
+    "publishCta": "Bir şey mi geliştiriyorsun?",
+    "publishLink": "Uygulamanı yayınla →",
+    "myApps": "Uygulamalarım",
+    "close": "Kapat",
+    "editorsChoice": "Editör Seçimi",
+    "new": "Yeni ve Öne Çıkan",
+    "mostDownloaded": "En Popüler",
+    "sentroy": "Sentroy",
+    "installedBadge": "Kurulu",
+    "categories": {
+      "all": "Tümü",
+      "developer-tools": "Geliştirici araçları",
+      "productivity": "Üretkenlik",
+      "analytics": "Analitik",
+      "communication": "İletişim",
+      "marketing": "Pazarlama",
+      "finance": "Finans",
+      "design": "Tasarım",
+      "other": "Diğer"
+    }
+  },
+  "devConsole": {
+    "title": "Uygulama Mağazası",
+    "subtitle": "Uygulamalarını Sentroy Uygulama Mağazası'na gönder ve yönet.",
+    "submit": "Uygulama gönder",
+    "dialogTitle": "Manifest gönder",
+    "dialogDesc": "<id>.sentroy-app.json dosyanı yapıştır. Gönderimde doğrulanır. Güncellemelerde identity.version artmalı.",
+    "reviewHint": "İncelemeye gönder → onaylandıktan sonra herkese açık mağazada yayınlanır.",
+    "privateHint": "Şirkete-özel kaydet → anında yayında, yalnız şirketinin üyelerine görünür (inceleme yok).",
+    "cancel": "İptal",
+    "savePrivate": "Şirkete-özel kaydet",
+    "submitReview": "İncelemeye gönder",
+    "noAccessTitle": "Erişim yok",
+    "noAccessDesc": "Bu şirketin uygulamalarını yönetmek için App Store yetkisine ihtiyacın var.",
+    "emptyTitle": "Henüz uygulama yok",
+    "emptyDesc": "Sentroy Uygulama Mağazası'nda yayınlamak için ilk uygulamanı gönder.",
+    "unpublish": "Yayından kaldır",
+    "withdraw": "Geri çek",
+    "delete": "Sil",
+    "deleted": "Uygulama silindi",
+    "confirmDeleteTitle": "Bu uygulama silinsin mi?",
+    "confirmDeleteDesc": "Uygulama ve kurulumları kalıcı olarak silinir. Bu işlem geri alınamaz.",
+    "confirmUnpublishTitle": "Bu uygulama yayından kaldırılsın mı?",
+    "confirmUnpublishDesc": "Herkese açık App Store'dan kaldırılır ama mevcut kurulumlar çalışmaya devam eder. Sonra tekrar gönderebilirsin.",
+    "verifyTitle": "Onay için origin'ini doğrula",
+    "verifyServe": "{origin} adresinde {path} dosyasını bu token'la sun (veya DNS TXT kaydı olarak ekle):",
+    "live": "Mağazada yayında",
+    "private": "Yalnız şirketine görünür",
+    "loadFailed": "Uygulamalar yüklenemedi",
+    "invalidJson": "Manifest geçerli JSON değil",
+    "submittedReview": "İncelemeye gönderildi",
+    "savedPrivate": "Kaydedildi — yalnız şirketine görünür",
+    "submitFailed": "Gönderim başarısız",
+    "withdrawFailed": "Geri çekilemedi",
+    "unpublished": "Yayından kaldırıldı",
+    "withdrawn": "Geri çekildi",
+    "tokenCopied": "Token kopyalandı",
+    "statusApproved": "Onaylı",
+    "statusPending": "Beklemede",
+    "statusRejected": "Reddedildi",
+    "statusSuspended": "Askıda",
+    "statusDraft": "Taslak"
+  },
+  "welcomeTitle": "Sentroy'a hoş geldin",
+  "welcomeSubtitle": "Aşağıdaki dock'tan bir uygulama aç.",
+  "loadingWorkspace": "Çalışma alanın yükleniyor…",
+  "dock": {
+    "bringToFront": "Öne getir",
+    "close": "Kapat",
+    "open": "Aç",
+    "openInNewTab": "Yeni sekmede aç"
+  },
+  "window": {
+    "close": "Kapat",
+    "minimize": "Küçült",
+    "zoom": "Büyüt",
+    "reload": "Yenile"
+  },
+  "common": {
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor…",
+    "saved": "Kaydedildi",
+    "couldNotSave": "Kaydedilemedi",
+    "somethingWrong": "Bir şeyler ters gitti",
+    "on": "Açık",
+    "off": "Kapalı"
+  },
+  "createCompanyDialog": {
+    "title": "Şirket oluştur",
+    "desc": "Yeni bir çalışma alanı başlat. Üyeleri sonra davet edebilirsin.",
+    "nameLabel": "Şirket adı",
+    "namePlaceholder": "Örnek A.Ş.",
+    "creating": "Oluşturuluyor…",
+    "create": "Oluştur",
+    "created": "Şirket oluşturuldu",
+    "failed": "Şirket oluşturulamadı"
+  },
+  "settings": {
+    "profile": "Profil",
+    "company": "Şirket",
+    "team": "Ekip",
+    "access-tokens": "Erişim Tokenları",
+    "billing": "Faturalandırma"
+  },
+  "profilePane": {
+    "title": "Profil",
+    "yourName": "Adın",
+    "personal": "Kişisel",
+    "name": "Ad",
+    "addName": "Adını ekle",
+    "nameRequired": "Ad gerekli",
+    "email": "E-posta",
+    "headline": "Başlık",
+    "headlinePh": "ör. Ürün tasarımcısı",
+    "bio": "Hakkında",
+    "bioPh": "Kısa bir biyografi",
+    "location": "Konum",
+    "locationPh": "Şehir, Ülke",
+    "website": "Web sitesi",
+    "websitePh": "https://…",
+    "publicProfile": "Herkese açık profil",
+    "publicProfileDesc": "Profil sayfanı herkese açık göster",
+    "profileUrl": "Profil URL'i",
+    "profileUrlSlug": "Profil URL slug'ı",
+    "handlePh": "kullanici-adin",
+    "avatarUpdated": "Avatar güncellendi",
+    "handleInvalid": "Yalnızca küçük harf, rakam ve tire",
+    "socialLinks": "Sosyal bağlantılar",
+    "socialLinksDesc": "Herkese açık profilinde görünür",
+    "socialLinksTitle": "Sosyal bağlantılar",
+    "noSocialLinks": "Henüz bağlantı yok",
+    "addLink": "Bağlantı ekle",
+    "linkUrlPh": "https://…",
+    "viewPublic": "Herkese açık profili gör",
+    "security": "Güvenlik",
+    "connectedAccounts": "Bağlı hesaplar",
+    "connected": "Bağlı",
+    "connect": "Bağla",
+    "noSessions": "Aktif oturum yok",
+    "unknownDevice": "Bilinmeyen cihaz",
+    "thisDevice": "Bu cihaz",
+    "revokeConfirmTitle": "Bu oturum kapatılsın mı?",
+    "revokeConfirmDesc": "Bu cihazın oturumu hemen kapatılır."
+  },
+  "companyPane": {
+    "title": "Şirket",
+    "forbidden": "Şirket ayarlarını yönetmek için sahip veya yönetici erişimine ihtiyacın var.",
+    "general": "Genel",
+    "name": "Ad",
+    "nameRequired": "Ad gerekli",
+    "urlSlug": "URL slug",
+    "slugInvalid": "Yalnızca küçük harf, rakam ve tire",
+    "description": "Açıklama",
+    "descriptionPh": "Bu şirket ne yapıyor?",
+    "planUsage": "Plan ve kullanım",
+    "currentPlan": "Mevcut plan",
+    "domains": "Alan adları",
+    "members": "Üyeler",
+    "mailboxes": "Posta kutuları",
+    "storage": "Depolama",
+    "dangerZone": "Tehlikeli bölge",
+    "deleteCompany": "Şirketi sil",
+    "deleteDesc": "Bu şirketi ve tüm verilerini kalıcı olarak sil",
+    "logoUpdated": "Logo güncellendi",
+    "deleteTitle": "{name} silinsin mi?",
+    "deleteDialogDesc": "Bu işlem şirketi, bucket'larını, medyasını ve mailini kalıcı olarak siler. Geri alınamaz. Onaylamak için {slug} yaz.",
+    "deleting": "Siliniyor…",
+    "deleted": "Şirket silindi",
+    "deleteFailed": "Şirket silinemedi",
+    "coverUpdated": "Kapak güncellendi",
+    "changeCover": "Kapağı değiştir"
+  },
+  "billingPane": {
+    "title": "Faturalandırma",
+    "currentPlan": "Mevcut plan",
+    "free": "Ücretsiz",
+    "status": "Durum",
+    "canceling": "İptal ediliyor",
+    "renews": "yenilenir {date}",
+    "manageSubscription": "Aboneliği yönet",
+    "plans": "Planlar",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "popular": "Popüler",
+    "current": "Mevcut",
+    "perYear": "/yıl",
+    "perMonth": "/ay",
+    "whatsIncluded": "Neler dahil",
+    "limits": "Limitler",
+    "teamMembers": "Ekip üyeleri",
+    "emailsMonth": "Aylık e-posta",
+    "unlimited": "Sınırsız",
+    "currentPlanBtn": "Mevcut plan",
+    "notAvailable": "Henüz mevcut değil",
+    "defaultPlan": "Varsayılan plan",
+    "subscribe": "Abone ol",
+    "switchPlan": "Bu plana geç",
+    "openingCheckout": "Ödeme açılıyor…",
+    "notConfigured": "Bu plan için faturalandırma henüz yapılandırılmadı.",
+    "checkoutUnavailable": "Ödeme şu anda kullanılamıyor",
+    "subscriptionUpdated": "Abonelik güncellendi",
+    "checkoutSuccess": "Abonelik etkinleştirildi"
+  },
+  "notes": {
+    "appName": "Notlar",
+    "newNote": "Yeni not",
+    "search": "Not ara",
+    "emptyList": "Henüz not yok",
+    "noSelection": "Bir not seç ya da yeni oluştur",
+    "untitled": "Başlıksız",
+    "emptyNote": "Boş not",
+    "placeholder": "Yazmaya başla… birini veya bir uygulamayı etiketlemek için @ yaz",
+    "pin": "Sabitle",
+    "unpin": "Kaldır",
+    "openInNotes": "Notlar'da aç",
+    "delete": "Notu sil",
+    "deleteConfirm": "Bu not silinsin mi?",
+    "visibilityAuthor": "Özel",
+    "visibilityMembers": "Şirket",
+    "visibilityAdmins": "Yöneticiler",
+    "visibilityPublic": "Herkese açık",
+    "cancel": "İptal",
+    "folders": "Klasörler",
+    "allNotes": "Tüm Notlar",
+    "newFolder": "Yeni klasör",
+    "folderNamePrompt": "Klasör adı",
+    "renameFolder": "Yeniden adlandır",
+    "deleteFolder": "Klasörü sil",
+    "deleteFolderConfirm": "Bu klasör silinsin mi? Notları Tüm Notlar'a taşınır.",
+    "moveToFolder": "Klasöre taşı",
+    "noFolder": "Yok",
+    "colorLabel": "Renk",
+    "format": "Biçim",
+    "titlePlaceholder": "Başlık",
+    "fmtTitle": "Başlık",
+    "fmtHeading": "Ana Başlık",
+    "fmtSubheading": "Alt Başlık",
+    "fmtBody": "Gövde",
+    "fmtMono": "Tek Aralıklı",
+    "fmtBulleted": "Madde İşaretli Liste",
+    "fmtNumbered": "Numaralı Liste",
+    "fmtQuote": "Alıntı"
+  },
+  "firstRun": {
+    "welcomeTitle": "Sentroy'a hoş geldin",
+    "welcomeSubtitle": "Başlamak için ilk çalışma alanını oluştur.",
+    "createWorkspace": "Çalışma alanı oluştur"
+  },
+  "pendingInvites": {
+    "title": "Sana gelen davetler",
+    "asRole": "{role} olarak",
+    "roleOwner": "Sahip",
+    "roleAdmin": "Yönetici",
+    "roleMember": "Üye",
+    "accept": "Kabul et",
+    "accepted": "{company} çalışma alanına katıldın",
+    "acceptError": "Davet kabul edilemedi"
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "markAllRead": "Tümünü okundu işaretle",
+    "clear": "Temizle",
+    "empty": "Bildirim yok",
+    "remove": "Kaldır"
+  },
+  "appLaunchFailed": "Uygulama başlatılamadı",
+  "appLaunchRetry": "Yeniden dene",
+  "widgetsHub": {
+    "tab": "Widget'lar",
+    "activityTab": "Etkinlik",
+    "add": "Ekle",
+    "added": "Masaüstünde {count}",
+    "remove": "Widget'ı kaldır",
+    "configure": "Widget ayarları",
+    "loadError": "Yüklenemedi",
+    "retry": "Tekrar dene",
+    "contextMenu": {
+      "addWidget": "Widget ekle",
+      "refreshWidgets": "Widget'ları yenile",
+      "changeWallpaper": "Duvar kâğıdını değiştir"
+    },
+    "types": {
+      "clock": {
+        "title": "Saat",
+        "description": "Saat ve tarih bir bakışta."
+      },
+      "achievements": {
+        "title": "Başarımlar",
+        "description": "Başlangıç ilerlemen ve sıradaki adımların."
+      },
+      "mail-inbox": {
+        "title": "Mail — Gelen kutusu",
+        "description": "Seçtiğin posta kutusunun son mesajları."
+      },
+      "storage-quick": {
+        "title": "Storage — Hızlı erişim",
+        "description": "Bir bucket'a ve klasörlerine kısayollar."
+      },
+      "linear-requests": {
+        "title": "Linear — Talepler",
+        "description": "Panel gelen kutundaki açık talep sayısı."
+      },
+      "crypto-single": {
+        "title": "Kripto — Fiyat",
+        "description": "Tek pair için canlı fiyat ve 24s değişim."
+      },
+      "crypto-table": {
+        "title": "Kripto — İzleme listesi",
+        "description": "Birkaç pair için canlı fiyat ve 24s değişim."
+      }
+    },
+    "clock": {
+      "format24": "24 saat",
+      "format12": "12 saat",
+      "timezone": "Saat dilimi",
+      "localZone": "Yerel (cihaz)"
+    },
+    "crypto": {
+      "pair": "Pair",
+      "pairs": "Pair'ler",
+      "noData": "Veri yok",
+      "disclaimer": "Fiyatlar Bitget'ten. Yatırım tavsiyesi değildir."
+    },
+    "mail": {
+      "mailbox": "Posta kutusu",
+      "chooseMailbox": "Posta kutusu seç",
+      "empty": "Mesaj yok",
+      "unread": "Okunmamış"
+    },
+    "storage": {
+      "bucket": "Bucket",
+      "chooseBucket": "Bucket seç",
+      "noFolders": "Henüz klasör yok",
+      "openBucket": "Bucket'ı aç",
+      "folder": "Klasör",
+      "folderRoot": "Kök",
+      "emptyFolder": "Boş klasör",
+      "open": "Storage'da aç"
+    },
+    "linear": {
+      "openRequests": "gelen kutunda açık talep",
+      "open": "Linear'ı Aç"
+    }
+  },
+  "achievements": {
+    "appName": "Başarımlar",
+    "widget": {
+      "title": "Başarımlar",
+      "next": "Sıradaki: {name}",
+      "groupDone": "Hepsi tamam",
+      "allDone": "Tüm başarımlar tamamlandı"
+    },
+    "pill": {
+      "next": "Sıradaki: {name}"
+    },
+    "window": {
+      "completedOf": "{total} başarımdan {done} tamamlandı",
+      "subtitle": "Sentroy'u keşfet, adımları tek tek işaretle.",
+      "complete": "Tamamlandı",
+      "loadFailed": "Başarımlar yüklenemedi.",
+      "retry": "Tekrar dene",
+      "refresh": "Yenile",
+      "tip": "Nasıl yapılır göster"
+    },
+    "ctas": {
+      "settings": "Ayarları Aç",
+      "team": "Ekibi Aç",
+      "accessTokens": "Tokenları Aç",
+      "company": "Şirketi Aç",
+      "post": "Gönderi yaz",
+      "notes": "Notları Aç",
+      "tools": "Araçları Aç",
+      "mail": "Mail'i Aç",
+      "storage": "Storage'ı Aç",
+      "whatsapp": "WhatsApp'ı Aç",
+      "linear": "Linear'ı Aç",
+      "auth": "Auth'u Aç",
+      "studio": "Studio'yu Aç"
+    },
+    "tips": {
+      "invite-teammate": "Üye eklemek veya e-posta daveti göndermek için Ayarlar → Ekip'i aç. Davet ettiğin üyeler bu çalışma alanını paylaşır.",
+      "create-access-token": "Ayarlar → Erişim Tokenları, SDK ve API için stk_ tokenı üretir. Düz metin token yalnız BİR kez gösterilir — kopyala.",
+      "set-company-logo": "Ayarlar → Şirket'ten logo yükleyebilirsin. Takım seçicide ve şirket profilinde görünür.",
+      "first-post": "Etkinlik panelini aç (menü barındaki şirket adına tıkla) ve şirket akışına bir güncelleme yaz.",
+      "first-note": "Notlar uygulaması, masaüstüne yapışkan not olarak sabitleyebileceğin hızlı notları tutar.",
+      "explore-tools": "Dock'tan Araçlar'ı aç — hesap verisi gerektirmeyen ücretsiz görsel, PDF, ses, video ve geliştirici araçları.",
+      "pin-tool-to-dock": "Dock'ta herhangi bir uygulama veya araca sağ-tıklayıp Sabitle'yi seç; tek tıkla erişilebilir kalsın."
+    },
+    "groups": {
+      "core": "Başlangıç",
+      "mail": "Mail",
+      "storage": "Storage",
+      "whatsapp": "WhatsApp",
+      "linear": "Linear",
+      "auth": "Auth",
+      "studio": "Studio"
+    },
+    "items": {
+      "invite-teammate": {
+        "label": "Bir takım arkadaşı davet et",
+        "description": "Ayarlar → Ekip'ten üye ekle veya davet gönder."
+      },
+      "create-access-token": {
+        "label": "Erişim tokenı oluştur",
+        "description": "Ayarlar → Erişim Tokenları'ndan SDK için API tokenı üret."
+      },
+      "set-company-logo": {
+        "label": "Şirket logosu yükle",
+        "description": "Ayarlar → Şirket bölümünden logo yükle."
+      },
+      "first-post": {
+        "label": "İlk gönderini paylaş",
+        "description": "Şirket akışına bir güncelleme yaz."
+      },
+      "first-note": {
+        "label": "İlk notunu yaz",
+        "description": "Notlar uygulamasında bir şeyler kaydet."
+      },
+      "explore-tools": {
+        "label": "Ücretsiz araçları keşfet",
+        "description": "Yerleşik araçlara göz atmak için Araçlar'ı veya Launchpad'i aç."
+      },
+      "pin-tool-to-dock": {
+        "label": "Dock'a bir araç sabitle",
+        "description": "Dock'ta bir uygulama veya araca sağ-tıklayıp sabitle."
+      },
+      "register-domain": {
+        "label": "Alan adı ekle",
+        "description": "Mail'de bir gönderim alan adı kaydet."
+      },
+      "verify-domain": {
+        "label": "Alan adını doğrula",
+        "description": "DNS kurulumunu tamamla, alan adı aktif olsun."
+      },
+      "create-mailbox": {
+        "label": "Posta kutusu oluştur",
+        "description": "Doğrulanmış alan adında ilk posta kutunu kur."
+      },
+      "send-first-email": {
+        "label": "İlk e-postanı gönder",
+        "description": "Sentroy Mail üzerinden bir mesaj ilet."
+      },
+      "create-template": {
+        "label": "E-posta şablonu oluştur",
+        "description": "Mail'de yeniden kullanılabilir bir şablon tasarla."
+      },
+      "create-bucket": {
+        "label": "Bucket oluştur",
+        "description": "İlk depolama bucket'ını aç."
+      },
+      "upload-first-file": {
+        "label": "İlk dosyanı yükle",
+        "description": "Bir bucket'a dosya veya görsel ekle."
+      },
+      "connect-number": {
+        "label": "WhatsApp numarası bağla",
+        "description": "QR kodu okutup bir numara bağla."
+      },
+      "send-first-message": {
+        "label": "İlk WhatsApp mesajını gönder",
+        "description": "Santral'dan bir kişiye veya kitleye mesaj at."
+      },
+      "connect-workspace": {
+        "label": "Linear workspace'ini bağla",
+        "description": "Ayarlardan Linear API anahtarını ekle."
+      },
+      "first-request": {
+        "label": "İlk talebini al",
+        "description": "Telegram veya panelden ilk talep panele düşsün."
+      },
+      "create-oauth-client": {
+        "label": "OAuth client oluştur",
+        "description": "Uygulamana \"Sentroy ile Giriş\"i etkinleştir."
+      },
+      "create-auth-project": {
+        "label": "Auth projesi oluştur",
+        "description": "Sentroy Auth ile kendi kullanıcı havuzunu barındır."
+      },
+      "first-project": {
+        "label": "Studio projesi oluştur",
+        "description": "Sentroy Studio'da ilk projeni başlat."
+      }
+    }
+  },
+  "tour": {
+    "next": "İleri",
+    "back": "Geri",
+    "skip": "Atla",
+    "done": "Bitti",
+    "restart": "Turu başlat",
+    "app": {
+      "menubar": {
+        "title": "Çalışma alanın",
+        "body": "Burası menü bar. Şirketine tıklayarak çalışma alanı değiştir, profilini ve etkinlik akışını gör, ayarlara ulaş."
+      },
+      "dock": {
+        "title": "Dock",
+        "body": "Uygulamalarını dock'tan aç — Mail, Storage, Auth ve daha fazlası. Sabitlemek, kaldırmak veya yeni sekmede açmak için sağ-tıkla."
+      },
+      "windows": {
+        "title": "Uygulamalar pencere olarak açılır",
+        "body": "Uygulamalar tam bir işletim sistemi gibi masaüstünde sürüklenebilir, boyutlandırılabilir pencerelerde çalışır. Boşta kalan pencereler otomatik askıya alınır."
+      },
+      "widgets": {
+        "title": "Masaüstü widget'ları",
+        "body": "Widget eklemek, yenilemek veya duvar kâğıdını değiştirmek için masaüstüne sağ-tıkla. Widget'lar pencerelerin altında masaüstünde durur."
+      },
+      "achievements": {
+        "title": "Başarımlar",
+        "body": "Başlangıç ilerlemeni buradan takip et. Sentroy'u keşfettikçe adımları tamamla — tam liste için tıkla."
+      }
+    }
+  }
+}

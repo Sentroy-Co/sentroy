@@ -1,0 +1,620 @@
+{
+  "systemSettings": "System Settings…",
+  "selectCompany": "Select company",
+  "companies": "Companies",
+  "createCompany": "Create company",
+  "language": "Language",
+  "search": "Search",
+  "profile": "Profile",
+  "overview": "Overview",
+  "signOut": "Sign out",
+  "account": "Account",
+  "toggleTheme": "Toggle theme",
+  "showDesktop": "Show desktop / restore windows",
+  "wallpaper": "Wallpaper",
+  "changeWallpaper": "Change wallpaper",
+  "widgets": "Widgets",
+  "activity": "Activity",
+  "noPublicProfile": "You haven't set up a public profile yet.",
+  "noAccessibleSections": "No accessible sections.",
+  "domainGate": {
+    "title": "Verify a domain first",
+    "desc": "This service needs at least one verified domain. Add and verify a domain to start sending and receiving mail.",
+    "cta": "Go to Domains",
+    "loadingHint": "Checking domains…"
+  },
+  "appSections": {
+    "groupAdmin": "Administration",
+    "inbox": "Inbox",
+    "send": "Send",
+    "templates": "Templates",
+    "audience": "Audience",
+    "validate": "Validate",
+    "analytics": "Analytics",
+    "domains": "Domains",
+    "mailboxes": "Mailboxes",
+    "logs": "Logs",
+    "webhooks": "Webhooks",
+    "suppressions": "Suppressions",
+    "smtp": "SMTP",
+    "usage": "Usage",
+    "buckets": "Buckets",
+    "accessTokens": "Access tokens",
+    "team": "Team",
+    "settings": "Settings",
+    "overview": "Overview",
+    "oauthClients": "OAuth Clients",
+    "authProjects": "Auth Projects",
+    "chats": "Chats",
+    "requests": "Inbox",
+    "newTask": "New task",
+    "metrics": "Metrics",
+    "linearSettings": "Linear Settings"
+  },
+  "searchAppsTools": "Search apps and tools…",
+  "noResults": "No results",
+  "app": "App",
+  "tool": "Tool",
+  "searchTools": "Search tools…",
+  "noToolsFound": "No tools found.",
+  "pinToDock": "Pin to Dock",
+  "unpinFromDock": "Remove from Dock",
+  "downloaders": "Downloaders",
+  "yourApps": "Your apps",
+  "launchpad": "Apps",
+  "launchpadSearch": "Search apps…",
+  "appStore": "App Store",
+  "store": {
+    "back": "Store",
+    "by": "by",
+    "verified": "Verified developer",
+    "paid": "Paid",
+    "free": "Free",
+    "install": "Install",
+    "buy": "Buy",
+    "open": "Open",
+    "remove": "Remove",
+    "confirmInstallTitle": "Install {app}?",
+    "confirmInstallDesc": "This app will be added to your Sentroy OS.",
+    "confirmRemoveTitle": "Remove {app}?",
+    "confirmRemoveDesc": "It will be removed from your Sentroy OS. You can reinstall it anytime.",
+    "installedToast": "{app} installed",
+    "installFailed": "Could not install",
+    "removedToast": "{app} removed",
+    "removeFailed": "Could not remove",
+    "loadStoreFailed": "Failed to load store",
+    "loadAppFailed": "Failed to load app",
+    "checkoutFailed": "Checkout failed",
+    "reviewFailed": "Could not submit review",
+    "reviewSaved": "Review saved",
+    "installed": "Installed",
+    "reviews": "Reviews",
+    "reviewPlaceholder": "Share your experience (optional)",
+    "updateReview": "Update review",
+    "submitReview": "Submit review",
+    "installToReview": "Install the app to leave a review.",
+    "noReviews": "No reviews yet.",
+    "anonymous": "Someone",
+    "privacy": "Privacy",
+    "support": "Support",
+    "consentTitle": "Install {app}",
+    "consentDesc": "This app will be able to access:",
+    "allowInstall": "Allow & install",
+    "searchPlaceholder": "Search the App Store…",
+    "all": "All",
+    "empty": "No apps yet.",
+    "publishCta": "Building something?",
+    "publishLink": "Publish your app →",
+    "myApps": "My Apps",
+    "close": "Close",
+    "editorsChoice": "Editor's Choice",
+    "new": "New & Notable",
+    "mostDownloaded": "Most Popular",
+    "sentroy": "Sentroy",
+    "installedBadge": "Installed",
+    "categories": {
+      "all": "All",
+      "developer-tools": "Developer tools",
+      "productivity": "Productivity",
+      "analytics": "Analytics",
+      "communication": "Communication",
+      "marketing": "Marketing",
+      "finance": "Finance",
+      "design": "Design",
+      "other": "Other"
+    }
+  },
+  "devConsole": {
+    "title": "App Store",
+    "subtitle": "Submit and manage your apps on the Sentroy App Store.",
+    "submit": "Submit an app",
+    "dialogTitle": "Submit a manifest",
+    "dialogDesc": "Paste your <id>.sentroy-app.json. It's validated on submit. Updates must bump identity.version.",
+    "reviewHint": "Submit for review → published to the public App Store after approval.",
+    "privateHint": "Save (company-only) → live immediately, visible only to your company's members (no review).",
+    "cancel": "Cancel",
+    "savePrivate": "Save (company-only)",
+    "submitReview": "Submit for review",
+    "noAccessTitle": "No access",
+    "noAccessDesc": "You need the App Store permission to manage this company's apps.",
+    "emptyTitle": "No apps yet",
+    "emptyDesc": "Submit your first app to publish it on the Sentroy App Store.",
+    "unpublish": "Unpublish",
+    "withdraw": "Withdraw",
+    "delete": "Delete",
+    "deleted": "App deleted",
+    "confirmDeleteTitle": "Delete this app?",
+    "confirmDeleteDesc": "This permanently removes the app and its installs. This can't be undone.",
+    "confirmUnpublishTitle": "Unpublish this app?",
+    "confirmUnpublishDesc": "It's removed from the public App Store, but existing installs keep working. You can resubmit later.",
+    "verifyTitle": "Verify your origin to be approved",
+    "verifyServe": "Serve {path} at {origin} containing this token (or add it as a DNS TXT record):",
+    "live": "Live on the App Store",
+    "private": "Visible to your company only",
+    "loadFailed": "Failed to load apps",
+    "invalidJson": "Manifest is not valid JSON",
+    "submittedReview": "Submitted for review",
+    "savedPrivate": "Saved — visible to your company only",
+    "submitFailed": "Submission failed",
+    "withdrawFailed": "Could not withdraw",
+    "unpublished": "Unpublished",
+    "withdrawn": "Withdrawn",
+    "tokenCopied": "Token copied",
+    "statusApproved": "Approved",
+    "statusPending": "Pending",
+    "statusRejected": "Rejected",
+    "statusSuspended": "Suspended",
+    "statusDraft": "Draft"
+  },
+  "welcomeTitle": "Welcome to Sentroy",
+  "welcomeSubtitle": "Open an app from the dock below.",
+  "loadingWorkspace": "Loading your workspace…",
+  "dock": {
+    "bringToFront": "Bring to front",
+    "close": "Close",
+    "open": "Open",
+    "openInNewTab": "Open in new tab"
+  },
+  "window": {
+    "close": "Close",
+    "minimize": "Minimize",
+    "zoom": "Zoom",
+    "reload": "Reload"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "couldNotSave": "Could not save",
+    "somethingWrong": "Something went wrong",
+    "on": "On",
+    "off": "Off"
+  },
+  "createCompanyDialog": {
+    "title": "Create company",
+    "desc": "Spin up a new workspace. You can invite members later.",
+    "nameLabel": "Company name",
+    "namePlaceholder": "Acme Inc.",
+    "creating": "Creating…",
+    "create": "Create",
+    "created": "Company created",
+    "failed": "Could not create company"
+  },
+  "settings": {
+    "profile": "Profile",
+    "company": "Company",
+    "team": "Team",
+    "access-tokens": "Access Tokens",
+    "billing": "Billing"
+  },
+  "profilePane": {
+    "title": "Profile",
+    "yourName": "Your name",
+    "personal": "Personal",
+    "name": "Name",
+    "addName": "Add your name",
+    "nameRequired": "Name is required",
+    "email": "Email",
+    "headline": "Headline",
+    "headlinePh": "e.g. Product designer",
+    "bio": "Bio",
+    "bioPh": "A short bio",
+    "location": "Location",
+    "locationPh": "City, Country",
+    "website": "Website",
+    "websitePh": "https://…",
+    "publicProfile": "Public profile",
+    "publicProfileDesc": "Show your profile page publicly",
+    "profileUrl": "Profile URL",
+    "profileUrlSlug": "Profile URL slug",
+    "handlePh": "your-handle",
+    "avatarUpdated": "Avatar updated",
+    "handleInvalid": "Only lowercase letters, numbers and hyphens",
+    "socialLinks": "Social links",
+    "socialLinksDesc": "Links shown on your public profile",
+    "socialLinksTitle": "Social links",
+    "noSocialLinks": "No links yet",
+    "addLink": "Add link",
+    "linkUrlPh": "https://…",
+    "viewPublic": "View public profile",
+    "security": "Security",
+    "connectedAccounts": "Connected accounts",
+    "connected": "Connected",
+    "connect": "Connect",
+    "noSessions": "No active sessions",
+    "unknownDevice": "Unknown device",
+    "thisDevice": "This device",
+    "revokeConfirmTitle": "Sign out this session?",
+    "revokeConfirmDesc": "This device will be signed out immediately."
+  },
+  "companyPane": {
+    "title": "Company",
+    "forbidden": "You need owner or admin access to manage company settings.",
+    "general": "General",
+    "name": "Name",
+    "nameRequired": "Name is required",
+    "urlSlug": "URL slug",
+    "slugInvalid": "Lowercase letters, numbers and hyphens only",
+    "description": "Description",
+    "descriptionPh": "What does this company do?",
+    "planUsage": "Plan & usage",
+    "currentPlan": "Current plan",
+    "domains": "Domains",
+    "members": "Members",
+    "mailboxes": "Mailboxes",
+    "storage": "Storage",
+    "dangerZone": "Danger zone",
+    "deleteCompany": "Delete company",
+    "deleteDesc": "Permanently delete this company and all its data",
+    "logoUpdated": "Logo updated",
+    "deleteTitle": "Delete {name}?",
+    "deleteDialogDesc": "This permanently deletes the company, its buckets, media and mail. This cannot be undone. Type {slug} to confirm.",
+    "deleting": "Deleting…",
+    "deleted": "Company deleted",
+    "deleteFailed": "Could not delete company",
+    "coverUpdated": "Cover updated",
+    "changeCover": "Change cover"
+  },
+  "billingPane": {
+    "title": "Billing",
+    "currentPlan": "Current plan",
+    "free": "Free",
+    "status": "Status",
+    "canceling": "Canceling",
+    "renews": "renews {date}",
+    "manageSubscription": "Manage subscription",
+    "plans": "Plans",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "popular": "Popular",
+    "current": "Current",
+    "perYear": "/year",
+    "perMonth": "/month",
+    "whatsIncluded": "What's included",
+    "limits": "Limits",
+    "teamMembers": "Team members",
+    "emailsMonth": "Emails / month",
+    "unlimited": "Unlimited",
+    "currentPlanBtn": "Current plan",
+    "notAvailable": "Not available yet",
+    "defaultPlan": "Default plan",
+    "subscribe": "Subscribe",
+    "switchPlan": "Switch to this plan",
+    "openingCheckout": "Opening checkout…",
+    "notConfigured": "Billing isn't configured for this plan yet.",
+    "checkoutUnavailable": "Checkout is not available",
+    "subscriptionUpdated": "Subscription updated",
+    "checkoutSuccess": "Subscription activated"
+  },
+  "notes": {
+    "appName": "Notes",
+    "newNote": "New note",
+    "search": "Search notes",
+    "emptyList": "No notes yet",
+    "noSelection": "Select a note or create a new one",
+    "untitled": "Untitled",
+    "emptyNote": "Empty note",
+    "placeholder": "Start writing… type @ to mention someone or an app",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "openInNotes": "Open in Notes",
+    "delete": "Delete note",
+    "deleteConfirm": "Delete this note?",
+    "visibilityAuthor": "Private",
+    "visibilityMembers": "Company",
+    "visibilityAdmins": "Admins",
+    "visibilityPublic": "Public",
+    "cancel": "Cancel",
+    "folders": "Folders",
+    "allNotes": "All Notes",
+    "newFolder": "New folder",
+    "folderNamePrompt": "Folder name",
+    "renameFolder": "Rename",
+    "deleteFolder": "Delete folder",
+    "deleteFolderConfirm": "Delete this folder? Its notes move to All Notes.",
+    "moveToFolder": "Move to folder",
+    "noFolder": "None",
+    "colorLabel": "Color",
+    "format": "Format",
+    "titlePlaceholder": "Title",
+    "fmtTitle": "Title",
+    "fmtHeading": "Heading",
+    "fmtSubheading": "Subheading",
+    "fmtBody": "Body",
+    "fmtMono": "Monostyled",
+    "fmtBulleted": "Bulleted List",
+    "fmtNumbered": "Numbered List",
+    "fmtQuote": "Block Quote"
+  },
+  "firstRun": {
+    "welcomeTitle": "Welcome to Sentroy",
+    "welcomeSubtitle": "Create your first workspace to get started.",
+    "createWorkspace": "Create workspace"
+  },
+  "pendingInvites": {
+    "title": "You've been invited",
+    "asRole": "as {role}",
+    "roleOwner": "Owner",
+    "roleAdmin": "Admin",
+    "roleMember": "Member",
+    "accept": "Accept",
+    "accepted": "Joined {company}",
+    "acceptError": "Could not accept the invitation"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all read",
+    "clear": "Clear",
+    "empty": "No notifications",
+    "remove": "Remove"
+  },
+  "appLaunchFailed": "App failed to launch",
+  "appLaunchRetry": "Try again",
+  "widgetsHub": {
+    "tab": "Widgets",
+    "activityTab": "Activity",
+    "add": "Add",
+    "added": "{count} on desktop",
+    "remove": "Remove widget",
+    "configure": "Widget settings",
+    "loadError": "Couldn't load",
+    "retry": "Retry",
+    "contextMenu": {
+      "addWidget": "Add widget",
+      "refreshWidgets": "Refresh widgets",
+      "changeWallpaper": "Change wallpaper"
+    },
+    "types": {
+      "clock": {
+        "title": "Clock",
+        "description": "Time and date at a glance."
+      },
+      "achievements": {
+        "title": "Achievements",
+        "description": "Onboarding progress and your next steps."
+      },
+      "mail-inbox": {
+        "title": "Mail — Recent inbox",
+        "description": "Latest messages from a mailbox of your choice."
+      },
+      "storage-quick": {
+        "title": "Storage — Quick access",
+        "description": "Shortcuts into a bucket and its folders."
+      },
+      "linear-requests": {
+        "title": "Linear — Requests",
+        "description": "Open request count from your panel inbox."
+      },
+      "crypto-single": {
+        "title": "Crypto — Price",
+        "description": "Live price and 24h change for one pair."
+      },
+      "crypto-table": {
+        "title": "Crypto — Watchlist",
+        "description": "Live prices and 24h change for several pairs."
+      }
+    },
+    "clock": {
+      "format24": "24-hour",
+      "format12": "12-hour",
+      "timezone": "Time zone",
+      "localZone": "Local (device)"
+    },
+    "crypto": {
+      "pair": "Pair",
+      "pairs": "Pairs",
+      "noData": "No data",
+      "disclaimer": "Prices from Bitget. Not investment advice."
+    },
+    "mail": {
+      "mailbox": "Mailbox",
+      "chooseMailbox": "Choose a mailbox",
+      "empty": "No messages",
+      "unread": "Unread"
+    },
+    "storage": {
+      "bucket": "Bucket",
+      "chooseBucket": "Choose a bucket",
+      "noFolders": "No folders yet",
+      "openBucket": "Open bucket",
+      "folder": "Folder",
+      "folderRoot": "Root",
+      "emptyFolder": "Empty folder",
+      "open": "Open in Storage"
+    },
+    "linear": {
+      "openRequests": "open requests in your inbox",
+      "open": "Open Linear"
+    }
+  },
+  "achievements": {
+    "appName": "Achievements",
+    "widget": {
+      "title": "Achievements",
+      "next": "Next: {name}",
+      "groupDone": "All done",
+      "allDone": "All achievements completed"
+    },
+    "pill": {
+      "next": "Next: {name}"
+    },
+    "window": {
+      "completedOf": "{done} of {total} completed",
+      "subtitle": "Explore Sentroy and check things off as you go.",
+      "complete": "Complete",
+      "loadFailed": "Achievements couldn't be loaded.",
+      "retry": "Try again",
+      "refresh": "Refresh",
+      "tip": "Show me how"
+    },
+    "ctas": {
+      "settings": "Open Settings",
+      "team": "Open Team",
+      "accessTokens": "Open Tokens",
+      "company": "Open Company",
+      "post": "Write a post",
+      "notes": "Open Notes",
+      "tools": "Open Tools",
+      "mail": "Open Mail",
+      "storage": "Open Storage",
+      "whatsapp": "Open WhatsApp",
+      "linear": "Open Linear",
+      "auth": "Open Auth",
+      "studio": "Open Studio"
+    },
+    "tips": {
+      "invite-teammate": "Open Settings → Team to add members or send an email invite. Members you invite share this workspace.",
+      "create-access-token": "Settings → Access tokens mints an stk_ token for the SDK and API. The plaintext token is shown only once — copy it.",
+      "set-company-logo": "Settings → Company lets you upload a logo. It appears in the team switcher and on your company profile.",
+      "first-post": "Open the Activity panel (click your company in the menu bar) and post an update to your company feed.",
+      "first-note": "The Notes app keeps quick notes you can pin to the desktop as sticky widgets.",
+      "explore-tools": "Open Tools from the dock — free image, PDF, audio, video and developer tools, no account data required.",
+      "pin-tool-to-dock": "Right-click any app or tool in the dock and choose Pin to keep it one click away."
+    },
+    "groups": {
+      "core": "Getting started",
+      "mail": "Mail",
+      "storage": "Storage",
+      "whatsapp": "WhatsApp",
+      "linear": "Linear",
+      "auth": "Auth",
+      "studio": "Studio"
+    },
+    "items": {
+      "invite-teammate": {
+        "label": "Invite a teammate",
+        "description": "Add a member or send an invite from Settings → Team."
+      },
+      "create-access-token": {
+        "label": "Create an access token",
+        "description": "Mint an API token for the SDK in Settings → Access tokens."
+      },
+      "set-company-logo": {
+        "label": "Set your company logo",
+        "description": "Upload a logo in Settings → Company."
+      },
+      "first-post": {
+        "label": "Share your first post",
+        "description": "Post an update to your company feed."
+      },
+      "first-note": {
+        "label": "Write your first note",
+        "description": "Capture something in the Notes app."
+      },
+      "explore-tools": {
+        "label": "Explore the free tools",
+        "description": "Open Tools or Launchpad to browse the built-in utilities."
+      },
+      "pin-tool-to-dock": {
+        "label": "Pin a tool to your dock",
+        "description": "Right-click an app or tool in the dock and pin it."
+      },
+      "register-domain": {
+        "label": "Add a domain",
+        "description": "Register a sending domain in Mail."
+      },
+      "verify-domain": {
+        "label": "Verify a domain",
+        "description": "Complete the DNS setup so a domain turns active."
+      },
+      "create-mailbox": {
+        "label": "Create a mailbox",
+        "description": "Set up your first mailbox on a verified domain."
+      },
+      "send-first-email": {
+        "label": "Send your first email",
+        "description": "Deliver a message through Sentroy Mail."
+      },
+      "create-template": {
+        "label": "Create an email template",
+        "description": "Design a reusable template in Mail."
+      },
+      "create-bucket": {
+        "label": "Create a bucket",
+        "description": "Spin up your first storage bucket."
+      },
+      "upload-first-file": {
+        "label": "Upload your first file",
+        "description": "Add a file or image to a bucket."
+      },
+      "connect-number": {
+        "label": "Connect a WhatsApp number",
+        "description": "Scan the QR code to link a number."
+      },
+      "send-first-message": {
+        "label": "Send your first WhatsApp message",
+        "description": "Message a contact or audience from Santral."
+      },
+      "connect-workspace": {
+        "label": "Connect your Linear workspace",
+        "description": "Add your Linear API key in settings."
+      },
+      "first-request": {
+        "label": "Receive your first request",
+        "description": "Get a request into the panel via Telegram or the form."
+      },
+      "create-oauth-client": {
+        "label": "Create an OAuth client",
+        "description": "Enable \"Sign in with Sentroy\" for your app."
+      },
+      "create-auth-project": {
+        "label": "Create an Auth project",
+        "description": "Host your own end-user pool with Sentroy Auth."
+      },
+      "first-project": {
+        "label": "Create a Studio project",
+        "description": "Start your first project in Sentroy Studio."
+      }
+    }
+  },
+  "tour": {
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip",
+    "done": "Done",
+    "restart": "Take a tour",
+    "app": {
+      "menubar": {
+        "title": "Your workspace",
+        "body": "This is the menu bar. Click your company to switch workspaces, view your profile and activity feed, and reach settings."
+      },
+      "dock": {
+        "title": "The dock",
+        "body": "Open your apps from the dock — Mail, Storage, Auth and more. Right-click an app to pin, unpin or open it in a new tab."
+      },
+      "windows": {
+        "title": "Apps open as windows",
+        "body": "Apps run in draggable, resizable windows right here on the desktop — just like a real OS. Idle windows suspend automatically."
+      },
+      "widgets": {
+        "title": "Desktop widgets",
+        "body": "Right-click the desktop to add widgets, refresh them or change your wallpaper. Widgets stay on your desktop, below your windows."
+      },
+      "achievements": {
+        "title": "Achievements",
+        "body": "Track your onboarding progress here. Complete steps as you explore Sentroy — click for the full checklist."
+      }
+    }
+  }
+}

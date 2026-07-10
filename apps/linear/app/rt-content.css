@@ -1,0 +1,49 @@
+/* Rich text editor — TipTap content (triage app.css'ten port).
+   `@workspace/ui/globals.css`'ten SONRA import edilmeli. */
+@reference "@workspace/ui/globals.css";
+
+@layer components {
+  .rt-content {
+    @apply text-foreground leading-relaxed;
+  }
+  .rt-content p {
+    @apply my-1.5;
+  }
+  .rt-content p:first-child {
+    @apply mt-0;
+  }
+  .rt-content p:last-child {
+    @apply mb-0;
+  }
+  .rt-content strong { @apply font-semibold; }
+  .rt-content em { @apply italic; }
+  .rt-content s { @apply line-through opacity-80; }
+  .rt-content a {
+    @apply text-foreground underline decoration-foreground/40 underline-offset-2 hover:decoration-foreground;
+  }
+  .rt-content code {
+    @apply rounded bg-muted px-1 py-0.5 font-mono text-[0.85em];
+  }
+  .rt-content pre {
+    @apply my-2 overflow-x-auto rounded-lg bg-muted p-3 font-mono text-xs;
+  }
+  .rt-content pre code {
+    @apply bg-transparent p-0;
+  }
+  .rt-content ul,
+  .rt-content ol {
+    @apply my-1.5 ml-5 flex flex-col gap-0.5;
+  }
+  .rt-content ul { @apply list-disc; }
+  .rt-content ol { @apply list-decimal; }
+  .rt-content h1 { @apply mt-3 text-lg font-semibold tracking-tight; }
+  .rt-content h2 { @apply mt-3 text-base font-semibold tracking-tight; }
+  .rt-content h3 { @apply mt-3 text-sm font-semibold; }
+  .rt-content blockquote {
+    @apply my-2 border-l-2 border-border pl-3 text-muted-foreground;
+  }
+  .rt-content img,
+  .rt-content .rt-image {
+    @apply my-2 max-w-full rounded-lg border border-border/40;
+  }
+}

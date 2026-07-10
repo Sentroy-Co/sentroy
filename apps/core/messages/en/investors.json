@@ -1,0 +1,421 @@
+{
+  "hero": {
+    "eyebrow": "The operational backbone for the vibe-coding era",
+    "title": "You vibe-code the app. Sentroy runs the company behind it.",
+    "subtitle": "Every real product still needs the same essentials behind it: a secure sign-in, a place to keep data and files, email that reliably arrives, billing, messaging, a status page, and a way to run a team. Today builders assemble six to ten separate vendors by hand. Sentroy folds all of it into one platform, one login, and one bill — a macOS-style workspace on the web where a company runs its entire suite of apps under a single secure sign-in. We own the core infrastructure ourselves, and a one-command starter kit plus ready-made tools for every major programming language turn a fresh prototype into a revenue-ready business in minutes.",
+    "ctaPrimary": "Explore the live suite",
+    "ctaSecondary": "Read the thesis"
+  },
+  "thesis": {
+    "label": "Why now",
+    "title": "Building an app just became free. Running the business behind it didn't.",
+    "body": "Software is undergoing its steepest cost shift in a decade. Cursor, v0, Lovable, and Claude Code have driven the cost of building an app toward zero — anyone can describe what they want and get a working app in minutes. But everything a real business needs behind that app — a secure sign-in, payments, email, data, files, and more — has not gotten cheaper, and it has not been automated away. It has only become more fragmented. As building an app collapses toward free, running the business behind it becomes the bottleneck — and the durable value. Sentroy is built for the far side of that gap.",
+    "points": [
+      {
+        "title": "Building collapsed to minutes",
+        "body": "AI coding tools have made building an app a near-solved, near-free step. The bottleneck moved downstream — to everything that must be in place before a prototype can take money and serve real customers."
+      },
+      {
+        "title": "An app is not a business",
+        "body": "A secure sign-in, a place to store data and files, email, billing, messaging, a status page, team management — the unglamorous backbone still has to exist, still has to be secure, and still has to be run day to day. That work did not get automated away."
+      },
+      {
+        "title": "It got more fragmented, not less",
+        "body": "The default answer is still Auth0 for sign-in, Amazon S3 for files, SendGrid for email, Stripe for payments, Twilio for messaging, and more — a patchwork of separate vendors that every builder has to buy, connect, and maintain from scratch."
+      },
+      {
+        "title": "The tailwind compounds",
+        "body": "Every new app someone builds is a fresh prospect for an operational backbone, and the first platform to become the default for them earns switching costs and accumulated data that are hard to walk away from later."
+      }
+    ]
+  },
+  "problem": {
+    "label": "The problem",
+    "title": "A prototype is minutes away. A real business is still a procurement project.",
+    "body": "The gap between \"it works on my screen\" and \"real customers depend on it\" has barely moved, even as building the app itself has accelerated. That gap is made of the same mandatory essentials every product needs — and today it is assembled by hand from a dozen disconnected vendors. The tax falls hardest on exactly the people AI coding tools are empowering: solo builders, small teams, and agencies shipping fast.",
+    "points": [
+      {
+        "title": "Vendor sprawl",
+        "body": "Sign-in, file storage, email, billing, messaging, a status page, video, issue tracking — each is a separate paid service with its own contract, setup, and learning curve. Six to ten relationships just to stand up one product."
+      },
+      {
+        "title": "The integration tax",
+        "body": "Every seam between two vendors is custom work to build, maintain, and one more thing that can break. The builder ends up connecting tools together instead of building the product — precisely the work AI has not removed."
+      },
+      {
+        "title": "Fragmented identity and data",
+        "body": "Users, teams, permissions, and activity records live in separate silos with no shared login and no single source of truth. Simple rules — \"this teammate can send email but can't manage domains\" — are painful to enforce across a dozen tools."
+      },
+      {
+        "title": "Cost and billing chaos",
+        "body": "Ten vendors means ten invoices, ten pricing models, and ten places usage can suddenly spike. Forecasting spend and reconciling bills becomes its own recurring overhead — especially early, when every dollar is scrutinized."
+      },
+      {
+        "title": "No single place to run it all",
+        "body": "There is no one place a founder can open to see — and actually run — the whole business behind the app. Operations are scattered across a browser full of tabs."
+      }
+    ]
+  },
+  "solution": {
+    "label": "The solution",
+    "title": "One platform, one identity, one bill — a real operating system for the business behind the app.",
+    "body": "Sentroy replaces that stitched-together patchwork of vendors with a single, coherent platform. The home screen is Sentroy OS — a macOS-style desktop on the web at sentroy.com/d, with windows, a dock, a launchpad, widgets, an app store, and achievements — from which a company runs its entire suite of apps under one secure login. Adoption is à la carte: switch on one app, or run the whole company on it.",
+    "points": [
+      {
+        "title": "Sentroy OS — the home screen",
+        "body": "A desktop on the web turns a company's tools into one coherent environment instead of a browser full of disconnected tabs. Every app is a window under the same login."
+      },
+      {
+        "title": "One login, everywhere",
+        "body": "A single secure login carries the same users, teams, and fine-grained permissions across every app in the suite — no separate account to create or reconcile for each vendor."
+      },
+      {
+        "title": "Owned infrastructure, not resold",
+        "body": "We run our own email infrastructure, our own global file and media delivery network, and our own sign-in service — rather than reselling someone else's. Because we own these building blocks, we control quality, cost, and the roadmap."
+      },
+      {
+        "title": "One bill, one relationship",
+        "body": "Each company's data is cleanly separated across the entire platform, with usage-based plans and a single invoice replacing a drawer full of subscriptions."
+      },
+      {
+        "title": "Defensible by construction",
+        "body": "Every additional app a customer enables deepens the shared identity, data, and billing relationship — turning consolidation into compounding switching costs rather than a one-time convenience."
+      }
+    ]
+  },
+  "product": {
+    "label": "The suite",
+    "title": "A full first-party suite — all real, all shipping, all under one login.",
+    "body": "This is not a roadmap of promises. Every app below is a real, first-party product running under the same login, and breadth is the strategy: the more of a customer's operations live inside Sentroy, the higher the switching cost and the richer the data that ties them together. The pace that produced this much is itself the clearest signal of what the team builds next.",
+    "apps": [
+      {
+        "name": "Sentroy OS",
+        "tagline": "The macOS-style desktop your whole company runs from — windows, dock, launchpad, and app store, all under one login."
+      },
+      {
+        "name": "Mail",
+        "tagline": "Product and marketing email running on Sentroy's own infrastructure — sending, inbox, domains, templates, audiences, and validation. Not a reseller markup."
+      },
+      {
+        "name": "Storage",
+        "tagline": "File and media storage with fast large-file uploads, backed by Sentroy's own global delivery network and image processing."
+      },
+      {
+        "name": "Auth",
+        "tagline": "\"Sign in with Sentroy\" for third-party apps, plus a hosted sign-in service — a Firebase-Auth alternative where customers manage their own end-user accounts, each project securely isolated."
+      },
+      {
+        "name": "Status",
+        "tagline": "Public status pages — incidents, scheduled maintenance, subscribers, and uptime history — with the polish of Atlassian Statuspage, built in."
+      },
+      {
+        "name": "WhatsApp Santral",
+        "tagline": "WhatsApp messaging for business — multiple numbers, message templates, contact lists, and single or bulk send."
+      },
+      {
+        "name": "Studio",
+        "tagline": "A DJ-first music studio that runs right in the browser — your files stay on your device, with optional cloud sync and a full suite of effects."
+      },
+      {
+        "name": "Meet",
+        "tagline": "White-label video conferencing with one shared login built in."
+      },
+      {
+        "name": "OpenCut",
+        "tagline": "An in-browser video editor that shares the same login as the rest of the suite."
+      },
+      {
+        "name": "Linear Lite",
+        "tagline": "Task and issue tracking with triage and a Telegram bot."
+      },
+      {
+        "name": "Tools",
+        "tagline": "Around thirty free in-browser utilities — image, PDF, audio, video, and developer conversions plus WHOIS — localized in ten languages."
+      },
+      {
+        "name": "App Store",
+        "tagline": "Installable first- and third-party apps that run safely isolated inside the OS — the marketplace flywheel."
+      }
+    ]
+  },
+  "developer": {
+    "label": "Developer platform",
+    "title": "Distribution as a moat: reach builders the moment they start, keep them with tools for every language.",
+    "body": "Sentroy is built to be plugged into any product from day one, and its fastest path to durable adoption is being there the moment a project is created. The same services that power Sentroy OS are available to any developer through a clean, documented interface, and a one-command starter kit plus ready-made tools for every popular language make adding them the easy default — so choosing Sentroy happens before the first line of the product is written, and leaving means rebuilding those connections across everything the customer built.",
+    "points": [
+      {
+        "title": "A starter kit at project zero",
+        "body": "\"npm create sentroy-app\" generates a complete, ready-to-run app and wires in sign-in, file storage, and email à la carte — using either Sentroy's hosted sign-in or the app's own, with \"Sign in with Sentroy\" available out of the box."
+      },
+      {
+        "title": "Full parity across four languages",
+        "body": "The official developer kit ships with full feature parity across TypeScript, Go, Python, and PHP — thirteen services each — plus ready-made interface components. Sentroy is a viable backbone regardless of a team's technology, not a JavaScript-only bet."
+      },
+      {
+        "title": "Secure, auditable access by default",
+        "body": "Access is granted through revocable keys with fine-grained permissions, and every sensitive action is logged. Enterprise-grade access control and a full audit trail are the default, not a paid add-on."
+      },
+      {
+        "title": "Integration depth becomes switching cost",
+        "body": "Once an app signs its users in, stores its files, and sends its email through Sentroy — and offers \"Sign in with Sentroy\" — moving off the platform means rebuilding several systems at once. Early convenience converts into durable retention."
+      }
+    ],
+    "scaffoldCmd": "npm create sentroy-app@latest my-app",
+    "sdkSnippet": "import { Sentroy } from \"@sentroy-co/client-sdk\"\n\nconst sentroy = new Sentroy({\n  baseUrl: \"https://sentroy.com\",\n  companySlug: \"acme\",\n  accessToken: process.env.SENTROY_TOKEN!,\n})\n\nawait sentroy.mail.send({ to, subject, html })\nconst { url } = await sentroy.storage.upload(file)"
+  },
+  "market": {
+    "label": "Market",
+    "title": "The market is the sum of the categories Sentroy replaces — expanding with every prototype.",
+    "body": "Sentroy's addressable market is not one category; it is the union of the categories a builder would otherwise buy separately. Rather than assert a single fabricated TAM, we size it by composition: sign-in and identity, file storage and delivery, email, billing, messaging, status pages, video, and issue tracking are each large, established software markets in their own right. Public trackers commonly describe the combined developer-tools and cloud-services categories as large and growing at double digits — cited here only as an illustrative market signal, not a bottom-up claim on our own reachable market. A defensible TAM build is provided as a separate model.",
+    "points": [
+      {
+        "title": "Market by composition",
+        "body": "The vendors Sentroy consolidates are each proven, independently sizeable markets. Consolidating spend that already exists is a lower-risk thesis than creating a new category."
+      },
+      {
+        "title": "AI coding is the demand accelerant",
+        "body": "Every tool that lets someone build an app in minutes creates another builder who now needs everything that runs behind it — expanding our addressable population precisely as the wave accelerates, a trend we do not have to fund."
+      },
+      {
+        "title": "Consolidation is the prevailing direction",
+        "body": "Buyer fatigue with tool sprawl and per-vendor billing is well documented. The market has repeatedly rewarded platforms that fold many point solutions into one coherent surface with one bill."
+      },
+      {
+        "title": "Wedge, then expansion",
+        "body": "Individual apps — email, sign-in, storage — are credible standalone entry points that compete on their own merits; the platform then captures expansion revenue as customers consolidate additional apps under the same login and invoice."
+      }
+    ]
+  },
+  "model": {
+    "label": "Business model",
+    "title": "Company-scoped subscriptions today, marketplace take-rate tomorrow.",
+    "body": "Revenue is company-scoped and usage-aware, billed through Polar.sh, with a free tier that seeds bottom-up adoption and paid tiers that scale with real usage. Because the suite is broad and shares one account, expansion is native: as a customer's product grows, so does its consumption across the platform — and unit economics improve as owned infrastructure serves more apps per customer without proportional vendor cost.",
+    "streams": [
+      {
+        "name": "Company subscription plans",
+        "desc": "Recurring free and paid tiers via Polar.sh, based on real usage limits — domains, team members, mailboxes, storage, and monthly email and WhatsApp volume. One subscription replaces the six-to-ten vendor bills a patchwork of separate tools would generate."
+      },
+      {
+        "name": "Usage-based expansion",
+        "desc": "As customers add apps and grow volume, they move up plan tiers and limits. Consolidation under one bill turns cross-sell into natural net-revenue retention rather than a separate sales motion."
+      },
+      {
+        "name": "One-time system products",
+        "desc": "Discrete one-time purchases registered alongside subscriptions, monetizing high-value unlocks and capacity without disrupting the recurring base."
+      },
+      {
+        "name": "Third-party app marketplace",
+        "desc": "A future take-rate lane: installable third-party apps that run safely isolated inside the OS, and the engine of a flywheel where more apps attract more customers and vice versa."
+      }
+    ]
+  },
+  "growth": {
+    "label": "Roadmap",
+    "title": "From a shipped platform to a self-reinforcing ecosystem.",
+    "body": "The hardest and most capital-intensive engineering is already behind us. The sequence ahead is deliberate: prove the unified platform, open distribution to builders, drive consolidation into expansion revenue, then let third parties and cross-app data compound the moat. Timeframes are shown relative to founding rather than as fixed calendar promises.",
+    "phases": [
+      {
+        "when": "2026 — Foundation",
+        "title": "Build the unified platform",
+        "body": "Shipped Sentroy OS, one shared login across everything, and the common foundation every app builds on, then a complete first-party suite on Sentroy-owned infrastructure — email, storage and delivery, the sign-in service, status, and more. Breadth and coherence achieved."
+      },
+      {
+        "when": "Now",
+        "title": "Open distribution to builders",
+        "body": "Turn the vibe-coding wave into signups by meeting builders where they start: the create-sentroy-app starter kit, ready-made tools across four languages, a secure developer interface, and docs — the time from a fresh project to a live, revenue-ready business measured in minutes."
+      },
+      {
+        "when": "Next",
+        "title": "Consolidation, depth, and reliability",
+        "body": "Drive customers from a single app to the full suite under one bill, deepen the highest-leverage services toward best-of-breed, and harden reliability so Sentroy is a safe single dependency, not merely a convenient one."
+      },
+      {
+        "when": "Then",
+        "title": "Marketplace flywheel",
+        "body": "Scale the App Store: third-party developers publish safely isolated apps under a take-rate model, so ecosystem breadth attracts customers and customer volume attracts developers."
+      },
+      {
+        "when": "Horizon",
+        "title": "Enterprise depth and data gravity",
+        "body": "Deepen governance, audit, and administrative controls, and turn cross-app data into platform-level intelligence — the stage where switching costs and data gravity make Sentroy the default operational backbone for a large share of AI-built products."
+      }
+    ]
+  },
+  "scalability": {
+    "label": "Technology and scale",
+    "title": "Built to add pillars without adding fragility.",
+    "body": "The way Sentroy is built is what lets a lean team ship and run this much while keeping unit economics disciplined. Every customer's data is cleanly separated, every app reuses the same secure foundation instead of rebuilding it, and each app can be updated on its own without risking the others. Security and the ability to scale are properties of the platform itself, not something bolted on app by app.",
+    "points": [
+      {
+        "title": "Clean separation for every customer",
+        "body": "Every customer's data is fully isolated, with fine-grained permissions and a record of every sensitive action. One system serves everyone safely — so each additional customer costs almost nothing in extra engineering."
+      },
+      {
+        "title": "New apps inherit the platform",
+        "body": "Every app is built on one modern, shared codebase — the same sign-in, data layer, and interface building blocks — so a new app inherits the platform instead of rebuilding it from scratch. This is why a small team can ship a broad suite quickly and at low cost."
+      },
+      {
+        "title": "Each app updates safely on its own",
+        "body": "Apps are released independently, so a change to one can never take down the others, and updates roll out without disrupting live customers. This keeps failures contained and running costs low as the suite grows."
+      },
+      {
+        "title": "We own the core infrastructure",
+        "body": "Our email infrastructure, our file and media delivery network, and our sign-in and security layer are all ours end to end — so the parts customers feel most (speed, deliverability, security) are ours to tune, and margin is captured rather than paid to a middleman."
+      }
+    ]
+  },
+  "swot": {
+    "label": "Honest assessment",
+    "title": "SWOT — the candid version.",
+    "strengths": [
+      {
+        "title": "Genuine shipping breadth",
+        "body": "A first-party suite spanning email, storage, sign-in, status, messaging, and creative apps — live in production under one login and one desktop. This is a demonstrated platform, not slideware, and the single strongest signal in the deck."
+      },
+      {
+        "title": "Owned infrastructure, not a reseller",
+        "body": "Email, file delivery, and the sign-in service are ours end to end. That means margin control, the ability to tune what matters, and a coherent security model that thin resellers cannot replicate."
+      },
+      {
+        "title": "Compounding switching costs",
+        "body": "Each app a customer enables deepens shared identity, data, and billing, so consolidation converts into durable lock-in and expansion revenue rather than one-time convenience."
+      },
+      {
+        "title": "Distribution at project zero",
+        "body": "The one-command starter kit and ready-made tools for four languages place Sentroy at the moment of creation — precisely when the vibe-coding wave is generating the most new projects."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Early stage",
+        "body": "This is a seed-stage company with limited external market validation to date. Product maturity is ahead of commercial proof."
+      },
+      {
+        "title": "Small team",
+        "body": "A team of 5 carries meaningful key-person and bandwidth risk across a broad surface; hiring is a first-order use of this capital."
+      },
+      {
+        "title": "Breadth versus depth",
+        "body": "A suite this wide means each pillar competes with a focused specialist that has invested years in that one problem. Sustaining depth parity is an ongoing execution risk."
+      },
+      {
+        "title": "Go-to-market is nascent",
+        "body": "The product-led motion is early and unproven at scale, and there is no disclosed revenue yet. Distribution — not engineering — is the open question."
+      }
+    ],
+    "opportunities": [
+      {
+        "title": "The vibe-coding tailwind",
+        "body": "The pool of people building apps is expanding rapidly, and each one needs exactly the backbone Sentroy provides. The trend creates our market faster than we have to."
+      },
+      {
+        "title": "Marketplace flywheel",
+        "body": "The App Store lets outside developers deepen the platform and cover long-tail needs without our headcount, while opening a take-rate revenue lane and a network effect between developers and customers."
+      },
+      {
+        "title": "Move upmarket",
+        "body": "The existing shared login, audit trail, and clean per-customer separation are a credible base for enterprise controls and compliance — a path to larger, stickier contracts over time."
+      },
+      {
+        "title": "Consolidation economics for buyers",
+        "body": "Replacing six to ten invoices with one is a concrete cost-and-complexity argument that resonates in cost-conscious environments, and aligns with where procurement is already heading."
+      }
+    ],
+    "threats": [
+      {
+        "title": "Deep-pocketed incumbents and point solutions",
+        "body": "Identity (Auth0/Okta), storage (AWS/S3), email (SendGrid/Resend), messaging (Twilio), and app platforms (Supabase/Firebase, Vercel) all have scale, budgets, and depth we do not yet match, and each can bundle defensively."
+      },
+      {
+        "title": "The depth gap",
+        "body": "A determined specialist can out-feature any single Sentroy pillar. Our bet is that unification outweighs per-app depth for our target buyer — and that must be proven, not assumed."
+      },
+      {
+        "title": "Platform dependency",
+        "body": "Parts of the suite rely on outside platforms and open-source components — WhatsApp, Jitsi, Polar, and others — where policy or licensing changes are outside our control."
+      },
+      {
+        "title": "Category timing",
+        "body": "If AI coding tools start bundling their own infrastructure, or a large cloud or developer-tools vendor pursues the same unified thesis with more capital, the window could compress. Speed to distribution is the mitigation."
+      }
+    ],
+    "strengthsLabel": "Strengths",
+    "weaknessesLabel": "Weaknesses",
+    "opportunitiesLabel": "Opportunities",
+    "threatsLabel": "Threats"
+  },
+  "traction": {
+    "label": "Where we are",
+    "title": "Product proof is on the board; commercial proof is next.",
+    "body": "We are deliberately honest here: the strongest evidence today is product and platform completeness, not scale metrics, and we will not present invented user counts or revenue. What is real is that the entire thesis is already built and running — the execution investors can verify directly. Founder-specific figures are intentionally left to be completed with accurate numbers.",
+    "points": [
+      {
+        "title": "The full suite is live",
+        "body": "Mail, Storage, Auth, Status, WhatsApp Santral, Studio, Meet, OpenCut, Linear Lite, and Tools are real, shipping first-party apps running under one shared login and one desktop — in production, not staging or demos."
+      },
+      {
+        "title": "The developer platform is shipped",
+        "body": "Full feature parity across TypeScript, Go, Python, and PHP, a working create-sentroy-app starter kit, and a documented, secure developer interface — the distribution engine is operational, not on a roadmap."
+      },
+      {
+        "title": "Production-grade operations",
+        "body": "Independent, reliable releases, a secure shared login with regular key rotation, clean per-customer separation, and audit logging throughout — engineering maturity well beyond the typical pre-seed prototype."
+      },
+      {
+        "title": "Monetization is wired",
+        "body": "Company subscriptions via Polar.sh and one-time system products are integrated, and the App Store's safely-isolated third-party apps are architected — the revenue infrastructure is ready to capture demand as adoption grows."
+      },
+      {
+        "title": "Team and stage",
+        "body": "Built by a team of 5 since 2026 at high capital efficiency. Usage, customer, and revenue figures are intentionally omitted rather than fabricated — and are the focus of this raise."
+      }
+    ]
+  },
+  "ask": {
+    "label": "The ask",
+    "title": "Raising $500K to turn a shipped platform into a compounding business.",
+    "body": "We are raising $500K in a seed round for roughly 18 months of runway. The hardest, most capital-intensive work — building and operating the owned infrastructure, the full app suite, the developer tools, and the billing system — is already behind us, so the core build and execution risk is largely retired. This round is not about proving we can build; it funds the second act: turning distribution into adoption, adoption into expansion revenue, and the marketplace into a flywheel.",
+    "useOfFunds": [
+      {
+        "area": "Engineering & product depth",
+        "desc": "Hire selectively to close the depth gap on the highest-value pillars and harden the owned infrastructure, directly addressing the breadth-versus-depth risk and reducing key-person exposure."
+      },
+      {
+        "area": "Developer relations & go-to-market",
+        "desc": "Build the product-led motion the platform has earned — docs, developer-tool adoption, starter-kit distribution, and a clear on-ramp from vibe-coded prototype to Sentroy-backed product — turning tailwind into pipeline."
+      },
+      {
+        "area": "Reliability, security & enterprise readiness",
+        "desc": "Invest in monitoring, reliability, and compliance so customers can safely consolidate onto Sentroy as a single dependency, and to unlock larger, stickier accounts upmarket."
+      },
+      {
+        "area": "Ecosystem & marketplace",
+        "desc": "Open and seed the third-party App Store to compound the platform's value with network effects and stand up the take-rate revenue lane."
+      }
+    ],
+    "closing": "This is a capital-efficient raise against a platform that already exists. We are funding growth, distribution, and durability rather than discovery — and capital will be deployed with the same discipline that produced the suite: measured against distribution milestones, not headcount for its own sake."
+  },
+  "closing": {
+    "title": "The world will build more apps every day. They will all need a backbone.",
+    "body": "Sentroy is that backbone — one platform, one login, one bill, with owned infrastructure and a shipping suite that already exists. As AI-assisted coding makes building an app effectively free, the durable value moves to everything that runs underneath, and that is precisely where we have spent our effort. What remains is scaling the commercial engine on a foundation that is already built. You vibe-code the app; Sentroy runs the company behind it.",
+    "cta": "Let's talk about the round"
+  },
+  "metaTitle": "Investors",
+  "metaDescription": "Sentroy — the operational backbone for the vibe-coding era. Seed-round investor brief.",
+  "nav": {
+    "tag": "Investor brief",
+    "thesis": "Thesis",
+    "product": "Product",
+    "market": "Market",
+    "growth": "Growth",
+    "swot": "SWOT",
+    "ask": "The ask",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "The operating platform for the vibe-coding era.",
+    "home": "Home",
+    "docs": "Docs",
+    "copyright": "© 2026 Sentroy — Confidential, prepared for prospective investors."
+  }
+}

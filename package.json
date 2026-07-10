@@ -1,0 +1,41 @@
+{
+  "name": "sentroy-monorepo",
+  "version": "1.64.216",
+  "license": "FSL-1.1-ALv2",
+  "devDependencies": {
+    "@types/three": "^0.184.0",
+    "@workspace/eslint-config": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "core": "workspace:*",
+    "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "turbo": "^2.8.17",
+    "typescript": "5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "bun@1.2.22",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "typecheck": "turbo typecheck"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@sentroy-co/client-sdk": "^2.13.7",
+    "next": "16.2.4",
+    "react": "19.2.5",
+    "react-colorful": "^5.7.0",
+    "react-dom": "19.2.5"
+  },
+  "trustedDependencies": [
+    "protobufjs"
+  ]
+}

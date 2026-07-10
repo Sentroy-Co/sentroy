@@ -1,0 +1,10 @@
+{
+  "statusDashboard": {
+    "pickCompanyHeading": "Status sayfası yöneteceğiniz şirketi seçin",
+    "pickCompanySubtitle": "Her şirketin tek bir status sayfası vardır. İstediğinizi tıklayın.",
+    "overviewTitle": "Status",
+    "overviewDescription": "Atlassian Statuspage tarzı, kendi servisleriniz için real-time uptime board'u host edin. Component'ler, check'ler, incident timeline, planlı bakım pencereleri ve email/webhook abone bildirimleri tek dashboard'da.",
+    "mgmtCardTitle": "Status Page Management",
+    "mgmtCardDescription": "Page'inizi yaratın, component ekleyin, HTTP check tanımlayın, public URL'inizi paylaşın."
+  }
+}

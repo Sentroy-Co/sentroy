@@ -1,0 +1,10 @@
+{
+  "statusDashboard": {
+    "pickCompanyHeading": "Pick the company whose status page you want to manage",
+    "pickCompanySubtitle": "Each company has one status page. Click whichever you want to manage.",
+    "overviewTitle": "Status",
+    "overviewDescription": "Host a real-time, Atlassian Statuspage-style uptime board for your own services. Components, checks, incident timeline, scheduled maintenance windows, and email/webhook subscriber notifications — all in one dashboard.",
+    "mgmtCardTitle": "Status Page Management",
+    "mgmtCardDescription": "Create your page, add components, define HTTP checks, and share your public URL."
+  }
+}

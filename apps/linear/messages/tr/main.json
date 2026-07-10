@@ -1,0 +1,684 @@
+{
+  "nav": {
+    "platform": "Platform",
+    "overview": "Panel",
+    "requests": "Gelen Kutusu",
+    "newTask": "Yeni Talep",
+    "metrics": "İstatistikler",
+    "linearSettings": "Linear Ayarları",
+    "team": "Ekip",
+    "settings": "Ayarlar",
+    "accessTokens": "Erişim Anahtarları",
+    "account": "Profil",
+    "logout": "Çıkış yap",
+    "teams": "Ekipler",
+    "addTeam": "Ekip ekle",
+    "noTeams": "Henüz ekip yok",
+    "loading": "Yükleniyor…",
+    "noCompany": "Şirket yok",
+    "admin": "Yönetim",
+    "administration": "Yönetim",
+    "backToApp": "Uygulamaya dön",
+    "companyProfile": "Şirket profili",
+    "companyHub": "Şirket",
+    "dashboard": "Panel"
+  },
+  "linearLite": {
+    "common": {
+      "appName": "Linear Lite",
+      "loading": "Yükleniyor…",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor…",
+      "cancel": "Vazgeç",
+      "delete": "Sil",
+      "edit": "Düzenle",
+      "close": "Kapat",
+      "retry": "Tekrar dene",
+      "created": "Oluşturuldu",
+      "updated": "Kaydedildi",
+      "deleted": "Silindi",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "search": "Ara…",
+      "noResults": "Sonuç yok",
+      "loadError": "Yüklenemedi.",
+      "somethingWrong": "Bir şeyler ters gitti",
+      "noPermission": "Bu işlem için yetkin yok."
+    },
+    "notConnected": {
+      "title": "Linear bağlı değil",
+      "description": "Taleplerini bu panelden yönetmeye başlamak için Linear workspace'ini bir API anahtarıyla bağla.",
+      "descriptionMember": "Bu şirketin Linear workspace'i henüz bağlanmadı. Kurulum için bir yöneticiye başvur.",
+      "cta": "Linear Ayarları'nı aç"
+    },
+    "tasks": {
+      "detail": {
+        "activity": "Etkinlik",
+        "titleAria": "Başlık",
+        "descriptionAria": "Açıklama",
+        "descriptionPlaceholder": "Açıklama ekle…",
+        "noActivity": "Henüz etkinlik yok.",
+        "addComment": "Yorum ekle…",
+        "addCommentAria": "Yorum ekle",
+        "sendComment": "Gönder",
+        "replyPlaceholder": "Yanıt yaz…",
+        "replyAria": "Yanıt yaz",
+        "replyBadge": "Yanıt",
+        "cancelReply": "Yanıtı iptal et",
+        "attached": "Ek eklendi",
+        "attach": {
+          "button": "Ek dosya",
+          "title": "Ek ekle",
+          "desc": "Dosya yükle veya bağlantı yapıştır. Linear'a iliştirilir.",
+          "label": "Başlık (opsiyonel)",
+          "labelPlaceholder": "Örn. Hata ekran görüntüsü",
+          "submit": "Ekle",
+          "tabFile": "Dosya",
+          "tabLink": "Bağlantı",
+          "dropTitle": "Dosya seç veya buraya bırak",
+          "maxSize": "En fazla 25 MB",
+          "tooLarge": "Dosya 25 MB'tan büyük olamaz ({size})",
+          "pickFirst": "Önce bir dosya seç",
+          "invalidUrl": "Geçerli bir URL girin",
+          "remove": "Kaldır"
+        }
+      },
+      "priority": {
+        "no_priority": "Önceliksiz",
+        "urgent": "Acil",
+        "high": "Yüksek",
+        "medium": "Orta",
+        "low": "Düşük"
+      },
+      "status": {
+        "backlog": "Birikim",
+        "todo": "Bekliyor",
+        "in_progress": "Devam ediyor",
+        "done": "Tamamlandı",
+        "cancelled": "İptal"
+      },
+      "relative": {
+        "now": "şimdi",
+        "minutes": "{count} dk",
+        "hours": "{count} sa",
+        "days": "{count} g"
+      },
+      "list": {
+        "drag_handle": "Sürükle",
+        "reorder_failed": "Sıralama güncellenemedi"
+      },
+      "kanban": {
+        "move_failed": "Durum güncellenemedi",
+        "state_missing": "{team} takımında \"{state}\" durumu yok",
+        "no_states": "Bu workspace için durum tanımı bulunamadı.",
+        "empty_columns": "Boş sütunlar",
+        "empty": "Boş"
+      },
+      "view": {
+        "label": "Görünüm",
+        "list": "Liste",
+        "kanban": "Kanban"
+      },
+      "filter": {
+        "button": "Filtre",
+        "scope": "Kapsam",
+        "scope_workspace": "Tüm çalışma alanı",
+        "scope_mine_linear": "Bana ait",
+        "scope_mine_proxy": "Benim taleplerim",
+        "state": "Durum",
+        "open": "Açık",
+        "all": "Tümü",
+        "closed": "Kapanmış",
+        "assignee": "Atanan",
+        "unassigned": "Atanmamış",
+        "no_users": "Kullanıcı yok",
+        "label": "Etiket",
+        "no_labels": "Etiket yok",
+        "no_labels_in_group": "Bu kategoride etiket yok",
+        "clear": "Filtreleri temizle"
+      },
+      "chip": {
+        "empty": "Seçenek yok",
+        "selected_count": "{count} seçili",
+        "search_placeholder": "Ara…",
+        "clear_all": "Tümünü temizle",
+        "clear": "Seçimi kaldır",
+        "no_labels_in_group": "Bu kategoride etiket yok"
+      },
+      "quick_add": {
+        "min_length": "Başlık en az 3 karakter olmalı",
+        "placeholder_compact": "Talep ekle…",
+        "placeholder": "Başlıkla hızlıca talep ekle…",
+        "aria": "Hızlı talep başlığı",
+        "submit": "Ekle"
+      },
+      "new": {
+        "title": "Yeni Talep",
+        "sent": "Talep oluşturuldu",
+        "submit": "Talebi Gönder",
+        "dialog_description": "Talep doğrudan Linear'da açılır; gerekirse sonra detay sayfasından düzenleyebilirsin.",
+        "fields": {
+          "title": "Başlık",
+          "title_placeholder": "Sorunu kısaca özetle",
+          "description": "Açıklama",
+          "description_placeholder": "Detayları buraya yaz",
+          "state": "Durum",
+          "priority": "Öncelik",
+          "assignee": "Atanan",
+          "assignee_clear": "Atamayı kaldır",
+          "labels": "Etiketler",
+          "labels_empty": "Bu takıma ait etiket yok",
+          "team": "Takım"
+        },
+        "template": {
+          "label": "Şablon",
+          "placeholder": "Şablon seç",
+          "clear": "Şablonu kaldır",
+          "confirm_title": "Şablonu değiştir?",
+          "confirm_description": "Formdaki başlık, açıklama, etiketler ve diğer alanlar yeni şablona göre güncellenir. Bu işlem geri alınamaz.",
+          "confirm_confirm": "Değiştir",
+          "confirm_cancel": "Vazgeç",
+          "applied": "\"{name}\" şablonu uygulandı",
+          "applying": "Şablon uygulanıyor…"
+        },
+        "attachments": {
+          "title": "Ekler ({count})",
+          "add": "Ek",
+          "remove": "{name} kaldır",
+          "upload_failed": "Ek yüklenemedi: {name}",
+          "uploading": "Ekler yükleniyor…"
+        }
+      },
+      "sub_task": {
+        "add": "Alt talep ekle"
+      },
+      "title": "Talepler",
+      "titleMinError": "Başlık en az 3 karakter olmalı",
+      "children": {
+        "heading": "Alt talepler ({count})"
+      },
+      "comments": {
+        "none": "Henüz yorum yok.",
+        "unknown": "Bilinmeyen",
+        "reply": "Yanıtla",
+        "createFromComment": "Yorumdan talep oluştur",
+        "createSubFromComment": "Yorumdan alt talep oluştur",
+        "copyComment": "Yorumu kopyala",
+        "copied": "Yorum kopyalandı",
+        "menuAria": "Yorum menüsü",
+        "deleteTitle": "Yorumu sil?",
+        "deleteDesc": "Bu işlem geri alınamaz. Yorum Linear üzerinden de kaldırılır.",
+        "emptyError": "Yorum boş olamaz"
+      },
+      "activity": {
+        "system": "Sistem",
+        "filterByUser": "{name} adına atanan talepleri filtrele",
+        "filterAvatarAria": "{name} taleplerini filtrele",
+        "addedLink": "bağlantı ekledi:",
+        "historyStatus": "durumu",
+        "historyAssigned": "<user></user> atadı",
+        "historyUnassigned": "atamayı kaldırdı",
+        "historyPriority": "önceliği",
+        "historyLabelsAdded": "<labels></labels> ekledi",
+        "historyLabelsRemoved": "<labels></labels> kaldırdı",
+        "historyTitleEdited": "başlığı düzenledi",
+        "historyArchived": "arşivledi",
+        "historyUnarchived": "arşivden çıkardı"
+      },
+      "hover": {
+        "previewError": "Önizleme yüklenemedi",
+        "relativeNow": "şimdi",
+        "relativeMinutes": "{n} dk önce",
+        "relativeHours": "{n} sa önce",
+        "relativeDays": "{n} g önce"
+      },
+      "menu": {
+        "status": "Durum",
+        "priority": "Öncelik",
+        "labels": "Etiketler",
+        "assignee": "Atanan",
+        "clearAssignee": "Atamayı kaldır",
+        "noTeamLabels": "Bu takıma ait etiket yok",
+        "copy": "Kopyala",
+        "copyIdentifier": "Tanımlayıcı",
+        "copyTitle": "Başlık",
+        "copyUrl": "Linear URL",
+        "copiedIdentifier": "Tanımlayıcı kopyalandı",
+        "copiedTitle": "Başlık kopyalandı",
+        "copiedUrl": "URL kopyalandı",
+        "clipboardError": "Panoya kopyalanamadı",
+        "createLinked": "Bağlantılı oluştur",
+        "subTaskNewForm": "Alt talep (yeni form)",
+        "archive": "Arşivle",
+        "archiveConfirmTitle": "{identifier} arşivlensin mi?",
+        "archiveConfirmDesc": "Talep Linear üzerinde arşivlenir; istersen Linear arayüzünden geri çıkarabilirsin.",
+        "noLabels": "Etiket yok",
+        "noLabelsInCategory": "Bu kategoride etiket yok",
+        "issueMenuAria": "Görev menüsü"
+      },
+      "related": {
+        "issue": "Yeni talep",
+        "sub": "Alt talep",
+        "parent": "Üst talep",
+        "blocking": "Engelleyen",
+        "blocked": "Engellenen",
+        "related": "Bağlantılı"
+      },
+      "createRelated": {
+        "issueTitle": "Yeni talep oluştur",
+        "issueDesc": "Bağlantısız yeni bir talep aç.",
+        "subTitle": "Alt talep oluştur",
+        "subDesc": "Bu talebin altında yeni bir alt-talep aç.",
+        "parentTitle": "Üst talep oluştur",
+        "parentDesc": "Bu talebi yeni bir talebin altına bağla.",
+        "blockingTitle": "Engelleyen talep oluştur",
+        "blockingDesc": "Bu talebi engelleyen yeni bir talep aç.",
+        "blockedTitle": "Engellenen talep oluştur",
+        "blockedDesc": "Bu talep tarafından engellenen yeni bir talep aç.",
+        "relatedTitle": "Bağlantılı talep oluştur",
+        "relatedDesc": "Bu talebe bağlantılı yeni bir talep aç.",
+        "issueCreated": "Yeni talep oluşturuldu",
+        "subCreated": "Alt talep oluşturuldu",
+        "parentCreated": "Üst talep oluşturuldu",
+        "blockingCreated": "Engelleyen talep oluşturuldu",
+        "blockedCreated": "Engellenen talep oluşturuldu",
+        "relatedCreated": "Bağlantılı talep oluşturuldu",
+        "source": "Kaynak:",
+        "titleLabel": "Başlık",
+        "titlePlaceholder": "Talebi kısaca özetle",
+        "descLabel": "Açıklama",
+        "descPlaceholder": "İsteğe bağlı açıklama",
+        "submit": "Oluştur"
+      }
+    },
+    "requests": {
+      "title": "Gelen Kutusu",
+      "subtitle": "Senin gönderdiğin talepler ve durum güncellemeleri.",
+      "empty": {
+        "title": "Gelen kutun boş",
+        "description": "Henüz bir talep göndermedin. Gönderdiğin talepler ve durum değişiklikleri burada belirir."
+      },
+      "loadError": "Gelen kutusu yüklenemedi.",
+      "openDetail": "Detayı aç",
+      "unread": "Okunmamış güncelleme",
+      "unreadTitle": "Son bakışından beri durum değişti",
+      "groups": {
+        "today": "Bugün",
+        "yesterday": "Dün",
+        "week": "Son 7 gün",
+        "older": "Daha eski"
+      }
+    },
+    "editor": {
+      "ariaLabel": "Zengin metin düzenleyici",
+      "uploadFailed": "Resim yüklenemedi",
+      "uploading": "{count, plural, one {Resim yükleniyor…} other {# resim yükleniyor…}}",
+      "bold": "Kalın",
+      "italic": "İtalik",
+      "strikethrough": "Üstü çizili",
+      "inlineCode": "Satır içi kod",
+      "codeBlock": "Kod bloğu",
+      "bulletList": "Madde listesi",
+      "orderedList": "Numaralı liste",
+      "link": "Bağlantı",
+      "linkPrompt": "Bağlantı URL'i",
+      "image": "Resim"
+    },
+    "richTextView": {
+      "copyCode": "Kod bloğunu kopyala",
+      "copyFailed": "Panoya kopyalanamadı"
+    },
+    "confirmDialog": {
+      "confirm": "Onayla",
+      "cancel": "Vazgeç"
+    },
+    "theme": {
+      "toggle": "Tema",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem"
+    },
+    "shortcuts": {
+      "open": "Kısayolları göster",
+      "title": "Klavye kısayolları",
+      "description": "Yazı alanı, dialog veya komut çubuğu açıkken kısayollar devre dışıdır.",
+      "then": "sonra",
+      "groupNavigation": "Gezinme",
+      "groupActions": "Eylem",
+      "groupView": "Görünüm",
+      "groupEditor": "Düzenleyici",
+      "goDashboard": "Panele git",
+      "goInbox": "Gelen kutusuna git",
+      "goNew": "Yeni talep formuna git",
+      "create": "Yeni talep oluştur",
+      "openPalette": "Komut çubuğunu aç",
+      "openPaletteAlt": "Komut çubuğunu aç (alternatif)",
+      "help": "Bu yardım panelini aç",
+      "themeToggle": "Açık/koyu tema arası geçiş",
+      "submitComment": "Yorumu gönder",
+      "bold": "Kalın",
+      "italic": "İtalik",
+      "insertLink": "Bağlantı ekle"
+    },
+    "draft": {
+      "title": "Taslağı sakla?",
+      "description": "Doldurduğun başlık ve açıklama bir sonraki açılışta hazır olur. Silersen tüm form sıfırlanır.",
+      "discard": "Sil",
+      "cancel": "Vazgeç",
+      "keep": "Sakla"
+    },
+    "version": {
+      "label": "Sürüm v{version}",
+      "notesAria": "Sürüm v{version} — sürüm notları",
+      "notes": "Sürüm notları"
+    },
+    "layout": {
+      "palette": {
+        "placeholder": "Komut ara veya gez…",
+        "searching": "Aranıyor…",
+        "empty": "Sonuç bulunamadı",
+        "groupTasks": "Görevler",
+        "groupPages": "Sayfalar",
+        "groupTheme": "Tema",
+        "groupAccount": "Hesap",
+        "dashboard": "Panel",
+        "metrics": "İstatistikler",
+        "newTask": "Yeni Talep",
+        "recentSearches": "Son aramalar",
+        "recentCards": "Son görüntülenenler",
+        "clear": "Temizle",
+        "logout": "Çıkış Yap"
+      },
+      "header": {
+        "searchLabel": "Komut çubuğunu aç"
+      },
+      "push": {
+        "on": "Push bildirimleri açık",
+        "off": "Push bildirimlerini aç",
+        "denied": "Bildirimler tarayıcı ayarlarında engellenmiş"
+      }
+    },
+    "metrics": {
+      "requests": "talep",
+      "percentValue": "%{value}",
+      "completionRate": "%{value} tamamlama",
+      "hero": {
+        "kicker": "İstatistikler",
+        "description": "Panel taleplerinin akışı — hacim, çözüm hızı ve işi kimin yaptığı.",
+        "thisWeek": "bu hafta",
+        "lastWeek": "geçen hafta",
+        "completionRate": "tamamlama oranı",
+        "seeClosed": "Kapanan talepleri gör",
+        "requestsWord": "talep"
+      },
+      "cards": {
+        "total": "Toplam talep",
+        "open": "Açık",
+        "completed": "Tamamlanan",
+        "avgResolution": "Ort. çözüm süresi",
+        "openAge": "Açık talepler ortalama {age} bekliyor"
+      },
+      "duration": {
+        "minutes": "{value} dk",
+        "hours": "{value} sa",
+        "days": "{value} gün"
+      },
+      "chart": {
+        "bar": "Çubuk",
+        "line": "Çizgi",
+        "requests": "Talepler",
+        "totalCenter": "toplam"
+      },
+      "panels": {
+        "statesTitle": "Duruma göre",
+        "statesSubtitle": "Açık ve kapalı işlerin dağılımı",
+        "prioritiesTitle": "Önceliğe göre",
+        "prioritiesSubtitle": "İş yükünün aciliyet dağılımı",
+        "creatorsTitle": "En çok talep açanlar",
+        "creatorsSubtitle": "Kim en çok talep açıyor",
+        "assigneesTitle": "En çok atanmış olanlar",
+        "assigneesSubtitle": "Açık işi kimler taşıyor",
+        "completersTitle": "En çok tamamlayanlar",
+        "completersSubtitle": "Kim en çok talep kapatıyor",
+        "labelsTitle": "En çok kullanılan etiketler",
+        "labelsSubtitle": "Sık kullanılan etiketler",
+        "last30Title": "Son 30 gün",
+        "last30Subtitle": "Günlük yeni talepler",
+        "staleTitle": "Bekleyen talepler",
+        "staleSubtitle": "14+ gündür dokunulmamış açık talepler",
+        "staleSubtitleEmpty": "Bekleyen talep yok — harika iş"
+      },
+      "empty": {
+        "noData": "Gösterilecek veri yok",
+        "noAssigned": "Atanmış talep yok",
+        "noCompleted": "Henüz tamamlanan yok",
+        "noLabels": "Henüz etiket kullanılmamış",
+        "noStale": "Bekleyen talep yok"
+      },
+      "people": {
+        "viewReport": "{name} raporunu görüntüle"
+      },
+      "priorities": {
+        "p0": "Önceliksiz",
+        "p1": "Acil",
+        "p2": "Yüksek",
+        "p3": "Orta",
+        "p4": "Düşük"
+      },
+      "states": {
+        "triage": "Triyaj",
+        "backlog": "Backlog",
+        "unstarted": "Yapılacak",
+        "started": "Devam ediyor",
+        "completed": "Tamamlandı",
+        "canceled": "İptal edildi"
+      },
+      "report": {
+        "share": "Tüm taleplerin %{pct}'i",
+        "opened": "Açtığı",
+        "openedThisWeek": "bu hafta +{count}",
+        "assigned": "Atanan",
+        "assignedOpen": "{count} tanesi hâlâ açık",
+        "completed": "Tamamladığı",
+        "completionRate": "%{value} tamamlama",
+        "avgResolution": "Ort. çözüm süresi",
+        "recentTitle": "Son talepler",
+        "recentSubtitle": "Bu kişinin son hareketleri",
+        "timelineTitle": "Aktivite",
+        "timelineSubtitle": "Son 30 günde açılan talepler",
+        "topLabelsTitle": "En çok kullanılan etiketler",
+        "topLabelsSubtitle": "Bu kişinin en çok çalıştığı etiketler"
+      },
+      "loadError": "İstatistikler Linear'dan yüklenemedi"
+    },
+    "newTask": {
+      "subTaskTitle": "Alt talep oluştur",
+      "parentLabel": "Üst talep:",
+      "errors": {
+        "noTeams": "Hiç Linear takımı bulunamadı.",
+        "loadFailed": "Linear bağlantısı kurulamadı."
+      }
+    },
+    "panel": {
+      "title": "Issues",
+      "tagline": "IT talep yönetimi, Linear gücüyle",
+      "newTask": "Yeni Talep",
+      "empty": {
+        "title": "Henüz talebin yok",
+        "description": "İlk talebini oluşturmak için aşağıdaki butonu kullan.",
+        "cta": "İlk Talebi Oluştur"
+      },
+      "errorTitle": "Hata oluştu",
+      "connectionError": "Linear bağlantısı kurulamadı.",
+      "allTeams": "Tümü",
+      "titleWithTeam": "{team} Issues"
+    },
+    "settings": {
+      "title": "Linear Ayarları",
+      "description": "Bu şirketin Linear çalışma alanını bağlayın ve panelin davranışını yapılandırın.",
+      "vaultWarning": {
+        "title": "Gizli anahtar deposu yapılandırılmamış",
+        "description": "Sunucuda SENTROY_ENV_MASTER_KEY tanımlı değil; API anahtarları ve webhook secret'ları şifrelenemiyor. Bir operatör yapılandırana kadar ayar kaydetme devre dışı."
+      },
+      "connection": {
+        "title": "Linear bağlantısı",
+        "description": "Bu şirketin çalıştığı Linear workspace'inin Personal API key'i. Anahtar şifreli saklanır ve bir daha gösterilmez.",
+        "statusConnected": "Bağlı",
+        "statusNotConnected": "Bağlı değil",
+        "apiKeyLabel": "Linear API anahtarı",
+        "apiKeyPlaceholder": "lin_api_…",
+        "apiKeyHint": "Linear'da Settings → API → Personal API keys altından oluşturun. Yalnız ilk karakterler görünür kalır.",
+        "apiKeyChange": "Değiştir",
+        "apiKeyCancel": "Vazgeç",
+        "panelLabelLabel": "Panel etiketi",
+        "panelLabelHint": "Bu Linear etiketini taşıyan talepler panelde görünür.",
+        "teamLabel": "Varsayılan takım",
+        "teamNone": "Varsayılan takım yok",
+        "teamEmptyHint": "Geçerli bir API anahtarı kaydedildiğinde takımlar burada listelenir.",
+        "defaultLabelLabel": "Varsayılan etiket",
+        "defaultLabelPlaceholder": "örn. Triage",
+        "defaultStateLabel": "Varsayılan durum",
+        "defaultStatePlaceholder": "örn. Todo",
+        "actorAppLabel": "Uygulama olarak işlem yap",
+        "actorAppHint": "Linear mutasyonlarını anahtar sahibi yerine uygulama aktörü olarak gerçekleştirir.",
+        "save": "Kaydet",
+        "saveVerify": "Doğrula ve kaydet",
+        "saving": "Kaydediliyor…",
+        "saved": "Bağlantı ayarları kaydedildi",
+        "saveError": "Bağlantı ayarları kaydedilemedi"
+      },
+      "webhook": {
+        "title": "Webhook",
+        "description": "Linear, issue ve yorum olaylarını bu endpoint'e iletir; panel böylece gerçek zamanlı güncellenir.",
+        "statusActive": "Kayıtlı",
+        "statusMissing": "Kayıtlı değil",
+        "endpointLabel": "Endpoint URL",
+        "copy": "Kopyala",
+        "copied": "Endpoint kopyalandı",
+        "lastEventLabel": "Son olay:",
+        "lastEventNever": "hiç",
+        "notConnectedHint": "Webhook kaydı için önce bir Linear API anahtarı bağlayın.",
+        "setup": "Webhook'u kur",
+        "renew": "Webhook'u yenile",
+        "remove": "Kaldır",
+        "setupSuccess": "Webhook kaydedildi",
+        "removeSuccess": "Webhook kaldırıldı",
+        "error": "Webhook işlemi başarısız"
+      },
+      "storage": {
+        "title": "Dosya depolama",
+        "description": "Yüklenen görsel ve eklerin nerede saklanacağı.",
+        "providerLabel": "Sağlayıcı",
+        "providerLinear": "Linear (varsayılan)",
+        "providerSentroy": "Sentroy Storage",
+        "providerHint": "Linear dosyaları workspace'inizde saklar (görüntüleme Linear oturumu gerektirir). Sentroy Storage herkese açık CDN URL'leri sunar.",
+        "apiKeyLabel": "Sentroy erişim token'ı",
+        "apiKeyPlaceholder": "stk_…",
+        "apiKeyChange": "Değiştir",
+        "apiKeyCancel": "Vazgeç",
+        "bucketLabel": "Bucket ID",
+        "bucketPlaceholder": "Bucket tanımlayıcısı",
+        "companySlugLabel": "Şirket slug'ı",
+        "companySlugPlaceholder": "sirketiniz",
+        "baseUrlLabel": "Base URL",
+        "sentroyHint": "Token, bucket ID ve şirket slug'ının üçü de zorunludur; bucket herkese açık olmalıdır. Base URL sentroy.com için boş kalabilir.",
+        "save": "Kaydet",
+        "saving": "Kaydediliyor…",
+        "saved": "Depolama ayarları kaydedildi",
+        "saveError": "Depolama ayarları kaydedilemedi"
+      },
+      "telegram": {
+        "title": "Telegram botu",
+        "description": "Operatörler Telegram'dan panel talebi açar. Bot bu uygulamadan Telegram'ı yoklar (polling); webhook kurulumu gerekmez. Varsayılan bot dili İngilizcedir.",
+        "statusEnabled": "Etkin",
+        "statusDisabled": "Devre dışı",
+        "enabledLabel": "Botu etkinleştir",
+        "enabledHint": "Kaydettikten sonra en geç bir dakika içinde yoklama başlar. Bot token'ı gerektirir.",
+        "tokenLabel": "Bot token'ı",
+        "tokenPlaceholder": "123456789:AA…",
+        "tokenHint": "Telegram'da @BotFather ile bir bot oluşturup token'ını yapıştırın. Şifreli saklanır; yalnız son 4 karakter görünür kalır.",
+        "tokenChange": "Değiştir",
+        "tokenCancel": "Vazgeç",
+        "languageLabel": "Bot dili",
+        "languageHint": "Botun gönderdiği tüm mesajların dili. Komutlar her iki dilde de çalışır.",
+        "languageEn": "English",
+        "languageTr": "Türkçe",
+        "operatorsLabel": "Operatörler",
+        "operatorsHint": "Botu yalnız listedeki Telegram kullanıcıları kullanabilir. Komut bazlı yetkileri ayarlayın; isterseniz operatörü bir şirket kullanıcısıyla eşleyin.",
+        "operatorsEmpty": "Henüz operatör yok. Aşağıdan ID ile ekleyin ya da dinleme modunu kullanın.",
+        "operatorsInvalid": "Operatör ID'leri numeric Telegram user ID olmalı",
+        "operatorDuplicate": "Bu Telegram kullanıcısı zaten operatör",
+        "operatorAdd": "Ekle",
+        "operatorAddPlaceholder": "Telegram user ID, örn. 123456789",
+        "operatorRemove": "Kaldır",
+        "permCreate": "Talep açma",
+        "permListAll": "Tüm talepleri listeleme",
+        "permCancel": "İptal",
+        "memberLabel": "Şirket kullanıcısı",
+        "memberNone": "Eşlenmedi",
+        "discoveryTitle": "Dinleme modu",
+        "discoveryHint": "5 dakika boyunca bota mesaj gönderen tanımsız kullanıcılar (yalnız kimlik) burada listelenir; tek tıkla operatör olarak ekleyebilirsiniz.",
+        "discoveryStart": "Dinleme modunu başlat",
+        "discoveryStop": "Durdur",
+        "discoveryActive": "Dinleniyor — kalan {time}",
+        "discoverySeenEmpty": "Henüz kullanıcı yok. İlgili kişiden bota herhangi bir mesaj göndermesini isteyin.",
+        "discoveryAdd": "Operatör ekle",
+        "discoveryAdded": "Operatör eklendi",
+        "discoveryError": "Dinleme modu güncellenemedi",
+        "lastPolledLabel": "Son yoklama:",
+        "lastPolledNever": "hiç",
+        "save": "Kaydet",
+        "saveVerify": "Doğrula ve kaydet",
+        "saving": "Kaydediliyor…",
+        "saved": "Telegram ayarları kaydedildi",
+        "saveError": "Telegram ayarları kaydedilemedi",
+        "operatorPerms": "{count}/3 yetki",
+        "memberLinked": "Eşli",
+        "memberHint": "Opsiyonel — operatörü bir şirket kullanıcısıyla eşler; kullanıcının panelden açtığı talepler botta da listelenir.",
+        "teamAccessLabel": "Takım erişimi",
+        "teamAccessAll": "Tüm takımlar",
+        "teamAccessNone": "Takım erişimi yok",
+        "teamAccessHint": "Operatörün hangi takım(lar) için talep açıp listeleyebileceğini belirler. Tek takımda takım adımı atlanır; erişim yoksa talep komutları kibarca reddedilir.",
+        "operatorRemoveConfirm": "Kaldırmayı onayla",
+        "operatorAddHint": "Numeric Telegram user ID (@userinfobot'tan alınır). Yeni operatörler takım erişimi olmadan başlar."
+      },
+      "appearance": {
+        "title": "Görünüm ve davranış",
+        "description": "Bu şirketteki herkes için panel özelliklerini aç/kapat. Değişiklikler anında kaydedilir.",
+        "groups": {
+          "display": "Görünüm",
+          "behavior": "Davranış",
+          "notifications": "Masaüstü bildirimleri",
+          "view": "Panel görünümü"
+        },
+        "flags": {
+          "showStatus": "Durumu göster",
+          "showAssignee": "Atananı göster",
+          "showLabels": "Etiketleri göster",
+          "showLinkedIssues": "Bağlantılı talepleri göster",
+          "showTeamPicker": "Takım seçiciyi göster",
+          "showArchive": "Arşivlemeye izin ver",
+          "kanbanDnd": "Kanban sürükle-bırak",
+          "kanbanQuickAdd": "Kanban hızlı ekleme",
+          "listDnd": "Listede sıralama",
+          "notifyCompleted": "Tamamlanınca bildir",
+          "notifyAssigned": "Atanınca bildir",
+          "notifyCreated": "Yeni talepte bildir",
+          "notifyComment": "Yorumda bildir",
+          "groupByTeam": "Talepleri takıma göre grupla",
+          "showAllIssues": "Tüm Linear task'larını göster (yalnız panelden açılanlar değil)"
+        },
+        "saveError": "Ayar kaydedilemedi"
+      },
+      "common": {
+        "notSet": "Ayarlanmadı",
+        "cancel": "Vazgeç",
+        "save": "Kaydet",
+        "saving": "Kaydediliyor…"
+      }
+    },
+    "motion": {
+      "working": "Çalışıyor"
+    }
+  }
+}

@@ -1,0 +1,271 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Sentroy — canonical SELF-HOST stack (build-mode, one command).
+#
+#   cp .env.example .env      # fill MONGODB_URI, SENTROY_ROOT_DOMAIN, secrets
+#   docker compose -f docker-compose.selfhost.yaml --profile core up --build
+#
+# Bu dosya, Coolify per-resource dosyalarından (docker-compose.{core,mail,…}.yaml)
+# AYRIDIR ve onlara dokunmaz — hosted sentroy.com deploy yolu (version.sh → GHCR
+# → Coolify) byte-birebir aynı kalır. Burada:
+#   • Her imaj YEREL Dockerfile'dan build edilir (ghcr.io pull YOK, IMAGE_TAG YOK).
+#   • SERVICE_FQDN_* Coolify sihri YOK — routing Caddy (reverse proxy) ile.
+#   • Tek `.env` (env_file) tüm servisleri besler; NEXT_PUBLIC_* build-arg olarak
+#     da geçer (client bundle'a inline).
+#
+# PROFILLER (küçük VM'ler için kademeli):
+#   core     → mongo + core + caddy (minimum çalışır kurulum)
+#   storage  → + storage + cdn (S3 gerekir)
+#   mail     → + mail-server yığını (Postfix/Dovecot/Rspamd/PG/Redis/API)
+#   full     → tüm app'ler (auth/status/studio/whatsapp/linear/downloader/backup)
+#
+# TLS: Caddy gerçek domain'de Let's Encrypt (wildcard için DNS-01 gerekir;
+# HTTP-01 wildcard veremez). LAN/dev'de internal CA.
+# ─────────────────────────────────────────────────────────────────────────────
+
+x-app-build-args: &app-build-args
+  # Next app'ler NEXT_PUBLIC_* değişkenlerini build-time inline eder. Tek
+  # ROOT_DOMAIN'den türetmek için app-launcher/proxy Phase 3 domains.ts'i
+  # kullanır; yine de mutlak URL'ler geçilebilir. Undeclared build-arg'lar
+  # yalnız uyarı üretir (hata değil) → superset güvenli.
+  MONGODB_URI: ${MONGODB_URI}
+  BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+  NEXT_PUBLIC_ROOT_DOMAIN: ${SENTROY_ROOT_DOMAIN}
+  NEXT_PUBLIC_CORE_APP_URL: ${NEXT_PUBLIC_CORE_APP_URL}
+  NEXT_PUBLIC_MAIL_APP_URL: ${NEXT_PUBLIC_MAIL_APP_URL}
+  NEXT_PUBLIC_STORAGE_APP_URL: ${NEXT_PUBLIC_STORAGE_APP_URL}
+  NEXT_PUBLIC_WHATSAPP_APP_URL: ${NEXT_PUBLIC_WHATSAPP_APP_URL}
+  NEXT_PUBLIC_LINEAR_APP_URL: ${NEXT_PUBLIC_LINEAR_APP_URL}
+  NEXT_PUBLIC_SENTROY_API_URL: ${NEXT_PUBLIC_SENTROY_API_URL}
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+  NEXT_PUBLIC_TURNSTILE_DISABLED: ${NEXT_PUBLIC_TURNSTILE_DISABLED}
+
+x-common: &common
+  restart: unless-stopped
+  env_file:
+    - .env
+  networks:
+    - sentroy
+
+services:
+  # ── Veritabanı ─────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    container_name: sentroy-mongo
+    restart: unless-stopped
+    profiles: ["core", "storage", "mail", "full"]
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - sentroy
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 15s
+      timeout: 8s
+      retries: 6
+      start_period: 20s
+
+  # ── Reverse proxy ────────────────────────────────────────────────────────
+  caddy:
+    image: caddy:2-alpine
+    container_name: sentroy-caddy
+    restart: unless-stopped
+    profiles: ["core", "storage", "mail", "full"]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      ROOT_DOMAIN: ${SENTROY_ROOT_DOMAIN:-sentroy.com}
+    volumes:
+      - ./Caddyfile.selfhost:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      - sentroy
+    depends_on:
+      - core
+
+  # ── core (her zaman) ───────────────────────────────────────────────────────
+  core:
+    <<: *common
+    profiles: ["core", "storage", "mail", "full"]
+    build:
+      context: .
+      dockerfile: apps/core/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-core
+    depends_on:
+      mongo:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - "CMD"
+        - "node"
+        - "-e"
+        - "fetch('http://localhost:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 15s
+      timeout: 8s
+      retries: 6
+      start_period: 90s
+
+  # ── storage + cdn (profile: storage) ────────────────────────────────────────
+  storage:
+    <<: *common
+    profiles: ["storage", "full"]
+    build:
+      context: .
+      dockerfile: apps/storage/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-storage
+    environment:
+      CDN_API_URL: http://cdn:4100
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  cdn:
+    <<: *common
+    profiles: ["storage", "full"]
+    build:
+      context: .
+      dockerfile: apps/cdn/Dockerfile
+    container_name: sentroy-cdn
+
+  # ── auth2 / status / studio (profile: full) ─────────────────────────────────
+  auth2:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/auth2/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-auth2
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  status:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/status/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-status
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  studio:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/studio/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-studio
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # ── whatsapp + gateway (profile: full) ──────────────────────────────────────
+  whatsapp:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/whatsapp/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-whatsapp
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  whatsapp-gateway:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/whatsapp-gateway/Dockerfile
+    container_name: sentroy-whatsapp-gateway
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # ── linear (profile: full) ──────────────────────────────────────────────────
+  linear:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/linear/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-linear
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # ── downloader + worker (profile: full) ──────────────────────────────────────
+  downloader:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/downloader/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-downloader
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  downloader-worker:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/downloader-worker/Dockerfile
+    container_name: sentroy-downloader-worker
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # ── backup + worker (profile: full) ──────────────────────────────────────────
+  backup:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/backup/Dockerfile
+      args: *app-build-args
+    container_name: sentroy-backup
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  backup-worker:
+    <<: *common
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: apps/backup-worker/Dockerfile
+    container_name: sentroy-backup-worker
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  # ── mail-server yığını (profile: mail) ────────────────────────────────────────
+  # Postfix/Dovecot/Rspamd/PG/Redis/API — ağır; yalnız mail ürünü isteniyorsa.
+  # Tam servis tanımları mail-server/ altında; buradan compose-include ile
+  # bağlanır (o dizinin kendi docker-compose.mail.yaml'ı vardır).
+  #
+  # include:
+  #   - path: mail-server/docker-compose.mail.yaml
+  # (compose v2.20+ `include` desteği; profile: mail ile aç.)
+
+networks:
+  sentroy:
+    driver: bridge
+
+volumes:
+  mongo-data:
+  caddy-data:
+  caddy-config:

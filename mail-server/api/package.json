@@ -1,0 +1,48 @@
+{
+  "name": "sentroy-api",
+  "version": "1.0.0",
+  "description": "Sentroy Mail Server API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/rate-limit": "^9.1.0",
+    "@fastify/sensible": "^5.6.0",
+    "@fastify/swagger": "^8.15.0",
+    "@fastify/swagger-ui": "^4.1.0",
+    "@prisma/client": "^5.18.0",
+    "bcrypt": "^5.1.1",
+    "bullmq": "^5.12.0",
+    "crypto-random-string": "^5.0.0",
+    "fastify": "^4.28.0",
+    "fastify-plugin": "^4.5.1",
+    "imapflow": "^1.0.164",
+    "ioredis": "^5.4.1",
+    "mailparser": "^3.9.8",
+    "mjml": "^4.15.3",
+    "nodemailer": "^6.9.14",
+    "pino": "^9.3.2",
+    "prom-client": "^15.1.3",
+    "smtp-server": "^3.18.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/mailparser": "^3.4.6",
+    "@types/mjml": "^4.7.4",
+    "@types/node": "^20.14.14",
+    "@types/nodemailer": "^6.4.15",
+    "@types/smtp-server": "^3.5.13",
+    "prisma": "^5.18.0",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4"
+  }
+}

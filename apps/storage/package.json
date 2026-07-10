@@ -1,0 +1,60 @@
+{
+  "name": "storage",
+  "version": "1.64.216",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --experimental-https --port 3002",
+    "build": "next build",
+    "start": "next start --port 3002",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{ts,tsx}\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hugeicons/core-free-icons": "^4.1.1",
+    "@hugeicons/react": "^1.1.6",
+    "@sentroy-co/client-sdk": "^2.13.4",
+    "@tanstack/react-table": "^8.21.3",
+    "@workspace/auth": "workspace:*",
+    "@workspace/cdn-client": "workspace:*",
+    "@workspace/console": "workspace:*",
+    "@workspace/db": "workspace:*",
+    "@workspace/ui": "workspace:*",
+    "archiver": "^7.0.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.38.0",
+    "mongodb": "^7.1.1",
+    "motion": "^12.38.0",
+    "next": "16.2.4",
+    "next-intl": "^4.9.1",
+    "next-themes": "^0.4.6",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "react-file-icon": "^1.6.0",
+    "recharts": "^3.8.1",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.5.0",
+    "zod": "^3.25.76",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/archiver": "^7.0.0",
+    "@types/node": "^25.1.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@workspace/eslint-config": "workspace:^",
+    "@workspace/typescript-config": "workspace:*",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.2.4",
+    "postcss": "^8",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3"
+  }
+}

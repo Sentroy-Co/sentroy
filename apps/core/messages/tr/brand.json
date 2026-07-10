@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Marka",
+  "metaDescription": "Sentroy marka varlıkları — logolar, işaretler ve renkler.",
+  "title": "Marka",
+  "subtitle": "Sentroy'un logoları, işaretleri ve renkleri. Varlıkları önizle, ihtiyacın olanı indir ve paleti takip et.",
+  "back": "Sentroy'a dön",
+  "logos": "Logolar",
+  "logosDesc": "Koyu yüzeylerde açık logoyu, açık yüzeylerde koyu logoyu kullan. SVG tercih edilir; raster kullanım için PNG de sunulur.",
+  "onDark": "Koyu üzerinde",
+  "onLight": "Açık üzerinde",
+  "colored": "Renkli",
+  "download": "İndir",
+  "colors": "Renkler",
+  "colorsDesc": "Hex kodunu kopyalamak için bir örneğe tıkla.",
+  "copied": "Kopyalandı",
+  "note": "Logonun çevresinde boşluk bırak; işareti asla esnetme, yeniden renklendirme veya efekt ekleme."
+}

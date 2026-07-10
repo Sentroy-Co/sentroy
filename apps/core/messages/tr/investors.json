@@ -1,0 +1,421 @@
+{
+  "hero": {
+    "eyebrow": "Vibe coding çağının operasyonel omurgası",
+    "title": "Uygulamayı sen vibe-code'la. Arkasındaki şirketi Sentroy çalıştırsın.",
+    "subtitle": "Gerçek her ürünün arkasında hep aynı temeller gerekir: güvenli bir giriş, verilerin ve dosyaların saklanacağı bir yer, gerçekten ulaşan e-posta, faturalandırma, mesajlaşma, bir durum sayfası ve bir ekibi yönetmenin bir yolu. Geliştiriciler bugün altı ila on ayrı tedarikçiyi tek tek bir araya getiriyor. Sentroy bunların tümünü tek bir platformda, tek bir girişte ve tek bir faturada toplar — web üzerinde macOS tarzı bir çalışma alanı; bir şirketin, tek bir güvenli girişle tüm uygulama paketini çalıştırdığı yer. Çekirdek altyapıya baştan sona kendimiz sahibiz ve tek komutluk bir başlangıç kiti ile her önemli programlama dili için hazır araçlar, taze bir prototipi dakikalar içinde gelire hazır bir işletmeye dönüştürür.",
+    "ctaPrimary": "Canlı paketi keşfet",
+    "ctaSecondary": "Tezi oku"
+  },
+  "thesis": {
+    "label": "Neden şimdi",
+    "title": "Uygulama yapmak az önce ücretsizleşti. Arkasındaki işletmeyi çalıştırmak ücretsizleşmedi.",
+    "body": "Yazılım, son on yılın en keskin maliyet kaymasını yaşıyor. Cursor, v0, Lovable ve Claude Code, bir uygulama yapmanın maliyetini sıfıra doğru itti — herkes ne istediğini tarif edip dakikalar içinde çalışan bir uygulamaya kavuşabiliyor. Ama o uygulamanın arkasında gerçek bir işletmenin ihtiyaç duyduğu her şey — güvenli bir giriş, ödemeler, e-posta, veri, dosyalar ve dahası — ne ucuzladı ne de otomasyonla ortadan kalktı. Yalnızca daha da parçalandı. Bir uygulama yapmak ücretsize doğru çökerken, arkasındaki işletmeyi çalıştırmak darboğaz — ve kalıcı değer — hâline geliyor. Sentroy, bu uçurumun öteki yakası için inşa edildi.",
+    "points": [
+      {
+        "title": "Uygulama yapmak dakikalara indi",
+        "body": "AI kodlama araçları, bir uygulama yapmayı neredeyse çözülmüş, neredeyse ücretsiz bir adım hâline getirdi. Darboğaz akış aşağı kaydı — bir prototipin para alıp gerçek müşterilere hizmet verebilmesi için yerine oturması gereken her şeye."
+      },
+      {
+        "title": "Bir uygulama, bir işletme değildir",
+        "body": "Güvenli bir giriş, verilerin ve dosyaların saklandığı bir yer, e-posta, faturalandırma, mesajlaşma, bir durum sayfası, ekip yönetimi — bu gösterişsiz omurganın hâlâ var olması, hâlâ güvenli olması ve hâlâ her gün işletilmesi gerekiyor. Bu iş otomasyonla ortadan kalkmadı."
+      },
+      {
+        "title": "Daha az değil, daha çok parçalandı",
+        "body": "Varsayılan cevap hâlâ giriş için Auth0, dosyalar için Amazon S3, e-posta için SendGrid, ödemeler için Stripe, mesajlaşma için Twilio ve dahası — her geliştiricinin sıfırdan satın alıp bağlaması ve bakımını üstlenmesi gereken ayrı ayrı tedarikçilerden oluşan bir yamalar bohçası."
+      },
+      {
+        "title": "Arka rüzgâr katlanarak büyüyor",
+        "body": "Birinin yaptığı her yeni uygulama, operasyonel bir omurga için taze bir potansiyel müşteridir ve onlar için varsayılan hâline gelen ilk platform, sonradan vazgeçilmesi zor geçiş maliyetleri ve biriken veri kazanır."
+      }
+    ]
+  },
+  "problem": {
+    "label": "Sorun",
+    "title": "Bir prototip dakikalar uzağında. Gerçek bir işletme hâlâ bir tedarik projesi.",
+    "body": "\"Ekranımda çalışıyor\" ile \"gerçek müşteriler buna bağımlı\" arasındaki uçurum, uygulamanın kendisini yapmak hızlanırken bile neredeyse hiç kapanmadı. Bu uçurum, her ürünün ihtiyaç duyduğu aynı zorunlu temellerden oluşuyor — ve bugün, birbirinden kopuk bir düzine tedarikçiden elle bir araya getiriliyor. Bu yük en ağır biçimde tam da AI kodlama araçlarının güçlendirdiği kişilere biniyor: hızlı ürün çıkaran tek kişilik geliştiriciler, küçük ekipler ve ajanslar.",
+    "points": [
+      {
+        "title": "Tedarikçi dağınıklığı",
+        "body": "Giriş, dosya depolama, e-posta, faturalandırma, mesajlaşma, bir durum sayfası, video, issue takibi — her biri kendi sözleşmesi, kurulumu ve öğrenme eğrisi olan ayrı bir ücretli hizmettir. Tek bir ürünü ayağa kaldırmak için altı ila on ilişki."
+      },
+      {
+        "title": "Entegrasyon vergisi",
+        "body": "İki tedarikçi arasındaki her ek yer; kurulacak, bakımı yapılacak özel bir iştir ve bozulabilecek bir şey daha demektir. Geliştirici, ürünü geliştirmek yerine araçları birbirine bağlamakla uğraşır — tam da AI'ın ortadan kaldırmadığı iş."
+      },
+      {
+        "title": "Parçalanmış kimlik ve veri",
+        "body": "Kullanıcılar, ekipler, izinler ve etkinlik kayıtları; ortak bir giriş ve tek bir doğruluk kaynağı olmadan ayrı silolarda yaşar. Basit kurallar — \"bu ekip üyesi e-posta gönderebilir ama alan adlarını yönetemez\" — bir düzine araç arasında uygulanması zahmetlidir."
+      },
+      {
+        "title": "Maliyet ve faturalandırma kaosu",
+        "body": "On tedarikçi; on fatura, on fiyatlandırma modeli ve kullanımın aniden fırlayabileceği on ayrı nokta demektir. Harcamayı öngörmek ve faturaları mutabakata almak, özellikle her doların mercek altında olduğu erken dönemde, kendi başına tekrarlayan bir yük hâline gelir."
+      },
+      {
+        "title": "Her şeyi çalıştıracak tek bir yer yok",
+        "body": "Bir kurucunun açıp uygulamanın arkasındaki tüm işletmeyi görebileceği — ve gerçekten çalıştırabileceği — tek bir yer yoktur. Operasyonlar, sekmelerle dolu bir tarayıcıya dağılmıştır."
+      }
+    ]
+  },
+  "solution": {
+    "label": "Çözüm",
+    "title": "Tek platform, tek kimlik, tek fatura — uygulamanın arkasındaki işletme için gerçek bir işletim sistemi.",
+    "body": "Sentroy, birbirine dikilmiş o tedarikçi yamasını tek, tutarlı bir platformla değiştirir. Ana ekran Sentroy OS'tur — sentroy.com/d adresinde web üzerinde macOS tarzı bir masaüstü; pencereler, bir dock, launchpad, widget'lar, bir app store ve başarımlarla — bir şirketin, tek bir güvenli girişle tüm uygulama paketini çalıştırdığı yer. Benimseme à la carte'tır: tek bir uygulamayı aç ya da tüm şirketi onun üzerinde çalıştır.",
+    "points": [
+      {
+        "title": "Sentroy OS — ana ekran",
+        "body": "Web üzerinde bir masaüstü, bir şirketin araçlarını birbirinden kopuk sekmelerle dolu bir tarayıcı yerine tek, tutarlı bir ortama dönüştürür. Her uygulama, aynı giriş altında bir penceredir."
+      },
+      {
+        "title": "Tek giriş, her yerde",
+        "body": "Tek bir güvenli giriş; aynı kullanıcıları, ekipleri ve ince ayarlı izinleri paketteki her uygulama boyunca taşır — her tedarikçi için ayrı bir hesap oluşturmaya ya da mutabakata almaya gerek yok."
+      },
+      {
+        "title": "Sahip olunan altyapı, yeniden satılan değil",
+        "body": "Kendi e-posta altyapımızı, kendi küresel dosya ve medya dağıtım ağımızı ve kendi giriş servisimizi işletiyoruz — başkasınınkini yeniden satmak yerine. Bu yapı taşlarına sahip olduğumuz için kaliteye, maliyete ve yol haritasına biz hâkimiz."
+      },
+      {
+        "title": "Tek fatura, tek ilişki",
+        "body": "Her şirketin verisi platformun tamamında birbirinden temiz biçimde ayrılır; kullanım tabanlı planlar ve tek bir fatura, aboneliklerle dolu bir çekmecenin yerini alır."
+      },
+      {
+        "title": "Yapısı gereği savunulabilir",
+        "body": "Bir müşterinin etkinleştirdiği her ek uygulama; ortak kimlik, veri ve faturalandırma ilişkisini derinleştirir — konsolidasyonu tek seferlik bir kolaylık yerine katlanarak büyüyen geçiş maliyetlerine dönüştürür."
+      }
+    ]
+  },
+  "product": {
+    "label": "Paket",
+    "title": "Eksiksiz bir birinci-taraf paket — hepsi gerçek, hepsi canlı, hepsi tek giriş altında.",
+    "body": "Bu, vaatlerden oluşan bir yol haritası değildir. Aşağıdaki her uygulama, aynı giriş altında çalışan gerçek, birinci-taraf bir üründür ve genişlik stratejinin ta kendisidir: bir müşterinin operasyonları ne kadar çok Sentroy içinde yaşarsa, geçiş maliyeti o kadar yüksek, onları birbirine bağlayan veri o kadar zengin olur. Bu kadarını üreten hız, ekibin bir sonraki adımda ne inşa edeceğinin en net sinyalidir.",
+    "apps": [
+      {
+        "name": "Sentroy OS",
+        "tagline": "Tüm şirketinizin üzerinden çalıştığı macOS tarzı masaüstü — pencereler, dock, launchpad ve app store, hepsi tek giriş altında."
+      },
+      {
+        "name": "Mail",
+        "tagline": "Sentroy'un kendi altyapısında ürün ve pazarlama e-postası — gönderim, gelen kutusu, alan adları, şablonlar, hedef kitleler ve doğrulama. Bayi kâr marjı değil."
+      },
+      {
+        "name": "Storage",
+        "tagline": "Hızlı büyük-dosya yüklemeleriyle dosya ve medya depolama; Sentroy'un kendi küresel dağıtım ağı ve görüntü işlemesiyle desteklenir."
+      },
+      {
+        "name": "Auth",
+        "tagline": "Diğer uygulamalar için \"Sign in with Sentroy\" ile birlikte barındırılan bir giriş servisi — müşterilerin kendi son kullanıcı hesaplarını yönettiği, her projenin güvenli biçimde yalıtıldığı bir Firebase-Auth alternatifi."
+      },
+      {
+        "name": "Status",
+        "tagline": "Herkese açık durum sayfaları — olaylar, planlı bakımlar, aboneler ve uptime geçmişi — yerleşik Atlassian Statuspage inceliğiyle."
+      },
+      {
+        "name": "WhatsApp Santral",
+        "tagline": "İşletmeler için WhatsApp mesajlaşması — birden çok numara, mesaj şablonları, kişi listeleri ve tekli veya toplu gönderim."
+      },
+      {
+        "name": "Studio",
+        "tagline": "Doğrudan tarayıcıda çalışan, DJ-öncelikli bir müzik stüdyosu — dosyalarınız cihazınızda kalır, isteğe bağlı bulut senkronizasyonu ve eksiksiz bir efekt paketiyle."
+      },
+      {
+        "name": "Meet",
+        "tagline": "Yerleşik tek ortak girişle white-label video konferans."
+      },
+      {
+        "name": "OpenCut",
+        "tagline": "Paketin geri kalanıyla aynı girişi paylaşan tarayıcı içi video editörü."
+      },
+      {
+        "name": "Linear Lite",
+        "tagline": "Triyaj ve Telegram botuyla görev ve issue takibi."
+      },
+      {
+        "name": "Tools",
+        "tagline": "Yaklaşık otuz ücretsiz tarayıcı içi araç — görüntü, PDF, ses, video ve geliştirici dönüşümleri ile WHOIS — on dilde yerelleştirilmiş."
+      },
+      {
+        "name": "App Store",
+        "tagline": "OS içinde güvenle yalıtılmış çalışan, kurulabilir birinci ve üçüncü taraf uygulamalar — pazar yeri çarkı."
+      }
+    ]
+  },
+  "developer": {
+    "label": "Geliştirici platformu",
+    "title": "Bir hendek olarak dağıtım: geliştiricilere başladıkları anda ulaş, her dil için araçlarla onları elde tut.",
+    "body": "Sentroy, ilk günden herhangi bir ürüne takılabilecek şekilde inşa edilmiştir ve kalıcı benimsemeye giden en hızlı yolu, bir proje oluşturulduğu anda orada olmaktır. Sentroy OS'u güçlendiren aynı servisler, her geliştiriciye temiz, belgelenmiş bir arayüz üzerinden sunulur ve tek komutluk bir başlangıç kiti ile her popüler dil için hazır araçlar, bunları eklemeyi kolay varsayılan hâline getirir — böylece Sentroy'u seçmek, ürünün ilk satırı yazılmadan önce gerçekleşir ve ayrılmak, müşterinin inşa ettiği her şeydeki bu bağlantıları yeniden kurmak demektir.",
+    "points": [
+      {
+        "title": "Proje sıfır anında başlangıç kiti",
+        "body": "\"npm create sentroy-app\", eksiksiz, çalışmaya hazır bir uygulama üretir ve giriş, dosya depolama ile e-postayı à la carte bağlar — Sentroy'un barındırılan girişi ya da uygulamanın kendi girişi kullanılarak, \"Sign in with Sentroy\" kutudan çıkar çıkmaz hazır."
+      },
+      {
+        "title": "Dört dilde tam parite",
+        "body": "Resmî geliştirici kiti; TypeScript, Go, Python ve PHP arasında tam özellik paritesiyle — her birinde on üç servis — artı hazır arayüz bileşenleriyle gelir. Sentroy, bir ekibin teknolojisinden bağımsız olarak uygulanabilir bir omurgadır; yalnızca-JavaScript bir bahis değil."
+      },
+      {
+        "title": "Varsayılan olarak güvenli, denetlenebilir erişim",
+        "body": "Erişim, ince ayarlı izinlere sahip, iptal edilebilir anahtarlarla verilir ve her hassas işlem kayıt altına alınır. Kurumsal düzeyde erişim kontrolü ve eksiksiz bir denetim izi varsayılandır, ücretli bir eklenti değil."
+      },
+      {
+        "title": "Entegrasyon derinliği geçiş maliyetine dönüşür",
+        "body": "Bir uygulama kullanıcılarını Sentroy üzerinden girdiğinde, dosyalarını sakladığında ve e-postasını gönderdiğinde — ve \"Sign in with Sentroy\" sunduğunda — platformdan ayrılmak, aynı anda birkaç sistemi birden yeniden kurmak demektir. Erken kolaylık, kalıcı elde tutmaya dönüşür."
+      }
+    ],
+    "scaffoldCmd": "npm create sentroy-app@latest my-app",
+    "sdkSnippet": "import { Sentroy } from \"@sentroy-co/client-sdk\"\n\nconst sentroy = new Sentroy({\n  baseUrl: \"https://sentroy.com\",\n  companySlug: \"acme\",\n  accessToken: process.env.SENTROY_TOKEN!,\n})\n\nawait sentroy.mail.send({ to, subject, html })\nconst { url } = await sentroy.storage.upload(file)"
+  },
+  "market": {
+    "label": "Pazar",
+    "title": "Pazar, Sentroy'un yerini aldığı kategorilerin toplamıdır — her prototiple genişleyen.",
+    "body": "Sentroy'un hedeflenebilir pazarı tek bir kategori değildir; bir geliştiricinin aksi hâlde ayrı ayrı satın alacağı kategorilerin birleşimidir. Uydurulmuş tek bir TAM iddia etmek yerine, onu bileşimle boyutlandırıyoruz: giriş ve kimlik, dosya depolama ve dağıtımı, e-posta, faturalandırma, mesajlaşma, durum sayfaları, video ve issue takibi — her biri kendi başına büyük, oturmuş yazılım pazarlarıdır. Kamuya açık takip kaynakları, birleşik geliştirici-araçları ve bulut-servisleri kategorilerini genellikle büyük ve çift haneli büyüyen olarak tanımlar — burada yalnızca örnekleyici bir pazar sinyali olarak anılmıştır, kendi erişilebilir pazarımıza dair aşağıdan-yukarı bir iddia değil. Savunulabilir bir TAM hesaplaması ayrı bir model olarak sunulmuştur.",
+    "points": [
+      {
+        "title": "Bileşimle pazar",
+        "body": "Sentroy'un konsolide ettiği tedarikçilerin her biri kanıtlanmış, bağımsız olarak boyutlandırılabilir pazarlardır. Hâlihazırda var olan harcamayı konsolide etmek, yeni bir kategori yaratmaktan daha düşük riskli bir tezdir."
+      },
+      {
+        "title": "AI kodlama, talep hızlandırıcısıdır",
+        "body": "Birinin dakikalar içinde bir uygulama yapmasını sağlayan her araç, artık arkasında çalışan her şeye ihtiyaç duyan başka bir geliştirici yaratır — dalga hızlanırken tam da hedeflenebilir kitlemizi genişleten, finanse etmemiz gerekmeyen bir eğilim."
+      },
+      {
+        "title": "Konsolidasyon, hâkim yöndür",
+        "body": "Araç dağınıklığı ve tedarikçi başına faturalandırmaya yönelik alıcı yorgunluğu iyi belgelenmiştir. Pazar, birçok nokta çözümünü tek faturayla tek tutarlı bir yüzeyde toplayan platformları defalarca ödüllendirmiştir."
+      },
+      {
+        "title": "Kama, sonra genişleme",
+        "body": "Bireysel uygulamalar — e-posta, giriş, depolama — kendi meziyetleriyle rekabet eden inandırıcı bağımsız giriş noktalarıdır; platform ise, müşteriler aynı giriş ve fatura altında ek uygulamaları konsolide ettikçe genişleme geliri yakalar."
+      }
+    ]
+  },
+  "model": {
+    "label": "İş modeli",
+    "title": "Bugün şirket kapsamlı abonelikler, yarın pazar yeri komisyon oranı.",
+    "body": "Gelir, şirket kapsamlı ve kullanım-farkında olup Polar.sh üzerinden faturalandırılır; aşağıdan-yukarı benimsemeyi tohumlayan bir ücretsiz kademe ve gerçek kullanımla ölçeklenen ücretli kademelerle. Paket geniş olduğu ve tek bir hesabı paylaştığı için genişleme doğaldır: bir müşterinin ürünü büyüdükçe, platform genelindeki tüketimi de büyür — ve sahip olunan altyapı, orantılı bir tedarikçi maliyeti olmadan müşteri başına daha fazla uygulamaya hizmet ettikçe birim ekonomisi iyileşir.",
+    "streams": [
+      {
+        "name": "Şirket abonelik planları",
+        "desc": "Polar.sh üzerinden tekrarlayan ücretsiz ve ücretli kademeler; gerçek kullanım limitlerine dayalı — alan adları, ekip üyeleri, posta kutuları, depolama ve aylık e-posta ile WhatsApp hacmi. Tek bir abonelik, ayrı ayrı araçlardan oluşan bir yamanın üreteceği altı-ila-on tedarikçi faturasının yerini alır."
+      },
+      {
+        "name": "Kullanım tabanlı genişleme",
+        "desc": "Müşteriler uygulama ekleyip hacim büyüttükçe, plan kademelerinde ve limitlerinde yukarı çıkarlar. Tek fatura altında konsolidasyon, çapraz satışı ayrı bir satış hareketi yerine doğal net-gelir elde tutmaya dönüştürür."
+      },
+      {
+        "name": "Tek seferlik sistem ürünleri",
+        "desc": "Aboneliklerin yanında kayıtlı ayrık tek seferlik satın alımlar; tekrarlayan tabanı bozmadan yüksek değerli kilit açmaları ve kapasiteyi paraya çevirir."
+      },
+      {
+        "name": "Üçüncü taraf uygulama pazar yeri",
+        "desc": "Gelecekteki bir komisyon oranı şeridi: OS içinde güvenle yalıtılmış çalışan, kurulabilir üçüncü taraf uygulamalar ve daha fazla uygulamanın daha fazla müşteri çektiği, tersinin de geçerli olduğu bir çarkın motoru."
+      }
+    ]
+  },
+  "growth": {
+    "label": "Yol haritası",
+    "title": "Canlıya alınmış bir platformdan kendi kendini besleyen bir ekosisteme.",
+    "body": "En zor ve en sermaye-yoğun mühendislik çoktan geride kaldı. Önümüzdeki sıralama kasıtlıdır: birleşik platformu kanıtla, dağıtımı geliştiricilere aç, konsolidasyonu genişleme gelirine dönüştür, ardından üçüncü tarafların ve uygulamalar arası verinin hendeği katlayarak büyütmesine izin ver. Zaman aralıkları, sabit takvim vaatleri yerine kuruluşa göre gösterilmiştir.",
+    "phases": [
+      {
+        "when": "2026 — Temel",
+        "title": "Birleşik platformu inşa et",
+        "body": "Sentroy OS, her şey arasında tek bir ortak giriş ve her uygulamanın üzerine inşa edildiği ortak temel canlıya alındı; ardından Sentroy'a ait altyapı üzerinde eksiksiz bir birinci-taraf paket — e-posta, depolama ve dağıtım, giriş servisi, durum ve dahası. Genişlik ve tutarlılık sağlandı."
+      },
+      {
+        "when": "Şimdi",
+        "title": "Dağıtımı geliştiricilere aç",
+        "body": "Geliştiricilerle başladıkları yerde buluşarak vibe coding dalgasını kayıtlara dönüştür: create-sentroy-app başlangıç kiti, dört dilde hazır araçlar, güvenli bir geliştirici arayüzü ve dokümanlar — taze bir projeden canlı, gelire hazır bir işletmeye geçen süre dakikalarla ölçülür."
+      },
+      {
+        "when": "Sıradaki",
+        "title": "Konsolidasyon, derinlik ve güvenilirlik",
+        "body": "Müşterileri tek bir uygulamadan tek fatura altındaki eksiksiz pakete taşı, en yüksek kaldıraçlı servisleri sınıfının en iyisine doğru derinleştir ve güvenilirliği sağlamlaştır ki Sentroy yalnızca kullanışlı değil, güvenli tek bir bağımlılık olsun."
+      },
+      {
+        "when": "Ardından",
+        "title": "Pazar yeri çarkı",
+        "body": "App Store'u ölçekle: üçüncü taraf geliştiriciler, bir komisyon oranı modeli altında güvenle yalıtılmış uygulamalar yayınlar; böylece ekosistem genişliği müşteri çeker, müşteri hacmi de geliştirici çeker."
+      },
+      {
+        "when": "Ufuk",
+        "title": "Kurumsal derinlik ve veri çekim gücü",
+        "body": "Yönetişimi, denetimi ve idari kontrolleri derinleştir ve uygulamalar arası veriyi platform düzeyinde zekâya dönüştür — geçiş maliyetlerinin ve veri çekim gücünün Sentroy'u AI ile üretilen ürünlerin büyük bir bölümü için varsayılan operasyonel omurga hâline getirdiği aşama."
+      }
+    ]
+  },
+  "scalability": {
+    "label": "Teknoloji ve ölçek",
+    "title": "Kırılganlık eklemeden sütun eklemek için inşa edildi.",
+    "body": "Sentroy'un inşa ediliş biçimi, yalın bir ekibin bu kadarını canlıya alıp işletmesini, birim ekonomisini disiplinli tutarken sağlayan şeydir. Her müşterinin verisi birbirinden temiz biçimde ayrılır, her uygulama aynı güvenli temeli yeniden inşa etmek yerine yeniden kullanır ve her uygulama diğerlerini riske atmadan tek başına güncellenebilir. Güvenlik ve ölçeklenebilme, uygulama başına sonradan takılan bir şey değil, platformun kendi özellikleridir.",
+    "points": [
+      {
+        "title": "Her müşteri için temiz ayrım",
+        "body": "Her müşterinin verisi tamamen yalıtılır; ince ayarlı izinler ve her hassas işlemin kaydıyla. Tek bir sistem herkese güvenle hizmet eder — dolayısıyla her ilave müşteri, ek mühendislikte neredeyse hiçbir maliyet getirmez."
+      },
+      {
+        "title": "Yeni uygulamalar platformu miras alır",
+        "body": "Her uygulama tek, modern, ortak bir kod tabanı üzerine kuruludur — aynı giriş, veri katmanı ve arayüz yapı taşları — böylece yeni bir uygulama, her şeyi sıfırdan yeniden inşa etmek yerine platformu miras alır. Küçük bir ekibin geniş bir paketi hızlı ve düşük maliyetle çıkarabilmesinin nedeni budur."
+      },
+      {
+        "title": "Her uygulama kendi başına güvenle güncellenir",
+        "body": "Uygulamalar birbirinden bağımsız olarak yayınlanır, dolayısıyla birindeki bir değişiklik diğerlerini asla çökertemez ve güncellemeler canlı müşterileri aksatmadan yayılır. Bu, paket büyüdükçe arızaları sınırlı, işletme maliyetlerini düşük tutar."
+      },
+      {
+        "title": "Çekirdek altyapıya biz sahibiz",
+        "body": "E-posta altyapımız, dosya ve medya dağıtım ağımız ve giriş ile güvenlik katmanımız baştan sona bize aittir — böylece müşterilerin en çok hissettiği kısımlar (hız, teslim edilebilirlik, güvenlik) ayarlamak bizim elimizdedir ve marj bir aracıya ödenmek yerine yakalanır."
+      }
+    ]
+  },
+  "swot": {
+    "label": "Dürüst değerlendirme",
+    "title": "SWOT — samimi sürüm.",
+    "strengths": [
+      {
+        "title": "Gerçek canlı genişlik",
+        "body": "E-posta, depolama, giriş, durum, mesajlaşma ve yaratıcı uygulamaları kapsayan bir birinci-taraf paket — tek giriş ve tek masaüstü altında üretimde canlı. Bu, slayt yazılımı değil kanıtlanmış bir platformdur ve sunumdaki en güçlü tekil sinyaldir."
+      },
+      {
+        "title": "Sahip olunan altyapı, bayi değil",
+        "body": "E-posta, dosya dağıtımı ve giriş servisi baştan sona bize aittir. Bu; marj kontrolü, önemli olanı ayarlayabilme ve ince bayilerin kopyalayamayacağı tutarlı bir güvenlik modeli anlamına gelir."
+      },
+      {
+        "title": "Katlanarak büyüyen geçiş maliyetleri",
+        "body": "Bir müşterinin etkinleştirdiği her uygulama; ortak kimliği, veriyi ve faturalandırmayı derinleştirir, böylece konsolidasyon tek seferlik bir kolaylık yerine kalıcı bir bağlanmaya ve genişleme gelirine dönüşür."
+      },
+      {
+        "title": "Proje sıfır anında dağıtım",
+        "body": "Tek komutluk başlangıç kiti ve dört dil için hazır araçlar, Sentroy'u oluşturma anına yerleştirir — tam da vibe coding dalgasının en çok yeni projeyi ürettiği anda."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Erken aşama",
+        "body": "Bu, bugüne dek sınırlı dış pazar doğrulamasına sahip, tohum aşamasındaki bir şirkettir. Ürün olgunluğu, ticari kanıtın önündedir."
+      },
+      {
+        "title": "Küçük ekip",
+        "body": "5 kişilik bir ekip, geniş bir yüzeyde kayda değer kilit-kişi ve kapasite riski taşır; işe alım, bu sermayenin birinci-derece kullanımıdır."
+      },
+      {
+        "title": "Genişliğe karşı derinlik",
+        "body": "Bu kadar geniş bir paket, her sütunun o tek soruna yıllarını yatırmış odaklı bir uzmanla rekabet ettiği anlamına gelir. Derinlik paritesini sürdürmek, süregelen bir yürütme riskidir."
+      },
+      {
+        "title": "Pazara açılım henüz emekliyor",
+        "body": "Ürün-öncülüklü hareket erken ve ölçekte kanıtlanmamış durumda ve henüz açıklanmış bir gelir yok. Açık soru mühendislik değil, dağıtımdır."
+      }
+    ],
+    "opportunities": [
+      {
+        "title": "Vibe coding arka rüzgârı",
+        "body": "Uygulama yapan kişilerin havuzu hızla genişliyor ve her biri tam olarak Sentroy'un sunduğu omurgaya ihtiyaç duyuyor. Bu eğilim pazarımızı, bizim yaratmamız gerekenden daha hızlı yaratıyor."
+      },
+      {
+        "title": "Pazar yeri çarkı",
+        "body": "App Store, dışarıdaki geliştiricilerin bizim personel sayımız olmadan platformu derinleştirmesine ve uzun kuyruk ihtiyaçlarını karşılamasına olanak tanırken, bir komisyon oranı gelir şeridi ile geliştiriciler ve müşteriler arasında bir ağ etkisi açar."
+      },
+      {
+        "title": "Üst pazara yönel",
+        "body": "Mevcut ortak giriş, denetim izi ve müşteri başına temiz ayrım, kurumsal kontroller ve uyumluluk için inandırıcı bir zemindir — zamanla daha büyük, daha yapışkan sözleşmelere giden bir yol."
+      },
+      {
+        "title": "Alıcılar için konsolidasyon ekonomisi",
+        "body": "Altı ila on faturanın yerine bir tanesini koymak; maliyete duyarlı ortamlarda yankı uyandıran somut bir maliyet-ve-karmaşıklık argümanıdır ve tedariğin zaten yöneldiği yönle uyumludur."
+      }
+    ],
+    "threats": [
+      {
+        "title": "Derin cepli yerleşik oyuncular ve nokta çözümleri",
+        "body": "Kimlik (Auth0/Okta), depolama (AWS/S3), e-posta (SendGrid/Resend), mesajlaşma (Twilio) ve uygulama platformları (Supabase/Firebase, Vercel) — hepsi henüz eşleşemediğimiz ölçeğe, bütçeye ve derinliğe sahip ve her biri savunma amaçlı paketleme yapabilir."
+      },
+      {
+        "title": "Derinlik açığı",
+        "body": "Kararlı bir uzman, herhangi bir tekil Sentroy sütununu özellik bakımından geçebilir. Bahsimiz, hedef alıcımız için birleştirmenin uygulama başına derinlikten daha ağır bastığıdır — ve bu varsayılmamalı, kanıtlanmalıdır."
+      },
+      {
+        "title": "Platform bağımlılığı",
+        "body": "Paketin bazı kısımları, dış platformlara ve açık kaynak bileşenlere dayanır — WhatsApp, Jitsi, Polar ve diğerleri — ki bunlarda politika veya lisanslama değişiklikleri bizim kontrolümüz dışındadır."
+      },
+      {
+        "title": "Kategori zamanlaması",
+        "body": "AI kodlama araçları kendi altyapılarını paketlemeye başlarsa ya da büyük bir bulut veya geliştirici-araçları tedarikçisi aynı birleşik tezi daha fazla sermayeyle takip ederse, pencere daralabilir. Bunu hafifleten şey, dağıtıma ulaşma hızıdır."
+      }
+    ],
+    "strengthsLabel": "Güçlü Yönler",
+    "weaknessesLabel": "Zayıf Yönler",
+    "opportunitiesLabel": "Fırsatlar",
+    "threatsLabel": "Tehditler"
+  },
+  "traction": {
+    "label": "Neredeyiz",
+    "title": "Ürün kanıtı masada; sıradaki ticari kanıt.",
+    "body": "Burada bilinçli olarak dürüstüz: bugün en güçlü kanıt, ölçek metrikleri değil ürün ve platform bütünlüğüdür ve uydurulmuş kullanıcı sayıları ya da gelir sunmayacağız. Gerçek olan şu ki tezin tamamı çoktan inşa edilmiş ve çalışıyor — yatırımcıların doğrudan doğrulayabileceği yürütme. Kurucuya özgü rakamlar, doğru sayılarla tamamlanmak üzere bilinçli olarak boş bırakılmıştır.",
+    "points": [
+      {
+        "title": "Eksiksiz paket canlı",
+        "body": "Mail, Storage, Auth, Status, WhatsApp Santral, Studio, Meet, OpenCut, Linear Lite ve Tools; tek bir ortak giriş ve tek bir masaüstü altında çalışan gerçek, canlı birinci-taraf uygulamalardır — üretim ortamı, staging ya da demo değil."
+      },
+      {
+        "title": "Geliştirici platformu canlıya alındı",
+        "body": "TypeScript, Go, Python ve PHP arasında tam özellik paritesi, çalışan bir create-sentroy-app başlangıç kiti ve belgelenmiş, güvenli bir geliştirici arayüzü — dağıtım motoru bir yol haritasında değil, işler durumda."
+      },
+      {
+        "title": "Üretim düzeyi operasyonlar",
+        "body": "Bağımsız, güvenilir yayınlar, düzenli anahtar rotasyonlu güvenli bir ortak giriş, müşteri başına temiz ayrım ve baştan sona denetim kaydı — tipik bir pre-seed prototipinin çok ötesinde mühendislik olgunluğu."
+      },
+      {
+        "title": "Para kazanma bağlandı",
+        "body": "Polar.sh üzerinden şirket abonelikleri ve tek seferlik sistem ürünleri entegre edilmiştir ve App Store'un güvenle yalıtılmış üçüncü taraf uygulamaları mimari olarak tasarlanmıştır — gelir altyapısı, benimseme büyüdükçe talebi yakalamaya hazırdır."
+      },
+      {
+        "title": "Ekip ve aşama",
+        "body": "2026 yılından bu yana 5 kişilik bir ekip tarafından yüksek sermaye verimliliğiyle inşa edildi. Kullanım, müşteri ve gelir rakamları uydurulmak yerine bilinçli olarak atlanmıştır — ve bu turun odağıdır."
+      }
+    ]
+  },
+  "ask": {
+    "label": "Talep",
+    "title": "Canlıya alınmış bir platformu katlanarak büyüyen bir işletmeye dönüştürmek için $500K topluyoruz.",
+    "body": "Yaklaşık 18 aylık nakit ömrü için bir tohum turunda $500K topluyoruz. En zor, en sermaye-yoğun iş — sahip olunan altyapıyı, eksiksiz uygulama paketini, geliştirici araçlarını ve faturalandırma sistemini inşa etmek ve işletmek — çoktan geride kaldı, dolayısıyla temel inşa ve uygulama riski büyük ölçüde bertaraf edilmiştir. Bu tur, inşa edebileceğimizi kanıtlamakla ilgili değil; ikinci perdeyi finanse ediyor: dağıtımı benimsemeye, benimsemeyi genişleme gelirine ve pazar yerini bir çarka dönüştürmek.",
+    "useOfFunds": [
+      {
+        "area": "Mühendislik ve ürün derinliği",
+        "desc": "En yüksek değerli sütunlardaki derinlik açığını kapatmak ve sahip olunan altyapıyı sağlamlaştırmak için seçici işe alım yaparak genişliğe-karşı-derinlik riskini doğrudan ele alır ve kilit-kişi maruziyetini azaltır."
+      },
+      {
+        "area": "Geliştirici ilişkileri ve pazara açılım",
+        "desc": "Platformun hak ettiği ürün-öncülüklü hareketi inşa et — dokümanlar, geliştirici-aracı benimseme, başlangıç kiti dağıtımı ve vibe coding'le üretilmiş prototipten Sentroy-destekli ürüne net bir giriş rampası — arka rüzgârı boru hattına dönüştürerek."
+      },
+      {
+        "area": "Güvenilirlik, güvenlik ve kurumsal hazırlık",
+        "desc": "İzleme, güvenilirlik ve uyumluluğa yatırım yaparak müşterilerin Sentroy'a tek bir bağımlılık olarak güvenle konsolide olmasını sağla ve üst pazarda daha büyük, daha yapışkan hesapların kilidini aç."
+      },
+      {
+        "area": "Ekosistem ve pazar yeri",
+        "desc": "Üçüncü taraf App Store'u açıp tohumlayarak platformun değerini ağ etkileriyle katla ve komisyon oranı gelir şeridini ayağa kaldır."
+      }
+    ],
+    "closing": "Bu, halihazırda var olan bir platform karşılığında sermaye-verimli bir turdur. Keşfi değil, büyümeyi, dağıtımı ve kalıcılığı finanse ediyoruz — ve sermaye, paketi üreten disiplinle konuşlandırılacak: kendi başına personel sayısına göre değil, dağıtım kilometre taşlarına göre ölçülerek."
+  },
+  "closing": {
+    "title": "Dünya her gün daha fazla uygulama üretecek. Hepsinin bir omurgaya ihtiyacı olacak.",
+    "body": "Sentroy o omurgadır — tek platform, tek giriş, tek fatura; sahip olunan altyapı ve halihazırda var olan canlı bir paketle. AI-destekli kodlama bir uygulama yapmayı fiilen ücretsiz hâle getirdikçe, kalıcı değer alttaki her şeye kayar ve emeğimizi tam da oraya harcadık. Geriye kalan, çoktan inşa edilmiş bir temel üzerinde ticari motoru ölçeklemek. Uygulamayı sen vibe-code'la; arkasındaki şirketi Sentroy çalıştırsın.",
+    "cta": "Tur hakkında konuşalım"
+  },
+  "metaTitle": "Yatırımcılar",
+  "metaDescription": "Sentroy — vibe-coding çağının operasyonel omurgası. Tohum turu yatırımcı sunumu.",
+  "nav": {
+    "tag": "Yatırımcı sunumu",
+    "thesis": "Tez",
+    "product": "Ürün",
+    "market": "Pazar",
+    "growth": "Büyüme",
+    "swot": "SWOT",
+    "ask": "Talep",
+    "contact": "İletişim"
+  },
+  "footer": {
+    "tagline": "Vibe-coding çağının işletim platformu.",
+    "home": "Ana sayfa",
+    "docs": "Dokümanlar",
+    "copyright": "© 2026 Sentroy — Gizli, potansiyel yatırımcılar için hazırlanmıştır."
+  }
+}

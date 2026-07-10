@@ -1,0 +1,684 @@
+{
+  "nav": {
+    "platform": "Platform",
+    "overview": "Panel",
+    "requests": "Inbox",
+    "newTask": "New Task",
+    "metrics": "Metrics",
+    "linearSettings": "Linear Settings",
+    "team": "Team",
+    "settings": "Settings",
+    "accessTokens": "Access Tokens",
+    "account": "Profile",
+    "logout": "Log out",
+    "teams": "Teams",
+    "addTeam": "Add team",
+    "noTeams": "No teams yet",
+    "loading": "Loading…",
+    "noCompany": "No company",
+    "admin": "Admin",
+    "administration": "Administration",
+    "backToApp": "Back to app",
+    "companyProfile": "Company profile",
+    "companyHub": "Company",
+    "dashboard": "Dashboard"
+  },
+  "linearLite": {
+    "common": {
+      "appName": "Linear Lite",
+      "loading": "Loading…",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "close": "Close",
+      "retry": "Retry",
+      "created": "Created",
+      "updated": "Saved",
+      "deleted": "Deleted",
+      "copy": "Copy",
+      "copied": "Copied",
+      "search": "Search…",
+      "noResults": "No results",
+      "loadError": "Could not load.",
+      "somethingWrong": "Something went wrong",
+      "noPermission": "You don't have permission for this action."
+    },
+    "notConnected": {
+      "title": "Linear is not connected",
+      "description": "Connect your Linear workspace with an API key to start managing requests from this panel.",
+      "descriptionMember": "This company's Linear workspace is not connected yet. Ask a workspace admin to set it up.",
+      "cta": "Open Linear Settings"
+    },
+    "tasks": {
+      "detail": {
+        "activity": "Activity",
+        "titleAria": "Title",
+        "descriptionAria": "Description",
+        "descriptionPlaceholder": "Add a description…",
+        "noActivity": "No activity yet.",
+        "addComment": "Add a comment…",
+        "addCommentAria": "Add a comment",
+        "sendComment": "Send",
+        "replyPlaceholder": "Write a reply…",
+        "replyAria": "Write a reply",
+        "replyBadge": "Reply",
+        "cancelReply": "Cancel reply",
+        "attached": "Attachment added",
+        "attach": {
+          "button": "Attach file",
+          "title": "Add attachment",
+          "desc": "Upload a file or paste a link. It will be attached in Linear.",
+          "label": "Title (optional)",
+          "labelPlaceholder": "e.g. Bug screenshot",
+          "submit": "Add",
+          "tabFile": "File",
+          "tabLink": "Link",
+          "dropTitle": "Choose a file or drop it here",
+          "maxSize": "Up to 25 MB",
+          "tooLarge": "File can't exceed 25 MB ({size})",
+          "pickFirst": "Choose a file first",
+          "invalidUrl": "Enter a valid URL",
+          "remove": "Remove"
+        }
+      },
+      "priority": {
+        "no_priority": "No priority",
+        "urgent": "Urgent",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "status": {
+        "backlog": "Backlog",
+        "todo": "Todo",
+        "in_progress": "In Progress",
+        "done": "Done",
+        "cancelled": "Cancelled"
+      },
+      "relative": {
+        "now": "now",
+        "minutes": "{count}m",
+        "hours": "{count}h",
+        "days": "{count}d"
+      },
+      "list": {
+        "drag_handle": "Drag",
+        "reorder_failed": "Could not update order"
+      },
+      "kanban": {
+        "move_failed": "Could not update status",
+        "state_missing": "The {team} team has no \"{state}\" state",
+        "no_states": "No workflow states found for this workspace.",
+        "empty_columns": "Empty columns",
+        "empty": "Empty"
+      },
+      "view": {
+        "label": "View",
+        "list": "List",
+        "kanban": "Kanban"
+      },
+      "filter": {
+        "button": "Filter",
+        "scope": "Scope",
+        "scope_workspace": "Entire workspace",
+        "scope_mine_linear": "Assigned to me",
+        "scope_mine_proxy": "My requests",
+        "state": "Status",
+        "open": "Open",
+        "all": "All",
+        "closed": "Closed",
+        "assignee": "Assignee",
+        "unassigned": "Unassigned",
+        "no_users": "No users",
+        "label": "Label",
+        "no_labels": "No labels",
+        "no_labels_in_group": "No labels in this category",
+        "clear": "Clear filters"
+      },
+      "chip": {
+        "empty": "No options",
+        "selected_count": "{count} selected",
+        "search_placeholder": "Search…",
+        "clear_all": "Clear all",
+        "clear": "Clear selection",
+        "no_labels_in_group": "No labels in this category"
+      },
+      "quick_add": {
+        "min_length": "Title must be at least 3 characters",
+        "placeholder_compact": "Add a request…",
+        "placeholder": "Quickly add a request with a title…",
+        "aria": "Quick request title",
+        "submit": "Add"
+      },
+      "new": {
+        "title": "New Request",
+        "sent": "Request created",
+        "submit": "Submit Request",
+        "dialog_description": "The request is created directly in Linear; you can edit it later from the detail page.",
+        "fields": {
+          "title": "Title",
+          "title_placeholder": "Summarize the issue briefly",
+          "description": "Description",
+          "description_placeholder": "Write the details here",
+          "state": "Status",
+          "priority": "Priority",
+          "assignee": "Assignee",
+          "assignee_clear": "Remove assignee",
+          "labels": "Labels",
+          "labels_empty": "No labels for this team",
+          "team": "Team"
+        },
+        "template": {
+          "label": "Template",
+          "placeholder": "Select template",
+          "clear": "Remove template",
+          "confirm_title": "Change template?",
+          "confirm_description": "The title, description, labels and other fields in the form will be updated to match the new template. This cannot be undone.",
+          "confirm_confirm": "Change",
+          "confirm_cancel": "Cancel",
+          "applied": "Applied template \"{name}\"",
+          "applying": "Applying template…"
+        },
+        "attachments": {
+          "title": "Attachments ({count})",
+          "add": "Attach",
+          "remove": "Remove {name}",
+          "upload_failed": "Could not upload attachment: {name}",
+          "uploading": "Uploading attachments…"
+        }
+      },
+      "sub_task": {
+        "add": "Add sub-task"
+      },
+      "title": "Issues",
+      "titleMinError": "Title must be at least 3 characters",
+      "children": {
+        "heading": "Sub-issues ({count})"
+      },
+      "comments": {
+        "none": "No comments yet.",
+        "unknown": "Unknown",
+        "reply": "Reply",
+        "createFromComment": "Create issue from comment",
+        "createSubFromComment": "Create sub-issue from comment",
+        "copyComment": "Copy comment",
+        "copied": "Comment copied",
+        "menuAria": "Comment menu",
+        "deleteTitle": "Delete comment?",
+        "deleteDesc": "This cannot be undone. The comment is also removed in Linear.",
+        "emptyError": "Comment can't be empty"
+      },
+      "activity": {
+        "system": "System",
+        "filterByUser": "Filter issues assigned to {name}",
+        "filterAvatarAria": "Filter {name}'s issues",
+        "addedLink": "added a link:",
+        "historyStatus": "changed the status",
+        "historyAssigned": "assigned <user></user>",
+        "historyUnassigned": "removed the assignee",
+        "historyPriority": "set the priority to",
+        "historyLabelsAdded": "added <labels></labels>",
+        "historyLabelsRemoved": "removed <labels></labels>",
+        "historyTitleEdited": "edited the title",
+        "historyArchived": "archived",
+        "historyUnarchived": "unarchived"
+      },
+      "hover": {
+        "previewError": "Couldn't load preview",
+        "relativeNow": "just now",
+        "relativeMinutes": "{n}m ago",
+        "relativeHours": "{n}h ago",
+        "relativeDays": "{n}d ago"
+      },
+      "menu": {
+        "status": "Status",
+        "priority": "Priority",
+        "labels": "Labels",
+        "assignee": "Assignee",
+        "clearAssignee": "Remove assignee",
+        "noTeamLabels": "This team has no labels",
+        "copy": "Copy",
+        "copyIdentifier": "Identifier",
+        "copyTitle": "Title",
+        "copyUrl": "Linear URL",
+        "copiedIdentifier": "Identifier copied",
+        "copiedTitle": "Title copied",
+        "copiedUrl": "URL copied",
+        "clipboardError": "Couldn't copy to clipboard",
+        "createLinked": "Create linked",
+        "subTaskNewForm": "Sub-issue (new form)",
+        "archive": "Archive",
+        "archiveConfirmTitle": "Archive {identifier}?",
+        "archiveConfirmDesc": "The issue will be archived in Linear; you can restore it from the Linear UI if needed.",
+        "noLabels": "No labels",
+        "noLabelsInCategory": "No labels in this category",
+        "issueMenuAria": "Issue menu"
+      },
+      "related": {
+        "issue": "New issue",
+        "sub": "Sub-issue",
+        "parent": "Parent issue",
+        "blocking": "Blocking",
+        "blocked": "Blocked",
+        "related": "Related"
+      },
+      "createRelated": {
+        "issueTitle": "Create new issue",
+        "issueDesc": "Open a new unlinked issue.",
+        "subTitle": "Create sub-issue",
+        "subDesc": "Open a new sub-issue under this issue.",
+        "parentTitle": "Create parent issue",
+        "parentDesc": "Attach this issue under a new issue.",
+        "blockingTitle": "Create blocking issue",
+        "blockingDesc": "Open a new issue that blocks this one.",
+        "blockedTitle": "Create blocked issue",
+        "blockedDesc": "Open a new issue blocked by this one.",
+        "relatedTitle": "Create related issue",
+        "relatedDesc": "Open a new issue related to this one.",
+        "issueCreated": "New issue created",
+        "subCreated": "Sub-issue created",
+        "parentCreated": "Parent issue created",
+        "blockingCreated": "Blocking issue created",
+        "blockedCreated": "Blocked issue created",
+        "relatedCreated": "Related issue created",
+        "source": "Source:",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Summarize the issue briefly",
+        "descLabel": "Description",
+        "descPlaceholder": "Optional description",
+        "submit": "Create"
+      }
+    },
+    "requests": {
+      "title": "Inbox",
+      "subtitle": "Requests you submitted and their status updates.",
+      "empty": {
+        "title": "Your inbox is empty",
+        "description": "You haven't submitted a request yet. Requests you send and their status changes will show up here."
+      },
+      "loadError": "Inbox could not be loaded.",
+      "openDetail": "Open detail",
+      "unread": "Unread update",
+      "unreadTitle": "Status changed since your last look",
+      "groups": {
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "week": "Last 7 days",
+        "older": "Older"
+      }
+    },
+    "editor": {
+      "ariaLabel": "Rich text editor",
+      "uploadFailed": "Image upload failed",
+      "uploading": "{count, plural, one {Uploading image…} other {Uploading # images…}}",
+      "bold": "Bold",
+      "italic": "Italic",
+      "strikethrough": "Strikethrough",
+      "inlineCode": "Inline code",
+      "codeBlock": "Code block",
+      "bulletList": "Bullet list",
+      "orderedList": "Numbered list",
+      "link": "Link",
+      "linkPrompt": "Link URL",
+      "image": "Image"
+    },
+    "richTextView": {
+      "copyCode": "Copy code block",
+      "copyFailed": "Could not copy to clipboard"
+    },
+    "confirmDialog": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "theme": {
+      "toggle": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "shortcuts": {
+      "open": "Show keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "description": "Shortcuts are disabled while a text field, dialog, or the command palette is open.",
+      "then": "then",
+      "groupNavigation": "Navigation",
+      "groupActions": "Actions",
+      "groupView": "View",
+      "groupEditor": "Editor",
+      "goDashboard": "Go to panel",
+      "goInbox": "Go to requests",
+      "goNew": "Go to new request form",
+      "create": "Create new request",
+      "openPalette": "Open command palette",
+      "openPaletteAlt": "Open command palette (alternative)",
+      "help": "Open this help panel",
+      "themeToggle": "Toggle light/dark theme",
+      "submitComment": "Submit comment",
+      "bold": "Bold",
+      "italic": "Italic",
+      "insertLink": "Insert link"
+    },
+    "draft": {
+      "title": "Keep this draft?",
+      "description": "Your title and description will be ready the next time you open the form. Deleting resets the whole form.",
+      "discard": "Delete",
+      "cancel": "Cancel",
+      "keep": "Keep"
+    },
+    "version": {
+      "label": "Version v{version}",
+      "notesAria": "Version v{version} — release notes",
+      "notes": "Release notes"
+    },
+    "layout": {
+      "palette": {
+        "placeholder": "Search commands or navigate…",
+        "searching": "Searching…",
+        "empty": "No results found",
+        "groupTasks": "Tasks",
+        "groupPages": "Pages",
+        "groupTheme": "Theme",
+        "groupAccount": "Account",
+        "dashboard": "Panel",
+        "metrics": "Metrics",
+        "newTask": "New Task",
+        "recentSearches": "Recent searches",
+        "recentCards": "Recently viewed",
+        "clear": "Clear",
+        "logout": "Log out"
+      },
+      "header": {
+        "searchLabel": "Open command palette"
+      },
+      "push": {
+        "on": "Push notifications on",
+        "off": "Enable push notifications",
+        "denied": "Notifications blocked in browser settings"
+      }
+    },
+    "metrics": {
+      "requests": "requests",
+      "percentValue": "{value}%",
+      "completionRate": "{value}% completion",
+      "hero": {
+        "kicker": "Metrics",
+        "description": "How panel requests are flowing — volume, resolution speed and who is doing the work.",
+        "thisWeek": "this week",
+        "lastWeek": "last week",
+        "completionRate": "completion rate",
+        "seeClosed": "See closed requests",
+        "requestsWord": "requests"
+      },
+      "cards": {
+        "total": "Total requests",
+        "open": "Open",
+        "completed": "Completed",
+        "avgResolution": "Avg. resolution",
+        "openAge": "Open ones waiting for {age} on average"
+      },
+      "duration": {
+        "minutes": "{value} min",
+        "hours": "{value} h",
+        "days": "{value} d"
+      },
+      "chart": {
+        "bar": "Bar",
+        "line": "Line",
+        "requests": "Requests",
+        "totalCenter": "total"
+      },
+      "panels": {
+        "statesTitle": "By state",
+        "statesSubtitle": "Distribution of open and closed work",
+        "prioritiesTitle": "By priority",
+        "prioritiesSubtitle": "How urgent the workload is",
+        "creatorsTitle": "Top creators",
+        "creatorsSubtitle": "Who opens the most requests",
+        "assigneesTitle": "Top assignees",
+        "assigneesSubtitle": "Who carries the open work",
+        "completersTitle": "Top completers",
+        "completersSubtitle": "Who closes the most requests",
+        "labelsTitle": "Top labels",
+        "labelsSubtitle": "Most used labels",
+        "last30Title": "Last 30 days",
+        "last30Subtitle": "New requests per day",
+        "staleTitle": "Stale requests",
+        "staleSubtitle": "Open and untouched for 14+ days",
+        "staleSubtitleEmpty": "Nothing has gone stale — great job"
+      },
+      "empty": {
+        "noData": "No data to show yet",
+        "noAssigned": "No assigned requests",
+        "noCompleted": "Nothing completed yet",
+        "noLabels": "No labels used yet",
+        "noStale": "No stale requests"
+      },
+      "people": {
+        "viewReport": "View {name}'s report"
+      },
+      "priorities": {
+        "p0": "No priority",
+        "p1": "Urgent",
+        "p2": "High",
+        "p3": "Medium",
+        "p4": "Low"
+      },
+      "states": {
+        "triage": "Triage",
+        "backlog": "Backlog",
+        "unstarted": "Todo",
+        "started": "In progress",
+        "completed": "Completed",
+        "canceled": "Canceled"
+      },
+      "report": {
+        "share": "{pct}% of all requests",
+        "opened": "Opened",
+        "openedThisWeek": "+{count} this week",
+        "assigned": "Assigned",
+        "assignedOpen": "{count} still open",
+        "completed": "Completed",
+        "completionRate": "{value}% completion",
+        "avgResolution": "Avg. resolution",
+        "recentTitle": "Recent requests",
+        "recentSubtitle": "Latest activity for this person",
+        "timelineTitle": "Activity",
+        "timelineSubtitle": "Requests opened over the last 30 days",
+        "topLabelsTitle": "Top labels",
+        "topLabelsSubtitle": "Labels this person works with most"
+      },
+      "loadError": "Metrics could not be loaded from Linear"
+    },
+    "newTask": {
+      "subTaskTitle": "Create sub-request",
+      "parentLabel": "Parent request:",
+      "errors": {
+        "noTeams": "No Linear teams found.",
+        "loadFailed": "Could not connect to Linear."
+      }
+    },
+    "panel": {
+      "title": "Issues",
+      "tagline": "IT request management, powered by Linear",
+      "newTask": "New Request",
+      "empty": {
+        "title": "No requests yet",
+        "description": "Use the button below to create your first request.",
+        "cta": "Create First Request"
+      },
+      "errorTitle": "Something went wrong",
+      "connectionError": "Could not connect to Linear.",
+      "allTeams": "All",
+      "titleWithTeam": "{team} Issues"
+    },
+    "settings": {
+      "title": "Linear Settings",
+      "description": "Connect this company's Linear workspace and configure how the panel behaves.",
+      "vaultWarning": {
+        "title": "Secret storage is not configured",
+        "description": "SENTROY_ENV_MASTER_KEY is not set on the server, so API keys and webhook secrets cannot be encrypted. Saving settings is disabled until an operator configures it."
+      },
+      "connection": {
+        "title": "Linear connection",
+        "description": "Personal API key of the Linear workspace this company works in. The key is stored encrypted and never shown again.",
+        "statusConnected": "Connected",
+        "statusNotConnected": "Not connected",
+        "apiKeyLabel": "Linear API key",
+        "apiKeyPlaceholder": "lin_api_…",
+        "apiKeyHint": "Create one in Linear under Settings → API → Personal API keys. Only the first characters are kept visible.",
+        "apiKeyChange": "Change",
+        "apiKeyCancel": "Cancel",
+        "panelLabelLabel": "Panel label",
+        "panelLabelHint": "Issues carrying this Linear label appear on the panel.",
+        "teamLabel": "Default team",
+        "teamNone": "No default team",
+        "teamEmptyHint": "Teams appear here once a valid API key is saved.",
+        "defaultLabelLabel": "Default label",
+        "defaultLabelPlaceholder": "e.g. Triage",
+        "defaultStateLabel": "Default state",
+        "defaultStatePlaceholder": "e.g. Todo",
+        "actorAppLabel": "Act as app",
+        "actorAppHint": "Perform Linear mutations as the app actor instead of the key owner.",
+        "save": "Save",
+        "saveVerify": "Verify & save",
+        "saving": "Saving…",
+        "saved": "Connection settings saved",
+        "saveError": "Could not save connection settings"
+      },
+      "webhook": {
+        "title": "Webhook",
+        "description": "Linear pushes issue and comment events to this endpoint so the panel updates in real time.",
+        "statusActive": "Registered",
+        "statusMissing": "Not registered",
+        "endpointLabel": "Endpoint URL",
+        "copy": "Copy",
+        "copied": "Endpoint copied",
+        "lastEventLabel": "Last event:",
+        "lastEventNever": "never",
+        "notConnectedHint": "Connect a Linear API key first to register the webhook.",
+        "setup": "Set up webhook",
+        "renew": "Renew webhook",
+        "remove": "Remove",
+        "setupSuccess": "Webhook registered",
+        "removeSuccess": "Webhook removed",
+        "error": "Webhook operation failed"
+      },
+      "storage": {
+        "title": "File storage",
+        "description": "Where uploaded images and attachments are stored.",
+        "providerLabel": "Provider",
+        "providerLinear": "Linear (default)",
+        "providerSentroy": "Sentroy Storage",
+        "providerHint": "Linear stores files in your workspace (viewing requires a Linear session). Sentroy Storage serves public CDN URLs.",
+        "apiKeyLabel": "Sentroy access token",
+        "apiKeyPlaceholder": "stk_…",
+        "apiKeyChange": "Change",
+        "apiKeyCancel": "Cancel",
+        "bucketLabel": "Bucket ID",
+        "bucketPlaceholder": "Bucket identifier",
+        "companySlugLabel": "Company slug",
+        "companySlugPlaceholder": "your-company",
+        "baseUrlLabel": "Base URL",
+        "sentroyHint": "The token, bucket ID and company slug are all required; the bucket must be public. Base URL can stay empty for sentroy.com.",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Storage settings saved",
+        "saveError": "Could not save storage settings"
+      },
+      "telegram": {
+        "title": "Telegram bot",
+        "description": "Operators open panel requests from Telegram. The bot polls Telegram from this app; no webhook setup is needed. Default bot language is English.",
+        "statusEnabled": "Enabled",
+        "statusDisabled": "Disabled",
+        "enabledLabel": "Enable bot",
+        "enabledHint": "Starts polling within a minute after saving. Requires a bot token.",
+        "tokenLabel": "Bot token",
+        "tokenPlaceholder": "123456789:AA…",
+        "tokenHint": "Create a bot with @BotFather in Telegram and paste its token. It is stored encrypted; only the last 4 characters stay visible.",
+        "tokenChange": "Change",
+        "tokenCancel": "Cancel",
+        "languageLabel": "Bot language",
+        "languageHint": "Language of every message the bot sends. Commands work in both languages regardless.",
+        "languageEn": "English",
+        "languageTr": "Türkçe",
+        "operatorsLabel": "Operators",
+        "operatorsHint": "Only listed Telegram users can use the bot. Set per-command permissions and optionally match an operator to a company member.",
+        "operatorsEmpty": "No operators yet. Add one by ID below or use listening mode.",
+        "operatorsInvalid": "Operator IDs must be numeric Telegram user IDs",
+        "operatorDuplicate": "This Telegram user is already an operator",
+        "operatorAdd": "Add",
+        "operatorAddPlaceholder": "Telegram user ID, e.g. 123456789",
+        "operatorRemove": "Remove",
+        "permCreate": "Create requests",
+        "permListAll": "List all requests",
+        "permCancel": "Cancel",
+        "memberLabel": "Company member",
+        "memberNone": "Not matched",
+        "discoveryTitle": "Listening mode",
+        "discoveryHint": "For 5 minutes, unknown users who message the bot are collected here (identity only) so you can add them as operators.",
+        "discoveryStart": "Start listening",
+        "discoveryStop": "Stop",
+        "discoveryActive": "Listening — {time} left",
+        "discoverySeenEmpty": "No users yet. Ask the person to send any message to the bot.",
+        "discoveryAdd": "Add as operator",
+        "discoveryAdded": "Operator added",
+        "discoveryError": "Could not update listening mode",
+        "lastPolledLabel": "Last poll:",
+        "lastPolledNever": "never",
+        "save": "Save",
+        "saveVerify": "Verify & save",
+        "saving": "Saving…",
+        "saved": "Telegram settings saved",
+        "saveError": "Could not save Telegram settings",
+        "operatorPerms": "{count}/3 permissions",
+        "memberLinked": "Linked",
+        "memberHint": "Optional — links this operator to a company member so their panel-created requests also appear in the bot.",
+        "teamAccessLabel": "Team access",
+        "teamAccessAll": "All teams",
+        "teamAccessNone": "No team access",
+        "teamAccessHint": "Which team(s) this operator can open and list requests for. With a single team the team step is skipped; without access, request commands are politely refused.",
+        "operatorRemoveConfirm": "Confirm removal",
+        "operatorAddHint": "Numeric Telegram user ID (from @userinfobot). New operators start without team access."
+      },
+      "appearance": {
+        "title": "Appearance & behavior",
+        "description": "Toggle panel features for everyone in this company. Changes are saved immediately.",
+        "groups": {
+          "display": "Display",
+          "behavior": "Behavior",
+          "notifications": "Desktop notifications",
+          "view": "Panel view"
+        },
+        "flags": {
+          "showStatus": "Show status",
+          "showAssignee": "Show assignee",
+          "showLabels": "Show labels",
+          "showLinkedIssues": "Show linked issues",
+          "showTeamPicker": "Show team picker",
+          "showArchive": "Allow archiving",
+          "kanbanDnd": "Kanban drag & drop",
+          "kanbanQuickAdd": "Kanban quick add",
+          "listDnd": "List reordering",
+          "notifyCompleted": "Notify when completed",
+          "notifyAssigned": "Notify when assigned",
+          "notifyCreated": "Notify on new issues",
+          "notifyComment": "Notify on comments",
+          "groupByTeam": "Group tasks by team",
+          "showAllIssues": "Show all Linear tasks (not just panel-created)"
+        },
+        "saveError": "Could not save the setting"
+      },
+      "common": {
+        "notSet": "Not set",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…"
+      }
+    },
+    "motion": {
+      "working": "Working"
+    }
+  }
+}

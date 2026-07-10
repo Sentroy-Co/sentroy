@@ -1,0 +1,61 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Caddy reverse proxy — Sentroy self-host (docker-compose.selfhost.yaml).
+#
+# {$ROOT_DOMAIN} env'inden gelir (compose'da SENTROY_ROOT_DOMAIN → ROOT_DOMAIN).
+# Kök → core; her alt-subdomain kendi container'ına.
+#
+# TLS:
+#   • Gerçek domain + halka açık 80/443 → Caddy otomatik Let's Encrypt.
+#     ⚠ Wildcard (*.domain) sertifikası DNS-01 gerektirir; HTTP-01 wildcard
+#     veremez. Her subdomain'i AÇIKÇA listelediğimiz için HTTP-01 yeterli
+#     (her host ayrı sertifika alır).
+#   • LAN/dev (halka açık olmayan) → `tls internal` (Caddy internal CA) satırını
+#     her bloğa ekleyin veya global `local_certs` kullanın.
+#
+# Profile'a göre bazı upstream'ler mevcut olmayabilir (ör. storage profili yoksa
+# storage container'ı yok) — o host'a istek 502 döner; zararsız.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Kök + www → core
+{$ROOT_DOMAIN}, www.{$ROOT_DOMAIN} {
+	reverse_proxy core:3000
+}
+
+# docs + vault → core (subpath rewrite'ları core proxy.ts içinde)
+docs.{$ROOT_DOMAIN} {
+	reverse_proxy core:3000
+}
+vault.{$ROOT_DOMAIN} {
+	reverse_proxy core:3000
+}
+
+mail.{$ROOT_DOMAIN} {
+	reverse_proxy mail:3001
+}
+storage.{$ROOT_DOMAIN} {
+	reverse_proxy storage:3002
+}
+auth.{$ROOT_DOMAIN} {
+	reverse_proxy auth2:3003
+}
+status.{$ROOT_DOMAIN} {
+	reverse_proxy status:3004
+}
+studio.{$ROOT_DOMAIN} {
+	reverse_proxy studio:3006
+}
+whatsapp.{$ROOT_DOMAIN} {
+	reverse_proxy whatsapp:3007
+}
+downloader.{$ROOT_DOMAIN} {
+	reverse_proxy downloader:3008
+}
+linear.{$ROOT_DOMAIN} {
+	reverse_proxy linear:3009
+}
+backup.{$ROOT_DOMAIN} {
+	reverse_proxy backup:3010
+}
+cdn.{$ROOT_DOMAIN} {
+	reverse_proxy cdn:4100
+}

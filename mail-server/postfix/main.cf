@@ -1,0 +1,106 @@
+# Postfix Ana Konfigürasyon — Sentroy Mail Server
+
+# Genel
+smtpd_banner = $myhostname ESMTP
+biff = no
+append_dot_mydomain = no
+readme_directory = no
+
+# Docker'da syslog yerine stdout'a logla
+maillog_file = /dev/stdout
+
+# Hostname/domain — committed default'lar. entrypoint.sh, MAIL_HOSTNAME /
+# MAIL_DOMAIN env'leri set edilmişse bunları container başında postconf ile
+# override eder (open-source portability; kendi kurulumun için env ver).
+myhostname = mail.sentroy.com
+mydomain = sentroy.com
+myorigin = $mydomain
+mydestination = localhost
+
+# Network
+inet_interfaces = all
+inet_protocols = ipv4
+mynetworks = 127.0.0.0/8 [::1]/128 10.0.0.0/8 172.16.0.0/12
+
+# Virtual Domain
+virtual_mailbox_domains = texthash:/etc/postfix/virtual/domains
+virtual_mailbox_maps = texthash:/etc/postfix/virtual/mailboxes
+# Catch-all routing — `<target>@<d>` ve `@<d>` satırları
+# `services/postfix.ts:updateVirtualAliases` tarafından yazılır.
+# Boşken sorun yok (Postfix dosya boş olunca alias kullanmaz).
+virtual_alias_maps = texthash:/etc/postfix/virtual/aliases
+virtual_mailbox_base = /var/mail/vhosts
+virtual_uid_maps = static:5000
+virtual_gid_maps = static:5000
+
+# LMTP → API'deki LMTP proxy (o da Dovecot'a relay eder, bu arada real-time
+# "mail delivered" event'ini Redis pub/sub'a yayar)
+virtual_transport = lmtp:inet:api:2424
+
+# TLS — Gelen (inbound)
+smtpd_tls_security_level = may
+smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtpd_tls_mandatory_ciphers = medium
+smtpd_tls_ciphers = medium
+smtpd_tls_exclude_ciphers = aNULL, eNULL, EXPORT, DES, RC4, MD5, PSK, aECDH, EDH-DSS-DES-CBC3-SHA, EDH-RSA-DES-CBC3-SHA, KRB5-DES, CBC3-SHA
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtpd_tls_session_cache_timeout = 3600s
+smtpd_tls_received_header = yes
+smtpd_tls_loglevel = 1
+
+# TLS — Giden (outbound)
+smtp_tls_security_level = may
+smtp_tls_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtp_tls_mandatory_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtp_tls_mandatory_ciphers = medium
+smtp_tls_ciphers = medium
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+smtp_tls_session_cache_timeout = 3600s
+smtp_tls_loglevel = 1
+smtp_tls_note_starttls_offer = yes
+
+# SASL Authentication
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = inet:dovecot:12345
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $myhostname
+
+# Restrictions
+smtpd_helo_required = yes
+strict_rfc821_envelopes = yes
+
+smtpd_recipient_restrictions =
+    permit_sasl_authenticated,
+    permit_mynetworks,
+    reject_unauth_destination,
+    reject_unknown_recipient_domain,
+    reject_non_fqdn_recipient
+
+smtpd_sender_restrictions =
+    permit_sasl_authenticated,
+    permit_mynetworks,
+    reject_non_fqdn_sender,
+    reject_unknown_sender_domain
+
+smtpd_relay_restrictions =
+    permit_sasl_authenticated,
+    permit_mynetworks,
+    reject_unauth_destination
+
+# Rspamd Milter
+smtpd_milters = inet:rspamd:11332
+non_smtpd_milters = $smtpd_milters
+milter_default_action = accept
+milter_protocol = 6
+
+# Boyut limitleri
+message_size_limit = 26214400
+mailbox_size_limit = 0
+
+# Queue
+maximal_queue_lifetime = 3d
+bounce_queue_lifetime = 1d

@@ -1,0 +1,45 @@
+{
+  "metaTitle": "İletişim",
+  "metaDescription": "Sentroy ekibiyle iletişime geç.",
+  "title": "İletişime geç",
+  "subtitle": "Gelen kutumuzu botlardan uzak tutmak için insan olduğunu doğrula; iletişim e-postamızı gösterelim.",
+  "back": "Sentroy'a dön",
+  "reveal": {
+    "button": "İletişim e-postasını göster",
+    "verifying": "Doğrulanıyor…",
+    "humanCheck": "E-postamızı görmek için insan olduğunu doğrula",
+    "error": "Doğrulanamadı — tekrar dene",
+    "unavailable": "İletişim şu an kullanılamıyor"
+  },
+  "form": {
+    "title": "Bize mesaj gönderin",
+    "subtitle": "Bir sorunla mı karşılaştınız, sorunuz mu var? Yazın — her mesajı okuyoruz.",
+    "name": "Adınız",
+    "namePh": "Ahmet Yılmaz",
+    "email": "E-posta",
+    "emailPh": "siz@ornek.com",
+    "emailOptional": "İsteğe bağlı — girerseniz onay ve yanıtımızı e-postayla iletiriz.",
+    "category": "Konu",
+    "subject": "Başlık",
+    "subjectPh": "Kısa özet (isteğe bağlı)",
+    "message": "Mesaj",
+    "messagePh": "Nasıl yardımcı olabiliriz?",
+    "submit": "Mesajı gönder",
+    "sending": "Gönderiliyor…",
+    "sentTitle": "Mesaj gönderildi",
+    "sentBody": "Teşekkürler — mesajınızı aldık, en kısa sürede döneceğiz.",
+    "error": "Gönderilemedi — tekrar deneyin."
+  },
+  "categories": {
+    "general": "Genel soru",
+    "support": "Sorun / destek",
+    "billing": "Faturalandırma",
+    "partnership": "İş birliği",
+    "feedback": "Geri bildirim",
+    "other": "Diğer"
+  },
+  "investors": {
+    "title": "Yatırımcılar & basın",
+    "body": "Yatırımcı ilişkileri veya basın için bize doğrudan e-postayla ulaşın — bu şekilde iletişimde kalmayı tercih ediyoruz."
+  }
+}

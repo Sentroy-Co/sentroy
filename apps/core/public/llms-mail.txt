@@ -1,0 +1,172 @@
+# Sentroy Mail
+
+> Transactional email API — templates, domains, mailboxes, inbox, suppressions, logs, webhooks, SMTP. Drop-in replacement for **Resend**, **Postmark**, **Mailgun**, and **SendGrid**. Same `stk_` token covers Mail + Storage + CDN.
+
+## Quickstart
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { Sentroy } from "@sentroy-co/client-sdk";
+
+const sentroy = new Sentroy({
+  baseUrl: "https://sentroy.com",
+  companySlug: "acme",
+  accessToken: process.env.SENTROY_API_KEY!, // stk_...
+});
+
+await sentroy.send.execute({
+  from: "hello@acme.com",
+  to: ["user@example.com"],
+  subject: "Welcome",
+  html: "<h1>Hi</h1>",
+  text: "Hi",
+});
+```
+
+## Authentication
+
+- **Header:** `Authorization: Bearer stk_<48-hex>`
+- **Required permission:** `send.execute` for sending; `domains.manage`, `mailboxes.manage`, `templates.manage`, `inbox.view`, `logs.view`, `suppressions.manage`, `webhooks.manage` for the corresponding admin surface.
+- Tokens are company-scoped. Create in Dashboard → company → Settings → Access Tokens. Plaintext shown **once on create**.
+
+## Endpoints
+
+Base: `https://sentroy.com/api/mail/...` (SDK rewrites `/api/mail/*` automatically).
+
+| Verb | Path | Purpose | Permission |
+|---|---|---|---|
+| `POST` | `/send` | Send transactional message (HTML, text, template, attachments) | `send.execute` |
+| `GET` / `POST` | `/templates` | List + create templates with `{tr, en}` LocalizedString bodies | `templates.manage` |
+| `GET` / `POST` | `/domains` | List + add sending domains (returns DNS records to copy) | `domains.manage` |
+| `POST` | `/domains/:id/verify` | Re-check DKIM / SPF / DMARC | `domains.manage` |
+| `GET` / `POST` | `/mailboxes` | List + provision IMAP mailboxes | `mailboxes.manage` |
+| `GET` | `/inbox` | Read mailbox messages | `inbox.view` |
+| `GET` | `/logs` | Delivery + event log | `logs.view` |
+| `GET` / `POST` | `/suppressions` | Bounce / complaint suppressions | `suppressions.manage` |
+| `GET` / `POST` | `/webhooks` | Outbound delivery webhooks | `webhooks.manage` |
+
+## Recipes
+
+### Templated send with variables
+
+```ts
+await sentroy.send.execute({
+  from: "noreply@acme.com",
+  to: ["user@example.com"],
+  templateId: "tpl_welcome",
+  variables: { firstName: "Ada", verifyUrl: "https://acme.com/v/abc" },
+  locale: "en", // picks the LocalizedString slot
+});
+```
+
+### Creating templates
+
+```ts
+const tpl = await sentroy.templates.create({
+  name: { en: "Welcome", tr: "Hos geldin" }, // LocalizedString: string OR {tr, en, ...}
+  subject: "Welcome {firstName}",
+  mjmlBody: "<mjml>...{firstName}...</mjml>",
+  domainId: "dom_123", // REQUIRED — id of a verified sending domain
+});
+// tpl.variables -> string[]  (auto-extracted from subject + body)
+
+await sentroy.templates.update(tpl.id, { subject: "Hi {firstName}" }); // partial, >=1 field
+await sentroy.templates.delete(tpl.id);
+```
+
+- No `variables` input — the platform **auto-extracts** the variable list from the body and returns it as `template.variables: string[]`. There is no declare-variables step.
+- REST: `POST` / `PATCH /:id` / `DELETE /:id` on `/api/mail/companies/{slug}/templates` (`templates.manage`).
+- CLI: `sentroy mail templates create --name=<n> --subject=<s> --domain=<domainId> (--mjml-file=<path> | --mjml='<inline>' | stdin)`; `update <id>`; `delete <id>`. Localized `--name` / `--subject` accept a plain string or a JSON object string (e.g. `--name='{"en":"Welcome","tr":"Hos geldin"}'`).
+- Other-language SDKs (Go, Python, PHP) are templates **read-only** (`list`/`get`); create/update/delete is TS SDK, CLI, or REST.
+
+### Template variables
+
+Mustache-like, regex-based, single-level:
+
+- **Scalar:** `{name}` or `{{name}}` (both brace forms work).
+- **Array section:** `{#items} ... {/items}` — repeats per array element; item fields are in scope inside (e.g. `{title}`, `{price}`).
+- **Inverted section:** `{^name} ... {/^name}` — renders only when `name` is missing / empty / false.
+- Names match `\w+` (letters, digits, underscore), case-sensitive — no dashes/dots. **No default-value syntax.** Nested sections are not supported.
+- At send, pass values in `variables` (scalars + arrays for sections), e.g. `variables: { firstName: "Ada", hasItems: true, items: [{ title: "Keyboard", price: "$80" }] }`.
+- A template referencing a variable the send call does not provide is rejected with **HTTP 422** listing the missing names.
+
+### Raw send (HTML + text)
+
+```ts
+await sentroy.send.execute({
+  from: "alerts@acme.com",
+  to: ["ops@example.com"],
+  subject: "Disk full",
+  html: "<p>db-1 at 92%</p>",
+  text: "db-1 at 92%",
+  replyTo: "noreply@acme.com",
+});
+```
+
+### Add + verify a sending domain
+
+```ts
+const { data: domain } = await sentroy.domains.create({ domain: "mail.acme.com" });
+// domain.dns -> [{ type: "TXT", host: "...", value: "..." }, ...]
+// publish DNS, then:
+await sentroy.domains.verify(domain.id);
+```
+
+### Provision an IMAP mailbox
+
+```ts
+await sentroy.mailboxes.create({
+  domain: "mail.acme.com",
+  localPart: "support",
+  quotaMb: 5_000,
+});
+```
+
+## DKIM / SPF / DMARC checklist
+
+After `domains.create` Sentroy returns the DNS records you must publish on your authoritative zone before sending succeeds:
+
+1. **TXT** at `<selector>._domainkey.<domain>` — DKIM public key
+2. **TXT** at `<domain>` — SPF (`v=spf1 include:_spf.sentroy.com ~all`)
+3. **TXT** at `_dmarc.<domain>` — DMARC (`v=DMARC1; p=quarantine; rua=mailto:...`)
+4. **MX** at `<domain>` — only if you also want to **receive** mail through Sentroy mailboxes
+5. Call `POST /api/mail/domains/:id/verify` until status flips to `verified`
+
+## Gotchas
+
+- **LocalizedString fields.** Template subjects and bodies use `{tr, en}` shape; pick a `locale` on send or pass a flat string for single-locale projects.
+- **From-address must be on a verified domain.** Unverified domains 422 on send.
+- **413 file-too-big.** Attachments capped at 25 MB per message; prefer Storage links for larger payloads.
+- **Suppressions are sticky.** Once a recipient lands on the suppression list (bounce / complaint), subsequent sends silently skip them — remove via `DELETE /suppressions/:id`.
+- **Webhook signing.** Outbound webhook payloads carry an HMAC header; verify before trusting.
+
+## Error envelope
+
+Every endpoint returns the same shape:
+
+```json
+{ "data": { "id": "..." }, "error": null }
+```
+
+On failure:
+
+```json
+{ "data": null, "error": "Domain not verified" }
+```
+
+HTTP status mirrors REST conventions (`401` missing/invalid token, `403` permission denied, `404` resource not found, `422` validation, `429` rate-limited, `5xx` upstream).
+
+## Rate limits
+
+- Default: **100 req / 10s** per `stk_` token across Mail endpoints.
+- Send throughput shaped per-domain reputation; cold domains warm over 7 days.
+- `429` includes `Retry-After` header — back off and retry.
+
+## Competitors
+
+Sentroy Mail is a direct alternative to **Resend**, **Postmark**, **Mailgun**, and **SendGrid**. Migrations covered in `/compare/resend` and `/compare/mailgun`; same primitives (domains, templates, send, webhooks, suppressions) with a single bearer token that also unlocks Storage, CDN, and Auth.
+
+For full reference: https://docs.sentroy.com/mail

@@ -1,0 +1,144 @@
+# Sentroy Auth Projects
+
+> Auth-as-a-Service — per-app end-user pools with signup, login, JWT issuance, password reset, email verification, MFA, and social federation. Drop-in replacement for **Firebase Authentication**, **Auth0**, and **Clerk**. Each Auth Project is a fully isolated user pool with its own RSA keypair and JWKS endpoint.
+
+## Quickstart
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { SentroyAuth } from "@sentroy-co/client-sdk/auth";
+
+const auth = new SentroyAuth({
+  baseUrl: "https://auth.sentroy.com",
+  projectSlug: "acme-app",
+  apiKey: process.env.SENTROY_AUTH_KEY!, // aps_... (server-side only)
+});
+
+const { user, accessToken, refreshToken } = await auth.signup({
+  email: "user@example.com",
+  password: "correct-horse-battery-staple",
+});
+```
+
+## Auth modes
+
+Two layers — keep them separate or you will leak admin privilege to the browser.
+
+| Mode | Token | Where it runs | What it can do |
+|---|---|---|---|
+| **Auth Project master key** | `Authorization: Bearer aps_<48-hex>` | **Server only** (Node, edge function, RN bridged server) | Full admin on the user pool — create users, force-verify, rotate passwords |
+| **End-user access JWT** | `Authorization: Bearer eyJhbGciOiJSUzI1NiIs...` | Browser, RN, any client | Only acts as that one user — `/userinfo`, `/me/*`, refresh, logout |
+
+End-user access tokens are signed with the Auth Project's own RSA private key and verifiable against the per-project JWKS (`/jwks.json`).
+
+## Endpoints
+
+Base: `https://auth.sentroy.com/api/v1/auth/<projectSlug>/...`
+
+| Verb | Path | Purpose | Auth |
+|---|---|---|---|
+| `POST` | `/signup` | Create user + issue access/refresh tokens | `aps_` |
+| `POST` | `/login` | Email+password login (MFA challenge if enabled) | `aps_` |
+| `POST` | `/verify-email` | Confirm email verification token | _none_ (token is the secret) |
+| `POST` | `/password-reset/request` | Send reset email | `aps_` |
+| `POST` | `/password-reset/confirm` | Confirm reset with single-use token + new password | _none_ |
+| `POST` | `/refresh` | Trade refresh token for fresh access JWT | `aps_` + refresh token |
+| `POST` | `/logout` | Revoke refresh token | end-user JWT |
+| `GET` | `/userinfo` | Standard OIDC userinfo for the current JWT | end-user JWT |
+| `GET` | `/jwks.json` | Per-project public JWKS (cache 10 min) | _none_ |
+| `GET` / `PATCH` | `/me/*` | Read / update current user profile | end-user JWT |
+
+## Recipes
+
+### Signup + login (MFA-aware)
+
+```ts
+const result = await auth.login({ email, password });
+if (result.kind === "mfa_required") {
+  const finalized = await auth.mfa.verify({
+    challengeId: result.challengeId,
+    code: codeFromUser,
+  });
+  storeTokens(finalized);
+} else {
+  storeTokens(result);
+}
+```
+
+### JWT verification (server-side, no SDK call per request)
+
+```ts
+import { jwtVerify, createRemoteJWKSet } from "jose";
+
+const jwks = createRemoteJWKSet(
+  new URL("https://auth.sentroy.com/api/v1/auth/acme-app/jwks.json"),
+);
+
+const { payload } = await jwtVerify(req.headers.authorization!.slice(7), jwks, {
+  issuer: "https://auth.sentroy.com/api/v1/auth/acme-app",
+  audience: "acme-app",
+});
+// payload.sub -> stable user id
+```
+
+### Social federation (Expo / React Native)
+
+```ts
+import * as WebBrowser from "expo-web-browser";
+
+const url = auth.federation.startUrl({ provider: "google", redirectUri });
+const result = await WebBrowser.openAuthSessionAsync(url, redirectUri);
+const tokens = await auth.federation.exchange(result.url);
+```
+
+## React SDK
+
+```tsx
+import { SentroyAuthProvider, useAuth, useUser } from "@sentroy-co/client-sdk/react/auth";
+
+<SentroyAuthProvider
+  baseUrl="https://auth.sentroy.com"
+  projectSlug="acme-app"
+  // Do NOT pass the aps_ master key here — public endpoints used (verify-email, password-reset/confirm)
+  // plus end-user JWT flows.
+>
+  <App />
+</SentroyAuthProvider>;
+
+function Profile() {
+  const { user, logout } = useUser();
+  return user ? <button onClick={logout}>Hi {user.email}</button> : null;
+}
+```
+
+## React Native
+
+```ts
+import { createAsyncStorageAdapter } from "@sentroy-co/client-sdk/react/auth/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const auth = new SentroyAuth({
+  baseUrl: "https://auth.sentroy.com",
+  projectSlug: "acme-app",
+  storage: createAsyncStorageAdapter(AsyncStorage),
+});
+```
+
+`createAsyncStorageAdapter` shims AsyncStorage to the synchronous `Storage`-like interface the SDK expects.
+
+## Gotchas
+
+- **`window.location` on React Native.** The SDK guards every browser-only call, but custom federation handlers must use `Linking` / `WebBrowser` — not `window.location.assign`.
+- **`aps_` master key never reaches the browser.** It is a pool-wide admin credential. If you need browser-safe signup/login, route through your own backend (or wait for the v2 public-key tier — Firebase-style restricted key).
+- **JWKS cache.** Cache the JWKS response for 10 minutes server-side; per-Auth-Project key rotation publishes both old and new keys for at least 24 h so JWTs in flight verify.
+- **Password reset + email verification tokens are single-use.** They expire in 1 h. Don't store them; consume on first redirect.
+- **Refresh token rotation.** Every `/refresh` rotates the refresh token; persist the new one and discard the old.
+
+## Competitors
+
+Sentroy Auth Projects is a direct alternative to **Firebase Authentication**, **Auth0**, and **Clerk**. Migration guides at `/compare/firebase-auth`, `/compare/auth0`, `/compare/clerk`. Differences: per-project RSA keypair (you can self-verify with `jose` against the published JWKS — no vendor SDK required on the verifier), no per-MAU pricing on the free tier, same `stk_` company token also covers Mail / Storage so transactional verification emails are first-class.
+
+For full reference: https://docs.sentroy.com/auth-projects

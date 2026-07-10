@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Mission & Vision",
+  "metaDescription": "Sentroy's mission and vision — the operational backbone for the software everyone can now build.",
+  "eyebrow": "Mission & Vision",
+  "missionLabel": "Our mission",
+  "mission": "To fold the entire operational backbone a product needs — sign-in, payments, email, storage, messaging and more — into one platform, so anyone who can imagine software can run the business behind it.",
+  "visionLabel": "Our vision",
+  "vision": "A world where launching and operating software is as effortless as generating it — where the infrastructure fades into the background, and only the product and the people it serves remain.",
+  "principlesLabel": "What we believe",
+  "principles": [
+    { "title": "Own the foundations", "body": "We build and operate the core infrastructure ourselves instead of reselling someone else's — so we control quality, cost and the roadmap." },
+    { "title": "One platform, one login", "body": "Every capability lives under a single identity and a single bill. Consolidation isn't a feature — it's the whole point." },
+    { "title": "Built for the builder", "body": "The faster the world generates software, the more it needs a dependable place to run it. We exist for the people shipping." }
+  ],
+  "back": "Back to Sentroy",
+  "cta": "Explore Sentroy"
+}

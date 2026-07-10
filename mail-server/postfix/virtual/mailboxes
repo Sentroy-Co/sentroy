@@ -1,0 +1,3 @@
+# Virtual mailbox listesi — API tarafından yönetilir
+# Format: user@domain.com    domain.com/user/
+# Bu dosya API servisi tarafından otomatik güncellenir

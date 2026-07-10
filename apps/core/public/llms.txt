@@ -1,0 +1,92 @@
+# Sentroy
+
+> Unified developer platform — a single account, a single bearer token, and four production-grade services that replace the usual stack of point tools: **Sentroy Mail** (Resend / Postmark / Mailgun / SendGrid alternative), **Sentroy Storage + CDN** (S3 / R2 / Backblaze alternative), **Sentroy Auth Projects** (Firebase Auth / Auth0 / Clerk alternative), and **Sentroy Env Vault** (Doppler / Infisical / AWS Secrets Manager alternative). One SDK, one CLI, one billing line.
+
+Sentroy ships four products under one roof:
+
+- **Sentroy Mail** — transactional email API with templates, domains, mailboxes, inbox, suppressions, webhooks, and SMTP. Drop-in replacement for **Resend**, **Postmark**, **Mailgun**, and **SendGrid**.
+- **Sentroy Storage + CDN** — S3-backed object storage with on-the-fly image transformations served from `cdn.sentroy.com`. Drop-in replacement for **AWS S3 + CloudFront**, **Cloudflare R2**, and **Backblaze B2**.
+- **Sentroy Auth Projects** — per-app end-user pools with signup, login, JWT issuance, password reset, email verification, MFA, and social federation. Drop-in replacement for **Firebase Authentication**, **Auth0**, and **Clerk**.
+- **Sentroy Env Vault** — public/private environment variable + secret sync with SDK and CLI parity, webhook invalidation, and per-token scoping. Drop-in replacement for **Doppler**, **Infisical**, and **AWS Secrets Manager**.
+
+## Canonical AI Skill
+
+The single, authoritative reference for any agent integrating Sentroy. Pick the format that suits your tooling:
+
+- [SKILL.md (Anthropic Skills format)](https://docs.sentroy.com/skill.md)
+- [AGENTS.md (universal markdown)](https://docs.sentroy.com/agents.md)
+- [Raw GitHub backup](https://raw.githubusercontent.com/Sentroy-Co/client-sdk/main/typescript/skill/SKILL.md)
+
+## Quick install
+
+Install the SDK and the AI skill into the consumer project in one command:
+
+```bash
+npx @sentroy-co/client-sdk ai install
+```
+
+This drops the canonical `SKILL.md` / `AGENTS.md` into the project, wires the TypeScript SDK, and prints the `stk_...` token bootstrap instructions.
+
+## Per-product references
+
+Compact, single-purpose context files — fetch only what the current task needs:
+
+- [llms-mail.txt](https://docs.sentroy.com/llms-mail.txt) — Sentroy Mail (send, templates, domains, inbox)
+- [llms-storage.txt](https://docs.sentroy.com/llms-storage.txt) — Sentroy Storage + CDN (buckets, media, image transforms)
+- [llms-auth.txt](https://docs.sentroy.com/llms-auth.txt) — Sentroy Auth Projects (signup, login, JWT, federation)
+- [llms-vault.txt](https://docs.sentroy.com/llms-vault.txt) — Sentroy Env Vault (config + secret sync, CLI, webhooks)
+- [llms-full.txt](https://docs.sentroy.com/llms-full.txt) — every file above concatenated for single-fetch ingestion
+
+## API documentation
+
+Hosted reference pages with live examples and multi-language code tabs:
+
+- [Mail API](https://docs.sentroy.com/mail)
+- [Storage API](https://docs.sentroy.com/storage)
+- [Auth Projects](https://docs.sentroy.com/auth-projects)
+- [Env Vault](https://docs.sentroy.com/env-vault)
+- [React + React Native SDKs](https://docs.sentroy.com/react)
+- [Status Pages (Statuspage alternative)](https://docs.sentroy.com/status-pages)
+- [CLI reference](https://docs.sentroy.com/cli)
+- [AI Skills install](https://docs.sentroy.com/ai-skills)
+
+## Comparisons
+
+Direct migration guides and feature-for-feature parity tables against the incumbent:
+
+- [Sentroy Mail vs Resend](https://docs.sentroy.com/compare/resend)
+- [Sentroy Mail vs Mailgun](https://docs.sentroy.com/compare/mailgun)
+- [Sentroy Auth vs Firebase Authentication](https://docs.sentroy.com/compare/firebase-auth)
+- [Sentroy Auth vs Auth0](https://docs.sentroy.com/compare/auth0)
+- [Sentroy Auth vs Clerk](https://docs.sentroy.com/compare/clerk)
+- [Sentroy Storage vs AWS S3](https://docs.sentroy.com/compare/s3)
+- [Sentroy Storage vs Cloudflare R2](https://docs.sentroy.com/compare/r2)
+- [Sentroy Env Vault vs Doppler](https://docs.sentroy.com/compare/doppler)
+- [Sentroy Env Vault vs Infisical](https://docs.sentroy.com/compare/infisical)
+
+## SDKs
+
+One SDK family, one auth model, parity across the four products:
+
+- **TypeScript** (canonical, feature-complete) — [`@sentroy-co/client-sdk`](https://www.npmjs.com/package/@sentroy-co/client-sdk) ([AGENTS.md reference](https://raw.githubusercontent.com/Sentroy-Co/client-sdk/main/typescript/AGENTS.md))
+- **Python** (in development) — [`sentroy`](https://pypi.org/project/sentroy/) on PyPI
+- **Go** (in development) — [`github.com/Sentroy-Co/client-sdk/go`](https://pkg.go.dev/github.com/Sentroy-Co/client-sdk/go)
+- **PHP** (in development) — [`sentroy/client-sdk`](https://packagist.org/packages/sentroy/client-sdk) on Packagist
+- **CLI** — ships with the TypeScript package: `npx sentroy --help`
+
+## Authentication summary
+
+Three bearer-token formats cover every public surface; pick the one matching the product you are calling:
+
+| Token | Prefix | Product | Scope |
+|---|---|---|---|
+| Access token | `stk_<48-hex>` | Mail, Storage, CDN admin | Company-scoped, permission-list scoped |
+| Auth Project key | `aps_<48-hex>` | Auth Projects public API | Per-Auth-Project master key (server-only) |
+| Env Vault token | `stk_env_<48-hex>` | Env Vault SDK + CLI | Per-environment, optional `--public-only` scope |
+
+All tokens are stored as SHA-256 hashes with a 12-char visible prefix; the plaintext is shown **once on create** and never again. Cookie sessions exist on `.sentroy.com` but are for dashboard UI only — not for SDK or agent traffic.
+
+## Optional
+
+- [Sentroy Status](https://status.sentroy.com) — real-time uptime board for Mail API, Storage, CDN, DB, and Mail Dashboard
+- [GitHub organization](https://github.com/Sentroy-Co) — SDKs, CLI, example apps, and the public skill repository

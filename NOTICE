@@ -1,0 +1,44 @@
+Sentroy
+Copyright 2026 Sentroy
+
+This product is licensed under the Functional Source License, Version 1.1
+(Apache-2.0 future grant) — see LICENSE — with the following exceptions:
+
+  * apps/whatsapp-gateway/        GPL-3.0-or-later  (see that directory's LICENSE
+                                  and LICENSING.md)
+  * packages/app-manifest/        MIT               (see that directory's LICENSE)
+
+Sentroy names, logos, and brand assets are trademarks and are NOT covered by
+the code license — see TRADEMARK.md.
+
+--------------------------------------------------------------------------------
+Third-party software
+--------------------------------------------------------------------------------
+
+This repository depends on third-party open-source packages, each distributed
+under its own license. The authoritative license text for every dependency is
+installed alongside it under `node_modules/<pkg>/` (and is reproduced in the
+published/deployed artifacts). To review them:
+
+  # list the declared license of every installed dependency
+  find node_modules -maxdepth 2 -name package.json \
+    -exec sh -c 'echo "$(dirname {}): $(grep -m1 \"license\" {})"' \;
+
+Notable dependencies and their licenses (non-exhaustive):
+
+  * Next.js, React, React DOM ......................... MIT
+  * @monaco-editor/react, monaco-editor .............. MIT
+  * @uiw/react-md-editor .............................. MIT
+  * @base-ui/react, shadcn-derived UI primitives ...... MIT
+  * mongodb, mongoose ................................. Apache-2.0 / MIT
+  * sharp (libvips bindings) .......................... Apache-2.0
+  * @whiskeysockets/baileys + libsignal ............... GPL-3.0
+      (used ONLY by apps/whatsapp-gateway — see its LICENSING.md; the network
+       service boundary keeps its copyleft scoped to that directory)
+
+No copyleft (GPL/AGPL/SSPL) dependency is a runtime dependency of any
+FSL-licensed app or package in this repository. GPL runtime dependencies are
+confined to apps/whatsapp-gateway, which is itself GPL-3.0-or-later.
+
+If you redistribute this software, retain this NOTICE file and the LICENSE
+files, per the Redistribution clause of the FSL.

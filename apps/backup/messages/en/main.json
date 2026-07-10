@@ -1,0 +1,94 @@
+{
+  "backup": {
+    "title": "MongoDB Backups",
+    "subtitle": "Back up your MongoDB databases, restore across servers, or download a dump to your desktop.",
+    "nav": {
+      "backups": "Backups"
+    },
+    "tabs": {
+      "connections": "Connections",
+      "backups": "Backups"
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "addConnection": "Add connection",
+      "backupNow": "Back up now",
+      "edit": "Edit",
+      "delete": "Delete",
+      "download": "Download",
+      "restore": "Restore",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "fields": {
+      "db": "Database",
+      "lastBackup": "Last backup",
+      "label": "Label",
+      "labelPh": "Production cluster",
+      "uri": "Connection URI",
+      "uriHint": "mongodb:// or mongodb+srv:// — stored encrypted, never shown again.",
+      "uriEditHint": "Leave empty to keep the current URI.",
+      "currentUri": "Current",
+      "defaultDb": "Default database",
+      "defaultDbHint": "Optional — used when you don't specify one at backup time.",
+      "source": "Source backup",
+      "targetConnection": "Target connection",
+      "targetDb": "Target database",
+      "targetDbHint": "Which database to restore into (on the target connection).",
+      "drop": "Drop target collections before restoring (clean restore)"
+    },
+    "empty": {
+      "connections": "No connections yet. Add a MongoDB connection to start backing up.",
+      "backups": "No backups yet. Run a backup from the Connections tab."
+    },
+    "status": {
+      "queued": "Queued",
+      "running": "Running",
+      "success": "Success",
+      "failed": "Failed"
+    },
+    "kind": {
+      "restore": "restore"
+    },
+    "stage": {
+      "dumping": "Dumping",
+      "uploading": "Uploading",
+      "restoring": "Restoring",
+      "done": "Done"
+    },
+    "dialog": {
+      "addTitle": "Add connection",
+      "editTitle": "Edit connection",
+      "connDesc": "Register a MongoDB connection. The URI is encrypted at rest and never displayed again.",
+      "restoreTitle": "Restore backup",
+      "restoreDesc": "Restore this backup into a target connection — same server or another."
+    },
+    "confirm": {
+      "deleteConnTitle": "Delete connection?",
+      "deleteConnBody": "This removes \"{label}\" and all of its backup records and stored artifacts. This cannot be undone.",
+      "deleteJobTitle": "Delete backup?",
+      "deleteJobBody": "This deletes the record and its stored artifact. This cannot be undone.",
+      "restoreTitle": "Restore into {target}?",
+      "restoreBody": "This will restore into database \"{db}\" on {target}. Drop mode: {drop}. This overwrites data on the target and cannot be undone.",
+      "dropOn": "ON (target collections dropped first)",
+      "dropOff": "OFF (merge into existing)"
+    },
+    "warnings": {
+      "restore": "Restore overwrites data on the target database. Make sure you selected the correct target — this cannot be undone."
+    },
+    "toast": {
+      "backupStarted": "Backup started — track its progress under Backups.",
+      "connDeleted": "Connection deleted.",
+      "jobDeleted": "Backup deleted.",
+      "connAdded": "Connection added.",
+      "connUpdated": "Connection updated.",
+      "restoreStarted": "Restore started — track its progress under Backups."
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "labelRequired": "Label is required.",
+      "uriRequired": "Connection URI is required.",
+      "targetRequired": "Select a target connection."
+    }
+  }
+}

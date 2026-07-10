@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Misyon & Vizyon",
+  "metaDescription": "Sentroy'un misyonu ve vizyonu — artık herkesin üretebildiği yazılımın operasyonel omurgası.",
+  "eyebrow": "Misyon & Vizyon",
+  "missionLabel": "Misyonumuz",
+  "mission": "Bir ürünün ihtiyaç duyduğu tüm operasyonel omurgayı — giriş, ödeme, e-posta, depolama, mesajlaşma ve fazlasını — tek bir platformda toplamak; böylece yazılımı hayal edebilen herkes arkasındaki işletmeyi de çalıştırabilsin.",
+  "visionLabel": "Vizyonumuz",
+  "vision": "Yazılımı hayata geçirmenin ve işletmenin, onu üretmek kadar zahmetsiz olduğu bir dünya — altyapının arka plana çekildiği, geriye yalnızca ürünün ve ona hizmet ettiği insanların kaldığı bir dünya.",
+  "principlesLabel": "Neye inanıyoruz",
+  "principles": [
+    { "title": "Temeli kendimiz kuruyoruz", "body": "Çekirdek altyapıyı başkasınınkini yeniden satmak yerine kendimiz kurup işletiyoruz — kaliteye, maliyete ve yol haritasına biz hâkimiz." },
+    { "title": "Tek platform, tek giriş", "body": "Her yetenek tek bir kimlik ve tek bir fatura altında yaşar. Konsolidasyon bir özellik değil — işin ta kendisi." },
+    { "title": "Geliştirici için", "body": "Dünya yazılımı ne kadar hızlı üretirse, onu çalıştıracak güvenilir bir yere o kadar çok ihtiyaç duyar. Biz üretenler için varız." }
+  ],
+  "back": "Sentroy'a dön",
+  "cta": "Sentroy'u keşfet"
+}

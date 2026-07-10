@@ -1,0 +1,94 @@
+{
+  "backup": {
+    "title": "MongoDB Yedekleri",
+    "subtitle": "MongoDB veritabanlarını yedekle, sunucular arası geri yükle veya yedeği masaüstüne indir.",
+    "nav": {
+      "backups": "Yedekler"
+    },
+    "tabs": {
+      "connections": "Bağlantılar",
+      "backups": "Yedekler"
+    },
+    "actions": {
+      "refresh": "Yenile",
+      "addConnection": "Bağlantı ekle",
+      "backupNow": "Şimdi yedekle",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "download": "İndir",
+      "restore": "Geri yükle",
+      "cancel": "Vazgeç",
+      "save": "Kaydet"
+    },
+    "fields": {
+      "db": "Veritabanı",
+      "lastBackup": "Son yedek",
+      "label": "Etiket",
+      "labelPh": "Üretim kümesi",
+      "uri": "Bağlantı URI'si",
+      "uriHint": "mongodb:// veya mongodb+srv:// — şifreli saklanır, bir daha gösterilmez.",
+      "uriEditHint": "Mevcut URI'yi korumak için boş bırak.",
+      "currentUri": "Mevcut",
+      "defaultDb": "Varsayılan veritabanı",
+      "defaultDbHint": "İsteğe bağlı — yedek sırasında belirtmezsen bu kullanılır.",
+      "source": "Kaynak yedek",
+      "targetConnection": "Hedef bağlantı",
+      "targetDb": "Hedef veritabanı",
+      "targetDbHint": "Hedef bağlantıda hangi veritabanına geri yüklenecek.",
+      "drop": "Geri yüklemeden önce hedef koleksiyonları sil (temiz geri yükleme)"
+    },
+    "empty": {
+      "connections": "Henüz bağlantı yok. Yedeklemeye başlamak için bir MongoDB bağlantısı ekle.",
+      "backups": "Henüz yedek yok. Bağlantılar sekmesinden bir yedek al."
+    },
+    "status": {
+      "queued": "Sırada",
+      "running": "Çalışıyor",
+      "success": "Başarılı",
+      "failed": "Başarısız"
+    },
+    "kind": {
+      "restore": "geri yükleme"
+    },
+    "stage": {
+      "dumping": "Dökülüyor",
+      "uploading": "Yükleniyor",
+      "restoring": "Geri yükleniyor",
+      "done": "Tamamlandı"
+    },
+    "dialog": {
+      "addTitle": "Bağlantı ekle",
+      "editTitle": "Bağlantıyı düzenle",
+      "connDesc": "Bir MongoDB bağlantısı kaydet. URI şifreli saklanır ve bir daha gösterilmez.",
+      "restoreTitle": "Yedeği geri yükle",
+      "restoreDesc": "Bu yedeği bir hedef bağlantıya geri yükle — aynı sunucu ya da başka bir sunucu."
+    },
+    "confirm": {
+      "deleteConnTitle": "Bağlantı silinsin mi?",
+      "deleteConnBody": "\"{label}\" bağlantısını ve tüm yedek kayıtları ile saklanan artefaktlarını siler. Bu işlem geri alınamaz.",
+      "deleteJobTitle": "Yedek silinsin mi?",
+      "deleteJobBody": "Kaydı ve saklanan artefaktı siler. Bu işlem geri alınamaz.",
+      "restoreTitle": "{target} üzerine geri yüklensin mi?",
+      "restoreBody": "\"{db}\" veritabanına {target} üzerinde geri yükleme yapılacak. Drop modu: {drop}. Bu işlem hedefteki veriyi üzerine yazar ve geri alınamaz.",
+      "dropOn": "AÇIK (hedef koleksiyonlar önce silinir)",
+      "dropOff": "KAPALI (mevcut verinin üzerine eklenir)"
+    },
+    "warnings": {
+      "restore": "Geri yükleme hedef veritabanındaki veriyi üzerine yazar. Doğru hedefi seçtiğinden emin ol — bu işlem geri alınamaz."
+    },
+    "toast": {
+      "backupStarted": "Yedek başlatıldı — ilerlemeyi Yedekler sekmesinden izle.",
+      "connDeleted": "Bağlantı silindi.",
+      "jobDeleted": "Yedek silindi.",
+      "connAdded": "Bağlantı eklendi.",
+      "connUpdated": "Bağlantı güncellendi.",
+      "restoreStarted": "Geri yükleme başlatıldı — ilerlemeyi Yedekler sekmesinden izle."
+    },
+    "errors": {
+      "generic": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+      "labelRequired": "Etiket gerekli.",
+      "uriRequired": "Bağlantı URI'si gerekli.",
+      "targetRequired": "Bir hedef bağlantı seç."
+    }
+  }
+}

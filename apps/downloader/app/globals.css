@@ -1,0 +1,49 @@
+@import "@workspace/ui/globals.css";
+
+/*
+ * Platform primary renkleri. Layout `<html data-platform="…">` set eder.
+ * `:root[data-platform]` specificity'si (0,2,0) hem `:root` (0,1,0) hem
+ * `.dark` (0,1,0) seçicisini geçer → primary her temada platform rengine
+ * sabitlenir (YouTube kırmızı dark'ta da kırmızı), background/foreground
+ * normal dark-mode davranışını korur.
+ */
+:root[data-platform="youtube"] {
+  --primary: oklch(0.585 0.219 27.2);
+  --primary-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.585 0.219 27.2);
+  --sidebar-primary: oklch(0.585 0.219 27.2);
+  --sidebar-ring: oklch(0.585 0.219 27.2);
+}
+
+:root[data-platform="instagram"] {
+  --primary: oklch(0.62 0.21 12);
+  --primary-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.62 0.21 12);
+  --sidebar-primary: oklch(0.62 0.21 12);
+  --sidebar-ring: oklch(0.62 0.21 12);
+}
+
+:root[data-platform="soundcloud"] {
+  --primary: oklch(0.68 0.2 45);
+  --primary-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.68 0.2 45);
+  --sidebar-primary: oklch(0.68 0.2 45);
+  --sidebar-ring: oklch(0.68 0.2 45);
+}
+
+/*
+ * tools.sentroy.com bölümü. tools host'ta platformFromHost "youtube" döner ama
+ * burayı ayrı bir ürün gibi konumlandırmak için kendi indigo aksanı olur. Bu
+ * blok platform bloklarından SONRA → eşit specificity'de (0,2,0) cascade'de
+ * sonrakinin kazanması sayesinde data-platform rengini ezer.
+ */
+:root[data-section="tools"] {
+  /* Yumuşak indigo/violet — çok-renkli ambiyansla uyumlu nötr aksan.
+     (Landing'de her kategori kendi rengini kullanır; bu global aksan tool
+     sayfalarındaki butonlar/aktif durumlar içindir.) */
+  --primary: oklch(0.64 0.18 280);
+  --primary-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.64 0.18 280);
+  --sidebar-primary: oklch(0.64 0.18 280);
+  --sidebar-ring: oklch(0.64 0.18 280);
+}

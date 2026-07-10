@@ -1,0 +1,1228 @@
+# Sentroy — Full LLM Reference
+
+> Concatenated single-fetch bundle: the llmstxt.org index, the canonical Anthropic Skill, and the four per-product references. For lighter fetches, use llms.txt or the per-product files individually.
+
+---
+
+# Index (llms.txt)
+
+# Sentroy
+
+> Unified developer platform — a single account, a single bearer token, and four production-grade services that replace the usual stack of point tools: **Sentroy Mail** (Resend / Postmark / Mailgun / SendGrid alternative), **Sentroy Storage + CDN** (S3 / R2 / Backblaze alternative), **Sentroy Auth Projects** (Firebase Auth / Auth0 / Clerk alternative), and **Sentroy Env Vault** (Doppler / Infisical / AWS Secrets Manager alternative). One SDK, one CLI, one billing line.
+
+Sentroy ships four products under one roof:
+
+- **Sentroy Mail** — transactional email API with templates, domains, mailboxes, inbox, suppressions, webhooks, and SMTP. Drop-in replacement for **Resend**, **Postmark**, **Mailgun**, and **SendGrid**.
+- **Sentroy Storage + CDN** — S3-backed object storage with on-the-fly image transformations served from `cdn.sentroy.com`. Drop-in replacement for **AWS S3 + CloudFront**, **Cloudflare R2**, and **Backblaze B2**.
+- **Sentroy Auth Projects** — per-app end-user pools with signup, login, JWT issuance, password reset, email verification, MFA, and social federation. Drop-in replacement for **Firebase Authentication**, **Auth0**, and **Clerk**.
+- **Sentroy Env Vault** — public/private environment variable + secret sync with SDK and CLI parity, webhook invalidation, and per-token scoping. Drop-in replacement for **Doppler**, **Infisical**, and **AWS Secrets Manager**.
+
+## Canonical AI Skill
+
+The single, authoritative reference for any agent integrating Sentroy. Pick the format that suits your tooling:
+
+- [SKILL.md (Anthropic Skills format)](https://docs.sentroy.com/skill.md)
+- [AGENTS.md (universal markdown)](https://docs.sentroy.com/agents.md)
+- [Raw GitHub backup](https://raw.githubusercontent.com/Sentroy-Co/client-sdk/main/typescript/skill/SKILL.md)
+
+## Quick install
+
+Install the SDK and the AI skill into the consumer project in one command:
+
+```bash
+npx @sentroy-co/client-sdk ai install
+```
+
+This drops the canonical `SKILL.md` / `AGENTS.md` into the project, wires the TypeScript SDK, and prints the `stk_...` token bootstrap instructions.
+
+## Per-product references
+
+Compact, single-purpose context files — fetch only what the current task needs:
+
+- [llms-mail.txt](https://docs.sentroy.com/llms-mail.txt) — Sentroy Mail (send, templates, domains, inbox)
+- [llms-storage.txt](https://docs.sentroy.com/llms-storage.txt) — Sentroy Storage + CDN (buckets, media, image transforms)
+- [llms-auth.txt](https://docs.sentroy.com/llms-auth.txt) — Sentroy Auth Projects (signup, login, JWT, federation)
+- [llms-vault.txt](https://docs.sentroy.com/llms-vault.txt) — Sentroy Env Vault (config + secret sync, CLI, webhooks)
+- [llms-full.txt](https://docs.sentroy.com/llms-full.txt) — every file above concatenated for single-fetch ingestion
+
+## API documentation
+
+Hosted reference pages with live examples and multi-language code tabs:
+
+- [Mail API](https://docs.sentroy.com/mail)
+- [Storage API](https://docs.sentroy.com/storage)
+- [Auth Projects](https://docs.sentroy.com/auth-projects)
+- [Env Vault](https://docs.sentroy.com/env-vault)
+- [React + React Native SDKs](https://docs.sentroy.com/react)
+- [Status Pages (Statuspage alternative)](https://docs.sentroy.com/status-pages)
+- [CLI reference](https://docs.sentroy.com/cli)
+- [AI Skills install](https://docs.sentroy.com/ai-skills)
+
+## Comparisons
+
+Direct migration guides and feature-for-feature parity tables against the incumbent:
+
+- [Sentroy Mail vs Resend](https://docs.sentroy.com/compare/resend)
+- [Sentroy Mail vs Mailgun](https://docs.sentroy.com/compare/mailgun)
+- [Sentroy Auth vs Firebase Authentication](https://docs.sentroy.com/compare/firebase-auth)
+- [Sentroy Auth vs Auth0](https://docs.sentroy.com/compare/auth0)
+- [Sentroy Auth vs Clerk](https://docs.sentroy.com/compare/clerk)
+- [Sentroy Storage vs AWS S3](https://docs.sentroy.com/compare/s3)
+- [Sentroy Storage vs Cloudflare R2](https://docs.sentroy.com/compare/r2)
+- [Sentroy Env Vault vs Doppler](https://docs.sentroy.com/compare/doppler)
+- [Sentroy Env Vault vs Infisical](https://docs.sentroy.com/compare/infisical)
+
+## SDKs
+
+One SDK family, one auth model, parity across the four products:
+
+- **TypeScript** (canonical, feature-complete) — [`@sentroy-co/client-sdk`](https://www.npmjs.com/package/@sentroy-co/client-sdk) ([AGENTS.md reference](https://raw.githubusercontent.com/Sentroy-Co/client-sdk/main/typescript/AGENTS.md))
+- **Python** (in development) — [`sentroy`](https://pypi.org/project/sentroy/) on PyPI
+- **Go** (in development) — [`github.com/Sentroy-Co/client-sdk/go`](https://pkg.go.dev/github.com/Sentroy-Co/client-sdk/go)
+- **PHP** (in development) — [`sentroy/client-sdk`](https://packagist.org/packages/sentroy/client-sdk) on Packagist
+- **CLI** — ships with the TypeScript package: `npx sentroy --help`
+
+## Authentication summary
+
+Three bearer-token formats cover every public surface; pick the one matching the product you are calling:
+
+| Token | Prefix | Product | Scope |
+|---|---|---|---|
+| Access token | `stk_<48-hex>` | Mail, Storage, CDN admin | Company-scoped, permission-list scoped |
+| Auth Project key | `aps_<48-hex>` | Auth Projects public API | Per-Auth-Project master key (server-only) |
+| Env Vault token | `stk_env_<48-hex>` | Env Vault SDK + CLI | Per-environment, optional `--public-only` scope |
+
+All tokens are stored as SHA-256 hashes with a 12-char visible prefix; the plaintext is shown **once on create** and never again. Cookie sessions exist on `.sentroy.com` but are for dashboard UI only — not for SDK or agent traffic.
+
+## Optional
+
+- [Sentroy Status](https://status.sentroy.com) — real-time uptime board for Mail API, Storage, CDN, DB, and Mail Dashboard
+- [GitHub organization](https://github.com/Sentroy-Co) — SDKs, CLI, example apps, and the public skill repository
+
+---
+
+# Canonical Skill (skill.md)
+
+
+## TL;DR
+
+**Sentroy** is a unified developer platform: transactional **mail**, S3-backed **storage + CDN**, **env vault** (config + secrets sync), and **auth-as-a-service** (per-app end-user pools). Official SDKs in TypeScript, Python, PHP, and Go all wrap the same REST surface; a `sentroy` CLI ships with the TS package. This skill covers SDK + REST integration. It is **not** an end-user docs portal, dashboard UI guide, or billing reference.
+
+## Base URLs
+
+The TypeScript SDK takes the **platform root** as `baseUrl` and rewrites internally — do not pass subdomains.
+
+| Service | Production URL | Notes |
+|---|---|---|
+| Platform root (SDK `baseUrl`) | `https://sentroy.com` | SDK auto-routes `/api/mail/*` and `/api/storage/*` |
+| Mail API | `https://mail.sentroy.com` | Direct REST consumers only |
+| Storage API | `https://storage.sentroy.com` | Direct REST consumers only |
+| CDN (public media) | `https://cdn.sentroy.com/f/<mediaId>[/<quality>]` | No auth, mediaId is unguessable |
+| Auth Projects API | `https://auth.sentroy.com/api/v1/auth/<projectSlug>/...` | Separate `aps_` key |
+| Docs | `https://docs.sentroy.com` | |
+
+Custom environment / staging: override `baseUrl` and the SDK will compose every path under it.
+
+## Authentication
+
+Four auth modes exist. **Pick once per integration.**
+
+| Mode | Header / mechanism | When to use |
+|---|---|---|
+| **Access token (`stk_`)** | `Authorization: Bearer stk_<48-hex>` | 99% of agent + SDK work. Company-scoped, permission-list scoped. |
+| **Auth Project key (`aps_`)** | `Authorization: Bearer aps_<48-hex>` | Auth-as-a-Service public API only (`/api/v1/auth/<slug>/...`). |
+| **Internal secret** | `x-internal-secret: <secret>` | Server-to-server inside the Sentroy infra. **Never** use from an agent. |
+| **Session cookie** | better-auth cookie on `.sentroy.com` | Dashboard UI only. Not for SDK or CLI. |
+
+**Decision tree:**
+
+1. Calling something under `/api/companies/<slug>/...`? → **stk_ token**.
+2. Calling `/api/v1/auth/<projectSlug>/{signup,login,...}` on behalf of an Auth Project? → **aps_ key**.
+3. Anything else (e.g. dashboard automation through the UI itself)? → out of scope for this skill.
+
+**Creating an `stk_` token:** Dashboard → company → Settings → Access Tokens → "New". The plaintext is shown **once on create** — store it immediately. After that only `tokenPrefix` (first 12 chars) is visible. Pick the minimum permission set (see [Permission scopes](#permission-scopes)).
+
+**Creating an `aps_` key:** Dashboard → Auth Projects → `<project>` → API Keys → "New". Same rules: plaintext on create only. These are **master keys** for the entire end-user pool — treat as a server secret. Never ship to a browser bundle.
+
+## Install & quick start
+
+### TypeScript
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { Sentroy } from "@sentroy-co/client-sdk";
+
+const sentroy = new Sentroy({
+  baseUrl: "https://sentroy.com",
+  companySlug: "acme",
+  accessToken: process.env.SENTROY_API_KEY!, // stk_...
+});
+
+const domains = await sentroy.domains.list();
+console.log(domains);
+```
+
+### Python
+
+> **Note:** Python/PHP/Go SDK packages are in development; today they map 1:1 to raw HTTP calls — see the cURL recipes.
+
+```bash
+pip install sentroy
+```
+
+```python
+from sentroy import Sentroy
+
+sentroy = Sentroy(
+    base_url="https://sentroy.com",
+    company_slug="acme",
+    access_token=os.environ["SENTROY_API_KEY"],
+)
+
+print(sentroy.domains.list())
+```
+
+### PHP
+
+```bash
+composer require sentroy/client-sdk
+```
+
+```php
+use Sentroy\Sentroy;
+
+$sentroy = new Sentroy([
+    'baseUrl' => 'https://sentroy.com',
+    'companySlug' => 'acme',
+    'accessToken' => getenv('SENTROY_API_KEY'),
+]);
+
+print_r($sentroy->domains->list());
+```
+
+### Go
+
+```bash
+go get github.com/Sentroy-Co/client-sdk/go
+```
+
+```go
+import "github.com/Sentroy-Co/client-sdk/go/sentroy"
+
+client := sentroy.New(sentroy.Config{
+    BaseURL:     "https://sentroy.com",
+    CompanySlug: "acme",
+    AccessToken: os.Getenv("SENTROY_API_KEY"),
+})
+
+domains, err := client.Domains.List(ctx)
+```
+
+### cURL
+
+```bash
+curl -H "Authorization: Bearer $SENTROY_API_KEY" \
+  https://sentroy.com/api/companies/acme/domains
+```
+
+## Common task recipes
+
+### 1. Send a templated email
+
+```ts
+const result = await sentroy.send.email({
+  domainId: "dom_abc",           // REQUIRED — the verified sending domain
+  templateId: "tpl_welcome",
+  to: "alice@example.com",
+  from: "noreply@acme.com",      // must belong to the verified domain above
+  variables: { firstName: "Alice", confirmUrl: "https://acme.com/c/abc" },
+});
+// → { jobId: "job_…", mailLogId: "log_…", status: "queued", scheduledAt?: "2026-…" }
+```
+
+Common error: `400 "from address domain not verified"` — verify the domain first (recipe 3).
+
+### 2. Send a raw email (no template)
+
+```ts
+await sentroy.send.email({
+  domainId: "dom_abc",           // REQUIRED
+  to: "bob@example.com",
+  from: "alerts@acme.com",
+  subject: "Build #182 failed",
+  html: "<p>See log…</p>",
+  text: "See log…",
+});
+// → { jobId: "job_…", mailLogId: "log_…", status: "queued" }
+```
+
+Common error: `403 send.execute` — the token lacks the `send.execute` permission.
+
+### 3. Create + verify a domain (raw HTTP)
+
+The TS SDK currently only exposes `sentroy.domains.list()` and `sentroy.domains.get(id)`. Create + verify must go through raw HTTP today.
+
+```bash
+# Create the domain — returns the DNS records you need to publish
+curl -X POST \
+  -H "Authorization: Bearer $SENTROY_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"acme.com"}' \
+  https://sentroy.com/api/companies/acme/domains
+# → { id: "dom_…", status: "pending", dnsRecords: [
+#     { type: "TXT",   name: "@",             value: "v=spf1 …" },
+#     { type: "CNAME", name: "s1._domainkey", value: "s1.dkim.…" },
+#     { type: "CNAME", name: "s2._domainkey", value: "s2.dkim.…" },
+#     { type: "TXT",   name: "_dmarc",        value: "v=DMARC1 …" },
+#   ]}
+
+# After publishing DNS, trigger re-check:
+curl -X POST \
+  -H "Authorization: Bearer $SENTROY_API_KEY" \
+  https://sentroy.com/api/companies/acme/domains/dom_abc/verify
+# → { status: "verified" | "pending" | "failed", checks: { spf, dkim, dmarc } }
+```
+
+The DNS records returned cover SPF, two DKIM selectors, and DMARC — publish all four for full deliverability.
+
+Common error: `status: "pending"` for up to 60 min as DNS propagates. Poll, don't loop tightly.
+
+### 4. Create a mailbox (raw HTTP)
+
+The TS SDK currently only exposes `sentroy.mailboxes.list()`. Create goes through raw HTTP.
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer $SENTROY_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "domainId": "dom_abc",
+    "localPart": "support",
+    "displayName": "Acme Support",
+    "password": "'"$(uuidgen)"'"
+  }' \
+  https://sentroy.com/api/companies/acme/mailboxes
+# → { id: "mb_…", address: "support@acme.com" }
+```
+
+Common error: `409 "mailbox already exists"` — local part collision on the domain.
+
+### 5. Upload a file to a bucket (single, public)
+
+`bucketSlug` is the **first positional argument**; the field is `body` (Blob / Buffer / stream), and visibility is `isPublic: boolean`.
+
+```ts
+const file = await fs.promises.readFile("./hero.jpg");
+const media = await sentroy.media.upload("marketing", {
+  body: file,
+  filename: "hero.jpg",
+  contentType: "image/jpeg",
+  isPublic: true,         // → served from cdn.sentroy.com/f/<id>
+});
+// → { id: "med_…", url: "https://cdn.sentroy.com/f/med_…", size: 482103 }
+```
+
+Common error: `413 "file too big"` — single-shot upload limit applies; for very large files, see the note below.
+
+> **Large files (>100MB):** upload via the Storage dashboard, which uses a 3-parallel multipart pool internally. Programmatic multipart from the SDK is roadmap.
+
+### 6. List media in a bucket (paginated)
+
+`bucketSlug` is positional. Pagination is **offset-based** (`skip`/`limit`), not cursor-based.
+
+```ts
+const page = await sentroy.media.list("marketing", {
+  limit: 50,
+  skip: 0,                  // offset; bump by `limit` for next page
+  type: "image",            // image | video | audio | doc | other
+  folder: "/heroes",
+  q: "hero",                // optional search
+  sort: "createdAt",        // optional
+  dir: "desc",              // optional
+});
+// → { items: [...], total: 137, limit: 50, skip: 0, sort?: "createdAt", dir?: "desc" }
+```
+
+### 7. Sign up an end-user via Auth Project (cURL)
+
+```bash
+curl -X POST \
+  -H "Authorization: Bearer $SENTROY_APS_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"alice@example.com","password":"hunter2","name":"Alice"}' \
+  https://auth.sentroy.com/api/v1/auth/my-app/signup
+# → { user: {...}, accessToken: "<jwt>", refreshToken: "..." }
+```
+
+Python/PHP/Go auth SDK subpaths are not yet shipped — use raw HTTP. JWTs are RS256 with project-specific keypairs; verify against `https://auth.sentroy.com/api/v1/auth/<slug>/jwks.json`.
+
+## Resource API surface
+
+All paths are relative to `https://sentroy.com/api/companies/<slug>` unless noted.
+
+### Mail — domains
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| GET | `/domains` | List domains | `domains.view` |
+| POST | `/domains` | Create + return DNS records | `domains.create` |
+| GET | `/domains/{id}` | Detail + verification state | `domains.view` |
+| POST | `/domains/{id}/verify` | Re-check DNS | `domains.edit` |
+| DELETE | `/domains/{id}` | Remove | `domains.delete` |
+
+### Mail — mailboxes
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| GET | `/mailboxes` | List | `mailboxes.manage` |
+| POST | `/mailboxes` | Create | `mailboxes.manage` |
+| PATCH | `/mailboxes/{id}` | Rename / change password / quota | `mailboxes.manage` |
+| DELETE | `/mailboxes/{id}` | Remove | `mailboxes.manage` |
+
+### Mail — templates
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| GET | `/templates` | List | `templates.manage` |
+| POST | `/templates` | Create (name/subject/mjmlBody accept LocalizedString; domainId required) | `templates.manage` |
+| GET | `/templates/{id}` | Detail | `templates.manage` |
+| PATCH | `/templates/{id}` | Update | `templates.manage` |
+| DELETE | `/templates/{id}` | Remove | `templates.manage` |
+
+### Mail — inbox
+
+The `{uid}` path param is the **IMAP UID** (not a Mongo `_id`). The `mailbox` and `folder` query params are **load-bearing** — they identify which IMAP folder owns the UID and must be passed on every single-message call.
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| GET | `/inbox?mailbox=<addr>&folder=<inbox\|sent\|trash>&unread=<bool>` | List messages | `inbox.view` |
+| GET | `/inbox/{uid}?mailbox=<addr>&folder=<folder>` | Message + parsed parts | `inbox.view` |
+| POST | `/inbox/{uid}/read?mailbox=<addr>&folder=<folder>` | Mark read | `inbox.view` |
+| DELETE | `/inbox/{uid}?mailbox=<addr>&folder=<folder>` | Trash | `inbox.view` |
+
+### Mail — send / suppressions / webhooks / logs / analytics
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| POST | `/send` | Send (template or raw)¹ | `send.execute` |
+| GET | `/suppressions` | Bounced/complained addresses | `suppressions.manage` |
+| POST | `/suppressions` | Add manually | `suppressions.manage` |
+| DELETE | `/suppressions/{addr}` | Remove | `suppressions.manage` |
+| GET | `/webhooks` | List endpoints | `webhooks.manage` |
+| POST | `/webhooks` | Subscribe (`events: ["delivered","bounced",...]`) | `webhooks.manage` |
+| GET | `/logs` | Send log (filter `status`, `domain`, `from`, `to`) | `logs.view` |
+| GET | `/logs/{id}` | Message timeline | `logs.view` |
+| GET | `/analytics` | Aggregate counts (param `days=7|30|90`) | `logs.view` |
+
+¹ TS SDK method `sentroy.send.email()` calls `POST /send` for ergonomics — pass either `templateId` + `variables` or `subject` + `html`/`text`, plus the required `domainId`.
+
+### Storage — buckets
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| GET | `/buckets` | List | `storage.view` |
+| POST | `/buckets` | Create | `buckets.create` |
+| GET | `/buckets/{slug}` | Detail | `storage.view` |
+| PATCH | `/buckets/{slug}` | Rename / visibility | `buckets.edit` |
+| DELETE | `/buckets/{slug}` | Force-delete cascade | `buckets.delete` |
+
+### Storage — media
+
+Multipart upload is **not** part of the public REST API today — see Recipe 5 for the upload story. The list endpoint uses offset pagination (`skip`/`limit`), not cursor.
+
+| Method | Path | Description | Permission |
+|---|---|---|---|
+| GET | `/buckets` | List buckets | `storage.view` |
+| GET | `/buckets/{slug}` | Bucket detail | `storage.view` |
+| GET | `/buckets/{slug}/media` | List (`limit`, `skip`, `type`, `folder`, `q`, `sort`, `dir`) | `storage.view` |
+| GET | `/buckets/{slug}/media/{mediaId}` | Detail | `storage.view` |
+| GET | `/buckets/{slug}/media/{mediaId}/download` | Authenticated download URL | `storage.view` |
+| GET | `/usage` | Per-bucket usage stats | `storage.view` |
+| GET | `/storage-quota` | Used + limit bytes (company-wide) | `storage.view` |
+
+### Env vault
+
+Env vault uses **its own scoped token** (`Authorization: Bearer stk_env_<...>`), not the standard `stk_` access token or the permission engine. The three endpoints are token-scoped (no company in the path) — the token itself identifies the target vault project.
+
+| Method | Path | Description |
+|---|---|---|
+| POST | `/api/env-vault/push` | Full sync up (CLI flag `--delete-missing` controls removal of vault keys absent locally) |
+| POST | `/api/env-vault/fetch` | Full snapshot down (server-authoritative state) |
+| GET | `/api/env-vault/public` | Browser-safe subset only (keys flagged public) |
+
+### Auth-as-a-Service (uses `aps_` key, host = `auth.sentroy.com`)
+
+> **Not wrapped by the TS SDK.** The `Sentroy` class only knows mail/storage. Invoke these endpoints directly with `fetch` or cURL against the `auth.sentroy.com` host.
+
+| Method | Path | Description |
+|---|---|---|
+| POST | `/api/v1/auth/{slug}/signup` | Create end-user |
+| POST | `/api/v1/auth/{slug}/login` | Issue JWT |
+| POST | `/api/v1/auth/{slug}/refresh` | Refresh JWT |
+| POST | `/api/v1/auth/{slug}/logout` | Revoke session |
+| GET | `/api/v1/auth/{slug}/userinfo` | Bearer-validated user |
+| POST | `/api/v1/auth/{slug}/verify-email` | Confirm token |
+| POST | `/api/v1/auth/{slug}/password-reset/request` | Send reset mail |
+| POST | `/api/v1/auth/{slug}/password-reset/confirm` | Apply new password |
+| GET | `/api/v1/auth/{slug}/jwks.json` | Public keys for JWT verify |
+
+## LocalizedString gotcha
+
+Many mail-side string fields (template `name`, `subject`, `mjmlBody`, status branding `tagline`, etc.) accept **either** a plain string **or** a `{tr, en}` object. Both forms are valid for the same endpoint. (`domainId` is required on create — a verified sending domain id.)
+
+```ts
+// Plain string — applied to all locales
+await sentroy.templates.create({
+  name: "Welcome",
+  subject: "Welcome to Acme",
+  mjmlBody: "<p>Hi {{firstName}}</p>",
+  domainId: "dom_abc", // REQUIRED — verified sending domain
+});
+
+// Localized — different copy per locale
+await sentroy.templates.create({
+  name: { tr: "Hoş geldin", en: "Welcome" },
+  subject: { tr: "Acme'ye hoş geldin", en: "Welcome to Acme" },
+  mjmlBody: { tr: "<p>Merhaba {{firstName}}</p>", en: "<p>Hi {{firstName}}</p>" },
+  domainId: "dom_abc", // REQUIRED
+});
+```
+
+If a recipient's locale is missing the SDK falls back to `en` then to the first available key.
+
+## Permission scopes
+
+Request the **minimum** scope. Wildcards exist but should be a last resort.
+
+```
+domains.view  domains.create  domains.edit  domains.delete  domains.manage
+mailboxes.manage
+templates.manage
+inbox.view
+audience.manage
+send.execute
+logs.view
+webhooks.manage
+suppressions.manage
+api-keys.manage
+smtp.manage
+members.manage
+storage.view
+buckets.create  buckets.edit  buckets.delete
+media.upload   media.delete  media.reorder
+```
+
+- **Wildcards:** `<resource>.manage` grants every action on that resource. Use only when the integration genuinely needs full CRUD.
+- **Scoped (legacy):** `domains.domain:<id>` — all actions on one specific domain.
+- **Scoped (granular):** `domains.domain:<id>:<action>` (`view|edit|delete|create`) — one action on one domain.
+- **Mailbox-scoped inbox:** `inbox.mailbox:<email>` — read only one mailbox's mail.
+
+**Dashboard-only scopes (not relevant to `stk_` REST callers):**
+`oauth-clients.manage`, `auth-projects.manage` — these gate dashboard UI actions for managing OAuth Clients and Auth Projects. Auth Project public API access uses the per-project `aps_` key instead; OAuth provider endpoints are unauthenticated by design.
+
+Owner / admin company members bypass scope checks; `member` role is granular.
+
+## Errors
+
+Standard JSON envelope on failure — note there is **no** `success`, `code`, or `details` field:
+
+```json
+{ "data": null, "error": "Human-readable message" }
+```
+
+On success the envelope is `{ "data": <payload>, "error": null }`. Branch on the HTTP status code and read `error` for the user-displayable string.
+
+| Status | Meaning | Typical fix |
+|---|---|---|
+| 400 | Validation failed | Read `error`; fix payload |
+| 401 | Missing / malformed / expired token | Re-issue `stk_` or `aps_` |
+| 403 | Token lacks the required permission | Add scope in dashboard |
+| 404 | Resource not in this company (or wrong slug) | Check `companySlug` and resource id |
+| 409 | Conflict (duplicate slug, mailbox, etc.) | Use a different identifier |
+| 413 | Payload too large | Compress or upload via dashboard |
+| 422 | Semantic error (e.g. `from` domain unverified) | Resolve precondition |
+| 429 | Rate-limited | Honor `Retry-After` header; back off |
+| 500 / 502 / 503 | Server error | Retry with exponential backoff |
+
+## Rate limits
+
+Per-token + per-company rate limits are enforced by the platform. `429` returns include a `Retry-After: <seconds>` header — honor it, then apply exponential backoff with jitter. Check your dashboard for plan-specific ceilings.
+
+## Gotchas & footguns
+
+1. **`stk_` plaintext is shown only on create.** It is irretrievable afterward — store it the moment you create one.
+2. **`tokenPrefix` (first 12 chars)** is the only identifier visible in lists / dashboard after creation. Use it to disambiguate tokens, not the full secret.
+3. **`baseUrl` = platform root**, never a subdomain. The SDK rewrites `/api/mail/*` → `mail.sentroy.com` and `/api/storage/*` → `storage.sentroy.com` for you.
+4. **Cross-subdomain cookie** works only in production on `.sentroy.com`. Local dev uses per-port cookies; expect to log in to each app separately.
+5. **Avatar / logo uploads** use the `DirectAvatarUpload` React helper, **not** `MediaManagerTrigger` — no bucket picker, just crop + POST.
+6. **Tailwind v4 + `MediaManager`:** add `@source "../node_modules/@sentroy-co/client-sdk/dist/react";` to `globals.css` or component classes will be tree-shaken and render unstyled.
+7. **`CropDialog` CSS:** import `"@sentroy-co/client-sdk/react/crop/styles.css"` exactly once in the root layout — required for `react-mobile-cropper` baseline styles.
+8. **`<SelectValue>` is forbidden for slug/enum/id values.** Render the human label manually inside `<SelectTrigger>` — the raw value would otherwise leak to the UI.
+9. **`aps_` Auth Project keys are master keys.** Never expose to a browser bundle or a mobile binary. A browser-safe public-key tier is on the roadmap.
+10. **Storage quota:** preflight large uploads with `GET /storage-quota` — `413` after upload start wastes bytes against your budget.
+11. **Domain verification propagation:** DNS publishes in 5–60 min. Poll `/domains/{id}` (or call `verify`) every 30–60 s, not in a tight loop.
+
+## CLI
+
+The TS package ships a `sentroy` binary. Install once globally or use via `npx`:
+
+```bash
+npm install -g @sentroy-co/client-sdk    # global
+npx sentroy <command>                    # ad-hoc
+```
+
+**Auth via env (preferred):**
+
+```bash
+export SENTROY_API_KEY=stk_…
+export SENTROY_COMPANY_SLUG=acme
+# Env vault subgroup uses its own scoped token:
+export SENTROY_ENV_API_KEY=stk_env_…
+```
+
+Or per-invocation flags: `--token`, `--company-slug`, `--url` (defaults to `https://sentroy.com`).
+
+**Global flags:** `--token`, `--url`, `--company-slug`, `--output=json|table` (default `table`). Every list/get command supports `--output=json` for scripting / piping into `jq`.
+
+**Commands:**
+
+```bash
+# Env vault sync
+sentroy env push                              # local .env → vault
+sentroy env pull                              # vault → local .env
+sentroy env list                              # show all keys
+sentroy env diff                              # local vs. vault
+
+# Mail
+sentroy mail templates list
+sentroy mail templates get <id>
+sentroy mail domains list
+sentroy mail mailboxes list
+sentroy mail inbox list [--mailbox=<addr>] [--folder=inbox|sent|trash] [--unread]
+sentroy mail suppressions list
+sentroy mail logs list [--status=delivered|bounced|deferred] [--domain=<name>] [--from=<iso>] [--to=<iso>]
+sentroy mail logs get <id>
+sentroy mail webhooks list
+sentroy mail analytics [--days=7|30|90]
+
+# Storage
+sentroy storage buckets list
+sentroy storage buckets get <bucketSlug>
+sentroy storage media list <bucketSlug> [--type=image|video|audio|doc|other] [--folder=<path>] [--q=<query>]
+sentroy storage media get <bucketSlug> <mediaId>
+sentroy storage usage
+sentroy storage quota                          # company-wide used + limit bytes
+
+# Skill / AI tooling installer
+sentroy ai install [--claude] [--cursor] [--windsurf] [--agents] [--all] [--upgrade] [--check] [--source <path>] [--no-agents]
+# Copies this SKILL.md into each tool's well-known skill directory.
+# --upgrade : re-install only if the installed version differs from the bundled one
+#             (it is a version-aware refresh, NOT a force-overwrite).
+# --check   : report what would change without writing.
+# --source  : use a local SKILL.md path instead of the bundled copy.
+```
+
+## Versioning
+
+- SDK + skill follow **semver**. Skill body is shipped inside `@sentroy-co/client-sdk`; bump the SDK to receive the latest skill copy.
+- `sentroy ai install --upgrade` detects the version + sha markers in the footer below and reinstalls only when newer.
+- Pin a major in production (`"@sentroy-co/client-sdk": "^2.0.0"`); minors add resources, patches fix bugs, majors may rename surfaces.
+
+## Where to look next
+
+- `https://docs.sentroy.com/llms.txt` — full discovery index for LLMs
+- `https://docs.sentroy.com/cli` — CLI reference
+- `https://docs.sentroy.com/ai-skills` — this skill, its install paths, and the upgrade flow
+- `https://docs.sentroy.com/mail` — mail product docs
+- `https://docs.sentroy.com/storage` — storage product docs
+- `https://docs.sentroy.com/auth-projects` — Auth-as-a-Service docs
+- `https://raw.githubusercontent.com/Sentroy-Co/client-sdk/main/typescript/AGENTS.md` — the full 900-line TS reference (deep dive)
+
+<!-- skill-version: 2.14.0 -->
+
+---
+
+# Sentroy Mail
+
+> Transactional email API — templates, domains, mailboxes, inbox, suppressions, logs, webhooks, SMTP. Drop-in replacement for **Resend**, **Postmark**, **Mailgun**, and **SendGrid**. Same `stk_` token covers Mail + Storage + CDN.
+
+## Quickstart
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { Sentroy } from "@sentroy-co/client-sdk";
+
+const sentroy = new Sentroy({
+  baseUrl: "https://sentroy.com",
+  companySlug: "acme",
+  accessToken: process.env.SENTROY_API_KEY!, // stk_...
+});
+
+await sentroy.send.execute({
+  from: "hello@acme.com",
+  to: ["user@example.com"],
+  subject: "Welcome",
+  html: "<h1>Hi</h1>",
+  text: "Hi",
+});
+```
+
+## Authentication
+
+- **Header:** `Authorization: Bearer stk_<48-hex>`
+- **Required permission:** `send.execute` for sending; `domains.manage`, `mailboxes.manage`, `templates.manage`, `inbox.view`, `logs.view`, `suppressions.manage`, `webhooks.manage` for the corresponding admin surface.
+- Tokens are company-scoped. Create in Dashboard → company → Settings → Access Tokens. Plaintext shown **once on create**.
+
+## Endpoints
+
+Base: `https://sentroy.com/api/mail/...` (SDK rewrites `/api/mail/*` automatically).
+
+| Verb | Path | Purpose | Permission |
+|---|---|---|---|
+| `POST` | `/send` | Send transactional message (HTML, text, template, attachments) | `send.execute` |
+| `GET` / `POST` | `/templates` | List + create templates with `{tr, en}` LocalizedString bodies | `templates.manage` |
+| `GET` / `POST` | `/domains` | List + add sending domains (returns DNS records to copy) | `domains.manage` |
+| `POST` | `/domains/:id/verify` | Re-check DKIM / SPF / DMARC | `domains.manage` |
+| `GET` / `POST` | `/mailboxes` | List + provision IMAP mailboxes | `mailboxes.manage` |
+| `GET` | `/inbox` | Read mailbox messages | `inbox.view` |
+| `GET` | `/logs` | Delivery + event log | `logs.view` |
+| `GET` / `POST` | `/suppressions` | Bounce / complaint suppressions | `suppressions.manage` |
+| `GET` / `POST` | `/webhooks` | Outbound delivery webhooks | `webhooks.manage` |
+
+## Recipes
+
+### Templated send with variables
+
+```ts
+await sentroy.send.execute({
+  from: "noreply@acme.com",
+  to: ["user@example.com"],
+  templateId: "tpl_welcome",
+  variables: { firstName: "Ada", verifyUrl: "https://acme.com/v/abc" },
+  locale: "en", // picks the LocalizedString slot
+});
+```
+
+### Creating templates
+
+`sentroy.templates` exposes full CRUD (TypeScript SDK). `domainId` is **required** — the id of a verified sending domain. There is **no** `variables` input: the platform auto-extracts the variable list from the body and returns it on the resulting `Template` as `variables: string[]`.
+
+```ts
+const tpl = await sentroy.templates.create({
+  name: "Welcome",                       // LocalizedString: string OR { tr, en, ... }
+  subject: "Welcome to Acme",            // LocalizedString
+  mjmlBody: "<mjml>...Hi {firstName}...</mjml>", // LocalizedString
+  domainId: domain.id,                   // REQUIRED, verified domain
+});
+// tpl.variables -> ["firstName"]  (auto-extracted)
+
+await sentroy.templates.update(tpl.id, { subject: "Welcome aboard" }); // partial, ≥1 field
+await sentroy.templates.delete(tpl.id);
+```
+
+Methods: `create(params)` → `POST /templates` (201); `update(id, params)` → `PATCH /templates/{id}` (200); `delete(id)` → `DELETE /templates/{id}`; plus existing `list({ domainId? })` and `get(id)`. `UpdateTemplateParams = { name?, subject?, mjmlBody? }` is partial — at least one field required.
+
+REST (gateway, Bearer `stk_`, permission `templates.manage`):
+
+```
+POST   /api/mail/companies/{slug}/templates        -> 201 Template
+PATCH  /api/mail/companies/{slug}/templates/{id}    -> 200 Template
+DELETE /api/mail/companies/{slug}/templates/{id}    -> { message }
+```
+
+CLI (`sentroy` binary, needs `SENTROY_API_KEY` + `SENTROY_COMPANY_SLUG`):
+
+```bash
+sentroy mail templates create --name=<n> --subject=<s> --domain=<domainId> \
+  (--mjml-file=<path> | --mjml='<inline>' | <pipe body on stdin>)
+sentroy mail templates update <id> [--name] [--subject] [--mjml | --mjml-file]
+sentroy mail templates delete <id>
+# --name / --subject accept a plain string OR a JSON object string:
+#   --name='{"en":"Welcome","tr":"Hos geldin"}'
+# --domain is the verified sending domain id.
+```
+
+> **Other SDKs.** Go, Python, and PHP expose templates **read-only** (`list`/`get`). Create/update/delete is TypeScript SDK, `sentroy` CLI, or REST only.
+
+### Template variables
+
+The engine is Mustache-like but **regex-based and single-level** (no nesting). Variable names match `\w+` (letters, digits, underscore), **case-sensitive** — no dashes or dots. Variables are extracted automatically; there is **no "declare variables" step** for user templates.
+
+| Syntax | Meaning |
+|---|---|
+| `{name}` or `{{name}}` | Scalar (both brace forms work) |
+| `{#items} ... {/items}` | Array section — repeats per element; item fields are in scope (`{title}`, `{price}`) |
+| `{^name} ... {/^name}` | Inverted — renders only when `name` is missing / empty / false |
+
+- **No default-value syntax.** An unmatched placeholder is left in the output verbatim.
+- **Nested sections are not supported.**
+
+At send time pass values in the `variables` object — scalars plus arrays for sections:
+
+```ts
+await sentroy.send.execute({
+  from: "noreply@acme.com",
+  to: ["user@example.com"],
+  templateId: tpl.id,
+  variables: {
+    firstName: "Ada",
+    hasItems: true,
+    items: [{ title: "Keyboard", price: "$80" }],
+  },
+});
+```
+
+A template that references a variable the send call does not provide is rejected with **HTTP 422** listing the missing names.
+
+### Raw send (HTML + text)
+
+```ts
+await sentroy.send.execute({
+  from: "alerts@acme.com",
+  to: ["ops@example.com"],
+  subject: "Disk full",
+  html: "<p>db-1 at 92%</p>",
+  text: "db-1 at 92%",
+  replyTo: "noreply@acme.com",
+});
+```
+
+### Add + verify a sending domain
+
+```ts
+const { data: domain } = await sentroy.domains.create({ domain: "mail.acme.com" });
+// domain.dns -> [{ type: "TXT", host: "...", value: "..." }, ...]
+// publish DNS, then:
+await sentroy.domains.verify(domain.id);
+```
+
+### Provision an IMAP mailbox
+
+```ts
+await sentroy.mailboxes.create({
+  domain: "mail.acme.com",
+  localPart: "support",
+  quotaMb: 5_000,
+});
+```
+
+## DKIM / SPF / DMARC checklist
+
+After `domains.create` Sentroy returns the DNS records you must publish on your authoritative zone before sending succeeds:
+
+1. **TXT** at `<selector>._domainkey.<domain>` — DKIM public key
+2. **TXT** at `<domain>` — SPF (`v=spf1 include:_spf.sentroy.com ~all`)
+3. **TXT** at `_dmarc.<domain>` — DMARC (`v=DMARC1; p=quarantine; rua=mailto:...`)
+4. **MX** at `<domain>` — only if you also want to **receive** mail through Sentroy mailboxes
+5. Call `POST /api/mail/domains/:id/verify` until status flips to `verified`
+
+## Gotchas
+
+- **LocalizedString fields.** Template subjects and bodies use `{tr, en}` shape; pick a `locale` on send or pass a flat string for single-locale projects.
+- **From-address must be on a verified domain.** Unverified domains 422 on send.
+- **413 file-too-big.** Attachments capped at 25 MB per message; prefer Storage links for larger payloads.
+- **Suppressions are sticky.** Once a recipient lands on the suppression list (bounce / complaint), subsequent sends silently skip them — remove via `DELETE /suppressions/:id`.
+- **Webhook signing.** Outbound webhook payloads carry an HMAC header; verify before trusting.
+
+## Error envelope
+
+Every endpoint returns the same shape:
+
+```json
+{ "data": { "id": "..." }, "error": null }
+```
+
+On failure:
+
+```json
+{ "data": null, "error": "Domain not verified" }
+```
+
+HTTP status mirrors REST conventions (`401` missing/invalid token, `403` permission denied, `404` resource not found, `422` validation, `429` rate-limited, `5xx` upstream).
+
+## Rate limits
+
+- Default: **100 req / 10s** per `stk_` token across Mail endpoints.
+- Send throughput shaped per-domain reputation; cold domains warm over 7 days.
+- `429` includes `Retry-After` header — back off and retry.
+
+## Competitors
+
+Sentroy Mail is a direct alternative to **Resend**, **Postmark**, **Mailgun**, and **SendGrid**. Migrations covered in `/compare/resend` and `/compare/mailgun`; same primitives (domains, templates, send, webhooks, suppressions) with a single bearer token that also unlocks Storage, CDN, and Auth.
+
+For full reference: https://docs.sentroy.com/mail
+
+---
+
+# Sentroy Storage + CDN
+
+> S3-backed object storage with on-the-fly image transformations served from `cdn.sentroy.com`. Drop-in replacement for **AWS S3 + CloudFront**, **Cloudflare R2**, and **Backblaze B2** — without the IAM, signed-URL, and CDN-edge-cache wiring.
+
+## Quickstart
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { Sentroy } from "@sentroy-co/client-sdk";
+
+const sentroy = new Sentroy({
+  baseUrl: "https://sentroy.com",
+  companySlug: "acme",
+  accessToken: process.env.SENTROY_API_KEY!, // stk_...
+});
+
+const { data } = await sentroy.media.upload({
+  bucketId: "bkt_avatars",
+  file: fileFromInput, // browser File / Node Buffer / RN { uri, name, type }
+  contentType: "image/png",
+});
+// data.cdnUrl -> https://cdn.sentroy.com/f/<mediaId>
+```
+
+## Authentication
+
+- **Header:** `Authorization: Bearer stk_<48-hex>` for admin (upload, delete, list).
+- **Required permissions:** `storage.view`, `buckets.{create,edit,delete}`, `media.{upload,delete,reorder}`.
+- **Public CDN reads are anonymous** — `mediaId` is a 24-char unguessable ULID; no token required for `GET /f/:mediaId`.
+
+## Endpoints
+
+Base: `https://sentroy.com/api/storage/...` (SDK rewrites `/api/storage/*` automatically). Public CDN: `https://cdn.sentroy.com`.
+
+| Verb | Path | Purpose | Permission |
+|---|---|---|---|
+| `GET` | `/buckets` | List buckets | `storage.view` |
+| `GET` | `/buckets/:id` | Bucket detail (size, count, settings) | `storage.view` |
+| `POST` | `/buckets` | Create bucket | `buckets.create` |
+| `PATCH` / `DELETE` | `/buckets/:id` | Update / delete (cascade-purges media) | `buckets.edit` / `buckets.delete` |
+| `GET` | `/buckets/:id/media` | List media (paginated, `?cursor=`, `?limit=`) | `storage.view` |
+| `GET` | `/media/:id` | Media metadata | `storage.view` |
+| `POST` | `/media` | Upload (multipart) — returns `{id, cdnUrl}` | `media.upload` |
+| `DELETE` | `/media/:id` | Delete + purge CDN edges | `media.delete` |
+| `GET` | `/usage` | Per-bucket storage + bandwidth usage | `storage.view` |
+| `GET` | `/storage-quota` | Company-wide quota (used / limit) | `storage.view` |
+| `GET` | `/f/:mediaId[/:quality]` | Public CDN read | _none_ |
+
+## Recipes
+
+### Upload a single file
+
+```ts
+const { data } = await sentroy.media.upload({
+  bucketId: "bkt_uploads",
+  file,
+  contentType: file.type,
+  filename: file.name,
+});
+console.log(data.cdnUrl);
+```
+
+### List bucket media paginated
+
+```ts
+let cursor: string | undefined;
+do {
+  const page = await sentroy.media.list({ bucketId: "bkt_uploads", cursor, limit: 50 });
+  for (const m of page.data.items) console.log(m.id, m.cdnUrl);
+  cursor = page.data.nextCursor;
+} while (cursor);
+```
+
+### Fetch storage quota
+
+```ts
+const { data } = await sentroy.storage.quota();
+// { usedBytes, limitBytes, bandwidth30dBytes }
+```
+
+## CDN URL pattern
+
+```
+https://cdn.sentroy.com/f/<mediaId>             # original
+https://cdn.sentroy.com/f/<mediaId>/<quality>   # transformed variant
+```
+
+`<mediaId>` is 24-char ULID; URLs are stable, immutable, and safe to embed in marketing emails, HTML, and public RSS.
+
+## Image transformations
+
+`<quality>` segment selects a server-rendered Sharp variant:
+
+| Preset | Description |
+|---|---|
+| `thumb` | 128 px max edge, 80% q, WebP |
+| `small` | 320 px max edge, 82% q, WebP |
+| `medium` | 768 px max edge, 84% q, WebP |
+| `large` | 1600 px max edge, 86% q, WebP |
+| `avatar` | 256x256 cover crop, 85% q, WebP |
+| `og` | 1200x630 cover crop, 85% q, JPEG |
+
+Variants are computed on first request and edge-cached; subsequent requests are CDN-served.
+
+## Gotchas
+
+- **Multipart parallel pool.** Large uploads (> 16 MB) chunk into 3 parallel parts; SDK exposes `onProgress` callback. Resumable multipart sessions land in the next minor.
+- **React Native file shape.** Pass `file: { uri, name, type }` — the SDK detects RN and builds the multipart form correctly. Browser `File` and Node `Buffer` also work.
+- **Tailwind v4 `@source` requirement.** If consuming `MediaManager` from `@sentroy-co/client-sdk/react`, add `@source "../node_modules/@sentroy-co/client-sdk/dist/react";` to `globals.css` so Tailwind picks up the SDK's utility classes — otherwise the picker renders unstyled.
+- **mediaId is unguessable but public.** Anyone with the URL can read the file. For private documents, gate access at your application layer (signed URL feature in roadmap).
+- **CDN purge is cascade on bucket delete.** `DELETE /buckets/:id` schedules edge purge for every media in the bucket — irreversible.
+
+## Competitors
+
+Sentroy Storage + CDN is a direct alternative to **AWS S3** (+ CloudFront), **Cloudflare R2** (+ Workers), and **Backblaze B2**. Migration guides at `/compare/s3` and `/compare/r2`. Differences: no IAM policies, no signed URLs needed for public reads, image transforms built-in (no separate Lambda@Edge / Worker), single bearer token shared with Mail / Auth.
+
+For full reference: https://docs.sentroy.com/storage
+
+---
+
+# Sentroy Auth Projects
+
+> Auth-as-a-Service — per-app end-user pools with signup, login, JWT issuance, password reset, email verification, MFA, and social federation. Drop-in replacement for **Firebase Authentication**, **Auth0**, and **Clerk**. Each Auth Project is a fully isolated user pool with its own RSA keypair and JWKS endpoint.
+
+## Quickstart
+
+```bash
+npm install @sentroy-co/client-sdk
+```
+
+```ts
+import { SentroyAuth } from "@sentroy-co/client-sdk/auth";
+
+const auth = new SentroyAuth({
+  baseUrl: "https://auth.sentroy.com",
+  projectSlug: "acme-app",
+  apiKey: process.env.SENTROY_AUTH_KEY!, // aps_... (server-side only)
+});
+
+const { user, accessToken, refreshToken } = await auth.signup({
+  email: "user@example.com",
+  password: "correct-horse-battery-staple",
+});
+```
+
+## Auth modes
+
+Two layers — keep them separate or you will leak admin privilege to the browser.
+
+| Mode | Token | Where it runs | What it can do |
+|---|---|---|---|
+| **Auth Project master key** | `Authorization: Bearer aps_<48-hex>` | **Server only** (Node, edge function, RN bridged server) | Full admin on the user pool — create users, force-verify, rotate passwords |
+| **End-user access JWT** | `Authorization: Bearer eyJhbGciOiJSUzI1NiIs...` | Browser, RN, any client | Only acts as that one user — `/userinfo`, `/me/*`, refresh, logout |
+
+End-user access tokens are signed with the Auth Project's own RSA private key and verifiable against the per-project JWKS (`/jwks.json`).
+
+## Endpoints
+
+Base: `https://auth.sentroy.com/api/v1/auth/<projectSlug>/...`
+
+| Verb | Path | Purpose | Auth |
+|---|---|---|---|
+| `POST` | `/signup` | Create user + issue access/refresh tokens | `aps_` |
+| `POST` | `/login` | Email+password login (MFA challenge if enabled) | `aps_` |
+| `POST` | `/verify-email` | Confirm email verification token | _none_ (token is the secret) |
+| `POST` | `/password-reset/request` | Send reset email | `aps_` |
+| `POST` | `/password-reset/confirm` | Confirm reset with single-use token + new password | _none_ |
+| `POST` | `/refresh` | Trade refresh token for fresh access JWT | `aps_` + refresh token |
+| `POST` | `/logout` | Revoke refresh token | end-user JWT |
+| `GET` | `/userinfo` | Standard OIDC userinfo for the current JWT | end-user JWT |
+| `GET` | `/jwks.json` | Per-project public JWKS (cache 10 min) | _none_ |
+| `GET` / `PATCH` | `/me/*` | Read / update current user profile | end-user JWT |
+
+## Recipes
+
+### Signup + login (MFA-aware)
+
+```ts
+const result = await auth.login({ email, password });
+if (result.kind === "mfa_required") {
+  const finalized = await auth.mfa.verify({
+    challengeId: result.challengeId,
+    code: codeFromUser,
+  });
+  storeTokens(finalized);
+} else {
+  storeTokens(result);
+}
+```
+
+### JWT verification (server-side, no SDK call per request)
+
+```ts
+import { jwtVerify, createRemoteJWKSet } from "jose";
+
+const jwks = createRemoteJWKSet(
+  new URL("https://auth.sentroy.com/api/v1/auth/acme-app/jwks.json"),
+);
+
+const { payload } = await jwtVerify(req.headers.authorization!.slice(7), jwks, {
+  issuer: "https://auth.sentroy.com/api/v1/auth/acme-app",
+  audience: "acme-app",
+});
+// payload.sub -> stable user id
+```
+
+### Social federation (Expo / React Native)
+
+```ts
+import * as WebBrowser from "expo-web-browser";
+
+const url = auth.federation.startUrl({ provider: "google", redirectUri });
+const result = await WebBrowser.openAuthSessionAsync(url, redirectUri);
+const tokens = await auth.federation.exchange(result.url);
+```
+
+## React SDK
+
+```tsx
+import { SentroyAuthProvider, useAuth, useUser } from "@sentroy-co/client-sdk/react/auth";
+
+<SentroyAuthProvider
+  baseUrl="https://auth.sentroy.com"
+  projectSlug="acme-app"
+  // Do NOT pass the aps_ master key here — public endpoints used (verify-email, password-reset/confirm)
+  // plus end-user JWT flows.
+>
+  <App />
+</SentroyAuthProvider>;
+
+function Profile() {
+  const { user, logout } = useUser();
+  return user ? <button onClick={logout}>Hi {user.email}</button> : null;
+}
+```
+
+## React Native
+
+```ts
+import { createAsyncStorageAdapter } from "@sentroy-co/client-sdk/react/auth/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const auth = new SentroyAuth({
+  baseUrl: "https://auth.sentroy.com",
+  projectSlug: "acme-app",
+  storage: createAsyncStorageAdapter(AsyncStorage),
+});
+```
+
+`createAsyncStorageAdapter` shims AsyncStorage to the synchronous `Storage`-like interface the SDK expects.
+
+## Gotchas
+
+- **`window.location` on React Native.** The SDK guards every browser-only call, but custom federation handlers must use `Linking` / `WebBrowser` — not `window.location.assign`.
+- **`aps_` master key never reaches the browser.** It is a pool-wide admin credential. If you need browser-safe signup/login, route through your own backend (or wait for the v2 public-key tier — Firebase-style restricted key).
+- **JWKS cache.** Cache the JWKS response for 10 minutes server-side; per-Auth-Project key rotation publishes both old and new keys for at least 24 h so JWTs in flight verify.
+- **Password reset + email verification tokens are single-use.** They expire in 1 h. Don't store them; consume on first redirect.
+- **Refresh token rotation.** Every `/refresh` rotates the refresh token; persist the new one and discard the old.
+
+## Competitors
+
+Sentroy Auth Projects is a direct alternative to **Firebase Authentication**, **Auth0**, and **Clerk**. Migration guides at `/compare/firebase-auth`, `/compare/auth0`, `/compare/clerk`. Differences: per-project RSA keypair (you can self-verify with `jose` against the published JWKS — no vendor SDK required on the verifier), no per-MAU pricing on the free tier, same `stk_` company token also covers Mail / Storage so transactional verification emails are first-class.
+
+For full reference: https://docs.sentroy.com/auth-projects
+
+---
+
+# Sentroy Env Vault
+
+> Public/private environment variable + secret sync — SDK and CLI parity, webhook invalidation, per-token `--public-only` scoping. Drop-in replacement for **Doppler**, **Infisical**, and **AWS Secrets Manager**.
+
+## Install
+
+```bash
+npm install @sentroy-co/client-sdk
+export SENTROY_ENV_API_KEY=stk_env_<48-hex>
+```
+
+`stk_env_` tokens are per-environment (`dev`, `staging`, `prod`); rotate independently of company-wide `stk_` tokens.
+
+## SDK
+
+```ts
+import { getEnv, getEnvOrThrow, preloadEnv } from "@sentroy-co/client-sdk/env";
+
+// Cold start: hydrate once
+await preloadEnv();
+
+const url = getEnvOrThrow("DATABASE_URL");  // throws if missing
+const flag = getEnv("FEATURE_X", "off");    // typed default
+```
+
+`preloadEnv()` fetches the full vault snapshot for the environment, caches it in memory, and subscribes to webhook invalidations when wired up. Without webhooks the cache TTL is 5 minutes.
+
+## CLI
+
+The TypeScript SDK ships the `sentroy` CLI:
+
+```bash
+npx sentroy env list                          # current environment
+npx sentroy env list --public-only            # only NEXT_PUBLIC_* / EXPO_PUBLIC_*
+npx sentroy env pull --env prod > .env.prod   # write to disk
+npx sentroy env push --env staging .env       # upload local .env (overwrites)
+npx sentroy env diff --env prod               # diff local vs remote
+```
+
+`--public-only` enforces the public/private split at fetch time and is the only safe mode for shipping into a client bundle.
+
+## Endpoints
+
+Base: `https://sentroy.com/api/env-vault/...`
+
+| Verb | Path | Purpose | Auth |
+|---|---|---|---|
+| `POST` | `/push` | Bulk upsert keys for an environment | `stk_env_` |
+| `GET` | `/fetch` | Full snapshot (public + private) for the env | `stk_env_` |
+| `GET` | `/public` | Public-only snapshot — safe for browser bundles | `stk_env_` (any) |
+
+## React Provider
+
+```tsx
+import { EnvProvider, useEnv } from "@sentroy-co/client-sdk/react/env";
+
+<EnvProvider environment="prod" publicOnly>
+  <App />
+</EnvProvider>;
+
+function FeatureFlagged() {
+  const value = useEnv("NEXT_PUBLIC_FEATURE_X", "off");
+  return value === "on" ? <Beta /> : null;
+}
+```
+
+`publicOnly` is the safe default for client-side React; the provider will only request `/public`.
+
+## Webhook real-time invalidation
+
+Configure a webhook in the dashboard → on every push the SDK cache is invalidated within ~1 s. Without a webhook the SDK falls back to a 5-minute TTL.
+
+```ts
+// Server-side webhook receiver
+import { invalidateEnvCache } from "@sentroy-co/client-sdk/env";
+
+app.post("/webhooks/sentroy-env", async (req, res) => {
+  if (!verifyWebhookSignature(req)) return res.sendStatus(401);
+  invalidateEnvCache();
+  res.sendStatus(200);
+});
+```
+
+## Gotchas
+
+- **Public/private split is enforced server-side.** Calling `/public` with a private-scoped token still only returns keys flagged `public`. Don't rely on client filtering.
+- **5-minute cache TTL without webhook.** Rotating a secret without a webhook means clients can read stale values for up to 5 minutes. Wire the webhook in production.
+- **`stk_env_` ≠ `stk_`.** The env vault uses its own token namespace so you can rotate vault access without invalidating Mail / Storage credentials.
+- **`.env` push is destructive.** `sentroy env push --env <env> .env` replaces the entire environment payload — diff first.
+- **Don't commit `stk_env_` tokens.** Store in CI / Vercel / Coolify environment, not in the repo.
+
+## Competitors
+
+Sentroy Env Vault is a direct alternative to **Doppler**, **Infisical**, and **AWS Secrets Manager**. Differences: same bearer-token UX as the rest of Sentroy (no extra CLI auth dance, no separate dashboard account), public/private split is first-class (no manual `NEXT_PUBLIC_` filtering on push), webhook-driven cache invalidation rather than polling. Migration guides at `/compare/doppler` and `/compare/infisical`.
+
+For full reference: https://docs.sentroy.com/env-vault
