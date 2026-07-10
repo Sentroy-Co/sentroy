@@ -35,19 +35,9 @@ jobs:
             exit 1
           fi
           echo "OK: no tracked .env files."
-
-      # 3. Generic infra-identifier heuristic (NO literal prod values — those must
-      #    never be published; the one-time specific scan lives in the internal
-      #    pre-cut checklist). Catches obvious mongodb+srv creds and bare public
-      #    IPv4 literals in config/compose files.
-      - name: generic infra-identifier grep
-        run: |
-          set +e
-          HITS=$(git grep -nEI 'mongodb\+srv://[^ ]*:[^ ]*@' -- '*.ts' '*.js' '*.yaml' '*.yml' '*.env*' 2>/dev/null | grep -viE 'example|changeme|placeholder')
-          if [ -n "$HITS" ]; then
-            echo "::error::Possible credentialed connection string in a tracked file:"; echo "$HITS"; exit 1
-          fi
-          echo "OK: no credentialed connection strings."
+          # Note: gitleaks (step 1) already covers credentialed connection
+          # strings / API keys; a bespoke grep here only produced false positives
+          # on documentation comments, so it was removed.
 
   licenses:
     runs-on: ubuntu-latest
