@@ -27,6 +27,7 @@ import {
   getSystemMailSender,
   type SystemMailSender,
 } from "./system-mail-sender"
+import { serverRootDomain, rootOrigin, docsHost } from "../lib/domains"
 
 export type LocalizedString = Record<string, string>
 
@@ -71,29 +72,98 @@ export interface SystemMailEventDefinition {
 
 /* ─── Default copy templates ────────────────────────────────────────── */
 
-const wrap = (heading: string, body: string, cta?: { url: string; label: string }) => `
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#111">
-  <h2 style="margin:0 0 16px;color:#111">${heading}</h2>
-  <p style="margin:0 0 24px;color:#444;line-height:1.5">${body}</p>${
-    cta
-      ? `\n  <a href="${cta.url}" style="display:inline-block;padding:12px 20px;background:#111;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">${cta.label}</a>`
-      : ""
-  }
-  <p style="margin:24px 0 0;color:#888;font-size:12px;line-height:1.5">If you weren't expecting this, you can safely ignore this email.</p>
-</div>
-`.trim()
+/* Sosyal bağlantılar — landing v2 footer'ıyla aynı (mail footer'ında gösterilir). */
+const EMAIL_SOCIALS: [string, string][] = [
+  ["Instagram", "https://instagram.com/sentroycom"],
+  ["X", "https://x.com/sentroy"],
+  ["GitHub", "https://github.com/Sentroy-Co"],
+  ["LinkedIn", "https://linkedin.com/company/sentroy"],
+  ["Discord", "https://discord.com/channels/1522731613841129634"],
+]
 
-const wrapTr = (heading: string, body: string, cta?: { url: string; label: string }) => `
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:480px;margin:0 auto;padding:24px;color:#111">
-  <h2 style="margin:0 0 16px;color:#111">${heading}</h2>
-  <p style="margin:0 0 24px;color:#444;line-height:1.5">${body}</p>${
-    cta
-      ? `\n  <a href="${cta.url}" style="display:inline-block;padding:12px 20px;background:#111;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">${cta.label}</a>`
-      : ""
-  }
-  <p style="margin:24px 0 0;color:#888;font-size:12px;line-height:1.5">Bu maili beklemiyorduysanız güvenle görmezden gelebilirsiniz.</p>
-</div>
-`.trim()
+/**
+ * Uber-tarzı kurumsal mail kabuğu — logo header + beyaz kart + footer
+ * (Privacy · Contact · Docs + sosyaller + copyright). URL'ler ROOT_DOMAIN'den
+ * türetilir (self-host portable); footer link'leri locale'e göre /en|/tr.
+ * Tüm Sentroy auth/bildirim mailleri buradan geçer (wrap/wrapTr). RP status-
+ * abonesi mailleri ayrı kitledir → wrapSubscriber (Sentroy footer'ı almaz).
+ */
+function emailShell(opts: {
+  lang: "en" | "tr"
+  heading: string
+  body: string
+  cta?: { url: string; label: string }
+  footerNote?: string
+}): string {
+  const { lang, heading, body, cta, footerNote } = opts
+  const root = rootOrigin(serverRootDomain())
+  const docsUrl = `https://${docsHost(serverRootDomain())}`
+  const logo = `${root}/business/sentroy-icon-colored.png`
+  const year = new Date().getFullYear()
+  const L =
+    lang === "tr"
+      ? { privacy: "Gizlilik", contact: "İletişim", docs: "Dokümanlar", rights: "Tüm hakları saklıdır." }
+      : { privacy: "Privacy", contact: "Contact", docs: "Docs", rights: "All rights reserved." }
+  const socials = EMAIL_SOCIALS.map(
+    ([n, u]) => `<a href="${u}" style="color:#a1a1aa;text-decoration:none">${n}</a>`,
+  ).join(" &nbsp;·&nbsp; ")
+  return `
+<div style="margin:0;padding:32px 12px;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+    <tr><td align="center">
+      <table role="presentation" cellpadding="0" cellspacing="0" width="520" style="width:520px;max-width:100%;border-collapse:collapse">
+        <tr><td align="center" style="padding:2px 0 22px">
+          <a href="${root}" style="text-decoration:none">
+            <img src="${logo}" width="26" height="26" alt="" style="vertical-align:middle;border-radius:6px">
+            <span style="vertical-align:middle;margin-left:8px;font-size:18px;font-weight:700;letter-spacing:-0.01em;color:#0a0a0a">Sentroy</span>
+          </a>
+        </td></tr>
+        <tr><td style="background:#ffffff;border:1px solid #ececef;border-radius:16px;padding:40px 36px">
+          <h1 style="margin:0 0 14px;font-size:22px;font-weight:700;line-height:1.3;color:#0a0a0a">${heading}</h1>
+          <div style="margin:0 0 ${cta ? "28px" : "0"};font-size:15px;line-height:1.65;color:#52525b">${body}</div>${
+            cta
+              ? `\n          <a href="${cta.url}" style="display:inline-block;padding:13px 24px;background:#0a0a0a;color:#ffffff;text-decoration:none;border-radius:10px;font-size:15px;font-weight:600">${cta.label}</a>`
+              : ""
+          }${
+            footerNote
+              ? `\n          <p style="margin:28px 0 0;font-size:12px;line-height:1.55;color:#a1a1aa">${footerNote}</p>`
+              : ""
+          }
+        </td></tr>
+        <tr><td align="center" style="padding:24px 8px 4px">
+          <p style="margin:0 0 10px;font-size:13px;color:#71717a">
+            <a href="${root}/${lang}/p/privacy-policy" style="color:#71717a;text-decoration:none">${L.privacy}</a>
+            &nbsp;·&nbsp;
+            <a href="${root}/${lang}/contact" style="color:#71717a;text-decoration:none">${L.contact}</a>
+            &nbsp;·&nbsp;
+            <a href="${docsUrl}" style="color:#71717a;text-decoration:none">${L.docs}</a>
+          </p>
+          <p style="margin:0 0 12px;font-size:12px;color:#a1a1aa">${socials}</p>
+          <p style="margin:0;font-size:12px;color:#c4c4cc">© ${year} Sentroy · ${L.rights}</p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</div>`.trim()
+}
+
+const wrap = (heading: string, body: string, cta?: { url: string; label: string }) =>
+  emailShell({
+    lang: "en",
+    heading,
+    body,
+    cta,
+    footerNote: "If you weren't expecting this, you can safely ignore this email.",
+  })
+
+const wrapTr = (heading: string, body: string, cta?: { url: string; label: string }) =>
+  emailShell({
+    lang: "tr",
+    heading,
+    body,
+    cta,
+    footerNote: "Bu maili beklemiyorduysanız güvenle görmezden gelebilirsiniz.",
+  })
 
 const otpBlock = (otp: string) => `
 <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:28px;font-weight:700;letter-spacing:0.25em;padding:16px 20px;background:#f5f5f5;border-radius:12px;text-align:center;color:#111">${otp}</div>

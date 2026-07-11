@@ -6,6 +6,7 @@ import {
 import { sendSystemMailEvent } from "@workspace/auth/server/system-mail-events"
 import { encryptValue, isVaultConfigured } from "@workspace/console/lib/env-vault-crypto"
 import { verifyTurnstileToken } from "@workspace/auth/server/security-protections"
+import { serverRootDomain, subAppOrigin } from "@workspace/auth/lib/domains"
 
 /**
  * Public Subscribers API — no auth, CORS-open. Public status page'in
@@ -314,7 +315,12 @@ export async function subscribePost(
 
   // Email: send verify mail (double opt-in)
   if (type === "email") {
-    const origin = new URL(request.url).origin
+    // E-posta linkleri PUBLIC status URL'ine gitmeli. `request.url` reverse-proxy
+    // arkasında container'ın internal bind'ini (ör. 0.0.0.0:3004) verir → mail'de
+    // tıklanamaz. ROOT_DOMAIN'den türet (env override'lı, portable).
+    const origin =
+      process.env.NEXT_PUBLIC_STATUS_APP_URL ||
+      subAppOrigin(serverRootDomain(), "status")
     const verifyUrl = `${origin}/api/v1/status/subscribe/verify?token=${subscriber.managementToken}`
     const unsubscribeUrl = `${origin}/api/v1/status/subscribe/unsubscribe?token=${subscriber.managementToken}`
     try {
