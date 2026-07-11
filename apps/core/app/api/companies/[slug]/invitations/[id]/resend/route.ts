@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { resendInvitationHandler } from "@workspace/console/handlers/company-invitations"
 import { ensureSystemMailSender } from "@/lib/ensure-system-mail-sender"
 

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   incidentsListGet as GET,
   incidentCreatePost as POST,

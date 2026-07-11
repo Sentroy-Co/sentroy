@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 // Note: cache(seoSettingsModel.get) in [lang]/layout.tsx is per-request scoped
 // (React 19 cache), so each new SSR pass reads fresh from Mongo after the

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 /**
  * Panel toplu issue aksiyonları — triage home.tsx action'ının birebir portu.
  *

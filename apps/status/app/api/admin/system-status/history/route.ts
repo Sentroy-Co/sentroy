@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess, getAuthSession } from "@workspace/console/lib/api-helpers"
 import { systemStatusProbeModel } from "@workspace/db/models"

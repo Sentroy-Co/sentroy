@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   targetPatch as PATCH,
   targetDelete as DELETE,

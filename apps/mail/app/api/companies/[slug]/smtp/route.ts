@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import crypto from "crypto"
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"

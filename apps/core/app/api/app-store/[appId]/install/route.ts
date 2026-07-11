@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { getAuthSession, jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { sentroyAppModel, appInstallModel, companyModel, companyMemberModel } from "@workspace/db/models"

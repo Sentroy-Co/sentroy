@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { ObjectId } from "mongodb"
 import { getAuthSession, jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"

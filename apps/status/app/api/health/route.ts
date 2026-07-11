@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 // Liveness endpoint — process ayakta mı + hangi versiyon. Worker
 // kendi service'ini bu endpoint üzerinden probe ediyor (status board
 // bootstrap'i bu URL'i status_check olarak kayıtlı).

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   pageGet as GET,
   pageCreatePost as POST,

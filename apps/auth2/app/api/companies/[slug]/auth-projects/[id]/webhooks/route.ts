@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   webhooksListGet as GET,
   webhooksCreatePost as POST,

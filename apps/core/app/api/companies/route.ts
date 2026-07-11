@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { getAuthSession, jsonError, jsonSuccess, slugify } from "@workspace/console/lib/api-helpers"
 import { companyModel, companyMemberModel, planModel } from "@workspace/db/models"

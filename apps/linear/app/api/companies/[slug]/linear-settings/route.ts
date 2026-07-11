@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"

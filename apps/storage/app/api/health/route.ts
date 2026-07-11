@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 // Liveness endpoint — process ayakta mı + hangi versiyon. Core'un admin
 // system-status dashboard'u bu endpoint'i compose network içinden probe eder.
 export async function GET() {

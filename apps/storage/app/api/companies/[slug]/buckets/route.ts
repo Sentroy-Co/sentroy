@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess, slugify } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"

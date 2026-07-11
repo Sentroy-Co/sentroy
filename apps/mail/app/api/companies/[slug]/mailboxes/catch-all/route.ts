@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest, NextResponse } from "next/server"
 import { SentroyHttpError } from "@sentroy-co/sdk"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"

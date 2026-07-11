@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   incidentPatch as PATCH,
   incidentDelete as DELETE,

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { createHmac, timingSafeEqual } from "crypto"
 import { parseManifest } from "@workspace/app-manifest"

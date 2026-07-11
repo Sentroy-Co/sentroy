@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   subscriberPatch as PATCH,
   subscriberDelete as DELETE,

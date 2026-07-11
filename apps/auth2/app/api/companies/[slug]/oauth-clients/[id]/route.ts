@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 // auth2 OAuth Client item API — core ile shared handler module.
 // Implementasyon: packages/console/src/handlers/oauth-clients.ts
 export {

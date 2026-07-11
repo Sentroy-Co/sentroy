@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest, NextResponse } from "next/server"
 import { jsonError } from "@workspace/console/lib/api-helpers"
 import { verifyAuthenticationResponse } from "@simplewebauthn/server"

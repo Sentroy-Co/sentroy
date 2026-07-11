@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 /**
  * Linear webhook alıcısı (PUBLIC — session yok; proxy.ts /api/* geçirir).
  * Triage api.linear.webhook portu, multi-tenant: endpoint şirkete özgü

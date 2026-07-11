@@ -29,7 +29,13 @@ function createClientPromise(): Promise<MongoClient> {
     minPoolSize: 2,
     maxIdleTimeMS: 60_000,
   })
-  return client.connect()
+  // Eager `.connect()` YOK — mongodb driver ilk operasyonda auto-connect eder.
+  // Böylece `await clientPromise` (@workspace/auth'taki better-auth adapter'ı
+  // için module-level await dahil) IMPORT anında bağlantı AÇMAZ; bu, ulaşılamaz
+  // MONGODB_URI ile `next build` page-data collection'ını kırıyordu (offline/
+  // self-host build). Runtime etkilenmez: ilk sorgu bağlanır, paylaşılan havuz
+  // (globalThis) tek kalır — connection sayısı artmaz.
+  return Promise.resolve(client)
 }
 
 function getClientPromise(): Promise<MongoClient> {

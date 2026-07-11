@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { ensureSystemMailSender } from "@/lib/ensure-system-mail-sender"
 
 ensureSystemMailSender()

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   checksListGet as GET,
   checkCreatePost as POST,

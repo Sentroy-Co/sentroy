@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 export {
   webhookPatch as PATCH,
   webhookDelete as DELETE,

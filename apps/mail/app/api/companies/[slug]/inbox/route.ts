@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { getSentroyForInbox, hasNoActiveDomain } from "@/lib/inbox-access"

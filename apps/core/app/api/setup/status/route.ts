@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { isDbInitialized } from "@/lib/seed-runner"
 

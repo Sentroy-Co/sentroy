@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { getClientIp, checkRateLimit, rateLimitResponse } from "@workspace/console/lib/rate-limit"
