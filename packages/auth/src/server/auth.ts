@@ -7,7 +7,6 @@ import { fetchIpInfo } from "@workspace/auth/lib/ipinfo"
 import { dash } from "@better-auth/infra";
 import { clientPromise } from "@workspace/db/client"
 import { sendSystemMailEvent } from "@workspace/auth/server/system-mail-events"
-import { userNotificationModel } from "@workspace/db/models"
 import {
   signInBeforeHook,
   signInAfterHook,
@@ -167,21 +166,13 @@ export const auth = betterAuth({
         )
       }
 
-      // In-app notification — kullanıcı dashboard'a girince inbox bell'inde
-      // "verification email sent" bildirimini görsün. Best-effort, fail
-      // bypass; mail gönderildi mesaj UI'da daha hassas (toast).
-      userNotificationModel
-        .create({
-          userId: user.id,
-          type: "system",
-          title: "Verification email sent",
-          body: "Open the link we just emailed you to finish verifying your address.",
-          href: "/verify-email-pending",
-          meta: { email: user.email },
-        })
-        .catch((err) =>
-          console.warn("[auth] verification notification failed:", err),
-        )
+      // NOT: burada eskiden bir "Verification email sent" in-app notification
+      // yaratılıyordu — ama e-posta doğrulaması zorunlu olduğunda kullanıcı OS'a
+      // ancak doğruladıktan SONRA girebildiği için bildirim HER ZAMAN stale
+      // görünüyordu (üstelik href locale-prefix'siz `/verify-email-pending` idi →
+      // 404; e-posta link'i için :154'te düzeltilen locale-eksikliği burada
+      // tekrarlanmıştı). "Mail gönderildi" geri bildirimi signup akışındaki toast +
+      // `/[lang]/verify-email-pending` yönlendirmesiyle zaten veriliyor → kaldırıldı.
     },
   },
   emailAndPassword: {

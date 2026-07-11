@@ -180,6 +180,14 @@ const nextConfig: NextConfig = {
     // İçerik yalnız deploy'la değişen versiyonlanmış asset'ler. Değişiklik
     // gerekirse dosya adını değiştir veya CF purge — README'deki cache notu.
     const LONG = "public, max-age=31536000, immutable"
+    // frame-ancestors: OS apex (sentroy.com) + tüm *.sentroy.com alt-app'leri
+    // iframe'leyebilsin. ⚠ `*.<root>` APEX'i KAPSAMAZ → apex AYRICA eklenmeli
+    // (vault.sentroy.com core-served; OS apex'te açılıyor → apex olmayınca CSP
+    // "frame-ancestors ... *.sentroy.com" vault framing'i blokluyordu). ROOT_DOMAIN
+    // türetilir (self-host portable).
+    const ROOT_D =
+      process.env.NEXT_PUBLIC_ROOT_DOMAIN || process.env.SENTROY_ROOT_DOMAIN || "sentroy.com"
+    const FRAME_ANCESTORS = `frame-ancestors 'self' https://${ROOT_D} https://*.${ROOT_D}`
     // ── Full CSP: REPORT-ONLY (enforce ETMEZ, yalnız ihlal raporlar) ──────────
     // Denetlenmiş allowlist. Enforce'a çevirmeden önce birkaç gün rapor izlenir.
     // Ayrı header adı → enforce edilen frame-ancestors + proxy.ts frame-src ile
@@ -190,7 +198,7 @@ const nextConfig: NextConfig = {
       "default-src 'self'",
       "base-uri 'self'",
       "object-src 'none'",
-      "frame-ancestors 'self' https://*.sentroy.com",
+      FRAME_ANCESTORS,
       "form-action 'self'",
       "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://plausible.io https://static.hotjar.com https://script.hotjar.com https://connect.facebook.net https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
@@ -225,7 +233,7 @@ const nextConfig: NextConfig = {
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           // allow-popups: "Sign in with Sentroy" OAuth popup'ları window.opener'ı korusun.
           { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
-          { key: "Content-Security-Policy", value: "frame-ancestors 'self' https://*.sentroy.com" },
+          { key: "Content-Security-Policy", value: FRAME_ANCESTORS },
           // Full policy şimdilik yalnız RAPOR modunda — hiçbir şeyi kırmaz.
           { key: "Content-Security-Policy-Report-Only", value: CSP_REPORT_ONLY },
         ],
