@@ -420,6 +420,15 @@ function PageDetailView({
   const t = useTranslations("statusPage.detail")
   const [tab, setTab] = useState<"overview" | "components" | "checks" | "incidents" | "maintenance" | "subscribers" | "targets" | "audit" | "settings">("overview")
 
+  // Sentroy OS embed'de üst tab şeridi sol "native sidebar"a döner — OS penceresi
+  // kendi chrome'unu sağladığından dikey nav daha OS-yerlisi durur. Standalone'da
+  // (data-embedded yok) klasik üst-tab korunur.
+  const [embedded, setEmbedded] = useState(false)
+  useEffect(() => {
+    setEmbedded(document.documentElement.dataset.embedded === "1")
+  }, [])
+  const triggerCls = embedded ? "w-full justify-start" : undefined
+
   const statusAppOrigin =
     typeof window !== "undefined" ? window.location.origin : "https://status.sentroy.com"
   const publicUrl = `${statusAppOrigin}/p/${page.slug}`
@@ -444,41 +453,52 @@ function PageDetailView({
           </div>
         </header>
 
-        <Tabs value={tab} onValueChange={(v) => setTab(v as typeof tab)} className="min-h-0 min-w-0 flex-1">
-          <TabsList>
-            <TabsTrigger value="overview">
+        <Tabs
+          value={tab}
+          onValueChange={(v) => setTab(v as typeof tab)}
+          orientation={embedded ? "vertical" : "horizontal"}
+          className="min-h-0 min-w-0 flex-1"
+        >
+          <TabsList
+            className={
+              embedded
+                ? "h-auto w-52 shrink-0 items-stretch gap-0.5 self-start overflow-y-auto p-1.5"
+                : undefined
+            }
+          >
+            <TabsTrigger value="overview" className={triggerCls}>
               <HugeiconsIcon icon={ChartBarLineIcon} strokeWidth={2} className="size-3.5" />
               {t("tabs.overview")}
             </TabsTrigger>
-            <TabsTrigger value="components">
+            <TabsTrigger value="components" className={triggerCls}>
               <HugeiconsIcon icon={Database02Icon} strokeWidth={2} className="size-3.5" />
               {t("tabs.components")} ({page.stats.components})
             </TabsTrigger>
-            <TabsTrigger value="checks">
+            <TabsTrigger value="checks" className={triggerCls}>
               <HugeiconsIcon icon={PulseIcon} strokeWidth={2} className="size-3.5" />
               {t("tabs.checks")} ({page.stats.checks})
             </TabsTrigger>
-            <TabsTrigger value="incidents">
+            <TabsTrigger value="incidents" className={triggerCls}>
               <HugeiconsIcon icon={Megaphone01Icon} strokeWidth={2} className="size-3.5" />
               {t("tabs.incidents")} ({page.stats.activeIncidents})
             </TabsTrigger>
-            <TabsTrigger value="maintenance">
+            <TabsTrigger value="maintenance" className={triggerCls}>
               <HugeiconsIcon icon={Calendar01Icon} strokeWidth={2} className="size-3.5" />
               {t("tabs.maintenance")}
             </TabsTrigger>
-            <TabsTrigger value="subscribers">
+            <TabsTrigger value="subscribers" className={triggerCls}>
               <HugeiconsIcon icon={Mail01Icon} strokeWidth={2} className="size-3.5" />
               {t("tabs.subscribers")} ({page.stats.subscribers})
             </TabsTrigger>
-            <TabsTrigger value="targets">
+            <TabsTrigger value="targets" className={triggerCls}>
               <HugeiconsIcon icon={ReloadIcon} strokeWidth={2} className="size-3.5" />
               {t("tabs.targets")}
             </TabsTrigger>
-            <TabsTrigger value="audit">
+            <TabsTrigger value="audit" className={triggerCls}>
               <HugeiconsIcon icon={ClipboardIcon} strokeWidth={2} className="size-3.5" />
               {t("tabs.audit")}
             </TabsTrigger>
-            <TabsTrigger value="settings">
+            <TabsTrigger value="settings" className={triggerCls}>
               <HugeiconsIcon icon={Settings02Icon} strokeWidth={2} className="size-3.5" />
               {t("tabs.settings")}
             </TabsTrigger>

@@ -2,6 +2,7 @@ import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { assertCompanyAccess } from "@workspace/console/lib/company-access"
 import {
+  companyModel,
   statusPageModel,
   statusComponentModel,
   statusCheckModel,
@@ -39,6 +40,14 @@ export async function pageGet(
   const page = await statusPageModel.findByCompany(access.companyId)
   if (!page) return jsonSuccess(null)
 
+  // Effective plan follows the company's LIVE subscription — the stored
+  // page.plan is set at creation ("free") and never re-synced when the company
+  // upgrades, so derive it here instead of trusting the stale stored field.
+  const company = await companyModel.findById(access.companyId)
+  const subStatus = company?.subscription?.status
+  const effectivePlan: "free" | "pro" =
+    subStatus === "active" || subStatus === "trialing" ? "pro" : "free"
+
   // Stats — components + checks + active incidents counts
   const [componentsCount, checksCount, activeIncidents, activeMaintenances, subscribersCount] =
     await Promise.all([
@@ -51,6 +60,7 @@ export async function pageGet(
 
   return jsonSuccess({
     ...page,
+    plan: effectivePlan,
     stats: {
       components: componentsCount,
       checks: checksCount,

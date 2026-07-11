@@ -2,7 +2,7 @@
   "systemSettings": "System Settings…",
   "selectCompany": "Select company",
   "companies": "Companies",
-  "createCompany": "Create company",
+  "createCompany": "Create workspace",
   "language": "Language",
   "search": "Search",
   "profile": "Profile",
@@ -192,14 +192,14 @@
     "off": "Off"
   },
   "createCompanyDialog": {
-    "title": "Create company",
+    "title": "Create workspace",
     "desc": "Spin up a new workspace. You can invite members later.",
-    "nameLabel": "Company name",
+    "nameLabel": "Workspace name",
     "namePlaceholder": "Acme Inc.",
     "creating": "Creating…",
     "create": "Create",
-    "created": "Company created",
-    "failed": "Could not create company"
+    "created": "Workspace created",
+    "failed": "Could not create workspace"
   },
   "settings": {
     "profile": "Profile",

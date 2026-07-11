@@ -2,7 +2,7 @@
   "systemSettings": "Sistem Ayarları…",
   "selectCompany": "Şirket seç",
   "companies": "Şirketler",
-  "createCompany": "Şirket oluştur",
+  "createCompany": "Çalışma alanı oluştur",
   "language": "Dil",
   "search": "Ara",
   "profile": "Profil",
@@ -192,14 +192,14 @@
     "off": "Kapalı"
   },
   "createCompanyDialog": {
-    "title": "Şirket oluştur",
+    "title": "Çalışma alanı oluştur",
     "desc": "Yeni bir çalışma alanı başlat. Üyeleri sonra davet edebilirsin.",
-    "nameLabel": "Şirket adı",
+    "nameLabel": "Çalışma alanı adı",
     "namePlaceholder": "Örnek A.Ş.",
     "creating": "Oluşturuluyor…",
     "create": "Oluştur",
-    "created": "Şirket oluşturuldu",
-    "failed": "Şirket oluşturulamadı"
+    "created": "Çalışma alanı oluşturuldu",
+    "failed": "Çalışma alanı oluşturulamadı"
   },
   "settings": {
     "profile": "Profil",

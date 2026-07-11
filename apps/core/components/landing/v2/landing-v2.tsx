@@ -202,6 +202,7 @@ function FooterAdapter({ lang }: { lang: string }) {
             items: [
               { label: "Docs", href: "/docs" },
               { label: "SDK", href: "https://github.com/Sentroy-Co" },
+              { label: "Fair Source", href: "https://github.com/Sentroy-Co/sentroy" },
               { label: "Status", href: "https://status.sentroy.com" },
             ],
           },
