@@ -8,6 +8,12 @@ name: publish-images
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag to publish (e.g. v1.64.217)"
+        required: true
+        default: latest
 
 permissions:
   contents: read
@@ -66,7 +72,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/${{ env.OWNER_LC }}/sentroy-${{ matrix.app }}:${{ github.ref_name }}
-            ghcr.io/${{ env.OWNER_LC }}/sentroy-${{ matrix.app }}:latest
+            ghcr.io/${{ env.OWNER_LC }}/sentroy-oss-${{ matrix.app }}:${{ inputs.tag || github.ref_name }}
+            ghcr.io/${{ env.OWNER_LC }}/sentroy-oss-${{ matrix.app }}:latest
           cache-from: type=gha,scope=${{ matrix.app }}
           cache-to: type=gha,mode=max,scope=${{ matrix.app }}
