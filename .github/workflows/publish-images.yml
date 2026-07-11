@@ -50,15 +50,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # GHCR repository names must be lowercase; the org login (Sentroy-Co) is
+      # mixed-case, so lowercase it before composing image tags.
+      - name: Lowercase owner
+        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_ENV"
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           context: .
           file: apps/${{ matrix.app }}/Dockerfile
-          platforms: linux/amd64,linux/arm64
+          # amd64-only: covers virtually every self-host target and keeps the
+          # build fast/reliable. arm64 via QEMU emulation is slow and flaky for
+          # these Next.js builds; re-add it with native arm runners if needed.
+          platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/sentroy-${{ matrix.app }}:${{ github.ref_name }}
-            ghcr.io/${{ github.repository_owner }}/sentroy-${{ matrix.app }}:latest
+            ghcr.io/${{ env.OWNER_LC }}/sentroy-${{ matrix.app }}:${{ github.ref_name }}
+            ghcr.io/${{ env.OWNER_LC }}/sentroy-${{ matrix.app }}:latest
           cache-from: type=gha,scope=${{ matrix.app }}
           cache-to: type=gha,mode=max,scope=${{ matrix.app }}
