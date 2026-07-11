@@ -5,7 +5,6 @@
   <img src="docs/assets/logo-light.svg" alt="Sentroy" width="380">
 </picture>
 
-<h1>Sentroy</h1>
 
 ### One login. One desktop. Your whole back office.
 
