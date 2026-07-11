@@ -73,7 +73,7 @@ export default async function LangLayout({
       {/* Sentroy OS embed mode — iframe'de (?embed=1) tools header'ını gizler. */}
       <script
         dangerouslySetInnerHTML={{
-          __html: `try{var e=new URLSearchParams(window.location.search).has('embed');if(e)sessionStorage.setItem('os-embed','1');var f=window.self!==window.top;if(e||(f&&sessionStorage.getItem('os-embed')))document.documentElement.dataset.embedded='1'}catch(e){}`,
+          __html: `try{var p=new URLSearchParams(window.location.search).has('embed');var f=window.self!==window.top;var s=sessionStorage.getItem('os-embed')==='1';if(p||f||s){sessionStorage.setItem('os-embed','1');document.documentElement.dataset.embedded='1'}}catch(e){}`,
         }}
       />
       {children}
