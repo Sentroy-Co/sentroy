@@ -1,6 +1,9 @@
 <div align="center">
 
-<img src="docs/assets/sentroy-os.png" alt="Sentroy OS — a desktop for your whole back office" width="840">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.svg">
+  <img src="docs/assets/logo-light.svg" alt="Sentroy" width="380">
+</picture>
 
 <h1>Sentroy</h1>
 
