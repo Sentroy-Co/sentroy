@@ -49,7 +49,14 @@
     "requests": "Gelen Kutusu",
     "newTask": "Yeni görev",
     "metrics": "Metrikler",
-    "linearSettings": "Linear Ayarları"
+    "linearSettings": "Linear Ayarları",
+    "components": "Bileşenler",
+    "checks": "Kontroller",
+    "incidents": "Olaylar",
+    "maintenance": "Bakım",
+    "subscribers": "Aboneler",
+    "restartTargets": "Yeniden başlatma hedefleri",
+    "audit": "Denetim günlüğü"
   },
   "searchAppsTools": "Uygulama ve araç ara…",
   "noResults": "Sonuç yok",

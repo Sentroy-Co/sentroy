@@ -156,18 +156,19 @@ export async function subscribePost(
     )
   }
 
-  // Turnstile CAPTCHA (opsiyonel — BETTER_AUTH_TURNSTILE_SECRET set ise
-  // enforce, yoksa no-op true döner). Site key client'a inject edilmiş
-  // ama secret server'da yoksa skip — yanlış config'i hard fail etmesin.
-  const turnstileResult = await verifyTurnstileToken(
-    body.cfTurnstileToken,
-    ip,
-  )
-  if (!turnstileResult.ok) {
-    return NextResponse.json(
-      { error: `Captcha verification failed (${turnstileResult.reason})` },
-      { status: 403, headers: corsHeaders() },
-    )
+  // Turnstile CAPTCHA — YALNIZ site key yapılandırılmışsa enforce et. Site key
+  // yoksa form'da widget hiç render olmuyor (kullanıcı token üretemez), o yüzden
+  // server'ın token beklemesi garantili "captcha hatası"na yol açardı. Client +
+  // server aynı koşula bağlanır: site key varsa widget çıkar → captcha zorunlu;
+  // yoksa ikisi de atlar. (Secret ayrıca yoksa verifyTurnstileToken zaten no-op.)
+  if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+    const turnstileResult = await verifyTurnstileToken(body.cfTurnstileToken, ip)
+    if (!turnstileResult.ok) {
+      return NextResponse.json(
+        { error: `Captcha verification failed (${turnstileResult.reason})` },
+        { status: 403, headers: corsHeaders() },
+      )
+    }
   }
 
   const type: "email" | "webhook" | "telegram" =

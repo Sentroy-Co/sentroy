@@ -19,6 +19,11 @@ import {
   TaskAdd01Icon,
   ChartLineData01Icon,
   Settings01Icon,
+  Database02Icon,
+  PulseIcon,
+  Megaphone01Icon,
+  Calendar01Icon,
+  ReloadIcon,
 } from "@hugeicons/core-free-icons"
 import type { SectionConfig } from "./app-section-panel"
 
@@ -75,4 +80,21 @@ export const LINEAR_SECTIONS: SectionConfig[] = [
   // Yönetim — admin/linear.manage dışındakiler görmez (ROUTE_PERMISSIONS gate).
   { id: "metrics", slug: "metrics", perm: "metrics", labelKey: "metrics", icon: ChartLineData01Icon, color: "#f59e0b", groupKey: "groupAdmin" },
   { id: "settings", slug: "linear-settings", perm: "linear-settings", labelKey: "linearSettings", icon: Settings01Icon, color: "#64748b", groupKey: "groupAdmin" },
+]
+
+// Status — RP status-page yönetimi tek sayfada (tab'lı içerik). OS panelinde
+// native sidebar olması için her section aynı sayfayı `?section=<id>` ile açar
+// (slug boş → appHref = .../d/[slug]/status). İçerik ?section'ı okuyup ilgili
+// tab'ı açar; embed'de kendi tab şeridini gizler. perm "" — gerçek yetki
+// (status-page.manage) API tarafında enforce edilir.
+export const STATUS_SECTIONS: SectionConfig[] = [
+  { id: "overview", slug: "", search: "section=overview", perm: "", labelKey: "overview", icon: DashboardSquare01Icon, color: "#22c55e" },
+  { id: "components", slug: "", search: "section=components", perm: "", labelKey: "components", icon: Database02Icon, color: "#3b82f6" },
+  { id: "checks", slug: "", search: "section=checks", perm: "", labelKey: "checks", icon: PulseIcon, color: "#06b6d4" },
+  { id: "incidents", slug: "", search: "section=incidents", perm: "", labelKey: "incidents", icon: Megaphone01Icon, color: "#ef4444" },
+  { id: "maintenance", slug: "", search: "section=maintenance", perm: "", labelKey: "maintenance", icon: Calendar01Icon, color: "#f59e0b" },
+  { id: "subscribers", slug: "", search: "section=subscribers", perm: "", labelKey: "subscribers", icon: UserGroupIcon, color: "#a855f7" },
+  { id: "targets", slug: "", search: "section=targets", perm: "", labelKey: "restartTargets", icon: ReloadIcon, color: "#8b5cf6", groupKey: "groupAdmin" },
+  { id: "audit", slug: "", search: "section=audit", perm: "", labelKey: "audit", icon: File01Icon, color: "#64748b", groupKey: "groupAdmin" },
+  { id: "settings", slug: "", search: "section=settings", perm: "", labelKey: "settings", icon: Settings01Icon, color: "#64748b", groupKey: "groupAdmin" },
 ]

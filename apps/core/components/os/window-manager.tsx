@@ -9,7 +9,7 @@ import { LaunchpadApps } from "./launchpad-apps"
 import { AdminPanel } from "./admin/admin-panel"
 import { StorePanel } from "./store/store-panel"
 import { AppSectionPanel } from "./app-section-panel"
-import { MAIL_SECTIONS, STORAGE_SECTIONS, AUTH_SECTIONS, WHATSAPP_SECTIONS, LINEAR_SECTIONS } from "./app-sections"
+import { MAIL_SECTIONS, STORAGE_SECTIONS, AUTH_SECTIONS, WHATSAPP_SECTIONS, LINEAR_SECTIONS, STATUS_SECTIONS } from "./app-sections"
 import { NotesApp } from "./notes/notes-app"
 import { AchievementsApp } from "./achievements/achievements-app"
 
@@ -174,6 +174,17 @@ export function WindowManager({
                   ]}
                   // groupByTeam açıksa overview grup olur: takım linkleri + backlog rozetleri.
                   teamNavUrl={`/api/linear/companies/${companySlug}/nav-teams`}
+                />
+              ) : w.appId === "status" ? (
+                <AppSectionPanel
+                  lang={lang}
+                  slug={companySlug}
+                  appHref={app.href}
+                  isAdmin={isAdmin}
+                  sections={STATUS_SECTIONS}
+                  accentIcon={app.icon}
+                  accentColor={app.color}
+                  title={app.name}
                 />
               ) : undefined}
             </WindowFrame>

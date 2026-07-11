@@ -49,7 +49,14 @@
     "requests": "Inbox",
     "newTask": "New task",
     "metrics": "Metrics",
-    "linearSettings": "Linear Settings"
+    "linearSettings": "Linear Settings",
+    "components": "Components",
+    "checks": "Checks",
+    "incidents": "Incidents",
+    "maintenance": "Maintenance",
+    "subscribers": "Subscribers",
+    "restartTargets": "Restart targets",
+    "audit": "Audit log"
   },
   "searchAppsTools": "Search apps and tools…",
   "noResults": "No results",

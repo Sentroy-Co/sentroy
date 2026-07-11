@@ -974,6 +974,7 @@
       "overallSubtitle": "{components} components monitored · {active} active incidents",
       "overallSubtitleLoading": "Loading snapshot…",
       "openPublic": "Open public page",
+      "componentsStatusTitle": "Service status",
       "breakdownTitle": "Component status breakdown",
       "componentsLabelSmall": "components",
       "statusBreakdown": {

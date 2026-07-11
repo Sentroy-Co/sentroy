@@ -408,6 +408,13 @@ function CreatePageWizard({
 
 // ─── Page detail (tabs) ──────────────────────────────────────────────────
 
+// OS section paneli her bölümü `?section=<id>` ile açar; içerik bu id'yi okuyup
+// ilgili tab'a geçer (app-sections.ts STATUS_SECTIONS ile aynı id'ler).
+const STATUS_SECTION_IDS = [
+  "overview", "components", "checks", "incidents", "maintenance",
+  "subscribers", "targets", "audit", "settings",
+] as const
+
 function PageDetailView({
   page,
   apiBase,
@@ -426,6 +433,11 @@ function PageDetailView({
   const [embedded, setEmbedded] = useState(false)
   useEffect(() => {
     setEmbedded(document.documentElement.dataset.embedded === "1")
+    // OS section panel her bölümü `?section=<id>` ile açar → ilgili tab'ı seç.
+    const s = new URLSearchParams(window.location.search).get("section")
+    if (s && (STATUS_SECTION_IDS as readonly string[]).includes(s)) {
+      setTab(s as typeof tab)
+    }
   }, [])
   const triggerCls = embedded ? "w-full justify-start" : undefined
 
@@ -456,16 +468,11 @@ function PageDetailView({
         <Tabs
           value={tab}
           onValueChange={(v) => setTab(v as typeof tab)}
-          orientation={embedded ? "vertical" : "horizontal"}
           className="min-h-0 min-w-0 flex-1"
         >
-          <TabsList
-            className={
-              embedded
-                ? "h-auto w-52 shrink-0 items-stretch gap-0.5 self-start overflow-y-auto p-1.5"
-                : undefined
-            }
-          >
+          {/* OS embed'de nav'ı OS section paneli (native sidebar) sağlıyor →
+              içeriğin kendi tab şeridini gizle; standalone'da normal üst-tab. */}
+          <TabsList className={embedded ? "hidden" : undefined}>
             <TabsTrigger value="overview" className={triggerCls}>
               <HugeiconsIcon icon={ChartBarLineIcon} strokeWidth={2} className="size-3.5" />
               {t("tabs.overview")}
@@ -738,6 +745,57 @@ function OverviewTab({ page, publicUrl }: { page: StatusPageDetail; publicUrl: s
           {t("openPublic")}
           <HugeiconsIcon icon={ArrowUpRight01Icon} strokeWidth={2.2} className="ml-1 inline size-3" />
         </a>
+      </div>
+
+      {/* Per-component canlı durum — kullanıcı public sayfaya gitmeden kendi
+          servislerinin durumunu burada görür (snapshot zaten çekiliyor). */}
+      <div className="rounded-xl border bg-card p-4">
+        <div className="flex items-center justify-between pb-1">
+          <h3 className="text-sm font-semibold">{t("componentsStatusTitle")}</h3>
+          <a
+            href={publicUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+          >
+            {t("openPublic")}
+            <HugeiconsIcon icon={ArrowUpRight01Icon} strokeWidth={2.2} className="size-3" />
+          </a>
+        </div>
+        {loading ? (
+          <div className="space-y-2 py-2">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Skeleton key={i} className="h-8 w-full" />
+            ))}
+          </div>
+        ) : !snapshot || snapshot.components.length === 0 ? (
+          <p className="rounded-md border border-dashed py-6 text-center text-[11px] text-muted-foreground">
+            {t("noData")}
+          </p>
+        ) : (
+          <ul className="divide-y divide-border/60">
+            {snapshot.components.map((c) => (
+              <li key={c.id} className="flex items-center gap-3 py-2.5">
+                <span
+                  className="size-2.5 shrink-0 rounded-full"
+                  style={{ background: STATUS_COLOR[c.status] }}
+                />
+                <span className="min-w-0 flex-1 truncate text-sm">{c.name}</span>
+                <span
+                  className="text-[11px] font-medium"
+                  style={{ color: STATUS_COLOR[c.status] }}
+                >
+                  {t(`statusBreakdown.${c.status}`)}
+                </span>
+                {c.uptime30d != null ? (
+                  <span className="w-14 text-right text-[11px] tabular-nums text-muted-foreground">
+                    {c.uptime30d.toFixed(2)}%
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Stat cards */}

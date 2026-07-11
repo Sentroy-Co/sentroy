@@ -974,6 +974,7 @@
       "overallSubtitle": "{components} bileşen takip ediliyor · {active} aktif olay",
       "overallSubtitleLoading": "Snapshot yükleniyor…",
       "openPublic": "Public sayfayı aç",
+      "componentsStatusTitle": "Servis durumu",
       "breakdownTitle": "Bileşen durumu dağılımı",
       "componentsLabelSmall": "bileşen",
       "statusBreakdown": {
