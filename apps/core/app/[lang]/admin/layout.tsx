@@ -34,7 +34,10 @@ export default async function AdminLayout({
   }
 
   return (
-    <SidebarProvider>
+    // Admin paneli YALNIZ Sentroy OS içinde (iframe) kullanılır; OS kendi
+    // navigasyonunu sağlar. `data-force-embed` sidebar+header'ı KOŞULSUZ gizler
+    // (embed-detect'in nadiren kaçırdığı durumlarda da sidebar sızmaz).
+    <SidebarProvider data-force-embed="1">
       <AdminSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">

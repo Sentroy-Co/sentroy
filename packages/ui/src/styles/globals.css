@@ -414,3 +414,36 @@
   flex-direction: row !important;
   overflow-x: auto !important;
 }
+
+/* ── Force-embed (koşulsuz chromeless) ───────────────────────────────────────
+   `[data-embedded="1"]` embed-detect script'ine bağlı; nadiren (deep-link /
+   hard-refresh / iframe timing) kaçırıp sidebar sızdırabiliyor. `data-force-embed`
+   attribute'u bir route'un SidebarProvider wrapper'ına konduğunda, o route HER
+   ZAMAN chromeless render olur — algılamadan bağımsız. Yalnız SADECE OS içinde
+   erişilen route'larda kullan (standalone'da nav'ı yok eder). Şu an: core admin
+   paneli. Davranış `[data-embedded="1"]` ile birebir aynı. */
+[data-force-embed] [data-slot="sidebar"] {
+  display: none !important;
+}
+[data-force-embed] [data-slot="sidebar-inset"] > header {
+  display: none !important;
+}
+[data-force-embed] [data-slot="sidebar-inset"] {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 1.25rem !important;
+}
+[data-force-embed] [data-app-chrome],
+[data-force-embed] [data-app-launcher] {
+  display: none !important;
+}
+[data-force-embed] [data-app-subnav] {
+  position: static !important;
+  top: auto !important;
+  width: 100% !important;
+}
+[data-force-embed] [data-app-subnav] > div {
+  flex-direction: row !important;
+  overflow-x: auto !important;
+}
