@@ -21,8 +21,12 @@ export async function GET(
   // Listeleme icin: mailboxes.manage (yonetici) VEYA herhangi bir inbox yetkisi
   // (inbox.view / inbox.mailbox:<email>) yeterli. Response kullanici yetkilerine
   // gore filtrelenir — kisi sadece erisebilecegi kutulari gorur.
-  const result = await getSentroyForCompany(request, slug)
+  const result = await getSentroyForCompany(request, slug, undefined, {
+    optional: true,
+  })
   if ("error" in result && result.error) return result.error
+  // Mail hiç kurulmamış (domain/mailbox yok, provision yok) → boş liste; 502 değil.
+  if (result.unprovisioned) return jsonSuccess([])
 
   const member = result.member as Pick<
     CompanyMember,

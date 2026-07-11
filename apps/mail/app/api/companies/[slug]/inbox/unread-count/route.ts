@@ -55,9 +55,12 @@ export async function GET(
   // ── Mode 2: aggregate — kullanıcının erişebildiği tüm kutular ───────
   // inbox.view permission yoksa cevap 0 (kullanıcının zaten görüntüleyeceği
   // bir badge yok); fail-safe.
-  const result = await getSentroyForCompany(request, slug)
+  const result = await getSentroyForCompany(request, slug, undefined, {
+    optional: true,
+  })
   if ("error" in result && result.error) return result.error
-  if (!result.session) return jsonSuccess({ count: 0 })
+  // Mail kurulumu yok (provision fail/eksik) → badge 0; 502 değil.
+  if (result.unprovisioned || !result.session) return jsonSuccess({ count: 0 })
 
   const member = (result.member ?? null) as Pick<
     CompanyMember,

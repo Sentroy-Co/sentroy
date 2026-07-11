@@ -40,6 +40,13 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast: "cn-toast",
+          // Sonner'ın default action/cancel butonları native görünüyordu; markalı
+          // hale getir (siyah-CTA dili). `!` ile sonner'ın [data-button] default'unu
+          // ez. Tüm app'lerdeki toast'lara uygulanır (paylaşılan Toaster).
+          actionButton:
+            "!bg-foreground !text-background !rounded-md !px-2.5 !py-1 !text-xs !font-semibold !h-auto !shadow-none",
+          cancelButton:
+            "!bg-transparent !text-muted-foreground hover:!bg-foreground/10 !rounded-md !px-2.5 !py-1 !text-xs !font-medium !h-auto",
         },
       }}
       {...props}

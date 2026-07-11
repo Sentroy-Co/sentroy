@@ -3,68 +3,77 @@
 import { useRouter } from "next/navigation"
 import { Logo } from "@workspace/console/components/shared"
 
-const illustrations: Record<number, { gradient: string; emoji: string }> = {
-  404: { gradient: "from-violet-500 to-indigo-500", emoji: "" },
-  500: { gradient: "from-red-500 to-orange-500", emoji: "" },
-  403: { gradient: "from-amber-500 to-yellow-500", emoji: "" },
-}
-
+/**
+ * Sentroy OS-flavoured error surface — ambient brand glow + glass card, aynı
+ * dil OS pencereleri/first-run hero'suyla. `[lang]/error.tsx` ve `[lang]/
+ * not-found.tsx` bunu kullanır. Buton etiketleri opsiyonel (caller locale'ler);
+ * default'lar İngilizce (error boundary bazen i18n provider dışında render olur).
+ */
 export function ErrorPage({
   code = 500,
   title,
   description,
   retry,
+  retryLabel = "Try again",
+  homeLabel = "Go home",
 }: {
   code?: number
   title: string
   description: string
   retry?: () => void
+  retryLabel?: string
+  homeLabel?: string
 }) {
   const router = useRouter()
-  const illust = illustrations[code] || illustrations[500]
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-2 bg-background p-6 text-foreground">
-      <div className="flex max-w-md flex-col items-center text-center">
-        {/* Animated code */}
-        <div className="relative mb-6">
-          <span
-            className={`bg-gradient-to-br ${illust.gradient} bg-clip-text text-[120px] font-bold leading-none tracking-tighter text-transparent sm:text-[160px]`}
-          >
-            {code}
-          </span>
-          <span className="absolute -right-4 -top-2 text-4xl sm:text-5xl">
-            {illust.emoji}
-          </span>
-        </div>
+    <div className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden bg-background p-6 text-foreground">
+      {/* Ambient brand glow — OS wallpaper hissi (marka kırmızısı #FF1744). */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div
+          className="absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.16] blur-[130px]"
+          style={{ background: "radial-gradient(circle, #ff1744, transparent 70%)" }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_115%,rgba(255,23,68,0.07),transparent_55%)]" />
+      </div>
 
-        <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>
+      {/* Glass card */}
+      <div className="flex w-full max-w-md flex-col items-center rounded-[28px] border border-white/12 bg-card/70 px-8 py-10 text-center shadow-2xl ring-1 ring-white/5 backdrop-blur-2xl backdrop-saturate-150 dark:bg-card/50">
+        <Logo size="md" />
 
-        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+        <span
+          className="mt-8 block text-[96px] font-extrabold leading-none tracking-tighter tabular-nums sm:text-[116px]"
+          style={{ color: "#ff1744" }}
+        >
+          {code}
+        </span>
+
+        <h1 className="mt-4 text-xl font-bold tracking-tight text-balance sm:text-2xl">
+          {title}
+        </h1>
+        <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
           {description}
         </p>
 
-        <div className="mt-8 flex items-center gap-3">
-          {retry && (
+        <div className="mt-8 flex w-full flex-col gap-2.5 sm:flex-row sm:justify-center">
+          {retry ? (
             <button
               onClick={retry}
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              className="inline-flex h-11 items-center justify-center rounded-xl bg-foreground px-5 text-sm font-semibold text-background transition hover:opacity-90 active:scale-[0.98]"
             >
-              Try again
+              {retryLabel}
             </button>
-          )}
+          ) : null}
           <button
             onClick={() => router.push("/")}
-            className="inline-flex h-10 items-center gap-2 rounded-full border px-5 text-sm font-medium transition-colors hover:bg-muted"
+            className="inline-flex h-11 items-center justify-center rounded-xl border border-border bg-background/40 px-5 text-sm font-medium transition hover:bg-muted active:scale-[0.98]"
           >
-            Go home
+            {homeLabel}
           </button>
         </div>
-
-        <div className="mt-12 opacity-40">
-          <Logo size="sm" />
-        </div>
       </div>
+
+      <p className="mt-6 text-xs tracking-wide text-muted-foreground/50">sentroy.com</p>
     </div>
   )
 }

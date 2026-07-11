@@ -17,6 +17,9 @@ type SentroyClient = ReturnType<typeof createSentroyClient>
 export interface SentroyProxyResult {
   error?: NextResponse
   sentroy?: SentroyClient
+  /** `optional` modda: company hiç provision edilmemiş (mail kurulumu yok) →
+   *  hata değil, boş-durum. Read endpoint'leri boş ([] / 0) döner. */
+  unprovisioned?: boolean
   session?: Awaited<ReturnType<typeof resolveCompanyAccess>> extends infer R
     ? R extends { session: infer S }
       ? S
@@ -46,6 +49,7 @@ export async function getSentroyForCompany(
   request: NextRequest,
   slug: string,
   requiredPermission?: Permission,
+  opts?: { optional?: boolean },
 ): Promise<SentroyProxyResult> {
   const resolved = await resolveCompanyAccess(request, slug, requiredPermission)
   if ("error" in resolved) return { error: resolved.error }
@@ -53,32 +57,8 @@ export async function getSentroyForCompany(
   let company = resolved.company as unknown as Company
   let apiKey = company.sentroyApiKey as string | undefined
 
-  if (!apiKey) {
-    try {
-      company = await ensureMailProvisioned(company)
-      apiKey = company.sentroyApiKey
-    } catch (err) {
-      const detail = err instanceof Error ? err.message : String(err)
-      return {
-        error: jsonError(
-          `Mail provisioning failed: ${detail}`,
-          502,
-        ),
-      }
-    }
-  }
-
-  if (!apiKey) {
-    return {
-      error: jsonError(
-        "Mail server API key not configured for this company",
-        400,
-      ),
-    }
-  }
-
-  return {
-    sentroy: createSentroyClient(apiKey),
+  // company `let` — provision sonrası güncellenen değeri closure okur.
+  const meta = () => ({
     session: resolved.session,
     company,
     companyId: resolved.companyId,
@@ -86,5 +66,30 @@ export async function getSentroyForCompany(
     isTokenAccess: resolved.isTokenAccess,
     callerUserId: resolved.callerUserId,
     callerEmail: resolved.callerEmail,
+  })
+
+  if (!apiKey) {
+    try {
+      company = await ensureMailProvisioned(company)
+      apiKey = company.sentroyApiKey
+    } catch (err) {
+      // `optional` (read) çağrılarında provision fail'i HATA değil boş-durum:
+      // mail kurulumu olmayan şirket 502 yerine boş inbox/mailbox listesi görür.
+      // Write çağrıları (opts yok) 502 alır — kurulum eksikliğini doğru yerde
+      // yüzeye çıkarır. Provision idempotent → mail-server düzelince sonraki
+      // çağrı gerçek client'ı üretir (kalıcı degrade değil).
+      if (opts?.optional) return { ...meta(), unprovisioned: true }
+      const detail = err instanceof Error ? err.message : String(err)
+      return { error: jsonError(`Mail provisioning failed: ${detail}`, 502) }
+    }
   }
+
+  if (!apiKey) {
+    if (opts?.optional) return { ...meta(), unprovisioned: true }
+    return {
+      error: jsonError("Mail server API key not configured for this company", 400),
+    }
+  }
+
+  return { ...meta(), sentroy: createSentroyClient(apiKey) }
 }
