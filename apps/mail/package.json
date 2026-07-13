@@ -1,13 +1,13 @@
 {
   "name": "mail",
-  "version": "1.64.216",
+  "version": "1.64.225",
   "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --experimental-https --port 3001",
     "build": "next build",
     "start": "next start --port 3001",
-    "lint": "next lint",
+    "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "db:seed": "bun run scripts/seed.ts"
