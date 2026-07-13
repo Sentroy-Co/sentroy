@@ -80,7 +80,11 @@ COPY --from=builder --chown=nextjs:nodejs /repo/apps/status/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/status/.next/static ./apps/status/.next/static
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/status/public ./apps/status/public
 
+# Runtime domain injection (self-host/OSS image-mode). Hosted images bake
+# real URLs → sentinel absent → no-op. See scripts/runtime-domain.sh.
+COPY scripts/runtime-domain.sh /app/runtime-domain.sh
 USER nextjs
 EXPOSE 3004
 
-CMD ["node", "apps/status/server.js"]
+ENV SENTROY_APP_DIR=apps/status
+ENTRYPOINT ["sh", "/app/runtime-domain.sh"]

@@ -14,13 +14,19 @@ import { getRequestConfig } from "next-intl/server"
 
 import enConsole from "@workspace/console/messages/en/console.json"
 import trConsole from "@workspace/console/messages/tr/console.json"
+import ruConsole from "@workspace/console/messages/ru/console.json"
+import zhConsole from "@workspace/console/messages/zh/console.json"
+import esConsole from "@workspace/console/messages/es/console.json"
 
-const SUPPORTED = ["en", "tr"] as const
+const SUPPORTED = ["en", "tr", "ru", "zh", "es"] as const
 type Locale = (typeof SUPPORTED)[number]
 
 const bundles: Record<Locale, Record<string, unknown>> = {
   en: enConsole as Record<string, unknown>,
   tr: trConsole as Record<string, unknown>,
+  ru: ruConsole as Record<string, unknown>,
+  zh: zhConsole as Record<string, unknown>,
+  es: esConsole as Record<string, unknown>,
 }
 
 export default getRequestConfig(async ({ requestLocale }) => {

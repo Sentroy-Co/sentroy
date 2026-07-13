@@ -1,7 +1,13 @@
 #
-# On a release tag (v*), build + push multi-arch images to GHCR so self-hosters
-# can pull instead of building. Distinct image names from the private Coolify
-# pipeline; migrate Coolify pins deliberately.
+# On a release tag (v*), build + push images to GHCR so self-hosters can pull
+# instead of building. Distinct image names from the private Coolify pipeline;
+# migrate Coolify pins deliberately.
+#
+# Next apps are built with a DOMAIN SENTINEL (__RUNTIME_ROOT_DOMAIN__) baked
+# into NEXT_PUBLIC_* URLs; scripts/runtime-domain.sh rewrites it to the
+# operator's SENTROY_ROOT_DOMAIN at container start → one image serves any
+# domain (Coolify one-click). The mail-server stack ships as
+# sentroy-oss-mailserver-*.
 
 name: publish-images
 
@@ -11,7 +17,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Image tag to publish (e.g. v1.64.217)"
+        description: "Image tag to publish (e.g. v1.64.225)"
         required: true
         default: latest
 
@@ -71,8 +77,69 @@ jobs:
           # these Next.js builds; re-add it with native arm runners if needed.
           platforms: linux/amd64
           push: true
+          # Sentinel NEXT_PUBLIC_* — root is __RUNTIME_ROOT_DOMAIN__, rewritten
+          # at boot by scripts/runtime-domain.sh. Superset; undeclared build-args
+          # on non-Next apps only warn.
+          build-args: |
+            NEXT_PUBLIC_ROOT_DOMAIN=__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_CORE_APP_URL=https://__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_MAIL_APP_URL=https://mail.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_STORAGE_APP_URL=https://storage.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_AUTH_APP_URL=https://auth.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_STATUS_APP_URL=https://status.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_STUDIO_APP_URL=https://studio.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_WHATSAPP_APP_URL=https://whatsapp.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_LINEAR_APP_URL=https://linear.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_BACKUP_APP_URL=https://backup.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_DOWNLOADER_APP_URL=https://youtube.__RUNTIME_ROOT_DOMAIN__
+            NEXT_PUBLIC_SENTROY_API_URL=https://api.__RUNTIME_ROOT_DOMAIN__/api/v1
+            NEXT_PUBLIC_TURNSTILE_DISABLED=true
           tags: |
             ghcr.io/${{ env.OWNER_LC }}/sentroy-oss-${{ matrix.app }}:${{ inputs.tag || github.ref_name }}
             ghcr.io/${{ env.OWNER_LC }}/sentroy-oss-${{ matrix.app }}:latest
           cache-from: type=gha,scope=${{ matrix.app }}
           cache-to: type=gha,mode=max,scope=${{ matrix.app }}
+
+  # Mail-server stack (Postfix/Dovecot/Rspamd + Fastify API) → sentroy-oss-mailserver-*.
+  mailserver:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - svc: api
+            context: mail-server/api
+            target: production
+          - svc: postfix
+            context: mail-server/postfix
+            target: ""
+          - svc: dovecot
+            context: mail-server/dovecot
+            target: ""
+          - svc: rspamd
+            context: mail-server/rspamd
+            target: ""
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Lowercase owner
+        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_ENV"
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          target: ${{ matrix.target }}
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ghcr.io/${{ env.OWNER_LC }}/sentroy-oss-mailserver-${{ matrix.svc }}:${{ inputs.tag || github.ref_name }}
+            ghcr.io/${{ env.OWNER_LC }}/sentroy-oss-mailserver-${{ matrix.svc }}:latest
+          cache-from: type=gha,scope=mailserver-${{ matrix.svc }}
+          cache-to: type=gha,mode=max,scope=mailserver-${{ matrix.svc }}

@@ -29,6 +29,7 @@ import { cn } from "@workspace/ui/lib/utils"
 const LANG_META: Record<string, { label: string }> = {
   en: { label: "English" },
   tr: { label: "Türkçe" },
+  zh: { label: "简体中文" },
   es: { label: "Español" },
   pt: { label: "Português" },
   de: { label: "Deutsch" },

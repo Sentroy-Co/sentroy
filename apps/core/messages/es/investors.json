@@ -1,0 +1,421 @@
+{
+  "hero": {
+    "eyebrow": "La columna vertebral operativa para la era del vibe-coding",
+    "title": "Tú programas la app con vibe-coding. Sentroy hace funcionar la empresa que hay detrás.",
+    "subtitle": "Todo producto real sigue necesitando los mismos elementos esenciales detrás: un inicio de sesión seguro, un lugar donde guardar datos y archivos, correo que llega de forma fiable, facturación, mensajería, una página de estado y una forma de gestionar un equipo. Hoy quienes crean productos ensamblan a mano de seis a diez proveedores distintos. Sentroy lo reúne todo en una sola plataforma, un solo inicio de sesión y una sola factura: un espacio de trabajo estilo macOS en la web donde una empresa hace funcionar toda su suite de apps bajo un único inicio de sesión seguro. Somos dueños de la infraestructura central, y un kit de inicio de un solo comando junto con herramientas listas para cada lenguaje de programación importante convierten un prototipo recién creado en un negocio listo para generar ingresos en minutos.",
+    "ctaPrimary": "Explora la suite en vivo",
+    "ctaSecondary": "Lee la tesis"
+  },
+  "thesis": {
+    "label": "Por qué ahora",
+    "title": "Crear una app acaba de volverse gratis. Hacer funcionar el negocio que hay detrás, no.",
+    "body": "El software atraviesa su mayor cambio de costos en una década. Cursor, v0, Lovable y Claude Code han llevado el costo de crear una app casi a cero: cualquiera puede describir lo que quiere y obtener una app funcional en minutos. Pero todo lo que un negocio real necesita detrás de esa app —un inicio de sesión seguro, pagos, correo, datos, archivos y más— no se ha abaratado ni se ha automatizado. Solo se ha vuelto más fragmentado. A medida que crear una app se acerca a lo gratuito, hacer funcionar el negocio que hay detrás se convierte en el cuello de botella, y en el valor duradero. Sentroy está construido para el otro lado de esa brecha.",
+    "points": [
+      {
+        "title": "Crear se redujo a minutos",
+        "body": "Las herramientas de programación con IA han convertido la creación de una app en un paso casi resuelto y casi gratuito. El cuello de botella se desplazó aguas abajo: hacia todo lo que debe estar en su sitio antes de que un prototipo pueda cobrar y atender a clientes reales."
+      },
+      {
+        "title": "Una app no es un negocio",
+        "body": "Un inicio de sesión seguro, un lugar donde almacenar datos y archivos, correo, facturación, mensajería, una página de estado, gestión de equipos: la poco glamorosa columna vertebral sigue teniendo que existir, sigue teniendo que ser segura y sigue teniendo que operarse día a día. Ese trabajo no se automatizó."
+      },
+      {
+        "title": "Se volvió más fragmentado, no menos",
+        "body": "La respuesta por defecto sigue siendo Auth0 para el inicio de sesión, Amazon S3 para los archivos, SendGrid para el correo, Stripe para los pagos, Twilio para la mensajería y más: un mosaico de proveedores distintos que cada creador tiene que contratar, conectar y mantener desde cero."
+      },
+      {
+        "title": "El viento a favor se compone",
+        "body": "Cada nueva app que alguien crea es un prospecto fresco para una columna vertebral operativa, y la primera plataforma en convertirse en la opción por defecto para ellos gana costos de cambio y datos acumulados de los que resulta difícil desprenderse más adelante."
+      }
+    ]
+  },
+  "problem": {
+    "label": "El problema",
+    "title": "Un prototipo está a minutos de distancia. Un negocio real sigue siendo un proyecto de compras.",
+    "body": "La brecha entre \"funciona en mi pantalla\" y \"clientes reales dependen de ello\" apenas se ha movido, incluso cuando crear la app en sí se ha acelerado. Esa brecha está hecha de los mismos elementos esenciales obligatorios que necesita todo producto, y hoy se ensambla a mano a partir de una docena de proveedores desconectados. El impuesto recae con más fuerza precisamente sobre las personas a quienes las herramientas de programación con IA están potenciando: creadores en solitario, equipos pequeños y agencias que lanzan rápido.",
+    "points": [
+      {
+        "title": "Dispersión de proveedores",
+        "body": "Inicio de sesión, almacenamiento de archivos, correo, facturación, mensajería, una página de estado, video, seguimiento de incidencias: cada uno es un servicio de pago aparte con su propio contrato, configuración y curva de aprendizaje. De seis a diez relaciones solo para poner en pie un producto."
+      },
+      {
+        "title": "El impuesto de la integración",
+        "body": "Cada costura entre dos proveedores es trabajo a medida por construir y mantener, y una cosa más que se puede romper. Quien crea el producto acaba conectando herramientas entre sí en lugar de construir el producto, precisamente el trabajo que la IA no ha eliminado."
+      },
+      {
+        "title": "Identidad y datos fragmentados",
+        "body": "Usuarios, equipos, permisos y registros de actividad viven en silos separados, sin un inicio de sesión compartido y sin una única fuente de verdad. Reglas simples —\"este compañero puede enviar correo pero no puede gestionar dominios\"— son dolorosas de hacer cumplir en una docena de herramientas."
+      },
+      {
+        "title": "Caos de costos y facturación",
+        "body": "Diez proveedores significan diez facturas, diez modelos de precios y diez lugares donde el consumo puede dispararse de repente. Prever el gasto y conciliar las facturas se convierte en su propia carga recurrente, especialmente al principio, cuando se escruta cada dólar."
+      },
+      {
+        "title": "Ningún lugar único para operarlo todo",
+        "body": "No existe un solo lugar que un fundador pueda abrir para ver —y realmente operar— todo el negocio que hay detrás de la app. Las operaciones están dispersas por un navegador lleno de pestañas."
+      }
+    ]
+  },
+  "solution": {
+    "label": "La solución",
+    "title": "Una plataforma, una identidad, una factura: un verdadero sistema operativo para el negocio que hay detrás de la app.",
+    "body": "Sentroy reemplaza ese mosaico de proveedores cosido a mano con una plataforma única y coherente. La pantalla de inicio es Sentroy OS: un escritorio estilo macOS en la web en sentroy.com/d, con ventanas, un dock, un launchpad, widgets, una tienda de apps y logros, desde donde una empresa hace funcionar toda su suite de apps bajo un único inicio de sesión seguro. La adopción es a la carta: activa una app o haz funcionar toda la empresa sobre ella.",
+    "points": [
+      {
+        "title": "Sentroy OS: la pantalla de inicio",
+        "body": "Un escritorio en la web convierte las herramientas de una empresa en un entorno coherente en lugar de un navegador lleno de pestañas desconectadas. Cada app es una ventana bajo el mismo inicio de sesión."
+      },
+      {
+        "title": "Un inicio de sesión, en todas partes",
+        "body": "Un único inicio de sesión seguro lleva los mismos usuarios, equipos y permisos detallados a través de cada app de la suite: sin una cuenta separada que crear o conciliar para cada proveedor."
+      },
+      {
+        "title": "Infraestructura propia, no revendida",
+        "body": "Operamos nuestra propia infraestructura de correo, nuestra propia red global de entrega de archivos y medios, y nuestro propio servicio de inicio de sesión, en lugar de revender el de otro. Como somos dueños de estos componentes básicos, controlamos la calidad, el costo y la hoja de ruta."
+      },
+      {
+        "title": "Una factura, una relación",
+        "body": "Los datos de cada empresa están claramente separados en toda la plataforma, con planes basados en consumo y una sola factura que reemplaza un cajón lleno de suscripciones."
+      },
+      {
+        "title": "Defendible por construcción",
+        "body": "Cada app adicional que un cliente activa profundiza la identidad, los datos y la relación de facturación compartidos, convirtiendo la consolidación en costos de cambio que se componen, en lugar de una comodidad puntual."
+      }
+    ]
+  },
+  "product": {
+    "label": "La suite",
+    "title": "Una suite propia completa: toda real, toda en producción, toda bajo un solo inicio de sesión.",
+    "body": "Esto no es una hoja de ruta de promesas. Cada app de abajo es un producto real, propio, funcionando bajo el mismo inicio de sesión, y la amplitud es la estrategia: cuantas más operaciones de un cliente vivan dentro de Sentroy, mayor es el costo de cambio y más ricos los datos que las unen. El ritmo que produjo tanto es en sí mismo la señal más clara de lo que el equipo construirá a continuación.",
+    "apps": [
+      {
+        "name": "Sentroy OS",
+        "tagline": "El escritorio estilo macOS desde el que funciona toda tu empresa: ventanas, dock, launchpad y tienda de apps, todo bajo un solo inicio de sesión."
+      },
+      {
+        "name": "Mail",
+        "tagline": "Correo de producto y de marketing funcionando sobre la propia infraestructura de Sentroy: envío, bandeja de entrada, dominios, plantillas, audiencias y validación. No un margen de reventa."
+      },
+      {
+        "name": "Storage",
+        "tagline": "Almacenamiento de archivos y medios con cargas rápidas de archivos grandes, respaldado por la propia red global de entrega y procesamiento de imágenes de Sentroy."
+      },
+      {
+        "name": "Auth",
+        "tagline": "\"Iniciar sesión con Sentroy\" para apps de terceros, más un servicio de inicio de sesión alojado: una alternativa a Firebase Auth donde los clientes gestionan sus propias cuentas de usuario final, con cada proyecto aislado de forma segura."
+      },
+      {
+        "name": "Status",
+        "tagline": "Páginas de estado públicas —incidentes, mantenimiento programado, suscriptores e historial de disponibilidad— con el acabado de Atlassian Statuspage, integrado."
+      },
+      {
+        "name": "WhatsApp Santral",
+        "tagline": "Mensajería de WhatsApp para empresas: múltiples números, plantillas de mensajes, listas de contactos y envío individual o masivo."
+      },
+      {
+        "name": "Studio",
+        "tagline": "Un estudio de música con enfoque DJ que funciona directamente en el navegador: tus archivos permanecen en tu dispositivo, con sincronización en la nube opcional y una suite completa de efectos."
+      },
+      {
+        "name": "Meet",
+        "tagline": "Videoconferencia de marca blanca con un inicio de sesión compartido integrado."
+      },
+      {
+        "name": "OpenCut",
+        "tagline": "Un editor de video en el navegador que comparte el mismo inicio de sesión que el resto de la suite."
+      },
+      {
+        "name": "Linear Lite",
+        "tagline": "Seguimiento de tareas e incidencias con triaje y un bot de Telegram."
+      },
+      {
+        "name": "Tools",
+        "tagline": "Alrededor de treinta utilidades gratuitas en el navegador: conversiones de imagen, PDF, audio, video y para desarrolladores, más WHOIS, localizadas en diez idiomas."
+      },
+      {
+        "name": "App Store",
+        "tagline": "Apps propias y de terceros instalables que funcionan aisladas de forma segura dentro del OS: el volante de inercia del marketplace."
+      }
+    ]
+  },
+  "developer": {
+    "label": "Plataforma para desarrolladores",
+    "title": "La distribución como foso: llega a los creadores en el momento en que empiezan, retenlos con herramientas para cada lenguaje.",
+    "body": "Sentroy está construido para integrarse en cualquier producto desde el primer día, y su camino más rápido hacia una adopción duradera es estar ahí en el momento en que se crea un proyecto. Los mismos servicios que dan vida a Sentroy OS están disponibles para cualquier desarrollador a través de una interfaz limpia y documentada, y un kit de inicio de un solo comando junto con herramientas listas para cada lenguaje popular hacen que añadirlos sea la opción fácil por defecto, de modo que elegir Sentroy ocurre antes de escribir la primera línea del producto, y marcharse significa reconstruir esas conexiones en todo lo que el cliente construyó.",
+    "points": [
+      {
+        "title": "Un kit de inicio en el proyecto cero",
+        "body": "\"npm create sentroy-app\" genera una app completa y lista para ejecutar y conecta inicio de sesión, almacenamiento de archivos y correo a la carta, usando el inicio de sesión alojado de Sentroy o el propio de la app, con \"Iniciar sesión con Sentroy\" disponible desde el primer momento."
+      },
+      {
+        "title": "Paridad total en cuatro lenguajes",
+        "body": "El kit oficial para desarrolladores ofrece paridad total de funciones en TypeScript, Go, Python y PHP —trece servicios cada uno— más componentes de interfaz listos para usar. Sentroy es una columna vertebral viable sin importar la tecnología de un equipo, no una apuesta exclusiva de JavaScript."
+      },
+      {
+        "title": "Acceso seguro y auditable por defecto",
+        "body": "El acceso se concede mediante claves revocables con permisos detallados, y cada acción sensible queda registrada. El control de acceso de nivel empresarial y un rastro de auditoría completo son la norma, no un complemento de pago."
+      },
+      {
+        "title": "La profundidad de integración se convierte en costo de cambio",
+        "body": "Una vez que una app inicia sesión de sus usuarios, almacena sus archivos y envía su correo a través de Sentroy —y ofrece \"Iniciar sesión con Sentroy\"— dejar la plataforma significa reconstruir varios sistemas a la vez. La comodidad inicial se convierte en retención duradera."
+      }
+    ],
+    "scaffoldCmd": "npm create sentroy-app@latest my-app",
+    "sdkSnippet": "import { Sentroy } from \"@sentroy-co/client-sdk\"\n\nconst sentroy = new Sentroy({\n  baseUrl: \"https://sentroy.com\",\n  companySlug: \"acme\",\n  accessToken: process.env.SENTROY_TOKEN!,\n})\n\nawait sentroy.mail.send({ to, subject, html })\nconst { url } = await sentroy.storage.upload(file)"
+  },
+  "market": {
+    "label": "Mercado",
+    "title": "El mercado es la suma de las categorías que Sentroy reemplaza, expandiéndose con cada prototipo.",
+    "body": "El mercado abordable de Sentroy no es una sola categoría; es la unión de las categorías que un creador compraría por separado. En lugar de afirmar un único TAM inventado, lo dimensionamos por composición: inicio de sesión e identidad, almacenamiento y entrega de archivos, correo, facturación, mensajería, páginas de estado, video y seguimiento de incidencias son, cada uno por derecho propio, mercados de software grandes y consolidados. Los rastreadores públicos suelen describir las categorías combinadas de herramientas para desarrolladores y servicios en la nube como grandes y creciendo a doble dígito, citadas aquí solo como una señal de mercado ilustrativa, no como una afirmación bottom-up sobre nuestro propio mercado alcanzable. Se proporciona una construcción de TAM defendible como modelo aparte.",
+    "points": [
+      {
+        "title": "Mercado por composición",
+        "body": "Los proveedores que Sentroy consolida son, cada uno, mercados probados y considerables de forma independiente. Consolidar un gasto que ya existe es una tesis de menor riesgo que crear una nueva categoría."
+      },
+      {
+        "title": "La programación con IA es el acelerante de la demanda",
+        "body": "Cada herramienta que permite a alguien crear una app en minutos genera otro creador que ahora necesita todo lo que funciona detrás de ella, expandiendo nuestra población abordable precisamente a medida que la ola se acelera, una tendencia que no tenemos que financiar."
+      },
+      {
+        "title": "La consolidación es la dirección predominante",
+        "body": "La fatiga de los compradores ante la dispersión de herramientas y la facturación por proveedor está bien documentada. El mercado ha recompensado repetidamente a las plataformas que reúnen muchas soluciones puntuales en una superficie coherente con una sola factura."
+      },
+      {
+        "title": "Cuña, luego expansión",
+        "body": "Las apps individuales —correo, inicio de sesión, almacenamiento— son puntos de entrada autónomos y creíbles que compiten por sus propios méritos; la plataforma captura después ingresos por expansión a medida que los clientes consolidan apps adicionales bajo el mismo inicio de sesión y la misma factura."
+      }
+    ]
+  },
+  "model": {
+    "label": "Modelo de negocio",
+    "title": "Suscripciones por empresa hoy, comisión del marketplace mañana.",
+    "body": "Los ingresos son por empresa y conscientes del consumo, facturados a través de Polar.sh, con un nivel gratuito que siembra la adopción bottom-up y niveles de pago que escalan con el uso real. Como la suite es amplia y comparte una sola cuenta, la expansión es nativa: a medida que el producto de un cliente crece, también lo hace su consumo en toda la plataforma, y la economía unitaria mejora a medida que la infraestructura propia atiende más apps por cliente sin un costo de proveedor proporcional.",
+    "streams": [
+      {
+        "name": "Planes de suscripción por empresa",
+        "desc": "Niveles gratuitos y de pago recurrentes vía Polar.sh, basados en límites de uso reales: dominios, miembros del equipo, buzones, almacenamiento y volumen mensual de correo y WhatsApp. Una suscripción reemplaza las seis a diez facturas de proveedores que generaría un mosaico de herramientas separadas."
+      },
+      {
+        "name": "Expansión basada en consumo",
+        "desc": "A medida que los clientes añaden apps y aumentan el volumen, suben de nivel de plan y de límites. La consolidación bajo una sola factura convierte la venta cruzada en una retención de ingresos neta natural, en lugar de un esfuerzo de ventas aparte."
+      },
+      {
+        "name": "Productos de sistema de pago único",
+        "desc": "Compras únicas discretas registradas junto a las suscripciones, que monetizan desbloqueos de alto valor y capacidad sin perturbar la base recurrente."
+      },
+      {
+        "name": "Marketplace de apps de terceros",
+        "desc": "Una futura vía de comisión: apps de terceros instalables que funcionan aisladas de forma segura dentro del OS, y el motor de un volante de inercia donde más apps atraen más clientes y viceversa."
+      }
+    ]
+  },
+  "growth": {
+    "label": "Hoja de ruta",
+    "title": "De una plataforma en producción a un ecosistema que se refuerza a sí mismo.",
+    "body": "La ingeniería más difícil e intensiva en capital ya quedó atrás. La secuencia por delante es deliberada: demostrar la plataforma unificada, abrir la distribución a los creadores, impulsar la consolidación hacia ingresos por expansión, y luego dejar que los terceros y los datos entre apps compongan el foso. Los plazos se muestran en relación con la fundación, en lugar de como promesas de calendario fijas.",
+    "phases": [
+      {
+        "when": "2026 — Cimientos",
+        "title": "Construir la plataforma unificada",
+        "body": "Lanzamos Sentroy OS, un inicio de sesión compartido en todo, y los cimientos comunes sobre los que se construye cada app; luego una suite propia completa sobre infraestructura de Sentroy: correo, almacenamiento y entrega, el servicio de inicio de sesión, estado y más. Amplitud y coherencia logradas."
+      },
+      {
+        "when": "Ahora",
+        "title": "Abrir la distribución a los creadores",
+        "body": "Convertir la ola del vibe-coding en registros yendo al encuentro de los creadores donde empiezan: el kit de inicio create-sentroy-app, herramientas listas en cuatro lenguajes, una interfaz de desarrollador segura y documentación, con el tiempo desde un proyecto nuevo hasta un negocio en vivo y listo para generar ingresos medido en minutos."
+      },
+      {
+        "when": "Siguiente",
+        "title": "Consolidación, profundidad y fiabilidad",
+        "body": "Llevar a los clientes de una sola app a la suite completa bajo una sola factura, profundizar los servicios de mayor palanca hacia lo mejor de su clase, y endurecer la fiabilidad para que Sentroy sea una dependencia única segura, no simplemente una cómoda."
+      },
+      {
+        "when": "Luego",
+        "title": "El volante del marketplace",
+        "body": "Escalar la App Store: los desarrolladores externos publican apps aisladas de forma segura bajo un modelo de comisión, de modo que la amplitud del ecosistema atrae clientes y el volumen de clientes atrae desarrolladores."
+      },
+      {
+        "when": "Horizonte",
+        "title": "Profundidad empresarial y gravedad de datos",
+        "body": "Profundizar la gobernanza, la auditoría y los controles administrativos, y convertir los datos entre apps en inteligencia a nivel de plataforma: la etapa en la que los costos de cambio y la gravedad de datos hacen de Sentroy la columna vertebral operativa por defecto para una gran parte de los productos construidos con IA."
+      }
+    ]
+  },
+  "scalability": {
+    "label": "Tecnología y escala",
+    "title": "Construido para añadir pilares sin añadir fragilidad.",
+    "body": "La forma en que Sentroy está construido es lo que permite a un equipo reducido lanzar y operar tanto manteniendo una economía unitaria disciplinada. Los datos de cada cliente están claramente separados, cada app reutiliza los mismos cimientos seguros en lugar de reconstruirlos, y cada app puede actualizarse por su cuenta sin poner en riesgo a las demás. La seguridad y la capacidad de escalar son propiedades de la propia plataforma, no algo añadido app por app.",
+    "points": [
+      {
+        "title": "Separación limpia para cada cliente",
+        "body": "Los datos de cada cliente están totalmente aislados, con permisos detallados y un registro de cada acción sensible. Un solo sistema atiende a todos de forma segura, de modo que cada cliente adicional cuesta casi nada en ingeniería extra."
+      },
+      {
+        "title": "Las nuevas apps heredan la plataforma",
+        "body": "Cada app está construida sobre una única base de código moderna y compartida —el mismo inicio de sesión, capa de datos y componentes de interfaz—, de modo que una app nueva hereda la plataforma en lugar de reconstruirla desde cero. Por eso un equipo pequeño puede lanzar una suite amplia rápidamente y a bajo costo."
+      },
+      {
+        "title": "Cada app se actualiza de forma segura por su cuenta",
+        "body": "Las apps se lanzan de forma independiente, así que un cambio en una nunca puede tumbar a las demás, y las actualizaciones se despliegan sin perturbar a los clientes en vivo. Esto mantiene las fallas contenidas y los costos de operación bajos a medida que la suite crece."
+      },
+      {
+        "title": "Somos dueños de la infraestructura central",
+        "body": "Nuestra infraestructura de correo, nuestra red de entrega de archivos y medios, y nuestra capa de inicio de sesión y seguridad son enteramente nuestras de principio a fin, de modo que las partes que los clientes más sienten (velocidad, entregabilidad, seguridad) son nuestras para ajustar, y el margen se captura en lugar de pagarse a un intermediario."
+      }
+    ]
+  },
+  "swot": {
+    "label": "Evaluación honesta",
+    "title": "SWOT: la versión franca.",
+    "strengths": [
+      {
+        "title": "Amplitud real en producción",
+        "body": "Una suite propia que abarca correo, almacenamiento, inicio de sesión, estado, mensajería y apps creativas, en vivo en producción bajo un solo inicio de sesión y un solo escritorio. Es una plataforma demostrada, no diapositivas, y la señal individual más fuerte del dossier."
+      },
+      {
+        "title": "Infraestructura propia, no un revendedor",
+        "body": "El correo, la entrega de archivos y el servicio de inicio de sesión son nuestros de principio a fin. Eso significa control del margen, la capacidad de ajustar lo que importa y un modelo de seguridad coherente que los revendedores superficiales no pueden replicar."
+      },
+      {
+        "title": "Costos de cambio que se componen",
+        "body": "Cada app que un cliente activa profundiza la identidad, los datos y la facturación compartidos, de modo que la consolidación se convierte en un anclaje duradero e ingresos por expansión, en lugar de una comodidad puntual."
+      },
+      {
+        "title": "Distribución en el proyecto cero",
+        "body": "El kit de inicio de un solo comando y las herramientas listas para cuatro lenguajes sitúan a Sentroy en el momento de la creación, precisamente cuando la ola del vibe-coding está generando la mayor cantidad de proyectos nuevos."
+      }
+    ],
+    "weaknesses": [
+      {
+        "title": "Etapa temprana",
+        "body": "Es una empresa en etapa seed con una validación de mercado externa limitada hasta la fecha. La madurez del producto va por delante de la prueba comercial."
+      },
+      {
+        "title": "Equipo pequeño",
+        "body": "Un equipo de 5 conlleva un riesgo considerable de persona clave y de capacidad ante una superficie amplia; contratar es un uso de primer orden de este capital."
+      },
+      {
+        "title": "Amplitud frente a profundidad",
+        "body": "Una suite tan amplia significa que cada pilar compite con un especialista enfocado que ha invertido años en ese único problema. Sostener la paridad de profundidad es un riesgo de ejecución permanente."
+      },
+      {
+        "title": "La salida al mercado es incipiente",
+        "body": "El movimiento liderado por el producto es temprano y no probado a escala, y todavía no hay ingresos revelados. La distribución —no la ingeniería— es la pregunta abierta."
+      }
+    ],
+    "opportunities": [
+      {
+        "title": "El viento a favor del vibe-coding",
+        "body": "El grupo de personas que crean apps se expande con rapidez, y cada una necesita exactamente la columna vertebral que Sentroy provee. La tendencia crea nuestro mercado más rápido de lo que nosotros tenemos que hacerlo."
+      },
+      {
+        "title": "El volante del marketplace",
+        "body": "La App Store permite a desarrolladores externos profundizar la plataforma y cubrir necesidades de cola larga sin nuestra plantilla, a la vez que abre una vía de ingresos por comisión y un efecto de red entre desarrolladores y clientes."
+      },
+      {
+        "title": "Subir de segmento",
+        "body": "El inicio de sesión compartido existente, el rastro de auditoría y la separación limpia por cliente son una base creíble para controles y cumplimiento empresariales: un camino hacia contratos más grandes y con mayor anclaje con el tiempo."
+      },
+      {
+        "title": "Economía de consolidación para los compradores",
+        "body": "Reemplazar de seis a diez facturas por una es un argumento concreto de costo y complejidad que resuena en entornos conscientes del gasto, y se alinea con la dirección hacia la que ya se dirigen las compras."
+      }
+    ],
+    "threats": [
+      {
+        "title": "Actores establecidos con bolsillos profundos y soluciones puntuales",
+        "body": "Identidad (Auth0/Okta), almacenamiento (AWS/S3), correo (SendGrid/Resend), mensajería (Twilio) y plataformas de apps (Supabase/Firebase, Vercel) tienen escala, presupuestos y profundidad que aún no igualamos, y cada uno puede empaquetar defensivamente."
+      },
+      {
+        "title": "La brecha de profundidad",
+        "body": "Un especialista decidido puede superar en funciones a cualquier pilar individual de Sentroy. Nuestra apuesta es que la unificación pesa más que la profundidad por app para nuestro comprador objetivo, y eso debe demostrarse, no asumirse."
+      },
+      {
+        "title": "Dependencia de plataformas",
+        "body": "Partes de la suite dependen de plataformas externas y componentes de código abierto —WhatsApp, Jitsi, Polar y otros— donde los cambios de política o de licencias están fuera de nuestro control."
+      },
+      {
+        "title": "El momento de la categoría",
+        "body": "Si las herramientas de programación con IA empiezan a empaquetar su propia infraestructura, o si un gran proveedor de nube o de herramientas para desarrolladores persigue la misma tesis unificada con más capital, la ventana podría comprimirse. La velocidad hacia la distribución es la mitigación."
+      }
+    ],
+    "strengthsLabel": "Fortalezas",
+    "weaknessesLabel": "Debilidades",
+    "opportunitiesLabel": "Oportunidades",
+    "threatsLabel": "Amenazas"
+  },
+  "traction": {
+    "label": "Dónde estamos",
+    "title": "La prueba de producto está sobre la mesa; la prueba comercial es lo siguiente.",
+    "body": "Somos deliberadamente honestos aquí: la evidencia más fuerte hoy es la completitud del producto y la plataforma, no las métricas de escala, y no presentaremos recuentos de usuarios o ingresos inventados. Lo real es que toda la tesis ya está construida y funcionando: la ejecución que los inversores pueden verificar directamente. Las cifras específicas del fundador se dejan intencionalmente para completarse con números precisos.",
+    "points": [
+      {
+        "title": "La suite completa está en vivo",
+        "body": "Mail, Storage, Auth, Status, WhatsApp Santral, Studio, Meet, OpenCut, Linear Lite y Tools son apps propias reales, en producción, funcionando bajo un solo inicio de sesión compartido y un solo escritorio: en producción, no en pruebas ni demos."
+      },
+      {
+        "title": "La plataforma para desarrolladores está lanzada",
+        "body": "Paridad total de funciones en TypeScript, Go, Python y PHP, un kit de inicio create-sentroy-app funcional, y una interfaz de desarrollador documentada y segura: el motor de distribución está operativo, no en una hoja de ruta."
+      },
+      {
+        "title": "Operaciones de grado producción",
+        "body": "Lanzamientos independientes y fiables, un inicio de sesión compartido seguro con rotación regular de claves, separación limpia por cliente y registro de auditoría en todo momento: una madurez de ingeniería muy por encima del prototipo típico de pre-seed."
+      },
+      {
+        "title": "La monetización está conectada",
+        "body": "Las suscripciones por empresa vía Polar.sh y los productos de sistema de pago único están integrados, y las apps de terceros aisladas de forma segura de la App Store están diseñadas: la infraestructura de ingresos está lista para capturar la demanda a medida que crece la adopción."
+      },
+      {
+        "title": "Equipo y etapa",
+        "body": "Construido por un equipo de 5 desde 2026 con alta eficiencia de capital. Las cifras de uso, clientes e ingresos se omiten intencionalmente en lugar de fabricarse, y son el foco de esta ronda."
+      }
+    ]
+  },
+  "ask": {
+    "label": "La ronda",
+    "title": "Levantamos $500K para convertir una plataforma en producción en un negocio que se compone.",
+    "body": "Estamos levantando $500K en una ronda seed para aproximadamente 18 meses de pista. El trabajo más difícil e intensivo en capital —construir y operar la infraestructura propia, la suite completa de apps, las herramientas para desarrolladores y el sistema de facturación— ya quedó atrás, así que el riesgo central de construcción y ejecución está en gran medida retirado. Esta ronda no se trata de demostrar que podemos construir; financia el segundo acto: convertir la distribución en adopción, la adopción en ingresos por expansión, y el marketplace en un volante de inercia.",
+    "useOfFunds": [
+      {
+        "area": "Ingeniería y profundidad de producto",
+        "desc": "Contratar de forma selectiva para cerrar la brecha de profundidad en los pilares de mayor valor y endurecer la infraestructura propia, abordando directamente el riesgo de amplitud frente a profundidad y reduciendo la exposición a personas clave."
+      },
+      {
+        "area": "Relaciones con desarrolladores y salida al mercado",
+        "desc": "Construir el movimiento liderado por el producto que la plataforma ha ganado —documentación, adopción de herramientas para desarrolladores, distribución del kit de inicio y una rampa de acceso clara desde un prototipo con vibe-coding hasta un producto respaldado por Sentroy—, convirtiendo el viento a favor en pipeline."
+      },
+      {
+        "area": "Fiabilidad, seguridad y preparación empresarial",
+        "desc": "Invertir en monitoreo, fiabilidad y cumplimiento para que los clientes puedan consolidar con seguridad sobre Sentroy como una dependencia única, y para desbloquear cuentas más grandes y con mayor anclaje en segmentos superiores."
+      },
+      {
+        "area": "Ecosistema y marketplace",
+        "desc": "Abrir y sembrar la App Store de terceros para componer el valor de la plataforma con efectos de red y poner en pie la vía de ingresos por comisión."
+      }
+    ],
+    "closing": "Esta es una ronda eficiente en capital contra una plataforma que ya existe. Estamos financiando crecimiento, distribución y durabilidad en lugar de descubrimiento, y el capital se desplegará con la misma disciplina que produjo la suite: medido contra hitos de distribución, no plantilla por sí misma."
+  },
+  "closing": {
+    "title": "El mundo construirá más apps cada día. Todas necesitarán una columna vertebral.",
+    "body": "Sentroy es esa columna vertebral: una plataforma, un inicio de sesión, una factura, con infraestructura propia y una suite en producción que ya existe. A medida que la programación asistida por IA hace que crear una app sea efectivamente gratis, el valor duradero se traslada a todo lo que funciona por debajo, y ahí es precisamente donde hemos dedicado nuestro esfuerzo. Lo que queda es escalar el motor comercial sobre unos cimientos que ya están construidos. Tú programas la app con vibe-coding; Sentroy hace funcionar la empresa que hay detrás.",
+    "cta": "Hablemos de la ronda"
+  },
+  "metaTitle": "Inversores",
+  "metaDescription": "Sentroy: la columna vertebral operativa para la era del vibe-coding. Dossier para inversores de ronda seed.",
+  "nav": {
+    "tag": "Dossier para inversores",
+    "thesis": "Tesis",
+    "product": "Producto",
+    "market": "Mercado",
+    "growth": "Crecimiento",
+    "swot": "SWOT",
+    "ask": "La ronda",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "tagline": "La plataforma operativa para la era del vibe-coding.",
+    "home": "Inicio",
+    "docs": "Docs",
+    "copyright": "© 2026 Sentroy — Confidencial, preparado para posibles inversores."
+  }
+}

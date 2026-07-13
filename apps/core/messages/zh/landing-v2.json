@@ -1,0 +1,359 @@
+{
+  "nav": {
+    "build": "构建",
+    "operate": "运营",
+    "create": "创作",
+    "pricing": "价格",
+    "faq": "常见问题",
+    "dashboard": "控制台",
+    "signIn": "登录",
+    "getStarted": "开始使用",
+    "dev": "开发者"
+  },
+  "products": {
+    "mail": "Mail",
+    "storage": "Storage",
+    "auth": "Auth",
+    "vault": "Env Vault",
+    "status": "Status",
+    "meet": "Meet",
+    "whatsapp": "WhatsApp",
+    "linear": "Linear Lite",
+    "studio": "Studio",
+    "opencut": "OpenCut",
+    "tools": "Tools",
+    "os": "Sentroy OS"
+  },
+  "manifesto": {
+    "kicker": "单一会话理念",
+    "body": "过去每添加一个工具，都意味着多开一个标签页、多一张账单、多一次登录。我们把 12 款产品装进了同一个桌面。一个 Cookie，一个会话，告别标签页混乱。继续向下滚动——窗口已经开始打开了。",
+    "products": {
+      "mail": "Mail",
+      "storage": "Storage",
+      "auth": "Auth",
+      "vault": "Env Vault",
+      "status": "Status Pages",
+      "meet": "Meet",
+      "whatsapp": "WhatsApp Santral",
+      "linear": "Linear Lite",
+      "studio": "Studio",
+      "opencut": "OpenCut",
+      "tools": "Tools",
+      "os": "Sentroy OS"
+    }
+  },
+  "proof": {
+    "eyebrow": "实力见证",
+    "title": "用数据说话，而非承诺。",
+    "description": "规模有多大、有多稳定、有多开放——统统摆在台面上。",
+    "stats": {
+      "products": "款产品同处一个桌面",
+      "session": "个会话通用于全部产品",
+      "tools": "款免费工具随附",
+      "uptime": "可用性目标"
+    },
+    "statusNote": "健康数据由我们自己的 Status Pages 产品实时提供。",
+    "statusCta": "查看实时状态",
+    "faqTitle": "常见问题",
+    "faqDescription": "问题简短，回答直接。",
+    "faq": {
+      "session": {
+        "q": "“单一会话”到底是什么意思？",
+        "a": "只需登录一次；Mail、Storage、Auth 以及其他每款产品都共用同一个会话。无需为每款产品单独注册账号、设置密码或另开标签页。"
+      },
+      "alacarte": {
+        "q": "我可以单独使用某款产品吗？",
+        "a": "可以。只打开你需要的，Dock 中其余产品保持原样。日后再添加一款，只需轻点一下。"
+      },
+      "sdk": {
+        "q": "有 API 和 SDK 吗？",
+        "a": "有。一个访问令牌即可通用于 TypeScript、Python、Go 和 PHP 的 SDK——或者直接用标准 REST。从 npm i @sentroy-co/client-sdk 开始吧。"
+      },
+      "free": {
+        "q": "我可以免费开始吗？",
+        "a": "可以，而且无需绑定信用卡。随着业务增长再升级；价格就在上方列出，绝无隐藏费用。"
+      },
+      "data": {
+        "q": "我的数据安全吗？",
+        "a": "我们每天都用这个平台运营自己的公司。访问权限按公司隔离，每一项关键操作都会记入审计日志。"
+      }
+    }
+  },
+  "cta": {
+    "title": "这个桌面，属于你。",
+    "subtitle": "12 款产品已安装，会话已就绪。唯一还缺的，就是你。",
+    "primary": "免费开始",
+    "secondary": "文档",
+    "note": "无需信用卡。"
+  },
+  "sdk": {
+    "eyebrow": "开发者",
+    "title": "一个 SDK，畅连每款产品。",
+    "description": "用同一个客户端发送邮件、上传到 CDN、为用户登录、读取密钥。支持 TypeScript、Python、PHP 和 Go。",
+    "terminalTitle": "终端 — sentroy",
+    "copy": "复制安装命令",
+    "copied": "已复制",
+    "scaffoldNote": "从零开始？",
+    "docsCta": "阅读文档"
+  },
+  "pricing": {
+    "eyebrow": "价格",
+    "title": "选择你的方案。",
+    "subtitle": "每个方案都包含全部 12 款产品。当业务超出额度上限时再升级。",
+    "billingAria": "计费周期",
+    "monthly": "按月",
+    "yearly": "按年",
+    "popular": "热门",
+    "free": "免费",
+    "perMonth": "/月",
+    "perYear": "/年",
+    "cta": "开始使用",
+    "ctaFree": "免费开始",
+    "unlimited": "无限制",
+    "featEmails": "{count} 封邮件 / 月",
+    "featStorage": "{value} 存储空间",
+    "featDomains": "{count} 个域名",
+    "featMembers": "{count} 名团队成员"
+  },
+  "boot": {
+    "eyebrow": "Sentroy OS",
+    "title": "12 款产品，一个桌面。",
+    "subtitle": "Mail、Storage、Auth 及另外 9 款——一个会话，零标签页。",
+    "cta": "免费开始",
+    "scrollHint": "滚动即可步入其中",
+    "carousel": {
+      "0": "你的邮件、文件和用户——都在同一块玻璃之后。",
+      "1": "告别标签页混乱；每个工具都在同一个桌面。",
+      "2": "一个账号，一张账单，一个会话。"
+    }
+  },
+  "expose": {
+    "title": "一切，尽在一个会话。",
+    "punchline": "一个 Cookie。一张账单。零标签页。",
+    "stats": {
+      "products": {
+        "label": "款产品"
+      },
+      "session": {
+        "label": "共享会话"
+      },
+      "setup": {
+        "label": "设置",
+        "suffix": " 分钟"
+      }
+    },
+    "cards": {
+      "mail": {
+        "title": "Mail",
+        "line": "用模板发送，追踪送达情况。"
+      },
+      "storage": {
+        "title": "Storage",
+        "line": "上传即得 CDN 链接。"
+      },
+      "auth": {
+        "title": "Auth",
+        "line": "OAuth + 你自己的用户池。"
+      },
+      "vault": {
+        "title": "Vault",
+        "line": "你的环境变量集中于一个保险库。"
+      },
+      "status": {
+        "title": "Status",
+        "line": "可用性一目了然。"
+      },
+      "meet": {
+        "title": "Meet",
+        "line": "在你自己的域名上通话。"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "line": "总机 + 模板群发。"
+      },
+      "linear": {
+        "title": "Linear Lite",
+        "line": "在轻量看板上管理事项。"
+      },
+      "studio": {
+        "title": "Studio",
+        "line": "浏览器里的数字音频工作站。"
+      },
+      "opencut": {
+        "title": "OpenCut",
+        "line": "在一个标签页里剪辑视频。"
+      },
+      "tools": {
+        "title": "Tools",
+        "line": "30+ 款免费工具。"
+      }
+    }
+  },
+  "operate": {
+    "eyebrow": "场景 02 — 运营",
+    "title": "运营公司，同一个桌面。",
+    "subtitle": "Status、Meet、WhatsApp 和 Linear 并排常开——一个会话，告别标签页混乱。",
+    "live": "聚焦中：{name}",
+    "windows": {
+      "status": {
+        "name": "Status",
+        "title": "Status — status.sentroy.com",
+        "desc": "带实时可用性的公开状态页。",
+        "operational": "所有系统运行正常",
+        "uptime": "90 天可用性",
+        "services": {
+          "mail": "Mail API",
+          "storage": "Storage",
+          "cdn": "CDN",
+          "db": "数据库"
+        }
+      },
+      "meet": {
+        "name": "Meet",
+        "title": "Meet — meet.sentroy.com",
+        "desc": "在你自己的域名上进行视频通话。",
+        "room": "每周同步会",
+        "speaking": "发言中"
+      },
+      "whatsapp": {
+        "name": "WhatsApp Santral",
+        "title": "WhatsApp — whatsapp.sentroy.com",
+        "desc": "为你的 WhatsApp 号码提供团队共享收件箱。",
+        "contact": "客服专线",
+        "online": "在线",
+        "msg1": "你好——我的账单好像有误。",
+        "msg2": "已修正。新账单马上发给你。"
+      },
+      "linear": {
+        "name": "Linear Lite",
+        "title": "Linear — linear.sentroy.com",
+        "desc": "真正能推进到「完成」的事项。",
+        "inProgress": "进行中",
+        "done": "已完成",
+        "issueMoving": "轮换 staging API 密钥",
+        "issueSecond": "撰写事故复盘报告",
+        "issueDone": "上线状态页嵌入功能"
+      }
+    }
+  },
+  "create": {
+    "eyebrow": "创作",
+    "title": "不只是基础设施。",
+    "subtitle": "一个数字音频工作站、一个视频编辑器，外加 30+ 款工具——都在同一块玻璃之后。",
+    "studio": {
+      "window": "Sentroy Studio",
+      "heading": "制作你的曲目。",
+      "desc": "浏览器里 DJ 优先的数字音频工作站。30 种效果，无需安装。",
+      "bpm": "128 BPM",
+      "track1": "鼓组",
+      "track2": "贝斯",
+      "track3": "合成器"
+    },
+    "opencut": {
+      "window": "OpenCut",
+      "heading": "剪辑你的视频。",
+      "desc": "在时间轴上修剪；导出内容直接存入你的 Storage。",
+      "clip": "片段 01",
+      "audio": "音频",
+      "preview": "预览"
+    },
+    "tools": {
+      "heading": "还有 30+ 款免费工具。",
+      "desc": "图片、PDF、音频、视频、开发者工具——无需注册。",
+      "cta": "打开工具",
+      "more": "+ 另外 12 款"
+    },
+    "marqueeAria": "免费工具目录",
+    "marquee": {
+      "i1": "HEIC → JPG",
+      "i2": "Video → GIF",
+      "i3": "PDF 合并",
+      "i4": "PDF 拆分",
+      "i5": "图片压缩",
+      "i6": "图片调整尺寸",
+      "i7": "AVIF 转换",
+      "i8": "WEBP 转换",
+      "i9": "音频裁剪",
+      "i10": "音频转换",
+      "i11": "视频裁剪",
+      "i12": "视频压缩",
+      "i13": "WHOIS 查询",
+      "i14": "DNS 查询",
+      "i15": "JSON 格式化",
+      "i16": "Base64 编码",
+      "i17": "URL 编码",
+      "i18": "UUID 生成器",
+      "i19": "哈希生成器",
+      "i20": "二维码生成器",
+      "i21": "取色器",
+      "i22": "Excel → CSV",
+      "i23": "CSV → Excel",
+      "i24": "Markdown 预览",
+      "i25": "正则测试器",
+      "i26": "JWT 解码器",
+      "i27": "Cron 解析器",
+      "i28": "差异对比",
+      "i29": "Lorem ipsum",
+      "i30": "密码生成器"
+    }
+  },
+  "build": {
+    "kicker": "场景 01 — 构建",
+    "heading": "在 Sentroy 上构建你的应用。",
+    "docsCta": "文档",
+    "mail": {
+      "window": "Sentroy Mail",
+      "rail": "开箱即发的邮件服务。",
+      "p1": "用模板或 API 发送。",
+      "p2": "实时查看送达状态。",
+      "p3": "使用你的域名——SPF 和 DKIM 已为你搞定。",
+      "mock": {
+        "templates": "模板",
+        "tpl1": "欢迎邮件",
+        "tpl2": "密码重置",
+        "tpl3": "账单通知",
+        "compose": "新建发送",
+        "to": "收件人",
+        "subject": "主题",
+        "subjectValue": "欢迎加入",
+        "delivered": "已送达"
+      }
+    },
+    "storage": {
+      "window": "Sentroy Storage",
+      "rail": "上传即入驻 CDN。",
+      "p1": "分片上传，3 路并行传输。",
+      "p2": "每个文件即刻获得 CDN URL。",
+      "p3": "在边缘节点处理图片。",
+      "mock": {
+        "uploading": "上传中",
+        "ready": "已在 CDN 上线"
+      }
+    },
+    "auth": {
+      "window": "Sentroy Auth",
+      "rail": "几分钟内接入身份认证。",
+      "p1": "OAuth 2.0 + OIDC，标准端点。",
+      "p2": "你自己的用户池，签发 JWT。",
+      "p3": "RS256 签名，发布 JWKS。",
+      "mock": {
+        "signIn": "登录",
+        "email": "邮箱",
+        "password": "密码",
+        "continue": "继续",
+        "token": "已签发 JWT"
+      }
+    },
+    "vault": {
+      "window": "Sentroy Vault",
+      "rail": "密钥集中于一个保险库。",
+      "p1": "加密、带版本管理的环境变量。",
+      "p2": "运行时通过 getEnv() 获取。",
+      "p3": "按令牌授权访问，全程审计记录。",
+      "mock": {
+        "title": "环境变量",
+        "injected": "运行时注入"
+      }
+    }
+  }
+}

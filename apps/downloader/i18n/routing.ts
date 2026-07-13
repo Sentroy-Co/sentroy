@@ -20,6 +20,7 @@ export const LOCALES = [
   "ar",
   "hi",
   "id",
+  "zh",
 ] as const
 
 export type Locale = (typeof LOCALES)[number]

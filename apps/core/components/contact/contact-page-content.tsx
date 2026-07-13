@@ -17,7 +17,7 @@ import { Magnetic } from "../landing/v2/primitives/magnetic"
 import { RevealEmail } from "./reveal-email"
 import { CONTACT_CATEGORIES } from "@/lib/contact"
 
-const LOCALES = ["en", "tr"] as const
+const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 const EASE = [0.21, 0.47, 0.32, 0.98] as const
 const inputCls =
   "w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition-colors focus:border-white/35"

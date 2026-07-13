@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Marca",
+  "metaDescription": "Recursos de marca de Sentroy: logotipos, símbolos y colores.",
+  "title": "Marca",
+  "subtitle": "Los logotipos, símbolos y colores de Sentroy. Previsualiza los recursos, descarga lo que necesites y sigue la paleta.",
+  "back": "Volver a Sentroy",
+  "logos": "Logotipos",
+  "logosDesc": "Usa el logotipo claro sobre fondos oscuros y el logotipo oscuro sobre fondos claros. Se prefiere SVG; se incluye PNG para uso rasterizado.",
+  "onDark": "Sobre fondo oscuro",
+  "onLight": "Sobre fondo claro",
+  "colored": "En color",
+  "download": "Descargar",
+  "colors": "Colores",
+  "colorsDesc": "Haz clic en una muestra para copiar su valor hexadecimal.",
+  "copied": "Copiado",
+  "note": "Mantén un espacio libre alrededor del logotipo y nunca lo estires, cambies de color ni añadas efectos al símbolo."
+}

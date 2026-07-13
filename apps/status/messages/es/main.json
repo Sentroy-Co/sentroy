@@ -1,0 +1,10 @@
+{
+  "statusDashboard": {
+    "pickCompanyHeading": "Elige la empresa cuya página de estado quieres gestionar",
+    "pickCompanySubtitle": "Cada empresa tiene una página de estado. Haz clic en la que quieras gestionar.",
+    "overviewTitle": "Status",
+    "overviewDescription": "Aloja un panel de disponibilidad en tiempo real, al estilo de Atlassian Statuspage, para tus propios servicios. Componentes, comprobaciones, cronología de incidentes, ventanas de mantenimiento programado y notificaciones a suscriptores por email/webhook, todo en un mismo panel.",
+    "mgmtCardTitle": "Gestión de la página de estado",
+    "mgmtCardDescription": "Crea tu página, añade componentes, define comprobaciones HTTP y comparte tu URL pública."
+  }
+}

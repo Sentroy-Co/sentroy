@@ -35,7 +35,7 @@ import { CalendarPopover } from "./calendar-popover"
 import { PendingInvitations } from "./pending-invitations"
 import type { OsUser } from "./menu-bar"
 
-const LOCALES = ["en", "tr"] as const
+const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 const LOCALE_NAMES: Record<string, string> = { en: "English", tr: "Türkçe" }
 
 /**

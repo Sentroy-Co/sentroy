@@ -1,0 +1,94 @@
+{
+  "backup": {
+    "title": "MongoDB 备份",
+    "subtitle": "备份您的 MongoDB 数据库、跨服务器恢复，或将转储文件下载到本地。",
+    "nav": {
+      "backups": "备份"
+    },
+    "tabs": {
+      "connections": "连接",
+      "backups": "备份"
+    },
+    "actions": {
+      "refresh": "刷新",
+      "addConnection": "添加连接",
+      "backupNow": "立即备份",
+      "edit": "编辑",
+      "delete": "删除",
+      "download": "下载",
+      "restore": "恢复",
+      "cancel": "取消",
+      "save": "保存"
+    },
+    "fields": {
+      "db": "数据库",
+      "lastBackup": "上次备份",
+      "label": "标签",
+      "labelPh": "生产集群",
+      "uri": "连接 URI",
+      "uriHint": "mongodb:// 或 mongodb+srv:// — 加密存储，不会再次显示。",
+      "uriEditHint": "留空以保留当前 URI。",
+      "currentUri": "当前",
+      "defaultDb": "默认数据库",
+      "defaultDbHint": "可选 — 在备份时未指定数据库时使用。",
+      "source": "源备份",
+      "targetConnection": "目标连接",
+      "targetDb": "目标数据库",
+      "targetDbHint": "要恢复到哪个数据库（在目标连接上）。",
+      "drop": "恢复前删除目标集合（干净恢复）"
+    },
+    "empty": {
+      "connections": "暂无连接。添加一个 MongoDB 连接以开始备份。",
+      "backups": "暂无备份。请在“连接”标签页运行备份。"
+    },
+    "status": {
+      "queued": "已排队",
+      "running": "运行中",
+      "success": "成功",
+      "failed": "失败"
+    },
+    "kind": {
+      "restore": "恢复"
+    },
+    "stage": {
+      "dumping": "正在转储",
+      "uploading": "正在上传",
+      "restoring": "正在恢复",
+      "done": "完成"
+    },
+    "dialog": {
+      "addTitle": "添加连接",
+      "editTitle": "编辑连接",
+      "connDesc": "注册一个 MongoDB 连接。URI 将加密存储，不会再次显示。",
+      "restoreTitle": "恢复备份",
+      "restoreDesc": "将此备份恢复到目标连接 — 同一服务器或其他服务器。"
+    },
+    "confirm": {
+      "deleteConnTitle": "删除连接？",
+      "deleteConnBody": "此操作将移除“{label}”及其所有备份记录和已存储的工件。此操作无法撤销。",
+      "deleteJobTitle": "删除备份？",
+      "deleteJobBody": "此操作将删除该记录及其已存储的工件。此操作无法撤销。",
+      "restoreTitle": "恢复到 {target}？",
+      "restoreBody": "此操作将恢复到 {target} 上的数据库“{db}”。删除模式：{drop}。此操作将覆盖目标上的数据，且无法撤销。",
+      "dropOn": "开启（先删除目标集合）",
+      "dropOff": "关闭（合并到现有数据）"
+    },
+    "warnings": {
+      "restore": "恢复操作会覆盖目标数据库上的数据。请确保您选择了正确的目标 — 此操作无法撤销。"
+    },
+    "toast": {
+      "backupStarted": "备份已开始 — 请在“备份”中跟踪进度。",
+      "connDeleted": "连接已删除。",
+      "jobDeleted": "备份已删除。",
+      "connAdded": "连接已添加。",
+      "connUpdated": "连接已更新。",
+      "restoreStarted": "恢复已开始 — 请在“备份”中跟踪进度。"
+    },
+    "errors": {
+      "generic": "出了点问题。请重试。",
+      "labelRequired": "标签为必填项。",
+      "uriRequired": "连接 URI 为必填项。",
+      "targetRequired": "请选择一个目标连接。"
+    }
+  }
+}

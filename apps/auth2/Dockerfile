@@ -82,7 +82,11 @@ COPY --from=builder --chown=nextjs:nodejs /repo/apps/auth2/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/auth2/.next/static ./apps/auth2/.next/static
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/auth2/public ./apps/auth2/public
 
+# Runtime domain injection (self-host/OSS image-mode). Hosted images bake
+# real URLs → sentinel absent → no-op. See scripts/runtime-domain.sh.
+COPY scripts/runtime-domain.sh /app/runtime-domain.sh
 USER nextjs
 EXPOSE 3003
 
-CMD ["node", "apps/auth2/server.js"]
+ENV SENTROY_APP_DIR=apps/auth2
+ENTRYPOINT ["sh", "/app/runtime-domain.sh"]

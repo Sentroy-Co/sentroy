@@ -3,7 +3,7 @@ import { NextIntlClientProvider } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { ConfirmDialog } from "@workspace/console/components/shared/confirm-dialog"
 
-const SUPPORTED = ["en", "tr"] as const
+const SUPPORTED = ["en", "tr", "ru", "zh", "es"] as const
 type Lang = (typeof SUPPORTED)[number]
 
 export function generateStaticParams() {

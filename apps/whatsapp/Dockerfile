@@ -73,7 +73,11 @@ COPY --from=builder --chown=nextjs:nodejs /repo/apps/whatsapp/.next/standalone .
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/whatsapp/.next/static ./apps/whatsapp/.next/static
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/whatsapp/public ./apps/whatsapp/public
 
+# Runtime domain injection (self-host/OSS image-mode). Hosted images bake
+# real URLs → sentinel absent → no-op. See scripts/runtime-domain.sh.
+COPY scripts/runtime-domain.sh /app/runtime-domain.sh
 USER nextjs
 EXPOSE 3007
 
-CMD ["node", "apps/whatsapp/server.js"]
+ENV SENTROY_APP_DIR=apps/whatsapp
+ENTRYPOINT ["sh", "/app/runtime-domain.sh"]

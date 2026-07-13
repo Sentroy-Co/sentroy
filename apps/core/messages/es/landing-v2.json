@@ -1,0 +1,359 @@
+{
+  "nav": {
+    "build": "Construir",
+    "operate": "Operar",
+    "create": "Crear",
+    "pricing": "Precios",
+    "faq": "Preguntas frecuentes",
+    "dashboard": "Panel",
+    "signIn": "Iniciar sesión",
+    "getStarted": "Empezar",
+    "dev": "Dev"
+  },
+  "products": {
+    "mail": "Mail",
+    "storage": "Storage",
+    "auth": "Auth",
+    "vault": "Env Vault",
+    "status": "Status",
+    "meet": "Meet",
+    "whatsapp": "WhatsApp",
+    "linear": "Linear Lite",
+    "studio": "Studio",
+    "opencut": "OpenCut",
+    "tools": "Tools",
+    "os": "Sentroy OS"
+  },
+  "manifesto": {
+    "kicker": "La tesis de una sola sesión",
+    "body": "Antes cada herramienta significaba otra pestaña, otra factura, otro inicio de sesión. Pusimos 12 productos en un solo escritorio. Una cookie, una sesión, cero caos de pestañas. Sigue desplazándote: las ventanas ya se están abriendo.",
+    "products": {
+      "mail": "Mail",
+      "storage": "Storage",
+      "auth": "Auth",
+      "vault": "Env Vault",
+      "status": "Status Pages",
+      "meet": "Meet",
+      "whatsapp": "WhatsApp Santral",
+      "linear": "Linear Lite",
+      "studio": "Studio",
+      "opencut": "OpenCut",
+      "tools": "Tools",
+      "os": "Sentroy OS"
+    }
+  },
+  "proof": {
+    "eyebrow": "Pruebas",
+    "title": "Números, no promesas.",
+    "description": "Qué tan grande, qué tan estable, qué tan abierto: todo sobre la mesa.",
+    "stats": {
+      "products": "productos en un solo escritorio",
+      "session": "sesión para todos ellos",
+      "tools": "herramientas gratuitas incluidas",
+      "uptime": "objetivo de disponibilidad"
+    },
+    "statusNote": "Los datos de estado llegan en vivo desde nuestro propio producto Status Pages.",
+    "statusCta": "Ver estado en vivo",
+    "faqTitle": "Preguntas frecuentes",
+    "faqDescription": "Preguntas breves, respuestas directas.",
+    "faq": {
+      "session": {
+        "q": "¿Qué significa realmente \"una sola sesión\"?",
+        "a": "Inicias sesión una vez; mail, storage, auth y todos los demás productos ven la misma sesión. Sin cuenta, contraseña ni pestaña por separado para cada producto."
+      },
+      "alacarte": {
+        "q": "¿Puedo usar los productos por separado?",
+        "a": "Sí. Abre solo lo que necesites; el resto del dock se queda donde está. Añadir otro más tarde es un solo clic."
+      },
+      "sdk": {
+        "q": "¿Hay una API y un SDK?",
+        "a": "Sí. Un solo token de acceso cubre los SDK de TypeScript, Python, Go y PHP, o REST puro. Empieza con npm i @sentroy-co/client-sdk."
+      },
+      "free": {
+        "q": "¿Puedo empezar gratis?",
+        "a": "Sí, y nadie te pide una tarjeta de crédito. Mejora tu plan a medida que creces; los precios están justo arriba, sin sorpresas."
+      },
+      "data": {
+        "q": "¿Están seguros mis datos?",
+        "a": "Gestionamos nuestra propia empresa en esta plataforma todos los días. El acceso está delimitado por empresa y cada acción crítica queda en el registro de auditoría."
+      }
+    }
+  },
+  "cta": {
+    "title": "Este escritorio es tuyo.",
+    "subtitle": "12 productos instalados, sesión lista. Lo único que falta eres tú.",
+    "primary": "Empezar gratis",
+    "secondary": "Docs",
+    "note": "No se requiere tarjeta de crédito."
+  },
+  "sdk": {
+    "eyebrow": "Desarrolladores",
+    "title": "Un SDK. Todos los productos.",
+    "description": "Envía correos, sube al CDN, autentica usuarios y lee secretos con el mismo cliente. TypeScript, Python, PHP y Go.",
+    "terminalTitle": "Terminal — sentroy",
+    "copy": "Copiar comando de instalación",
+    "copied": "Copiado",
+    "scaffoldNote": "¿Empiezas desde cero?",
+    "docsCta": "Leer la documentación"
+  },
+  "pricing": {
+    "eyebrow": "Precios",
+    "title": "Elige tu plan.",
+    "subtitle": "Todos los planes incluyen los 12 productos. Mejora tu plan cuando superes los límites.",
+    "billingAria": "Período de facturación",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "popular": "Popular",
+    "free": "Gratis",
+    "perMonth": "/mes",
+    "perYear": "/año",
+    "cta": "Empezar",
+    "ctaFree": "Empezar gratis",
+    "unlimited": "Ilimitado",
+    "featEmails": "{count} correos / mes",
+    "featStorage": "{value} de almacenamiento",
+    "featDomains": "{count} dominios",
+    "featMembers": "{count} miembros del equipo"
+  },
+  "boot": {
+    "eyebrow": "Sentroy OS",
+    "title": "12 productos. Un escritorio.",
+    "subtitle": "Mail, storage, auth y 9 más: una sesión, cero pestañas.",
+    "cta": "Empezar gratis",
+    "scrollHint": "Desplázate para entrar",
+    "carousel": {
+      "0": "Tu correo, tus archivos y tus usuarios: detrás del mismo cristal.",
+      "1": "Sin caos de pestañas; todas las herramientas en un escritorio.",
+      "2": "Una cuenta, una factura, una sesión."
+    }
+  },
+  "expose": {
+    "title": "Todo. Una sesión.",
+    "punchline": "Una cookie. Una factura. Cero pestañas.",
+    "stats": {
+      "products": {
+        "label": "productos"
+      },
+      "session": {
+        "label": "sesión compartida"
+      },
+      "setup": {
+        "label": "configuración",
+        "suffix": " min"
+      }
+    },
+    "cards": {
+      "mail": {
+        "title": "Mail",
+        "line": "Envía con plantillas, sigue la entrega."
+      },
+      "storage": {
+        "title": "Storage",
+        "line": "Sube y obtén el enlace del CDN."
+      },
+      "auth": {
+        "title": "Auth",
+        "line": "OAuth + tu propio grupo de usuarios."
+      },
+      "vault": {
+        "title": "Vault",
+        "line": "Tus variables de entorno en un solo vault."
+      },
+      "status": {
+        "title": "Status",
+        "line": "Disponibilidad de un vistazo."
+      },
+      "meet": {
+        "title": "Meet",
+        "line": "Llamadas en tu propio dominio."
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "line": "Centralita + envío de plantillas."
+      },
+      "linear": {
+        "title": "Linear Lite",
+        "line": "Incidencias en un tablero ligero."
+      },
+      "studio": {
+        "title": "Studio",
+        "line": "Un DAW en el navegador."
+      },
+      "opencut": {
+        "title": "OpenCut",
+        "line": "Edición de vídeo en una pestaña."
+      },
+      "tools": {
+        "title": "Tools",
+        "line": "Más de 30 herramientas gratuitas."
+      }
+    }
+  },
+  "operate": {
+    "eyebrow": "Escena 02 — Operar",
+    "title": "Dirige la empresa. Mismo escritorio.",
+    "subtitle": "Status, Meet, WhatsApp y Linear se mantienen abiertos uno junto a otro: una sesión, cero caos de pestañas.",
+    "live": "En foco: {name}",
+    "windows": {
+      "status": {
+        "name": "Status",
+        "title": "Status — status.sentroy.com",
+        "desc": "Páginas de estado públicas con disponibilidad en tiempo real.",
+        "operational": "Todos los sistemas operativos",
+        "uptime": "Disponibilidad de 90 días",
+        "services": {
+          "mail": "Mail API",
+          "storage": "Storage",
+          "cdn": "CDN",
+          "db": "Base de datos"
+        }
+      },
+      "meet": {
+        "name": "Meet",
+        "title": "Meet — meet.sentroy.com",
+        "desc": "Videollamadas en tu propio dominio.",
+        "room": "Sincronización semanal",
+        "speaking": "Hablando"
+      },
+      "whatsapp": {
+        "name": "WhatsApp Santral",
+        "title": "WhatsApp — whatsapp.sentroy.com",
+        "desc": "Una bandeja de entrada de equipo para tus números de WhatsApp.",
+        "contact": "Línea de soporte",
+        "online": "en línea",
+        "msg1": "Hola: mi factura parece incorrecta.",
+        "msg2": "Corregido. La nueva factura está en camino."
+      },
+      "linear": {
+        "name": "Linear Lite",
+        "title": "Linear — linear.sentroy.com",
+        "desc": "Incidencias que de verdad llegan a Hecho.",
+        "inProgress": "En curso",
+        "done": "Hecho",
+        "issueMoving": "Rotar las claves API de staging",
+        "issueSecond": "Redactar el postmortem del incidente",
+        "issueDone": "Publicar los embeds de la página de estado"
+      }
+    }
+  },
+  "create": {
+    "eyebrow": "Crear",
+    "title": "No solo infraestructura.",
+    "subtitle": "Un DAW, un editor de vídeo y más de 30 herramientas: detrás del mismo cristal.",
+    "studio": {
+      "window": "Sentroy Studio",
+      "heading": "Produce el tema.",
+      "desc": "Un DAW pensado para DJ en el navegador. 30 efectos, cero instalación.",
+      "bpm": "128 BPM",
+      "track1": "Batería",
+      "track2": "Bajo",
+      "track3": "Sintetizador"
+    },
+    "opencut": {
+      "window": "OpenCut",
+      "heading": "Corta el vídeo.",
+      "desc": "Recorta en la línea de tiempo; las exportaciones van a tu storage.",
+      "clip": "Clip 01",
+      "audio": "Audio",
+      "preview": "Vista previa"
+    },
+    "tools": {
+      "heading": "Y más de 30 herramientas gratuitas.",
+      "desc": "Imagen, PDF, audio, vídeo, desarrollo: sin registro.",
+      "cta": "Abrir herramientas",
+      "more": "+12 más"
+    },
+    "marqueeAria": "Catálogo de herramientas gratuitas",
+    "marquee": {
+      "i1": "HEIC → JPG",
+      "i2": "Video → GIF",
+      "i3": "Unir PDF",
+      "i4": "Dividir PDF",
+      "i5": "Comprimir imagen",
+      "i6": "Redimensionar imagen",
+      "i7": "Convertir a AVIF",
+      "i8": "Convertir a WEBP",
+      "i9": "Recortar audio",
+      "i10": "Convertir audio",
+      "i11": "Recortar vídeo",
+      "i12": "Comprimir vídeo",
+      "i13": "Consulta WHOIS",
+      "i14": "Consulta DNS",
+      "i15": "Formateador JSON",
+      "i16": "Codificar Base64",
+      "i17": "Codificar URL",
+      "i18": "Generador de UUID",
+      "i19": "Generador de hash",
+      "i20": "Generador de QR",
+      "i21": "Selector de color",
+      "i22": "Excel → CSV",
+      "i23": "CSV → Excel",
+      "i24": "Vista previa de Markdown",
+      "i25": "Probador de regex",
+      "i26": "Decodificador JWT",
+      "i27": "Analizador de cron",
+      "i28": "Comparador de diferencias",
+      "i29": "Lorem ipsum",
+      "i30": "Generador de contraseñas"
+    }
+  },
+  "build": {
+    "kicker": "Escena 01 — Construir",
+    "heading": "Crea tu app sobre Sentroy.",
+    "docsCta": "Docs",
+    "mail": {
+      "window": "Sentroy Mail",
+      "rail": "Correo que simplemente envía.",
+      "p1": "Envía con plantillas o con la API.",
+      "p2": "Estado de entrega en tiempo real.",
+      "p3": "Tu dominio: SPF y DKIM ya resueltos.",
+      "mock": {
+        "templates": "Plantillas",
+        "tpl1": "Correo de bienvenida",
+        "tpl2": "Restablecer contraseña",
+        "tpl3": "Aviso de factura",
+        "compose": "Nuevo envío",
+        "to": "Para",
+        "subject": "Asunto",
+        "subjectValue": "Te damos la bienvenida",
+        "delivered": "Entregado"
+      }
+    },
+    "storage": {
+      "window": "Sentroy Storage",
+      "rail": "Sube. Aterriza en el CDN.",
+      "p1": "Carga multiparte, 3 flujos en paralelo.",
+      "p2": "URL de CDN instantánea para cada archivo.",
+      "p3": "Procesamiento de imágenes en el edge.",
+      "mock": {
+        "uploading": "Subiendo",
+        "ready": "En vivo en el CDN"
+      }
+    },
+    "auth": {
+      "window": "Sentroy Auth",
+      "rail": "Añade autenticación en minutos.",
+      "p1": "OAuth 2.0 + OIDC, endpoints estándar.",
+      "p2": "Tu propio grupo de usuarios, con JWT emitido.",
+      "p3": "Firma RS256, JWKS publicado.",
+      "mock": {
+        "signIn": "Iniciar sesión",
+        "email": "Email",
+        "password": "Contraseña",
+        "continue": "Continuar",
+        "token": "JWT emitido"
+      }
+    },
+    "vault": {
+      "window": "Sentroy Vault",
+      "rail": "Secretos en un solo vault.",
+      "p1": "Variables de entorno cifradas y versionadas.",
+      "p2": "Obtenlas en tiempo de ejecución con getEnv().",
+      "p3": "Acceso delimitado por token, con registro de auditoría.",
+      "mock": {
+        "title": "Variables de entorno",
+        "injected": "Inyectadas en tiempo de ejecución"
+      }
+    }
+  }
+}

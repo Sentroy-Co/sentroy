@@ -1,0 +1,684 @@
+{
+  "nav": {
+    "platform": "Платформа",
+    "overview": "Панель",
+    "requests": "Входящие",
+    "newTask": "Новая задача",
+    "metrics": "Метрики",
+    "linearSettings": "Настройки Linear",
+    "team": "Команда",
+    "settings": "Настройки",
+    "accessTokens": "Токены доступа",
+    "account": "Профиль",
+    "logout": "Выйти",
+    "teams": "Команды",
+    "addTeam": "Добавить команду",
+    "noTeams": "Команд пока нет",
+    "loading": "Загрузка…",
+    "noCompany": "Нет компании",
+    "admin": "Администратор",
+    "administration": "Администрирование",
+    "backToApp": "Назад в приложение",
+    "companyProfile": "Профиль компании",
+    "companyHub": "Компания",
+    "dashboard": "Панель управления"
+  },
+  "linearLite": {
+    "common": {
+      "appName": "Linear Lite",
+      "loading": "Загрузка…",
+      "save": "Сохранить",
+      "saving": "Сохранение…",
+      "cancel": "Отмена",
+      "delete": "Удалить",
+      "edit": "Изменить",
+      "close": "Закрыть",
+      "retry": "Повторить",
+      "created": "Создано",
+      "updated": "Сохранено",
+      "deleted": "Удалено",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "search": "Поиск…",
+      "noResults": "Ничего не найдено",
+      "loadError": "Не удалось загрузить.",
+      "somethingWrong": "Что-то пошло не так",
+      "noPermission": "У вас нет прав на это действие."
+    },
+    "notConnected": {
+      "title": "Linear не подключён",
+      "description": "Подключите своё рабочее пространство Linear с помощью API-ключа, чтобы начать управлять запросами из этой панели.",
+      "descriptionMember": "Рабочее пространство Linear этой компании ещё не подключено. Попросите администратора рабочего пространства настроить его.",
+      "cta": "Открыть настройки Linear"
+    },
+    "tasks": {
+      "detail": {
+        "activity": "Активность",
+        "titleAria": "Заголовок",
+        "descriptionAria": "Описание",
+        "descriptionPlaceholder": "Добавьте описание…",
+        "noActivity": "Активности пока нет.",
+        "addComment": "Добавьте комментарий…",
+        "addCommentAria": "Добавить комментарий",
+        "sendComment": "Отправить",
+        "replyPlaceholder": "Напишите ответ…",
+        "replyAria": "Напишите ответ",
+        "replyBadge": "Ответ",
+        "cancelReply": "Отменить ответ",
+        "attached": "Вложение добавлено",
+        "attach": {
+          "button": "Прикрепить файл",
+          "title": "Добавить вложение",
+          "desc": "Загрузите файл или вставьте ссылку. Она будет прикреплена в Linear.",
+          "label": "Заголовок (необязательно)",
+          "labelPlaceholder": "напр. Скриншот ошибки",
+          "submit": "Добавить",
+          "tabFile": "Файл",
+          "tabLink": "Ссылка",
+          "dropTitle": "Выберите файл или перетащите его сюда",
+          "maxSize": "До 25 МБ",
+          "tooLarge": "Файл не может превышать 25 МБ ({size})",
+          "pickFirst": "Сначала выберите файл",
+          "invalidUrl": "Введите корректный URL",
+          "remove": "Удалить"
+        }
+      },
+      "priority": {
+        "no_priority": "Без приоритета",
+        "urgent": "Срочно",
+        "high": "Высокий",
+        "medium": "Средний",
+        "low": "Низкий"
+      },
+      "status": {
+        "backlog": "Бэклог",
+        "todo": "К выполнению",
+        "in_progress": "В работе",
+        "done": "Готово",
+        "cancelled": "Отменено"
+      },
+      "relative": {
+        "now": "сейчас",
+        "minutes": "{count} мин",
+        "hours": "{count} ч",
+        "days": "{count} дн"
+      },
+      "list": {
+        "drag_handle": "Перетащить",
+        "reorder_failed": "Не удалось обновить порядок"
+      },
+      "kanban": {
+        "move_failed": "Не удалось обновить статус",
+        "state_missing": "У команды {team} нет состояния «{state}»",
+        "no_states": "Для этого рабочего пространства не найдено состояний рабочего процесса.",
+        "empty_columns": "Пустые колонки",
+        "empty": "Пусто"
+      },
+      "view": {
+        "label": "Вид",
+        "list": "Список",
+        "kanban": "Канбан"
+      },
+      "filter": {
+        "button": "Фильтр",
+        "scope": "Область",
+        "scope_workspace": "Всё рабочее пространство",
+        "scope_mine_linear": "Назначено мне",
+        "scope_mine_proxy": "Мои запросы",
+        "state": "Статус",
+        "open": "Открытые",
+        "all": "Все",
+        "closed": "Закрытые",
+        "assignee": "Исполнитель",
+        "unassigned": "Без исполнителя",
+        "no_users": "Нет пользователей",
+        "label": "Метка",
+        "no_labels": "Нет меток",
+        "no_labels_in_group": "В этой категории нет меток",
+        "clear": "Сбросить фильтры"
+      },
+      "chip": {
+        "empty": "Нет вариантов",
+        "selected_count": "Выбрано: {count}",
+        "search_placeholder": "Поиск…",
+        "clear_all": "Очистить всё",
+        "clear": "Сбросить выбор",
+        "no_labels_in_group": "В этой категории нет меток"
+      },
+      "quick_add": {
+        "min_length": "Заголовок должен содержать не менее 3 символов",
+        "placeholder_compact": "Добавьте запрос…",
+        "placeholder": "Быстро добавьте запрос с заголовком…",
+        "aria": "Заголовок быстрого запроса",
+        "submit": "Добавить"
+      },
+      "new": {
+        "title": "Новый запрос",
+        "sent": "Запрос создан",
+        "submit": "Отправить запрос",
+        "dialog_description": "Запрос создаётся напрямую в Linear; вы сможете отредактировать его позже на странице деталей.",
+        "fields": {
+          "title": "Заголовок",
+          "title_placeholder": "Кратко опишите проблему",
+          "description": "Описание",
+          "description_placeholder": "Опишите детали здесь",
+          "state": "Статус",
+          "priority": "Приоритет",
+          "assignee": "Исполнитель",
+          "assignee_clear": "Убрать исполнителя",
+          "labels": "Метки",
+          "labels_empty": "Для этой команды нет меток",
+          "team": "Команда"
+        },
+        "template": {
+          "label": "Шаблон",
+          "placeholder": "Выберите шаблон",
+          "clear": "Убрать шаблон",
+          "confirm_title": "Сменить шаблон?",
+          "confirm_description": "Заголовок, описание, метки и другие поля формы будут обновлены в соответствии с новым шаблоном. Это действие нельзя отменить.",
+          "confirm_confirm": "Сменить",
+          "confirm_cancel": "Отмена",
+          "applied": "Применён шаблон «{name}»",
+          "applying": "Применение шаблона…"
+        },
+        "attachments": {
+          "title": "Вложения ({count})",
+          "add": "Прикрепить",
+          "remove": "Удалить {name}",
+          "upload_failed": "Не удалось загрузить вложение: {name}",
+          "uploading": "Загрузка вложений…"
+        }
+      },
+      "sub_task": {
+        "add": "Добавить подзадачу"
+      },
+      "title": "Задачи",
+      "titleMinError": "Заголовок должен содержать не менее 3 символов",
+      "children": {
+        "heading": "Подзадачи ({count})"
+      },
+      "comments": {
+        "none": "Комментариев пока нет.",
+        "unknown": "Неизвестно",
+        "reply": "Ответить",
+        "createFromComment": "Создать задачу из комментария",
+        "createSubFromComment": "Создать подзадачу из комментария",
+        "copyComment": "Копировать комментарий",
+        "copied": "Комментарий скопирован",
+        "menuAria": "Меню комментария",
+        "deleteTitle": "Удалить комментарий?",
+        "deleteDesc": "Это действие нельзя отменить. Комментарий также будет удалён в Linear.",
+        "emptyError": "Комментарий не может быть пустым"
+      },
+      "activity": {
+        "system": "Система",
+        "filterByUser": "Фильтровать задачи, назначенные {name}",
+        "filterAvatarAria": "Фильтровать задачи {name}",
+        "addedLink": "добавил(а) ссылку:",
+        "historyStatus": "изменил(а) статус",
+        "historyAssigned": "назначил(а) <user></user>",
+        "historyUnassigned": "убрал(а) исполнителя",
+        "historyPriority": "установил(а) приоритет",
+        "historyLabelsAdded": "добавил(а) <labels></labels>",
+        "historyLabelsRemoved": "убрал(а) <labels></labels>",
+        "historyTitleEdited": "отредактировал(а) заголовок",
+        "historyArchived": "архивировал(а)",
+        "historyUnarchived": "разархивировал(а)"
+      },
+      "hover": {
+        "previewError": "Не удалось загрузить предпросмотр",
+        "relativeNow": "только что",
+        "relativeMinutes": "{n} мин назад",
+        "relativeHours": "{n} ч назад",
+        "relativeDays": "{n} дн назад"
+      },
+      "menu": {
+        "status": "Статус",
+        "priority": "Приоритет",
+        "labels": "Метки",
+        "assignee": "Исполнитель",
+        "clearAssignee": "Убрать исполнителя",
+        "noTeamLabels": "У этой команды нет меток",
+        "copy": "Копировать",
+        "copyIdentifier": "Идентификатор",
+        "copyTitle": "Заголовок",
+        "copyUrl": "URL в Linear",
+        "copiedIdentifier": "Идентификатор скопирован",
+        "copiedTitle": "Заголовок скопирован",
+        "copiedUrl": "URL скопирован",
+        "clipboardError": "Не удалось скопировать в буфер обмена",
+        "createLinked": "Создать связанную",
+        "subTaskNewForm": "Подзадача (новая форма)",
+        "archive": "Архивировать",
+        "archiveConfirmTitle": "Архивировать {identifier}?",
+        "archiveConfirmDesc": "Задача будет архивирована в Linear; при необходимости вы сможете восстановить её через интерфейс Linear.",
+        "noLabels": "Нет меток",
+        "noLabelsInCategory": "В этой категории нет меток",
+        "issueMenuAria": "Меню задачи"
+      },
+      "related": {
+        "issue": "Новая задача",
+        "sub": "Подзадача",
+        "parent": "Родительская задача",
+        "blocking": "Блокирует",
+        "blocked": "Заблокировано",
+        "related": "Связанная"
+      },
+      "createRelated": {
+        "issueTitle": "Создать новую задачу",
+        "issueDesc": "Открыть новую несвязанную задачу.",
+        "subTitle": "Создать подзадачу",
+        "subDesc": "Открыть новую подзадачу в рамках этой задачи.",
+        "parentTitle": "Создать родительскую задачу",
+        "parentDesc": "Прикрепить эту задачу к новой задаче.",
+        "blockingTitle": "Создать блокирующую задачу",
+        "blockingDesc": "Открыть новую задачу, которая блокирует эту.",
+        "blockedTitle": "Создать заблокированную задачу",
+        "blockedDesc": "Открыть новую задачу, заблокированную этой.",
+        "relatedTitle": "Создать связанную задачу",
+        "relatedDesc": "Открыть новую задачу, связанную с этой.",
+        "issueCreated": "Новая задача создана",
+        "subCreated": "Подзадача создана",
+        "parentCreated": "Родительская задача создана",
+        "blockingCreated": "Блокирующая задача создана",
+        "blockedCreated": "Заблокированная задача создана",
+        "relatedCreated": "Связанная задача создана",
+        "source": "Источник:",
+        "titleLabel": "Заголовок",
+        "titlePlaceholder": "Кратко опишите проблему",
+        "descLabel": "Описание",
+        "descPlaceholder": "Необязательное описание",
+        "submit": "Создать"
+      }
+    },
+    "requests": {
+      "title": "Входящие",
+      "subtitle": "Отправленные вами запросы и обновления их статуса.",
+      "empty": {
+        "title": "Ваши входящие пусты",
+        "description": "Вы ещё не отправляли запросов. Отправленные вами запросы и изменения их статуса будут отображаться здесь."
+      },
+      "loadError": "Не удалось загрузить входящие.",
+      "openDetail": "Открыть детали",
+      "unread": "Непрочитанное обновление",
+      "unreadTitle": "Статус изменился с момента вашего последнего просмотра",
+      "groups": {
+        "today": "Сегодня",
+        "yesterday": "Вчера",
+        "week": "Последние 7 дней",
+        "older": "Ранее"
+      }
+    },
+    "editor": {
+      "ariaLabel": "Редактор форматированного текста",
+      "uploadFailed": "Не удалось загрузить изображение",
+      "uploading": "{count, plural, one {Загрузка изображения…} other {Загрузка # изображений…}}",
+      "bold": "Полужирный",
+      "italic": "Курсив",
+      "strikethrough": "Зачёркнутый",
+      "inlineCode": "Встроенный код",
+      "codeBlock": "Блок кода",
+      "bulletList": "Маркированный список",
+      "orderedList": "Нумерованный список",
+      "link": "Ссылка",
+      "linkPrompt": "URL ссылки",
+      "image": "Изображение"
+    },
+    "richTextView": {
+      "copyCode": "Копировать блок кода",
+      "copyFailed": "Не удалось скопировать в буфер обмена"
+    },
+    "confirmDialog": {
+      "confirm": "Подтвердить",
+      "cancel": "Отмена"
+    },
+    "theme": {
+      "toggle": "Тема",
+      "light": "Светлая",
+      "dark": "Тёмная",
+      "system": "Системная"
+    },
+    "shortcuts": {
+      "open": "Показать сочетания клавиш",
+      "title": "Сочетания клавиш",
+      "description": "Сочетания клавиш отключены, пока открыты текстовое поле, диалог или командная палитра.",
+      "then": "затем",
+      "groupNavigation": "Навигация",
+      "groupActions": "Действия",
+      "groupView": "Вид",
+      "groupEditor": "Редактор",
+      "goDashboard": "Перейти к панели",
+      "goInbox": "Перейти к запросам",
+      "goNew": "Перейти к форме нового запроса",
+      "create": "Создать новый запрос",
+      "openPalette": "Открыть командную палитру",
+      "openPaletteAlt": "Открыть командную палитру (альтернатива)",
+      "help": "Открыть эту панель справки",
+      "themeToggle": "Переключить светлую/тёмную тему",
+      "submitComment": "Отправить комментарий",
+      "bold": "Полужирный",
+      "italic": "Курсив",
+      "insertLink": "Вставить ссылку"
+    },
+    "draft": {
+      "title": "Сохранить черновик?",
+      "description": "Ваш заголовок и описание будут готовы при следующем открытии формы. Удаление сбрасывает всю форму.",
+      "discard": "Удалить",
+      "cancel": "Отмена",
+      "keep": "Сохранить"
+    },
+    "version": {
+      "label": "Версия v{version}",
+      "notesAria": "Версия v{version} — примечания к выпуску",
+      "notes": "Примечания к выпуску"
+    },
+    "layout": {
+      "palette": {
+        "placeholder": "Ищите команды или перемещайтесь…",
+        "searching": "Поиск…",
+        "empty": "Ничего не найдено",
+        "groupTasks": "Задачи",
+        "groupPages": "Страницы",
+        "groupTheme": "Тема",
+        "groupAccount": "Аккаунт",
+        "dashboard": "Панель",
+        "metrics": "Метрики",
+        "newTask": "Новая задача",
+        "recentSearches": "Недавние запросы",
+        "recentCards": "Недавно просмотренные",
+        "clear": "Очистить",
+        "logout": "Выйти"
+      },
+      "header": {
+        "searchLabel": "Открыть командную палитру"
+      },
+      "push": {
+        "on": "Push-уведомления включены",
+        "off": "Включить push-уведомления",
+        "denied": "Уведомления заблокированы в настройках браузера"
+      }
+    },
+    "metrics": {
+      "requests": "запросов",
+      "percentValue": "{value}%",
+      "completionRate": "{value}% выполнено",
+      "hero": {
+        "kicker": "Метрики",
+        "description": "Как движутся запросы из панели — объём, скорость решения и кто выполняет работу.",
+        "thisWeek": "на этой неделе",
+        "lastWeek": "на прошлой неделе",
+        "completionRate": "доля выполнения",
+        "seeClosed": "Посмотреть закрытые запросы",
+        "requestsWord": "запросов"
+      },
+      "cards": {
+        "total": "Всего запросов",
+        "open": "Открытые",
+        "completed": "Выполнено",
+        "avgResolution": "Ср. время решения",
+        "openAge": "Открытые ждут в среднем {age}"
+      },
+      "duration": {
+        "minutes": "{value} мин",
+        "hours": "{value} ч",
+        "days": "{value} дн"
+      },
+      "chart": {
+        "bar": "Столбчатая",
+        "line": "Линейная",
+        "requests": "Запросы",
+        "totalCenter": "всего"
+      },
+      "panels": {
+        "statesTitle": "По состоянию",
+        "statesSubtitle": "Распределение открытой и закрытой работы",
+        "prioritiesTitle": "По приоритету",
+        "prioritiesSubtitle": "Насколько срочна нагрузка",
+        "creatorsTitle": "Топ создателей",
+        "creatorsSubtitle": "Кто открывает больше всего запросов",
+        "assigneesTitle": "Топ исполнителей",
+        "assigneesSubtitle": "Кто несёт открытую работу",
+        "completersTitle": "Топ по выполнению",
+        "completersSubtitle": "Кто закрывает больше всего запросов",
+        "labelsTitle": "Топ меток",
+        "labelsSubtitle": "Наиболее используемые метки",
+        "last30Title": "Последние 30 дней",
+        "last30Subtitle": "Новые запросы за день",
+        "staleTitle": "Застоявшиеся запросы",
+        "staleSubtitle": "Открыты и без активности 14+ дней",
+        "staleSubtitleEmpty": "Ничего не застоялось — отличная работа"
+      },
+      "empty": {
+        "noData": "Пока нет данных для отображения",
+        "noAssigned": "Нет назначенных запросов",
+        "noCompleted": "Пока ничего не выполнено",
+        "noLabels": "Метки пока не использовались",
+        "noStale": "Нет застоявшихся запросов"
+      },
+      "people": {
+        "viewReport": "Посмотреть отчёт {name}"
+      },
+      "priorities": {
+        "p0": "Без приоритета",
+        "p1": "Срочно",
+        "p2": "Высокий",
+        "p3": "Средний",
+        "p4": "Низкий"
+      },
+      "states": {
+        "triage": "Сортировка",
+        "backlog": "Бэклог",
+        "unstarted": "К выполнению",
+        "started": "В работе",
+        "completed": "Выполнено",
+        "canceled": "Отменено"
+      },
+      "report": {
+        "share": "{pct}% от всех запросов",
+        "opened": "Открыто",
+        "openedThisWeek": "+{count} на этой неделе",
+        "assigned": "Назначено",
+        "assignedOpen": "{count} ещё открыто",
+        "completed": "Выполнено",
+        "completionRate": "{value}% выполнено",
+        "avgResolution": "Ср. время решения",
+        "recentTitle": "Недавние запросы",
+        "recentSubtitle": "Последняя активность этого человека",
+        "timelineTitle": "Активность",
+        "timelineSubtitle": "Запросы, открытые за последние 30 дней",
+        "topLabelsTitle": "Топ меток",
+        "topLabelsSubtitle": "Метки, с которыми этот человек работает чаще всего"
+      },
+      "loadError": "Не удалось загрузить метрики из Linear"
+    },
+    "newTask": {
+      "subTaskTitle": "Создать подзапрос",
+      "parentLabel": "Родительский запрос:",
+      "errors": {
+        "noTeams": "Команды Linear не найдены.",
+        "loadFailed": "Не удалось подключиться к Linear."
+      }
+    },
+    "panel": {
+      "title": "Задачи",
+      "tagline": "Управление ИТ-запросами на базе Linear",
+      "newTask": "Новый запрос",
+      "empty": {
+        "title": "Запросов пока нет",
+        "description": "Используйте кнопку ниже, чтобы создать свой первый запрос.",
+        "cta": "Создать первый запрос"
+      },
+      "errorTitle": "Что-то пошло не так",
+      "connectionError": "Не удалось подключиться к Linear.",
+      "allTeams": "Все",
+      "titleWithTeam": "Задачи: {team}"
+    },
+    "settings": {
+      "title": "Настройки Linear",
+      "description": "Подключите рабочее пространство Linear этой компании и настройте поведение панели.",
+      "vaultWarning": {
+        "title": "Хранилище секретов не настроено",
+        "description": "SENTROY_ENV_MASTER_KEY не задан на сервере, поэтому API-ключи и секреты вебхуков не могут быть зашифрованы. Сохранение настроек отключено, пока оператор не настроит его."
+      },
+      "connection": {
+        "title": "Подключение Linear",
+        "description": "Персональный API-ключ рабочего пространства Linear, в котором работает эта компания. Ключ хранится в зашифрованном виде и больше никогда не показывается.",
+        "statusConnected": "Подключено",
+        "statusNotConnected": "Не подключено",
+        "apiKeyLabel": "API-ключ Linear",
+        "apiKeyPlaceholder": "lin_api_…",
+        "apiKeyHint": "Создайте его в Linear в разделе Settings → API → Personal API keys. Видимыми остаются только первые символы.",
+        "apiKeyChange": "Изменить",
+        "apiKeyCancel": "Отмена",
+        "panelLabelLabel": "Метка панели",
+        "panelLabelHint": "Задачи с этой меткой Linear отображаются на панели.",
+        "teamLabel": "Команда по умолчанию",
+        "teamNone": "Нет команды по умолчанию",
+        "teamEmptyHint": "Команды появятся здесь после сохранения действительного API-ключа.",
+        "defaultLabelLabel": "Метка по умолчанию",
+        "defaultLabelPlaceholder": "напр. Triage",
+        "defaultStateLabel": "Состояние по умолчанию",
+        "defaultStatePlaceholder": "напр. Todo",
+        "actorAppLabel": "Действовать как приложение",
+        "actorAppHint": "Выполнять изменения в Linear от имени приложения, а не владельца ключа.",
+        "save": "Сохранить",
+        "saveVerify": "Проверить и сохранить",
+        "saving": "Сохранение…",
+        "saved": "Настройки подключения сохранены",
+        "saveError": "Не удалось сохранить настройки подключения"
+      },
+      "webhook": {
+        "title": "Вебхук",
+        "description": "Linear отправляет события задач и комментариев на эту конечную точку, чтобы панель обновлялась в реальном времени.",
+        "statusActive": "Зарегистрирован",
+        "statusMissing": "Не зарегистрирован",
+        "endpointLabel": "URL конечной точки",
+        "copy": "Копировать",
+        "copied": "Конечная точка скопирована",
+        "lastEventLabel": "Последнее событие:",
+        "lastEventNever": "никогда",
+        "notConnectedHint": "Сначала подключите API-ключ Linear, чтобы зарегистрировать вебхук.",
+        "setup": "Настроить вебхук",
+        "renew": "Обновить вебхук",
+        "remove": "Удалить",
+        "setupSuccess": "Вебхук зарегистрирован",
+        "removeSuccess": "Вебхук удалён",
+        "error": "Не удалось выполнить операцию с вебхуком"
+      },
+      "storage": {
+        "title": "Хранилище файлов",
+        "description": "Где хранятся загруженные изображения и вложения.",
+        "providerLabel": "Провайдер",
+        "providerLinear": "Linear (по умолчанию)",
+        "providerSentroy": "Sentroy Storage",
+        "providerHint": "Linear хранит файлы в вашем рабочем пространстве (для просмотра требуется сессия Linear). Sentroy Storage отдаёт публичные CDN-адреса.",
+        "apiKeyLabel": "Токен доступа Sentroy",
+        "apiKeyPlaceholder": "stk_…",
+        "apiKeyChange": "Изменить",
+        "apiKeyCancel": "Отмена",
+        "bucketLabel": "ID бакета",
+        "bucketPlaceholder": "Идентификатор бакета",
+        "companySlugLabel": "Slug компании",
+        "companySlugPlaceholder": "your-company",
+        "baseUrlLabel": "Базовый URL",
+        "sentroyHint": "Токен, ID бакета и slug компании обязательны; бакет должен быть публичным. Базовый URL можно оставить пустым для sentroy.com.",
+        "save": "Сохранить",
+        "saving": "Сохранение…",
+        "saved": "Настройки хранилища сохранены",
+        "saveError": "Не удалось сохранить настройки хранилища"
+      },
+      "telegram": {
+        "title": "Telegram-бот",
+        "description": "Операторы открывают запросы панели из Telegram. Бот опрашивает Telegram из этого приложения; настройка вебхука не требуется. Язык бота по умолчанию — английский.",
+        "statusEnabled": "Включён",
+        "statusDisabled": "Отключён",
+        "enabledLabel": "Включить бота",
+        "enabledHint": "Начинает опрос в течение минуты после сохранения. Требуется токен бота.",
+        "tokenLabel": "Токен бота",
+        "tokenPlaceholder": "123456789:AA…",
+        "tokenHint": "Создайте бота через @BotFather в Telegram и вставьте его токен. Он хранится в зашифрованном виде; видимыми остаются только последние 4 символа.",
+        "tokenChange": "Изменить",
+        "tokenCancel": "Отмена",
+        "languageLabel": "Язык бота",
+        "languageHint": "Язык всех сообщений, которые отправляет бот. Команды работают на обоих языках в любом случае.",
+        "languageEn": "English",
+        "languageTr": "Türkçe",
+        "operatorsLabel": "Операторы",
+        "operatorsHint": "Использовать бота могут только указанные пользователи Telegram. Задайте права для каждой команды и при желании сопоставьте оператора с участником компании.",
+        "operatorsEmpty": "Операторов пока нет. Добавьте одного по ID ниже или используйте режим прослушивания.",
+        "operatorsInvalid": "ID операторов должны быть числовыми ID пользователей Telegram",
+        "operatorDuplicate": "Этот пользователь Telegram уже является оператором",
+        "operatorAdd": "Добавить",
+        "operatorAddPlaceholder": "ID пользователя Telegram, напр. 123456789",
+        "operatorRemove": "Удалить",
+        "permCreate": "Создавать запросы",
+        "permListAll": "Просматривать все запросы",
+        "permCancel": "Отменять",
+        "memberLabel": "Участник компании",
+        "memberNone": "Не сопоставлен",
+        "discoveryTitle": "Режим прослушивания",
+        "discoveryHint": "В течение 5 минут неизвестные пользователи, которые пишут боту, собираются здесь (только идентификация), чтобы вы могли добавить их как операторов.",
+        "discoveryStart": "Начать прослушивание",
+        "discoveryStop": "Остановить",
+        "discoveryActive": "Прослушивание — осталось {time}",
+        "discoverySeenEmpty": "Пользователей пока нет. Попросите человека отправить боту любое сообщение.",
+        "discoveryAdd": "Добавить как оператора",
+        "discoveryAdded": "Оператор добавлен",
+        "discoveryError": "Не удалось обновить режим прослушивания",
+        "lastPolledLabel": "Последний опрос:",
+        "lastPolledNever": "никогда",
+        "save": "Сохранить",
+        "saveVerify": "Проверить и сохранить",
+        "saving": "Сохранение…",
+        "saved": "Настройки Telegram сохранены",
+        "saveError": "Не удалось сохранить настройки Telegram",
+        "operatorPerms": "{count}/3 прав",
+        "memberLinked": "Связан",
+        "memberHint": "Необязательно — связывает этого оператора с участником компании, чтобы созданные им в панели запросы также появлялись в боте.",
+        "teamAccessLabel": "Доступ к командам",
+        "teamAccessAll": "Все команды",
+        "teamAccessNone": "Нет доступа к командам",
+        "teamAccessHint": "Для каких команд этот оператор может открывать и просматривать запросы. При одной команде шаг выбора команды пропускается; без доступа команды запросов вежливо отклоняются.",
+        "operatorRemoveConfirm": "Подтвердить удаление",
+        "operatorAddHint": "Числовой ID пользователя Telegram (от @userinfobot). Новые операторы начинают без доступа к командам."
+      },
+      "appearance": {
+        "title": "Внешний вид и поведение",
+        "description": "Включайте функции панели для всех в этой компании. Изменения сохраняются немедленно.",
+        "groups": {
+          "display": "Отображение",
+          "behavior": "Поведение",
+          "notifications": "Уведомления на рабочем столе",
+          "view": "Вид панели"
+        },
+        "flags": {
+          "showStatus": "Показывать статус",
+          "showAssignee": "Показывать исполнителя",
+          "showLabels": "Показывать метки",
+          "showLinkedIssues": "Показывать связанные задачи",
+          "showTeamPicker": "Показывать выбор команды",
+          "showArchive": "Разрешить архивирование",
+          "kanbanDnd": "Перетаскивание в канбане",
+          "kanbanQuickAdd": "Быстрое добавление в канбане",
+          "listDnd": "Изменение порядка списка",
+          "notifyCompleted": "Уведомлять о выполнении",
+          "notifyAssigned": "Уведомлять о назначении",
+          "notifyCreated": "Уведомлять о новых задачах",
+          "notifyComment": "Уведомлять о комментариях",
+          "groupByTeam": "Группировать задачи по команде",
+          "showAllIssues": "Показывать все задачи Linear (не только созданные в панели)"
+        },
+        "saveError": "Не удалось сохранить настройку"
+      },
+      "common": {
+        "notSet": "Не задано",
+        "cancel": "Отмена",
+        "save": "Сохранить",
+        "saving": "Сохранение…"
+      }
+    },
+    "motion": {
+      "working": "Обработка"
+    }
+  }
+}

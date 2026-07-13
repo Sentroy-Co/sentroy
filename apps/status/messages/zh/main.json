@@ -1,0 +1,10 @@
+{
+  "statusDashboard": {
+    "pickCompanyHeading": "选择你要管理其状态页的公司",
+    "pickCompanySubtitle": "每家公司拥有一个状态页。点击你想管理的公司。",
+    "overviewTitle": "Status",
+    "overviewDescription": "为你自己的服务托管一个实时的、Atlassian Statuspage 风格的运行状态看板。组件、检查、事件时间线、计划维护窗口以及邮件/webhook 订阅者通知——全部集中在一个仪表盘中。",
+    "mgmtCardTitle": "状态页管理",
+    "mgmtCardDescription": "创建你的状态页，添加组件，定义 HTTP 检查，并分享你的公开 URL。"
+  }
+}

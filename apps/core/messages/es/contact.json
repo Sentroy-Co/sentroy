@@ -1,0 +1,45 @@
+{
+  "metaTitle": "Contacto",
+  "metaDescription": "Ponte en contacto con el equipo de Sentroy.",
+  "title": "Ponte en contacto",
+  "subtitle": "Para mantener nuestra bandeja de entrada libre de bots, confirma que eres humano y te mostraremos nuestro correo de contacto.",
+  "back": "Volver a Sentroy",
+  "reveal": {
+    "button": "Mostrar correo de contacto",
+    "verifying": "Verificando…",
+    "humanCheck": "Confirma que eres humano para ver nuestro correo",
+    "error": "No se pudo verificar; inténtalo de nuevo",
+    "unavailable": "El contacto no está disponible temporalmente"
+  },
+  "form": {
+    "title": "Envíanos un mensaje",
+    "subtitle": "¿Tienes un problema o una pregunta? Cuéntanos: leemos todos los mensajes.",
+    "name": "Tu nombre",
+    "namePh": "Juana Pérez",
+    "email": "Correo electrónico",
+    "emailPh": "tu@ejemplo.com",
+    "emailOptional": "Opcional: añádelo y te enviaremos por correo una confirmación y nuestra respuesta.",
+    "category": "Tema",
+    "subject": "Asunto",
+    "subjectPh": "Resumen breve (opcional)",
+    "message": "Mensaje",
+    "messagePh": "¿Cómo podemos ayudarte?",
+    "submit": "Enviar mensaje",
+    "sending": "Enviando…",
+    "sentTitle": "Mensaje enviado",
+    "sentBody": "Gracias: hemos recibido tu mensaje y te responderemos pronto.",
+    "error": "No se pudo enviar; inténtalo de nuevo."
+  },
+  "categories": {
+    "general": "Pregunta general",
+    "support": "Problema / soporte",
+    "billing": "Facturación",
+    "partnership": "Colaboración",
+    "feedback": "Comentarios",
+    "other": "Otro"
+  },
+  "investors": {
+    "title": "Inversores y prensa",
+    "body": "Para relaciones con inversores o prensa, escríbenos directamente por correo: preferimos mantener el contacto por esa vía."
+  }
+}

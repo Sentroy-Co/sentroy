@@ -1,0 +1,684 @@
+{
+  "nav": {
+    "platform": "Plataforma",
+    "overview": "Panel",
+    "requests": "Bandeja de entrada",
+    "newTask": "Nueva tarea",
+    "metrics": "Métricas",
+    "linearSettings": "Configuración de Linear",
+    "team": "Equipo",
+    "settings": "Configuración",
+    "accessTokens": "Tokens de acceso",
+    "account": "Perfil",
+    "logout": "Cerrar sesión",
+    "teams": "Equipos",
+    "addTeam": "Añadir equipo",
+    "noTeams": "Aún no hay equipos",
+    "loading": "Cargando…",
+    "noCompany": "Sin empresa",
+    "admin": "Administración",
+    "administration": "Administración",
+    "backToApp": "Volver a la app",
+    "companyProfile": "Perfil de la empresa",
+    "companyHub": "Empresa",
+    "dashboard": "Panel"
+  },
+  "linearLite": {
+    "common": {
+      "appName": "Linear Lite",
+      "loading": "Cargando…",
+      "save": "Guardar",
+      "saving": "Guardando…",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "close": "Cerrar",
+      "retry": "Reintentar",
+      "created": "Creado",
+      "updated": "Guardado",
+      "deleted": "Eliminado",
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "search": "Buscar…",
+      "noResults": "Sin resultados",
+      "loadError": "No se pudo cargar.",
+      "somethingWrong": "Algo salió mal",
+      "noPermission": "No tienes permiso para esta acción."
+    },
+    "notConnected": {
+      "title": "Linear no está conectado",
+      "description": "Conecta tu espacio de trabajo de Linear con una clave de API para empezar a gestionar solicitudes desde este panel.",
+      "descriptionMember": "El espacio de trabajo de Linear de esta empresa aún no está conectado. Pide a un administrador del espacio de trabajo que lo configure.",
+      "cta": "Abrir configuración de Linear"
+    },
+    "tasks": {
+      "detail": {
+        "activity": "Actividad",
+        "titleAria": "Título",
+        "descriptionAria": "Descripción",
+        "descriptionPlaceholder": "Añade una descripción…",
+        "noActivity": "Aún no hay actividad.",
+        "addComment": "Añade un comentario…",
+        "addCommentAria": "Añadir un comentario",
+        "sendComment": "Enviar",
+        "replyPlaceholder": "Escribe una respuesta…",
+        "replyAria": "Escribe una respuesta",
+        "replyBadge": "Responder",
+        "cancelReply": "Cancelar respuesta",
+        "attached": "Adjunto añadido",
+        "attach": {
+          "button": "Adjuntar archivo",
+          "title": "Añadir adjunto",
+          "desc": "Sube un archivo o pega un enlace. Se adjuntará en Linear.",
+          "label": "Título (opcional)",
+          "labelPlaceholder": "p. ej. Captura del error",
+          "submit": "Añadir",
+          "tabFile": "Archivo",
+          "tabLink": "Enlace",
+          "dropTitle": "Elige un archivo o suéltalo aquí",
+          "maxSize": "Hasta 25 MB",
+          "tooLarge": "El archivo no puede superar los 25 MB ({size})",
+          "pickFirst": "Elige primero un archivo",
+          "invalidUrl": "Introduce una URL válida",
+          "remove": "Quitar"
+        }
+      },
+      "priority": {
+        "no_priority": "Sin prioridad",
+        "urgent": "Urgente",
+        "high": "Alta",
+        "medium": "Media",
+        "low": "Baja"
+      },
+      "status": {
+        "backlog": "Backlog",
+        "todo": "Por hacer",
+        "in_progress": "En curso",
+        "done": "Hecho",
+        "cancelled": "Cancelado"
+      },
+      "relative": {
+        "now": "ahora",
+        "minutes": "{count}m",
+        "hours": "{count}h",
+        "days": "{count}d"
+      },
+      "list": {
+        "drag_handle": "Arrastrar",
+        "reorder_failed": "No se pudo actualizar el orden"
+      },
+      "kanban": {
+        "move_failed": "No se pudo actualizar el estado",
+        "state_missing": "El equipo {team} no tiene un estado «{state}»",
+        "no_states": "No se encontraron estados de flujo de trabajo para este espacio de trabajo.",
+        "empty_columns": "Columnas vacías",
+        "empty": "Vacío"
+      },
+      "view": {
+        "label": "Vista",
+        "list": "Lista",
+        "kanban": "Kanban"
+      },
+      "filter": {
+        "button": "Filtrar",
+        "scope": "Alcance",
+        "scope_workspace": "Todo el espacio de trabajo",
+        "scope_mine_linear": "Asignadas a mí",
+        "scope_mine_proxy": "Mis solicitudes",
+        "state": "Estado",
+        "open": "Abiertas",
+        "all": "Todas",
+        "closed": "Cerradas",
+        "assignee": "Responsable",
+        "unassigned": "Sin asignar",
+        "no_users": "Sin usuarios",
+        "label": "Etiqueta",
+        "no_labels": "Sin etiquetas",
+        "no_labels_in_group": "No hay etiquetas en esta categoría",
+        "clear": "Borrar filtros"
+      },
+      "chip": {
+        "empty": "Sin opciones",
+        "selected_count": "{count} seleccionadas",
+        "search_placeholder": "Buscar…",
+        "clear_all": "Borrar todo",
+        "clear": "Borrar selección",
+        "no_labels_in_group": "No hay etiquetas en esta categoría"
+      },
+      "quick_add": {
+        "min_length": "El título debe tener al menos 3 caracteres",
+        "placeholder_compact": "Añade una solicitud…",
+        "placeholder": "Añade rápidamente una solicitud con un título…",
+        "aria": "Título de la solicitud rápida",
+        "submit": "Añadir"
+      },
+      "new": {
+        "title": "Nueva solicitud",
+        "sent": "Solicitud creada",
+        "submit": "Enviar solicitud",
+        "dialog_description": "La solicitud se crea directamente en Linear; podrás editarla más tarde desde la página de detalle.",
+        "fields": {
+          "title": "Título",
+          "title_placeholder": "Resume el problema brevemente",
+          "description": "Descripción",
+          "description_placeholder": "Escribe los detalles aquí",
+          "state": "Estado",
+          "priority": "Prioridad",
+          "assignee": "Responsable",
+          "assignee_clear": "Quitar responsable",
+          "labels": "Etiquetas",
+          "labels_empty": "No hay etiquetas para este equipo",
+          "team": "Equipo"
+        },
+        "template": {
+          "label": "Plantilla",
+          "placeholder": "Selecciona una plantilla",
+          "clear": "Quitar plantilla",
+          "confirm_title": "¿Cambiar plantilla?",
+          "confirm_description": "El título, la descripción, las etiquetas y otros campos del formulario se actualizarán para coincidir con la nueva plantilla. Esto no se puede deshacer.",
+          "confirm_confirm": "Cambiar",
+          "confirm_cancel": "Cancelar",
+          "applied": "Plantilla «{name}» aplicada",
+          "applying": "Aplicando plantilla…"
+        },
+        "attachments": {
+          "title": "Adjuntos ({count})",
+          "add": "Adjuntar",
+          "remove": "Quitar {name}",
+          "upload_failed": "No se pudo subir el adjunto: {name}",
+          "uploading": "Subiendo adjuntos…"
+        }
+      },
+      "sub_task": {
+        "add": "Añadir subtarea"
+      },
+      "title": "Incidencias",
+      "titleMinError": "El título debe tener al menos 3 caracteres",
+      "children": {
+        "heading": "Subincidencias ({count})"
+      },
+      "comments": {
+        "none": "Aún no hay comentarios.",
+        "unknown": "Desconocido",
+        "reply": "Responder",
+        "createFromComment": "Crear incidencia desde el comentario",
+        "createSubFromComment": "Crear subincidencia desde el comentario",
+        "copyComment": "Copiar comentario",
+        "copied": "Comentario copiado",
+        "menuAria": "Menú del comentario",
+        "deleteTitle": "¿Eliminar comentario?",
+        "deleteDesc": "Esto no se puede deshacer. El comentario también se elimina en Linear.",
+        "emptyError": "El comentario no puede estar vacío"
+      },
+      "activity": {
+        "system": "Sistema",
+        "filterByUser": "Filtrar incidencias asignadas a {name}",
+        "filterAvatarAria": "Filtrar las incidencias de {name}",
+        "addedLink": "añadió un enlace:",
+        "historyStatus": "cambió el estado",
+        "historyAssigned": "asignó a <user></user>",
+        "historyUnassigned": "quitó al responsable",
+        "historyPriority": "estableció la prioridad en",
+        "historyLabelsAdded": "añadió <labels></labels>",
+        "historyLabelsRemoved": "quitó <labels></labels>",
+        "historyTitleEdited": "editó el título",
+        "historyArchived": "archivó",
+        "historyUnarchived": "desarchivó"
+      },
+      "hover": {
+        "previewError": "No se pudo cargar la vista previa",
+        "relativeNow": "justo ahora",
+        "relativeMinutes": "hace {n}m",
+        "relativeHours": "hace {n}h",
+        "relativeDays": "hace {n}d"
+      },
+      "menu": {
+        "status": "Estado",
+        "priority": "Prioridad",
+        "labels": "Etiquetas",
+        "assignee": "Responsable",
+        "clearAssignee": "Quitar responsable",
+        "noTeamLabels": "Este equipo no tiene etiquetas",
+        "copy": "Copiar",
+        "copyIdentifier": "Identificador",
+        "copyTitle": "Título",
+        "copyUrl": "URL de Linear",
+        "copiedIdentifier": "Identificador copiado",
+        "copiedTitle": "Título copiado",
+        "copiedUrl": "URL copiada",
+        "clipboardError": "No se pudo copiar al portapapeles",
+        "createLinked": "Crear vinculada",
+        "subTaskNewForm": "Subincidencia (nuevo formulario)",
+        "archive": "Archivar",
+        "archiveConfirmTitle": "¿Archivar {identifier}?",
+        "archiveConfirmDesc": "La incidencia se archivará en Linear; puedes restaurarla desde la interfaz de Linear si lo necesitas.",
+        "noLabels": "Sin etiquetas",
+        "noLabelsInCategory": "No hay etiquetas en esta categoría",
+        "issueMenuAria": "Menú de la incidencia"
+      },
+      "related": {
+        "issue": "Nueva incidencia",
+        "sub": "Subincidencia",
+        "parent": "Incidencia principal",
+        "blocking": "Bloqueando",
+        "blocked": "Bloqueada",
+        "related": "Relacionada"
+      },
+      "createRelated": {
+        "issueTitle": "Crear nueva incidencia",
+        "issueDesc": "Abre una nueva incidencia sin vincular.",
+        "subTitle": "Crear subincidencia",
+        "subDesc": "Abre una nueva subincidencia dentro de esta incidencia.",
+        "parentTitle": "Crear incidencia principal",
+        "parentDesc": "Adjunta esta incidencia bajo una nueva incidencia.",
+        "blockingTitle": "Crear incidencia bloqueante",
+        "blockingDesc": "Abre una nueva incidencia que bloquea a esta.",
+        "blockedTitle": "Crear incidencia bloqueada",
+        "blockedDesc": "Abre una nueva incidencia bloqueada por esta.",
+        "relatedTitle": "Crear incidencia relacionada",
+        "relatedDesc": "Abre una nueva incidencia relacionada con esta.",
+        "issueCreated": "Nueva incidencia creada",
+        "subCreated": "Subincidencia creada",
+        "parentCreated": "Incidencia principal creada",
+        "blockingCreated": "Incidencia bloqueante creada",
+        "blockedCreated": "Incidencia bloqueada creada",
+        "relatedCreated": "Incidencia relacionada creada",
+        "source": "Origen:",
+        "titleLabel": "Título",
+        "titlePlaceholder": "Resume la incidencia brevemente",
+        "descLabel": "Descripción",
+        "descPlaceholder": "Descripción opcional",
+        "submit": "Crear"
+      }
+    },
+    "requests": {
+      "title": "Bandeja de entrada",
+      "subtitle": "Solicitudes que enviaste y sus actualizaciones de estado.",
+      "empty": {
+        "title": "Tu bandeja de entrada está vacía",
+        "description": "Aún no has enviado ninguna solicitud. Las solicitudes que envíes y sus cambios de estado aparecerán aquí."
+      },
+      "loadError": "No se pudo cargar la bandeja de entrada.",
+      "openDetail": "Abrir detalle",
+      "unread": "Actualización sin leer",
+      "unreadTitle": "El estado cambió desde tu última visita",
+      "groups": {
+        "today": "Hoy",
+        "yesterday": "Ayer",
+        "week": "Últimos 7 días",
+        "older": "Anteriores"
+      }
+    },
+    "editor": {
+      "ariaLabel": "Editor de texto enriquecido",
+      "uploadFailed": "Error al subir la imagen",
+      "uploading": "{count, plural, one {Subiendo imagen…} other {Subiendo # imágenes…}}",
+      "bold": "Negrita",
+      "italic": "Cursiva",
+      "strikethrough": "Tachado",
+      "inlineCode": "Código en línea",
+      "codeBlock": "Bloque de código",
+      "bulletList": "Lista con viñetas",
+      "orderedList": "Lista numerada",
+      "link": "Enlace",
+      "linkPrompt": "URL del enlace",
+      "image": "Imagen"
+    },
+    "richTextView": {
+      "copyCode": "Copiar bloque de código",
+      "copyFailed": "No se pudo copiar al portapapeles"
+    },
+    "confirmDialog": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "theme": {
+      "toggle": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "shortcuts": {
+      "open": "Mostrar atajos de teclado",
+      "title": "Atajos de teclado",
+      "description": "Los atajos se desactivan mientras un campo de texto, un diálogo o la paleta de comandos están abiertos.",
+      "then": "luego",
+      "groupNavigation": "Navegación",
+      "groupActions": "Acciones",
+      "groupView": "Vista",
+      "groupEditor": "Editor",
+      "goDashboard": "Ir al panel",
+      "goInbox": "Ir a las solicitudes",
+      "goNew": "Ir al formulario de nueva solicitud",
+      "create": "Crear nueva solicitud",
+      "openPalette": "Abrir la paleta de comandos",
+      "openPaletteAlt": "Abrir la paleta de comandos (alternativo)",
+      "help": "Abrir este panel de ayuda",
+      "themeToggle": "Alternar tema claro/oscuro",
+      "submitComment": "Enviar comentario",
+      "bold": "Negrita",
+      "italic": "Cursiva",
+      "insertLink": "Insertar enlace"
+    },
+    "draft": {
+      "title": "¿Conservar este borrador?",
+      "description": "Tu título y descripción estarán listos la próxima vez que abras el formulario. Al eliminarlo se restablece todo el formulario.",
+      "discard": "Eliminar",
+      "cancel": "Cancelar",
+      "keep": "Conservar"
+    },
+    "version": {
+      "label": "Versión v{version}",
+      "notesAria": "Versión v{version} — notas de la versión",
+      "notes": "Notas de la versión"
+    },
+    "layout": {
+      "palette": {
+        "placeholder": "Busca comandos o navega…",
+        "searching": "Buscando…",
+        "empty": "No se encontraron resultados",
+        "groupTasks": "Tareas",
+        "groupPages": "Páginas",
+        "groupTheme": "Tema",
+        "groupAccount": "Cuenta",
+        "dashboard": "Panel",
+        "metrics": "Métricas",
+        "newTask": "Nueva tarea",
+        "recentSearches": "Búsquedas recientes",
+        "recentCards": "Vistos recientemente",
+        "clear": "Borrar",
+        "logout": "Cerrar sesión"
+      },
+      "header": {
+        "searchLabel": "Abrir la paleta de comandos"
+      },
+      "push": {
+        "on": "Notificaciones push activadas",
+        "off": "Activar notificaciones push",
+        "denied": "Notificaciones bloqueadas en la configuración del navegador"
+      }
+    },
+    "metrics": {
+      "requests": "solicitudes",
+      "percentValue": "{value}%",
+      "completionRate": "{value}% completado",
+      "hero": {
+        "kicker": "Métricas",
+        "description": "Cómo fluyen las solicitudes del panel: volumen, velocidad de resolución y quién hace el trabajo.",
+        "thisWeek": "esta semana",
+        "lastWeek": "la semana pasada",
+        "completionRate": "tasa de finalización",
+        "seeClosed": "Ver solicitudes cerradas",
+        "requestsWord": "solicitudes"
+      },
+      "cards": {
+        "total": "Total de solicitudes",
+        "open": "Abiertas",
+        "completed": "Completadas",
+        "avgResolution": "Resolución media",
+        "openAge": "Las abiertas esperan {age} de media"
+      },
+      "duration": {
+        "minutes": "{value} min",
+        "hours": "{value} h",
+        "days": "{value} d"
+      },
+      "chart": {
+        "bar": "Barras",
+        "line": "Líneas",
+        "requests": "Solicitudes",
+        "totalCenter": "total"
+      },
+      "panels": {
+        "statesTitle": "Por estado",
+        "statesSubtitle": "Distribución del trabajo abierto y cerrado",
+        "prioritiesTitle": "Por prioridad",
+        "prioritiesSubtitle": "Qué tan urgente es la carga de trabajo",
+        "creatorsTitle": "Principales creadores",
+        "creatorsSubtitle": "Quién abre más solicitudes",
+        "assigneesTitle": "Principales responsables",
+        "assigneesSubtitle": "Quién lleva el trabajo abierto",
+        "completersTitle": "Principales finalizadores",
+        "completersSubtitle": "Quién cierra más solicitudes",
+        "labelsTitle": "Principales etiquetas",
+        "labelsSubtitle": "Etiquetas más usadas",
+        "last30Title": "Últimos 30 días",
+        "last30Subtitle": "Nuevas solicitudes por día",
+        "staleTitle": "Solicitudes estancadas",
+        "staleSubtitle": "Abiertas y sin tocar durante más de 14 días",
+        "staleSubtitleEmpty": "Nada se ha estancado — buen trabajo"
+      },
+      "empty": {
+        "noData": "Aún no hay datos que mostrar",
+        "noAssigned": "No hay solicitudes asignadas",
+        "noCompleted": "Aún no se ha completado nada",
+        "noLabels": "Aún no se han usado etiquetas",
+        "noStale": "No hay solicitudes estancadas"
+      },
+      "people": {
+        "viewReport": "Ver el informe de {name}"
+      },
+      "priorities": {
+        "p0": "Sin prioridad",
+        "p1": "Urgente",
+        "p2": "Alta",
+        "p3": "Media",
+        "p4": "Baja"
+      },
+      "states": {
+        "triage": "Triaje",
+        "backlog": "Backlog",
+        "unstarted": "Por hacer",
+        "started": "En curso",
+        "completed": "Completadas",
+        "canceled": "Canceladas"
+      },
+      "report": {
+        "share": "{pct}% de todas las solicitudes",
+        "opened": "Abiertas",
+        "openedThisWeek": "+{count} esta semana",
+        "assigned": "Asignadas",
+        "assignedOpen": "{count} aún abiertas",
+        "completed": "Completadas",
+        "completionRate": "{value}% completado",
+        "avgResolution": "Resolución media",
+        "recentTitle": "Solicitudes recientes",
+        "recentSubtitle": "Última actividad de esta persona",
+        "timelineTitle": "Actividad",
+        "timelineSubtitle": "Solicitudes abiertas en los últimos 30 días",
+        "topLabelsTitle": "Principales etiquetas",
+        "topLabelsSubtitle": "Etiquetas con las que más trabaja esta persona"
+      },
+      "loadError": "No se pudieron cargar las métricas desde Linear"
+    },
+    "newTask": {
+      "subTaskTitle": "Crear subsolicitud",
+      "parentLabel": "Solicitud principal:",
+      "errors": {
+        "noTeams": "No se encontraron equipos de Linear.",
+        "loadFailed": "No se pudo conectar con Linear."
+      }
+    },
+    "panel": {
+      "title": "Incidencias",
+      "tagline": "Gestión de solicitudes de TI, con la tecnología de Linear",
+      "newTask": "Nueva solicitud",
+      "empty": {
+        "title": "Aún no hay solicitudes",
+        "description": "Usa el botón de abajo para crear tu primera solicitud.",
+        "cta": "Crear primera solicitud"
+      },
+      "errorTitle": "Algo salió mal",
+      "connectionError": "No se pudo conectar con Linear.",
+      "allTeams": "Todos",
+      "titleWithTeam": "Incidencias de {team}"
+    },
+    "settings": {
+      "title": "Configuración de Linear",
+      "description": "Conecta el espacio de trabajo de Linear de esta empresa y configura el comportamiento del panel.",
+      "vaultWarning": {
+        "title": "El almacenamiento de secretos no está configurado",
+        "description": "SENTROY_ENV_MASTER_KEY no está definido en el servidor, por lo que las claves de API y los secretos de webhook no se pueden cifrar. Guardar la configuración está deshabilitado hasta que un operador lo configure."
+      },
+      "connection": {
+        "title": "Conexión con Linear",
+        "description": "Clave de API personal del espacio de trabajo de Linear en el que trabaja esta empresa. La clave se almacena cifrada y no se vuelve a mostrar.",
+        "statusConnected": "Conectado",
+        "statusNotConnected": "No conectado",
+        "apiKeyLabel": "Clave de API de Linear",
+        "apiKeyPlaceholder": "lin_api_…",
+        "apiKeyHint": "Crea una en Linear en Configuración → API → Claves de API personales. Solo se mantienen visibles los primeros caracteres.",
+        "apiKeyChange": "Cambiar",
+        "apiKeyCancel": "Cancelar",
+        "panelLabelLabel": "Etiqueta del panel",
+        "panelLabelHint": "Las incidencias con esta etiqueta de Linear aparecen en el panel.",
+        "teamLabel": "Equipo predeterminado",
+        "teamNone": "Sin equipo predeterminado",
+        "teamEmptyHint": "Los equipos aparecen aquí una vez que se guarda una clave de API válida.",
+        "defaultLabelLabel": "Etiqueta predeterminada",
+        "defaultLabelPlaceholder": "p. ej. Triaje",
+        "defaultStateLabel": "Estado predeterminado",
+        "defaultStatePlaceholder": "p. ej. Por hacer",
+        "actorAppLabel": "Actuar como app",
+        "actorAppHint": "Realiza las mutaciones de Linear como el actor de la app en lugar del propietario de la clave.",
+        "save": "Guardar",
+        "saveVerify": "Verificar y guardar",
+        "saving": "Guardando…",
+        "saved": "Configuración de conexión guardada",
+        "saveError": "No se pudo guardar la configuración de conexión"
+      },
+      "webhook": {
+        "title": "Webhook",
+        "description": "Linear envía eventos de incidencias y comentarios a este endpoint para que el panel se actualice en tiempo real.",
+        "statusActive": "Registrado",
+        "statusMissing": "No registrado",
+        "endpointLabel": "URL del endpoint",
+        "copy": "Copiar",
+        "copied": "Endpoint copiado",
+        "lastEventLabel": "Último evento:",
+        "lastEventNever": "nunca",
+        "notConnectedHint": "Conecta primero una clave de API de Linear para registrar el webhook.",
+        "setup": "Configurar webhook",
+        "renew": "Renovar webhook",
+        "remove": "Quitar",
+        "setupSuccess": "Webhook registrado",
+        "removeSuccess": "Webhook eliminado",
+        "error": "La operación del webhook falló"
+      },
+      "storage": {
+        "title": "Almacenamiento de archivos",
+        "description": "Dónde se almacenan las imágenes y los adjuntos subidos.",
+        "providerLabel": "Proveedor",
+        "providerLinear": "Linear (predeterminado)",
+        "providerSentroy": "Sentroy Storage",
+        "providerHint": "Linear almacena los archivos en tu espacio de trabajo (verlos requiere una sesión de Linear). Sentroy Storage sirve URLs públicas de CDN.",
+        "apiKeyLabel": "Token de acceso de Sentroy",
+        "apiKeyPlaceholder": "stk_…",
+        "apiKeyChange": "Cambiar",
+        "apiKeyCancel": "Cancelar",
+        "bucketLabel": "ID del bucket",
+        "bucketPlaceholder": "Identificador del bucket",
+        "companySlugLabel": "Slug de la empresa",
+        "companySlugPlaceholder": "tu-empresa",
+        "baseUrlLabel": "URL base",
+        "sentroyHint": "El token, el ID del bucket y el slug de la empresa son obligatorios; el bucket debe ser público. La URL base puede quedar vacía para sentroy.com.",
+        "save": "Guardar",
+        "saving": "Guardando…",
+        "saved": "Configuración de almacenamiento guardada",
+        "saveError": "No se pudo guardar la configuración de almacenamiento"
+      },
+      "telegram": {
+        "title": "Bot de Telegram",
+        "description": "Los operadores abren solicitudes del panel desde Telegram. El bot consulta Telegram desde esta app; no hace falta configurar ningún webhook. El idioma predeterminado del bot es el inglés.",
+        "statusEnabled": "Activado",
+        "statusDisabled": "Desactivado",
+        "enabledLabel": "Activar el bot",
+        "enabledHint": "Comienza a consultar en menos de un minuto tras guardar. Requiere un token de bot.",
+        "tokenLabel": "Token del bot",
+        "tokenPlaceholder": "123456789:AA…",
+        "tokenHint": "Crea un bot con @BotFather en Telegram y pega su token. Se almacena cifrado; solo los últimos 4 caracteres quedan visibles.",
+        "tokenChange": "Cambiar",
+        "tokenCancel": "Cancelar",
+        "languageLabel": "Idioma del bot",
+        "languageHint": "Idioma de todos los mensajes que envía el bot. Los comandos funcionan en ambos idiomas de todos modos.",
+        "languageEn": "English",
+        "languageTr": "Türkçe",
+        "operatorsLabel": "Operadores",
+        "operatorsHint": "Solo los usuarios de Telegram de la lista pueden usar el bot. Establece permisos por comando y, opcionalmente, vincula un operador con un miembro de la empresa.",
+        "operatorsEmpty": "Aún no hay operadores. Añade uno por ID abajo o usa el modo de escucha.",
+        "operatorsInvalid": "Los ID de operador deben ser ID numéricos de usuario de Telegram",
+        "operatorDuplicate": "Este usuario de Telegram ya es un operador",
+        "operatorAdd": "Añadir",
+        "operatorAddPlaceholder": "ID de usuario de Telegram, p. ej. 123456789",
+        "operatorRemove": "Quitar",
+        "permCreate": "Crear solicitudes",
+        "permListAll": "Listar todas las solicitudes",
+        "permCancel": "Cancelar",
+        "memberLabel": "Miembro de la empresa",
+        "memberNone": "Sin vincular",
+        "discoveryTitle": "Modo de escucha",
+        "discoveryHint": "Durante 5 minutos, los usuarios desconocidos que escriban al bot se recopilan aquí (solo su identidad) para que puedas añadirlos como operadores.",
+        "discoveryStart": "Iniciar escucha",
+        "discoveryStop": "Detener",
+        "discoveryActive": "Escuchando — quedan {time}",
+        "discoverySeenEmpty": "Aún no hay usuarios. Pide a la persona que envíe cualquier mensaje al bot.",
+        "discoveryAdd": "Añadir como operador",
+        "discoveryAdded": "Operador añadido",
+        "discoveryError": "No se pudo actualizar el modo de escucha",
+        "lastPolledLabel": "Última consulta:",
+        "lastPolledNever": "nunca",
+        "save": "Guardar",
+        "saveVerify": "Verificar y guardar",
+        "saving": "Guardando…",
+        "saved": "Configuración de Telegram guardada",
+        "saveError": "No se pudo guardar la configuración de Telegram",
+        "operatorPerms": "{count}/3 permisos",
+        "memberLinked": "Vinculado",
+        "memberHint": "Opcional — vincula este operador con un miembro de la empresa para que sus solicitudes creadas en el panel también aparezcan en el bot.",
+        "teamAccessLabel": "Acceso a equipos",
+        "teamAccessAll": "Todos los equipos",
+        "teamAccessNone": "Sin acceso a equipos",
+        "teamAccessHint": "Para qué equipo(s) puede este operador abrir y listar solicitudes. Con un solo equipo se omite el paso de selección de equipo; sin acceso, los comandos de solicitud se rechazan cortésmente.",
+        "operatorRemoveConfirm": "Confirmar eliminación",
+        "operatorAddHint": "ID numérico de usuario de Telegram (de @userinfobot). Los nuevos operadores empiezan sin acceso a equipos."
+      },
+      "appearance": {
+        "title": "Apariencia y comportamiento",
+        "description": "Activa o desactiva funciones del panel para todos en esta empresa. Los cambios se guardan de inmediato.",
+        "groups": {
+          "display": "Visualización",
+          "behavior": "Comportamiento",
+          "notifications": "Notificaciones de escritorio",
+          "view": "Vista del panel"
+        },
+        "flags": {
+          "showStatus": "Mostrar estado",
+          "showAssignee": "Mostrar responsable",
+          "showLabels": "Mostrar etiquetas",
+          "showLinkedIssues": "Mostrar incidencias vinculadas",
+          "showTeamPicker": "Mostrar selector de equipo",
+          "showArchive": "Permitir archivar",
+          "kanbanDnd": "Arrastrar y soltar en Kanban",
+          "kanbanQuickAdd": "Añadido rápido en Kanban",
+          "listDnd": "Reordenar la lista",
+          "notifyCompleted": "Notificar al completarse",
+          "notifyAssigned": "Notificar al asignarse",
+          "notifyCreated": "Notificar sobre nuevas incidencias",
+          "notifyComment": "Notificar sobre comentarios",
+          "groupByTeam": "Agrupar tareas por equipo",
+          "showAllIssues": "Mostrar todas las tareas de Linear (no solo las creadas en el panel)"
+        },
+        "saveError": "No se pudo guardar la configuración"
+      },
+      "common": {
+        "notSet": "Sin definir",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando…"
+      }
+    },
+    "motion": {
+      "working": "Trabajando"
+    }
+  }
+}

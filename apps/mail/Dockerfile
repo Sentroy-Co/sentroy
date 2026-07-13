@@ -82,7 +82,11 @@ COPY --from=builder --chown=nextjs:nodejs /repo/apps/mail/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/mail/.next/static ./apps/mail/.next/static
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/mail/public ./apps/mail/public
 
+# Runtime domain injection (self-host/OSS image-mode). Hosted images bake
+# real URLs → sentinel absent → no-op. See scripts/runtime-domain.sh.
+COPY scripts/runtime-domain.sh /app/runtime-domain.sh
 USER nextjs
 EXPOSE 3001
 
-CMD ["node", "apps/mail/server.js"]
+ENV SENTROY_APP_DIR=apps/mail
+ENTRYPOINT ["sh", "/app/runtime-domain.sh"]

@@ -30,6 +30,42 @@ import enBrand from "../messages/en/brand.json"
 import trBrand from "../messages/tr/brand.json"
 import enVision from "../messages/en/vision.json"
 import trVision from "../messages/tr/vision.json"
+import ruConsole from "@workspace/console/messages/ru/console.json"
+import ruAuth from "@workspace/auth/messages/ru/auth.json"
+import ruMain from "../messages/ru/main.json"
+import ruLanding from "../messages/ru/landing.json"
+import ruLandingV2 from "../messages/ru/landing-v2.json"
+import ruBilling from "../messages/ru/billing.json"
+import ruPricing from "../messages/ru/pricing.json"
+import ruOs from "../messages/ru/os.json"
+import ruInvestors from "../messages/ru/investors.json"
+import ruContact from "../messages/ru/contact.json"
+import ruBrand from "../messages/ru/brand.json"
+import ruVision from "../messages/ru/vision.json"
+import zhConsole from "@workspace/console/messages/zh/console.json"
+import zhAuth from "@workspace/auth/messages/zh/auth.json"
+import zhMain from "../messages/zh/main.json"
+import zhLanding from "../messages/zh/landing.json"
+import zhLandingV2 from "../messages/zh/landing-v2.json"
+import zhBilling from "../messages/zh/billing.json"
+import zhPricing from "../messages/zh/pricing.json"
+import zhOs from "../messages/zh/os.json"
+import zhInvestors from "../messages/zh/investors.json"
+import zhContact from "../messages/zh/contact.json"
+import zhBrand from "../messages/zh/brand.json"
+import zhVision from "../messages/zh/vision.json"
+import esConsole from "@workspace/console/messages/es/console.json"
+import esAuth from "@workspace/auth/messages/es/auth.json"
+import esMain from "../messages/es/main.json"
+import esLanding from "../messages/es/landing.json"
+import esLandingV2 from "../messages/es/landing-v2.json"
+import esBilling from "../messages/es/billing.json"
+import esPricing from "../messages/es/pricing.json"
+import esOs from "../messages/es/os.json"
+import esInvestors from "../messages/es/investors.json"
+import esContact from "../messages/es/contact.json"
+import esBrand from "../messages/es/brand.json"
+import esVision from "../messages/es/vision.json"
 
 const bundles = {
   en: {
@@ -60,15 +96,57 @@ const bundles = {
     brand: trBrand,
     vision: trVision,
   },
+  ru: {
+    ...ruConsole,
+    ...ruAuth,
+    ...ruMain,
+    landing: ruLanding,
+    landingV2: ruLandingV2,
+    billing: ruBilling,
+    pricing: ruPricing,
+    os: ruOs,
+    investors: ruInvestors,
+    contact: ruContact,
+    brand: ruBrand,
+    vision: ruVision,
+  },
+  zh: {
+    ...zhConsole,
+    ...zhAuth,
+    ...zhMain,
+    landing: zhLanding,
+    landingV2: zhLandingV2,
+    billing: zhBilling,
+    pricing: zhPricing,
+    os: zhOs,
+    investors: zhInvestors,
+    contact: zhContact,
+    brand: zhBrand,
+    vision: zhVision,
+  },
+  es: {
+    ...esConsole,
+    ...esAuth,
+    ...esMain,
+    landing: esLanding,
+    landingV2: esLandingV2,
+    billing: esBilling,
+    pricing: esPricing,
+    os: esOs,
+    investors: esInvestors,
+    contact: esContact,
+    brand: esBrand,
+    vision: esVision,
+  },
 } as const
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale
-  if (!locale || !routing.locales.includes(locale as "en" | "tr")) {
+  if (!locale || !routing.locales.includes(locale as keyof typeof bundles)) {
     locale = routing.defaultLocale
   }
   return {
     locale,
-    messages: bundles[locale as "en" | "tr"],
+    messages: bundles[locale as keyof typeof bundles],
   }
 })

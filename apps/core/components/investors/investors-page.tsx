@@ -33,7 +33,7 @@ import { RevealEmail } from "../contact/reveal-email"
 
 const EASE = [0.21, 0.47, 0.32, 0.98] as const
 const EASE_EXPO = [0.16, 1, 0.3, 1] as const
-const LOCALES = ["en", "tr"] as const
+const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 const CONTACT_ANCHOR = "#contact"
 
 type Tone = "ink" | "paper"

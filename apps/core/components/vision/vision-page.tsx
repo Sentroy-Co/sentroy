@@ -19,7 +19,7 @@ import { Magnetic } from "../landing/v2/primitives/magnetic"
  */
 
 const RED = "#FF1744"
-const LOCALES = ["en", "tr"] as const
+const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 const EASE = [0.21, 0.47, 0.32, 0.98] as const
 
 interface Principle { title: string; body: string }

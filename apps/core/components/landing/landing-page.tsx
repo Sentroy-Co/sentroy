@@ -826,7 +826,7 @@ function formatStorage(bytes: number, lang: string): string {
 // ═════════════════════════════════════════════════════════════════════════
 
 // Core 2 dil destekler (paylaşılan @workspace/auth routing: en/tr).
-const CORE_LOCALES = ["en", "tr"] as const
+const CORE_LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 
 function FloatingNav({
   lang,

@@ -1,0 +1,17 @@
+{
+  "metaTitle": "Misión y visión",
+  "metaDescription": "La misión y la visión de Sentroy: la columna vertebral operativa del software que ahora todo el mundo puede crear.",
+  "eyebrow": "Misión y visión",
+  "missionLabel": "Nuestra misión",
+  "mission": "Reunir en una sola plataforma toda la columna vertebral operativa que necesita un producto —inicio de sesión, pagos, correo electrónico, almacenamiento, mensajería y mucho más—, para que cualquiera que sea capaz de imaginar software pueda gestionar el negocio que hay detrás.",
+  "visionLabel": "Nuestra visión",
+  "vision": "Un mundo donde lanzar y operar software sea tan sencillo como generarlo, donde la infraestructura pase a un segundo plano y solo queden el producto y las personas a las que sirve.",
+  "principlesLabel": "En qué creemos",
+  "principles": [
+    { "title": "Ser dueños de los cimientos", "body": "Construimos y operamos nosotros mismos la infraestructura central en lugar de revender la de otros, para controlar la calidad, el coste y la hoja de ruta." },
+    { "title": "Una plataforma, un solo inicio de sesión", "body": "Cada capacidad vive bajo una única identidad y una única factura. La consolidación no es una función más: es el objetivo en sí mismo." },
+    { "title": "Hecho para quien construye", "body": "Cuanto más rápido genera software el mundo, más necesita un lugar fiable donde ejecutarlo. Existimos para quienes lanzan al mercado." }
+  ],
+  "back": "Volver a Sentroy",
+  "cta": "Descubrir Sentroy"
+}

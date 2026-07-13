@@ -79,7 +79,11 @@ COPY --from=builder --chown=nextjs:nodejs /repo/apps/downloader/.next/standalone
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/downloader/.next/static ./apps/downloader/.next/static
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/downloader/public ./apps/downloader/public
 
+# Runtime domain injection (self-host/OSS image-mode). Hosted images bake
+# real URLs → sentinel absent → no-op. See scripts/runtime-domain.sh.
+COPY scripts/runtime-domain.sh /app/runtime-domain.sh
 USER nextjs
 EXPOSE 3008
 
-CMD ["node", "apps/downloader/server.js"]
+ENV SENTROY_APP_DIR=apps/downloader
+ENTRYPOINT ["sh", "/app/runtime-domain.sh"]

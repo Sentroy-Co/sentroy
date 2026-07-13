@@ -1,0 +1,627 @@
+{
+  "systemSettings": "系统设置…",
+  "selectCompany": "选择公司",
+  "companies": "公司",
+  "createCompany": "创建工作区",
+  "language": "语言",
+  "search": "搜索",
+  "profile": "个人资料",
+  "overview": "概览",
+  "signOut": "退出登录",
+  "account": "账户",
+  "toggleTheme": "切换主题",
+  "showDesktop": "显示桌面 / 恢复窗口",
+  "wallpaper": "壁纸",
+  "changeWallpaper": "更换壁纸",
+  "widgets": "小组件",
+  "activity": "动态",
+  "noPublicProfile": "您还没有设置公开资料。",
+  "noAccessibleSections": "没有可访问的板块。",
+  "domainGate": {
+    "title": "请先验证域名",
+    "desc": "此服务至少需要一个已验证的域名。添加并验证域名后即可开始收发邮件。",
+    "cta": "前往域名",
+    "loadingHint": "正在检查域名…"
+  },
+  "appSections": {
+    "groupAdmin": "管理",
+    "inbox": "收件箱",
+    "send": "发送",
+    "templates": "模板",
+    "audience": "受众",
+    "validate": "验证",
+    "analytics": "分析",
+    "domains": "域名",
+    "mailboxes": "邮箱",
+    "logs": "日志",
+    "webhooks": "Webhook",
+    "suppressions": "抑制列表",
+    "smtp": "SMTP",
+    "usage": "用量",
+    "buckets": "存储桶",
+    "accessTokens": "访问令牌",
+    "team": "团队",
+    "settings": "设置",
+    "overview": "概览",
+    "oauthClients": "OAuth 客户端",
+    "authProjects": "Auth 项目",
+    "chats": "聊天",
+    "requests": "收件箱",
+    "newTask": "新建任务",
+    "metrics": "指标",
+    "linearSettings": "Linear 设置",
+    "components": "组件",
+    "checks": "检查",
+    "incidents": "事件",
+    "maintenance": "维护",
+    "subscribers": "订阅者",
+    "restartTargets": "重启目标",
+    "audit": "审计日志"
+  },
+  "searchAppsTools": "搜索应用和工具…",
+  "noResults": "无结果",
+  "app": "应用",
+  "tool": "工具",
+  "searchTools": "搜索工具…",
+  "noToolsFound": "未找到工具。",
+  "pinToDock": "固定到 Dock",
+  "unpinFromDock": "从 Dock 移除",
+  "downloaders": "下载工具",
+  "yourApps": "您的应用",
+  "launchpad": "应用",
+  "launchpadSearch": "搜索应用…",
+  "appStore": "App Store",
+  "store": {
+    "back": "商店",
+    "by": "作者",
+    "verified": "已验证开发者",
+    "paid": "付费",
+    "free": "免费",
+    "install": "安装",
+    "buy": "购买",
+    "open": "打开",
+    "remove": "移除",
+    "confirmInstallTitle": "安装 {app}？",
+    "confirmInstallDesc": "此应用将被添加到您的 Sentroy OS。",
+    "confirmRemoveTitle": "移除 {app}？",
+    "confirmRemoveDesc": "它将从您的 Sentroy OS 中移除。您可以随时重新安装。",
+    "installedToast": "已安装 {app}",
+    "installFailed": "无法安装",
+    "removedToast": "已移除 {app}",
+    "removeFailed": "无法移除",
+    "loadStoreFailed": "加载商店失败",
+    "loadAppFailed": "加载应用失败",
+    "checkoutFailed": "结账失败",
+    "reviewFailed": "无法提交评价",
+    "reviewSaved": "评价已保存",
+    "installed": "已安装",
+    "reviews": "评价",
+    "reviewPlaceholder": "分享您的体验（可选）",
+    "updateReview": "更新评价",
+    "submitReview": "提交评价",
+    "installToReview": "安装应用后即可发表评价。",
+    "noReviews": "暂无评价。",
+    "anonymous": "某位用户",
+    "privacy": "隐私",
+    "support": "支持",
+    "consentTitle": "安装 {app}",
+    "consentDesc": "此应用将能够访问：",
+    "allowInstall": "允许并安装",
+    "searchPlaceholder": "搜索 App Store…",
+    "all": "全部",
+    "empty": "暂无应用。",
+    "publishCta": "正在开发应用？",
+    "publishLink": "发布您的应用 →",
+    "myApps": "我的应用",
+    "close": "关闭",
+    "editorsChoice": "编辑推荐",
+    "new": "新品与精选",
+    "mostDownloaded": "最受欢迎",
+    "sentroy": "Sentroy",
+    "installedBadge": "已安装",
+    "categories": {
+      "all": "全部",
+      "developer-tools": "开发者工具",
+      "productivity": "效率",
+      "analytics": "分析",
+      "communication": "通讯",
+      "marketing": "营销",
+      "finance": "财务",
+      "design": "设计",
+      "other": "其他"
+    }
+  },
+  "devConsole": {
+    "title": "App Store",
+    "subtitle": "在 Sentroy App Store 上提交和管理您的应用。",
+    "submit": "提交应用",
+    "dialogTitle": "提交清单",
+    "dialogDesc": "粘贴您的 <id>.sentroy-app.json。提交时会进行校验。更新必须提升 identity.version。",
+    "reviewHint": "提交审核 → 通过审批后发布到公开的 App Store。",
+    "privateHint": "保存（仅限公司）→ 立即生效，仅对您公司的成员可见（无需审核）。",
+    "cancel": "取消",
+    "savePrivate": "保存（仅限公司）",
+    "submitReview": "提交审核",
+    "noAccessTitle": "无权限",
+    "noAccessDesc": "您需要 App Store 权限才能管理此公司的应用。",
+    "emptyTitle": "暂无应用",
+    "emptyDesc": "提交您的第一个应用，将其发布到 Sentroy App Store。",
+    "unpublish": "取消发布",
+    "withdraw": "撤回",
+    "delete": "删除",
+    "deleted": "应用已删除",
+    "confirmDeleteTitle": "删除此应用？",
+    "confirmDeleteDesc": "这将永久删除该应用及其安装记录。此操作无法撤销。",
+    "confirmUnpublishTitle": "取消发布此应用？",
+    "confirmUnpublishDesc": "它将从公开的 App Store 中移除，但已有安装仍可正常使用。您稍后可以重新提交。",
+    "verifyTitle": "验证您的来源以获得批准",
+    "verifyServe": "在 {origin} 的 {path} 处提供包含此令牌的内容（或将其添加为 DNS TXT 记录）：",
+    "live": "已在 App Store 上线",
+    "private": "仅对您的公司可见",
+    "loadFailed": "加载应用失败",
+    "invalidJson": "清单不是有效的 JSON",
+    "submittedReview": "已提交审核",
+    "savedPrivate": "已保存 — 仅对您的公司可见",
+    "submitFailed": "提交失败",
+    "withdrawFailed": "无法撤回",
+    "unpublished": "已取消发布",
+    "withdrawn": "已撤回",
+    "tokenCopied": "令牌已复制",
+    "statusApproved": "已批准",
+    "statusPending": "待处理",
+    "statusRejected": "已拒绝",
+    "statusSuspended": "已暂停",
+    "statusDraft": "草稿"
+  },
+  "welcomeTitle": "欢迎使用 Sentroy",
+  "welcomeSubtitle": "从下方的 Dock 打开一个应用。",
+  "loadingWorkspace": "正在加载您的工作区…",
+  "dock": {
+    "bringToFront": "移到最前",
+    "close": "关闭",
+    "open": "打开",
+    "openInNewTab": "在新标签页打开"
+  },
+  "window": {
+    "close": "关闭",
+    "minimize": "最小化",
+    "zoom": "缩放",
+    "reload": "重新加载"
+  },
+  "common": {
+    "cancel": "取消",
+    "save": "保存",
+    "saving": "正在保存…",
+    "saved": "已保存",
+    "couldNotSave": "无法保存",
+    "somethingWrong": "出了点问题",
+    "on": "开",
+    "off": "关"
+  },
+  "createCompanyDialog": {
+    "title": "创建工作区",
+    "desc": "创建一个新的工作区。您可以稍后邀请成员。",
+    "nameLabel": "工作区名称",
+    "namePlaceholder": "Acme Inc.",
+    "creating": "正在创建…",
+    "create": "创建",
+    "created": "工作区已创建",
+    "failed": "无法创建工作区"
+  },
+  "settings": {
+    "profile": "个人资料",
+    "company": "公司",
+    "team": "团队",
+    "access-tokens": "访问令牌",
+    "billing": "账单"
+  },
+  "profilePane": {
+    "title": "个人资料",
+    "yourName": "您的姓名",
+    "personal": "个人信息",
+    "name": "姓名",
+    "addName": "添加您的姓名",
+    "nameRequired": "姓名为必填项",
+    "email": "邮箱",
+    "headline": "头衔",
+    "headlinePh": "例如 产品设计师",
+    "bio": "简介",
+    "bioPh": "简短的个人介绍",
+    "location": "所在地",
+    "locationPh": "城市，国家/地区",
+    "website": "网站",
+    "websitePh": "https://…",
+    "publicProfile": "公开资料",
+    "publicProfileDesc": "公开展示您的资料页面",
+    "profileUrl": "资料 URL",
+    "profileUrlSlug": "资料 URL 短名",
+    "handlePh": "your-handle",
+    "avatarUpdated": "头像已更新",
+    "handleInvalid": "仅限小写字母、数字和连字符",
+    "socialLinks": "社交链接",
+    "socialLinksDesc": "显示在您公开资料上的链接",
+    "socialLinksTitle": "社交链接",
+    "noSocialLinks": "暂无链接",
+    "addLink": "添加链接",
+    "linkUrlPh": "https://…",
+    "viewPublic": "查看公开资料",
+    "security": "安全",
+    "connectedAccounts": "已关联账户",
+    "connected": "已关联",
+    "connect": "关联",
+    "noSessions": "没有活动会话",
+    "unknownDevice": "未知设备",
+    "thisDevice": "当前设备",
+    "revokeConfirmTitle": "退出此会话？",
+    "revokeConfirmDesc": "此设备将立即退出登录。"
+  },
+  "companyPane": {
+    "title": "公司",
+    "forbidden": "您需要所有者或管理员权限才能管理公司设置。",
+    "general": "常规",
+    "name": "名称",
+    "nameRequired": "名称为必填项",
+    "urlSlug": "URL 短名",
+    "slugInvalid": "仅限小写字母、数字和连字符",
+    "description": "描述",
+    "descriptionPh": "这家公司是做什么的？",
+    "planUsage": "套餐与用量",
+    "currentPlan": "当前套餐",
+    "domains": "域名",
+    "members": "成员",
+    "mailboxes": "邮箱",
+    "storage": "存储",
+    "dangerZone": "危险区域",
+    "deleteCompany": "删除公司",
+    "deleteDesc": "永久删除此公司及其所有数据",
+    "logoUpdated": "标志已更新",
+    "deleteTitle": "删除 {name}？",
+    "deleteDialogDesc": "这将永久删除该公司及其存储桶、媒体和邮件。此操作无法撤销。请输入 {slug} 以确认。",
+    "deleting": "正在删除…",
+    "deleted": "公司已删除",
+    "deleteFailed": "无法删除公司",
+    "coverUpdated": "封面已更新",
+    "changeCover": "更换封面"
+  },
+  "billingPane": {
+    "title": "账单",
+    "currentPlan": "当前套餐",
+    "free": "免费",
+    "status": "状态",
+    "canceling": "正在取消",
+    "renews": "{date} 续订",
+    "manageSubscription": "管理订阅",
+    "plans": "套餐",
+    "monthly": "按月",
+    "yearly": "按年",
+    "popular": "热门",
+    "current": "当前",
+    "perYear": "/年",
+    "perMonth": "/月",
+    "whatsIncluded": "包含内容",
+    "limits": "限额",
+    "teamMembers": "团队成员",
+    "emailsMonth": "邮件 / 月",
+    "unlimited": "无限制",
+    "currentPlanBtn": "当前套餐",
+    "notAvailable": "暂不可用",
+    "defaultPlan": "默认套餐",
+    "subscribe": "订阅",
+    "switchPlan": "切换到此套餐",
+    "openingCheckout": "正在打开结账…",
+    "notConfigured": "此套餐尚未配置账单。",
+    "checkoutUnavailable": "结账不可用",
+    "subscriptionUpdated": "订阅已更新",
+    "checkoutSuccess": "订阅已激活"
+  },
+  "notes": {
+    "appName": "备忘录",
+    "newNote": "新建备忘录",
+    "search": "搜索备忘录",
+    "emptyList": "暂无备忘录",
+    "noSelection": "选择一条备忘录或新建一条",
+    "untitled": "无标题",
+    "emptyNote": "空白备忘录",
+    "placeholder": "开始输入… 输入 @ 可提及某人或某个应用",
+    "pin": "置顶",
+    "unpin": "取消置顶",
+    "openInNotes": "在备忘录中打开",
+    "delete": "删除备忘录",
+    "deleteConfirm": "删除这条备忘录？",
+    "visibilityAuthor": "私密",
+    "visibilityMembers": "公司",
+    "visibilityAdmins": "管理员",
+    "visibilityPublic": "公开",
+    "cancel": "取消",
+    "folders": "文件夹",
+    "allNotes": "所有备忘录",
+    "newFolder": "新建文件夹",
+    "folderNamePrompt": "文件夹名称",
+    "renameFolder": "重命名",
+    "deleteFolder": "删除文件夹",
+    "deleteFolderConfirm": "删除此文件夹？其中的备忘录将移至“所有备忘录”。",
+    "moveToFolder": "移动到文件夹",
+    "noFolder": "无",
+    "colorLabel": "颜色",
+    "format": "格式",
+    "titlePlaceholder": "标题",
+    "fmtTitle": "标题",
+    "fmtHeading": "大标题",
+    "fmtSubheading": "小标题",
+    "fmtBody": "正文",
+    "fmtMono": "等宽样式",
+    "fmtBulleted": "项目符号列表",
+    "fmtNumbered": "编号列表",
+    "fmtQuote": "块引用"
+  },
+  "firstRun": {
+    "welcomeTitle": "欢迎使用 Sentroy",
+    "welcomeSubtitle": "创建您的第一个工作区以开始使用。",
+    "createWorkspace": "创建工作区"
+  },
+  "pendingInvites": {
+    "title": "您收到了邀请",
+    "asRole": "身份为 {role}",
+    "roleOwner": "所有者",
+    "roleAdmin": "管理员",
+    "roleMember": "成员",
+    "accept": "接受",
+    "accepted": "已加入 {company}",
+    "acceptError": "无法接受邀请"
+  },
+  "notifications": {
+    "title": "通知",
+    "markAllRead": "全部标为已读",
+    "clear": "清除",
+    "empty": "暂无通知",
+    "remove": "移除"
+  },
+  "appLaunchFailed": "应用启动失败",
+  "appLaunchRetry": "重试",
+  "widgetsHub": {
+    "tab": "小组件",
+    "activityTab": "动态",
+    "add": "添加",
+    "added": "桌面上有 {count} 个",
+    "remove": "移除小组件",
+    "configure": "小组件设置",
+    "loadError": "无法加载",
+    "retry": "重试",
+    "contextMenu": {
+      "addWidget": "添加小组件",
+      "refreshWidgets": "刷新小组件",
+      "changeWallpaper": "更换壁纸"
+    },
+    "types": {
+      "clock": {
+        "title": "时钟",
+        "description": "一眼查看时间和日期。"
+      },
+      "achievements": {
+        "title": "成就",
+        "description": "上手进度和您的下一步。"
+      },
+      "mail-inbox": {
+        "title": "Mail — 最近收件箱",
+        "description": "来自您所选邮箱的最新消息。"
+      },
+      "storage-quick": {
+        "title": "Storage — 快速访问",
+        "description": "存储桶及其文件夹的快捷方式。"
+      },
+      "linear-requests": {
+        "title": "Linear — 请求",
+        "description": "来自您面板收件箱的待处理请求数。"
+      },
+      "crypto-single": {
+        "title": "加密货币 — 价格",
+        "description": "单个交易对的实时价格和 24 小时涨跌。"
+      },
+      "crypto-table": {
+        "title": "加密货币 — 自选列表",
+        "description": "多个交易对的实时价格和 24 小时涨跌。"
+      }
+    },
+    "clock": {
+      "format24": "24 小时制",
+      "format12": "12 小时制",
+      "timezone": "时区",
+      "localZone": "本地（设备）"
+    },
+    "crypto": {
+      "pair": "交易对",
+      "pairs": "交易对",
+      "noData": "无数据",
+      "disclaimer": "价格来自 Bitget。不构成投资建议。"
+    },
+    "mail": {
+      "mailbox": "邮箱",
+      "chooseMailbox": "选择一个邮箱",
+      "empty": "暂无消息",
+      "unread": "未读"
+    },
+    "storage": {
+      "bucket": "存储桶",
+      "chooseBucket": "选择一个存储桶",
+      "noFolders": "暂无文件夹",
+      "openBucket": "打开存储桶",
+      "folder": "文件夹",
+      "folderRoot": "根目录",
+      "emptyFolder": "空文件夹",
+      "open": "在 Storage 中打开"
+    },
+    "linear": {
+      "openRequests": "个待处理请求在您的收件箱中",
+      "open": "打开 Linear"
+    }
+  },
+  "achievements": {
+    "appName": "成就",
+    "widget": {
+      "title": "成就",
+      "next": "下一步：{name}",
+      "groupDone": "全部完成",
+      "allDone": "所有成就均已完成"
+    },
+    "pill": {
+      "next": "下一步：{name}"
+    },
+    "window": {
+      "completedOf": "已完成 {done} / {total}",
+      "subtitle": "探索 Sentroy，逐项完成打卡。",
+      "complete": "完成",
+      "loadFailed": "无法加载成就。",
+      "retry": "重试",
+      "refresh": "刷新",
+      "tip": "教我怎么做"
+    },
+    "ctas": {
+      "settings": "打开设置",
+      "team": "打开团队",
+      "accessTokens": "打开令牌",
+      "company": "打开公司",
+      "post": "写一篇动态",
+      "notes": "打开备忘录",
+      "tools": "打开工具",
+      "mail": "打开 Mail",
+      "storage": "打开 Storage",
+      "whatsapp": "打开 WhatsApp",
+      "linear": "打开 Linear",
+      "auth": "打开 Auth",
+      "studio": "打开 Studio"
+    },
+    "tips": {
+      "invite-teammate": "打开 设置 → 团队 来添加成员或发送邮件邀请。您邀请的成员会共享此工作区。",
+      "create-access-token": "设置 → 访问令牌 会生成一个用于 SDK 和 API 的 stk_ 令牌。明文令牌只显示一次 — 请立即复制。",
+      "set-company-logo": "设置 → 公司 可让您上传标志。它会显示在团队切换器和您的公司资料页上。",
+      "first-post": "打开动态面板（在菜单栏点击您的公司），向您的公司动态发布一条更新。",
+      "first-note": "备忘录应用可保存快速笔记，您可以将其作为便签小组件固定到桌面。",
+      "explore-tools": "从 Dock 打开工具 — 免费的图片、PDF、音频、视频和开发者工具，无需账户数据。",
+      "pin-tool-to-dock": "右键点击 Dock 中的任意应用或工具并选择固定，让它触手可及。"
+    },
+    "groups": {
+      "core": "快速上手",
+      "mail": "Mail",
+      "storage": "Storage",
+      "whatsapp": "WhatsApp",
+      "linear": "Linear",
+      "auth": "Auth",
+      "studio": "Studio"
+    },
+    "items": {
+      "invite-teammate": {
+        "label": "邀请队友",
+        "description": "在 设置 → 团队 中添加成员或发送邀请。"
+      },
+      "create-access-token": {
+        "label": "创建访问令牌",
+        "description": "在 设置 → 访问令牌 中为 SDK 生成一个 API 令牌。"
+      },
+      "set-company-logo": {
+        "label": "设置公司标志",
+        "description": "在 设置 → 公司 中上传标志。"
+      },
+      "first-post": {
+        "label": "发布您的第一篇动态",
+        "description": "向您的公司动态发布一条更新。"
+      },
+      "first-note": {
+        "label": "写下您的第一条备忘录",
+        "description": "在备忘录应用中记录点什么。"
+      },
+      "explore-tools": {
+        "label": "探索免费工具",
+        "description": "打开工具或应用页浏览内置实用工具。"
+      },
+      "pin-tool-to-dock": {
+        "label": "将工具固定到 Dock",
+        "description": "右键点击 Dock 中的应用或工具并将其固定。"
+      },
+      "register-domain": {
+        "label": "添加域名",
+        "description": "在 Mail 中注册一个发送域名。"
+      },
+      "verify-domain": {
+        "label": "验证域名",
+        "description": "完成 DNS 设置，让域名变为活动状态。"
+      },
+      "create-mailbox": {
+        "label": "创建邮箱",
+        "description": "在已验证的域名上设置您的第一个邮箱。"
+      },
+      "send-first-email": {
+        "label": "发送您的第一封邮件",
+        "description": "通过 Sentroy Mail 投递一封邮件。"
+      },
+      "create-template": {
+        "label": "创建邮件模板",
+        "description": "在 Mail 中设计一个可复用的模板。"
+      },
+      "create-bucket": {
+        "label": "创建存储桶",
+        "description": "创建您的第一个存储桶。"
+      },
+      "upload-first-file": {
+        "label": "上传您的第一个文件",
+        "description": "向存储桶中添加文件或图片。"
+      },
+      "connect-number": {
+        "label": "连接 WhatsApp 号码",
+        "description": "扫描二维码以关联号码。"
+      },
+      "send-first-message": {
+        "label": "发送您的第一条 WhatsApp 消息",
+        "description": "从 Santral 向联系人或受众发送消息。"
+      },
+      "connect-workspace": {
+        "label": "连接您的 Linear 工作区",
+        "description": "在设置中添加您的 Linear API 密钥。"
+      },
+      "first-request": {
+        "label": "接收您的第一个请求",
+        "description": "通过 Telegram 或表单将请求接入面板。"
+      },
+      "create-oauth-client": {
+        "label": "创建 OAuth 客户端",
+        "description": "为您的应用启用“使用 Sentroy 登录”。"
+      },
+      "create-auth-project": {
+        "label": "创建 Auth 项目",
+        "description": "使用 Sentroy Auth 托管您自己的终端用户池。"
+      },
+      "first-project": {
+        "label": "创建 Studio 项目",
+        "description": "在 Sentroy Studio 中开始您的第一个项目。"
+      }
+    }
+  },
+  "tour": {
+    "next": "下一步",
+    "back": "上一步",
+    "skip": "跳过",
+    "done": "完成",
+    "restart": "开始导览",
+    "app": {
+      "menubar": {
+        "title": "您的工作区",
+        "body": "这是菜单栏。点击您的公司可切换工作区、查看个人资料和动态，并进入设置。"
+      },
+      "dock": {
+        "title": "Dock 栏",
+        "body": "从 Dock 打开您的应用 — Mail、Storage、Auth 等等。右键点击应用可固定、取消固定或在新标签页中打开。"
+      },
+      "windows": {
+        "title": "应用以窗口形式打开",
+        "body": "应用就在桌面上以可拖动、可调整大小的窗口运行 — 就像真正的操作系统一样。闲置窗口会自动挂起。"
+      },
+      "widgets": {
+        "title": "桌面小组件",
+        "body": "右键点击桌面可添加小组件、刷新它们或更换壁纸。小组件停留在桌面上，位于窗口下方。"
+      },
+      "achievements": {
+        "title": "成就",
+        "body": "在这里跟踪您的上手进度。探索 Sentroy 时逐步完成各项步骤 — 点击查看完整清单。"
+      }
+    }
+  }
+}

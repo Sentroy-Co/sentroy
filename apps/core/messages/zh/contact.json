@@ -1,0 +1,45 @@
+{
+  "metaTitle": "联系我们",
+  "metaDescription": "与 Sentroy 团队取得联系。",
+  "title": "联系我们",
+  "subtitle": "为避免收件箱被机器人骚扰，请确认您是真人，我们随后会显示联系邮箱。",
+  "back": "返回 Sentroy",
+  "reveal": {
+    "button": "显示联系邮箱",
+    "verifying": "正在验证…",
+    "humanCheck": "确认您是真人后即可查看邮箱",
+    "error": "无法验证，请重试",
+    "unavailable": "联系方式暂时不可用"
+  },
+  "form": {
+    "title": "给我们留言",
+    "subtitle": "遇到问题或有疑问？告诉我们——我们会阅读每一条留言。",
+    "name": "您的姓名",
+    "namePh": "张三",
+    "email": "邮箱",
+    "emailPh": "you@example.com",
+    "emailOptional": "选填——填写后我们会向您发送确认邮件及回复。",
+    "category": "主题",
+    "subject": "标题",
+    "subjectPh": "简要说明（选填）",
+    "message": "留言内容",
+    "messagePh": "有什么可以帮您的？",
+    "submit": "发送留言",
+    "sending": "正在发送…",
+    "sentTitle": "留言已发送",
+    "sentBody": "谢谢——我们已收到您的留言，会尽快回复您。",
+    "error": "发送失败，请重试。"
+  },
+  "categories": {
+    "general": "一般咨询",
+    "support": "问题 / 支持",
+    "billing": "账单",
+    "partnership": "合作",
+    "feedback": "反馈",
+    "other": "其他"
+  },
+  "investors": {
+    "title": "投资者与媒体",
+    "body": "如需投资者关系或媒体合作，请直接通过邮件与我们联系——我们更倾向于这种沟通方式。"
+  }
+}

@@ -1,0 +1,684 @@
+{
+  "nav": {
+    "platform": "平台",
+    "overview": "面板",
+    "requests": "收件箱",
+    "newTask": "新建任务",
+    "metrics": "指标",
+    "linearSettings": "Linear 设置",
+    "team": "团队",
+    "settings": "设置",
+    "accessTokens": "访问令牌",
+    "account": "个人资料",
+    "logout": "退出登录",
+    "teams": "团队",
+    "addTeam": "添加团队",
+    "noTeams": "暂无团队",
+    "loading": "加载中…",
+    "noCompany": "无公司",
+    "admin": "管理员",
+    "administration": "管理",
+    "backToApp": "返回应用",
+    "companyProfile": "公司资料",
+    "companyHub": "公司",
+    "dashboard": "仪表板"
+  },
+  "linearLite": {
+    "common": {
+      "appName": "Linear Lite",
+      "loading": "加载中…",
+      "save": "保存",
+      "saving": "保存中…",
+      "cancel": "取消",
+      "delete": "删除",
+      "edit": "编辑",
+      "close": "关闭",
+      "retry": "重试",
+      "created": "已创建",
+      "updated": "已保存",
+      "deleted": "已删除",
+      "copy": "复制",
+      "copied": "已复制",
+      "search": "搜索…",
+      "noResults": "无结果",
+      "loadError": "无法加载。",
+      "somethingWrong": "出了点问题",
+      "noPermission": "您没有执行此操作的权限。"
+    },
+    "notConnected": {
+      "title": "Linear 未连接",
+      "description": "使用 API 密钥连接您的 Linear 工作区，即可从此面板管理请求。",
+      "descriptionMember": "该公司的 Linear 工作区尚未连接。请让工作区管理员进行设置。",
+      "cta": "打开 Linear 设置"
+    },
+    "tasks": {
+      "detail": {
+        "activity": "动态",
+        "titleAria": "标题",
+        "descriptionAria": "描述",
+        "descriptionPlaceholder": "添加描述…",
+        "noActivity": "暂无动态。",
+        "addComment": "添加评论…",
+        "addCommentAria": "添加评论",
+        "sendComment": "发送",
+        "replyPlaceholder": "写下回复…",
+        "replyAria": "写下回复",
+        "replyBadge": "回复",
+        "cancelReply": "取消回复",
+        "attached": "已添加附件",
+        "attach": {
+          "button": "添加附件",
+          "title": "添加附件",
+          "desc": "上传文件或粘贴链接，它将附加到 Linear 中。",
+          "label": "标题（可选）",
+          "labelPlaceholder": "例如：Bug 截图",
+          "submit": "添加",
+          "tabFile": "文件",
+          "tabLink": "链接",
+          "dropTitle": "选择文件或拖放到此处",
+          "maxSize": "最大 25 MB",
+          "tooLarge": "文件不能超过 25 MB（{size}）",
+          "pickFirst": "请先选择文件",
+          "invalidUrl": "请输入有效的 URL",
+          "remove": "移除"
+        }
+      },
+      "priority": {
+        "no_priority": "无优先级",
+        "urgent": "紧急",
+        "high": "高",
+        "medium": "中",
+        "low": "低"
+      },
+      "status": {
+        "backlog": "待办储备",
+        "todo": "待办",
+        "in_progress": "进行中",
+        "done": "已完成",
+        "cancelled": "已取消"
+      },
+      "relative": {
+        "now": "刚刚",
+        "minutes": "{count} 分钟",
+        "hours": "{count} 小时",
+        "days": "{count} 天"
+      },
+      "list": {
+        "drag_handle": "拖动",
+        "reorder_failed": "无法更新排序"
+      },
+      "kanban": {
+        "move_failed": "无法更新状态",
+        "state_missing": "{team} 团队没有“{state}”状态",
+        "no_states": "未找到此工作区的工作流状态。",
+        "empty_columns": "空列",
+        "empty": "空"
+      },
+      "view": {
+        "label": "视图",
+        "list": "列表",
+        "kanban": "看板"
+      },
+      "filter": {
+        "button": "筛选",
+        "scope": "范围",
+        "scope_workspace": "整个工作区",
+        "scope_mine_linear": "分配给我的",
+        "scope_mine_proxy": "我的请求",
+        "state": "状态",
+        "open": "进行中",
+        "all": "全部",
+        "closed": "已关闭",
+        "assignee": "负责人",
+        "unassigned": "未分配",
+        "no_users": "无用户",
+        "label": "标签",
+        "no_labels": "无标签",
+        "no_labels_in_group": "此类别中无标签",
+        "clear": "清除筛选"
+      },
+      "chip": {
+        "empty": "无选项",
+        "selected_count": "已选 {count} 项",
+        "search_placeholder": "搜索…",
+        "clear_all": "全部清除",
+        "clear": "清除选择",
+        "no_labels_in_group": "此类别中无标签"
+      },
+      "quick_add": {
+        "min_length": "标题至少需要 3 个字符",
+        "placeholder_compact": "添加请求…",
+        "placeholder": "输入标题快速添加请求…",
+        "aria": "快速请求标题",
+        "submit": "添加"
+      },
+      "new": {
+        "title": "新建请求",
+        "sent": "请求已创建",
+        "submit": "提交请求",
+        "dialog_description": "请求将直接在 Linear 中创建；之后您可以从详情页进行编辑。",
+        "fields": {
+          "title": "标题",
+          "title_placeholder": "简要概述问题",
+          "description": "描述",
+          "description_placeholder": "在此填写详细信息",
+          "state": "状态",
+          "priority": "优先级",
+          "assignee": "负责人",
+          "assignee_clear": "移除负责人",
+          "labels": "标签",
+          "labels_empty": "此团队暂无标签",
+          "team": "团队"
+        },
+        "template": {
+          "label": "模板",
+          "placeholder": "选择模板",
+          "clear": "移除模板",
+          "confirm_title": "更换模板？",
+          "confirm_description": "表单中的标题、描述、标签及其他字段将更新为与新模板匹配。此操作无法撤销。",
+          "confirm_confirm": "更换",
+          "confirm_cancel": "取消",
+          "applied": "已应用模板“{name}”",
+          "applying": "正在应用模板…"
+        },
+        "attachments": {
+          "title": "附件（{count}）",
+          "add": "添加附件",
+          "remove": "移除 {name}",
+          "upload_failed": "无法上传附件：{name}",
+          "uploading": "正在上传附件…"
+        }
+      },
+      "sub_task": {
+        "add": "添加子任务"
+      },
+      "title": "问题",
+      "titleMinError": "标题至少需要 3 个字符",
+      "children": {
+        "heading": "子问题（{count}）"
+      },
+      "comments": {
+        "none": "暂无评论。",
+        "unknown": "未知",
+        "reply": "回复",
+        "createFromComment": "从评论创建问题",
+        "createSubFromComment": "从评论创建子问题",
+        "copyComment": "复制评论",
+        "copied": "评论已复制",
+        "menuAria": "评论菜单",
+        "deleteTitle": "删除评论？",
+        "deleteDesc": "此操作无法撤销。该评论也会在 Linear 中被删除。",
+        "emptyError": "评论不能为空"
+      },
+      "activity": {
+        "system": "系统",
+        "filterByUser": "筛选分配给 {name} 的问题",
+        "filterAvatarAria": "筛选 {name} 的问题",
+        "addedLink": "添加了一个链接：",
+        "historyStatus": "更改了状态",
+        "historyAssigned": "指派给 <user></user>",
+        "historyUnassigned": "移除了负责人",
+        "historyPriority": "将优先级设为",
+        "historyLabelsAdded": "添加了 <labels></labels>",
+        "historyLabelsRemoved": "移除了 <labels></labels>",
+        "historyTitleEdited": "编辑了标题",
+        "historyArchived": "已归档",
+        "historyUnarchived": "已取消归档"
+      },
+      "hover": {
+        "previewError": "无法加载预览",
+        "relativeNow": "刚刚",
+        "relativeMinutes": "{n} 分钟前",
+        "relativeHours": "{n} 小时前",
+        "relativeDays": "{n} 天前"
+      },
+      "menu": {
+        "status": "状态",
+        "priority": "优先级",
+        "labels": "标签",
+        "assignee": "负责人",
+        "clearAssignee": "移除负责人",
+        "noTeamLabels": "此团队暂无标签",
+        "copy": "复制",
+        "copyIdentifier": "标识符",
+        "copyTitle": "标题",
+        "copyUrl": "Linear URL",
+        "copiedIdentifier": "标识符已复制",
+        "copiedTitle": "标题已复制",
+        "copiedUrl": "URL 已复制",
+        "clipboardError": "无法复制到剪贴板",
+        "createLinked": "创建关联项",
+        "subTaskNewForm": "子问题（新建表单）",
+        "archive": "归档",
+        "archiveConfirmTitle": "归档 {identifier}？",
+        "archiveConfirmDesc": "该问题将在 Linear 中归档；如有需要，您可以从 Linear 界面恢复它。",
+        "noLabels": "无标签",
+        "noLabelsInCategory": "此类别中无标签",
+        "issueMenuAria": "问题菜单"
+      },
+      "related": {
+        "issue": "新建问题",
+        "sub": "子问题",
+        "parent": "父问题",
+        "blocking": "阻塞",
+        "blocked": "被阻塞",
+        "related": "相关"
+      },
+      "createRelated": {
+        "issueTitle": "创建新问题",
+        "issueDesc": "打开一个新的无关联问题。",
+        "subTitle": "创建子问题",
+        "subDesc": "在此问题下打开一个新的子问题。",
+        "parentTitle": "创建父问题",
+        "parentDesc": "将此问题关联到一个新问题之下。",
+        "blockingTitle": "创建阻塞问题",
+        "blockingDesc": "打开一个阻塞此问题的新问题。",
+        "blockedTitle": "创建被阻塞问题",
+        "blockedDesc": "打开一个被此问题阻塞的新问题。",
+        "relatedTitle": "创建相关问题",
+        "relatedDesc": "打开一个与此问题相关的新问题。",
+        "issueCreated": "已创建新问题",
+        "subCreated": "已创建子问题",
+        "parentCreated": "已创建父问题",
+        "blockingCreated": "已创建阻塞问题",
+        "blockedCreated": "已创建被阻塞问题",
+        "relatedCreated": "已创建相关问题",
+        "source": "来源：",
+        "titleLabel": "标题",
+        "titlePlaceholder": "简要概述问题",
+        "descLabel": "描述",
+        "descPlaceholder": "可选描述",
+        "submit": "创建"
+      }
+    },
+    "requests": {
+      "title": "收件箱",
+      "subtitle": "您提交的请求及其状态更新。",
+      "empty": {
+        "title": "您的收件箱为空",
+        "description": "您还没有提交任何请求。您发送的请求及其状态变更将显示在这里。"
+      },
+      "loadError": "无法加载收件箱。",
+      "openDetail": "打开详情",
+      "unread": "未读更新",
+      "unreadTitle": "自您上次查看以来状态已变更",
+      "groups": {
+        "today": "今天",
+        "yesterday": "昨天",
+        "week": "最近 7 天",
+        "older": "更早"
+      }
+    },
+    "editor": {
+      "ariaLabel": "富文本编辑器",
+      "uploadFailed": "图片上传失败",
+      "uploading": "{count, plural, one {正在上传图片…} other {正在上传 # 张图片…}}",
+      "bold": "加粗",
+      "italic": "斜体",
+      "strikethrough": "删除线",
+      "inlineCode": "行内代码",
+      "codeBlock": "代码块",
+      "bulletList": "无序列表",
+      "orderedList": "有序列表",
+      "link": "链接",
+      "linkPrompt": "链接 URL",
+      "image": "图片"
+    },
+    "richTextView": {
+      "copyCode": "复制代码块",
+      "copyFailed": "无法复制到剪贴板"
+    },
+    "confirmDialog": {
+      "confirm": "确认",
+      "cancel": "取消"
+    },
+    "theme": {
+      "toggle": "主题",
+      "light": "浅色",
+      "dark": "深色",
+      "system": "跟随系统"
+    },
+    "shortcuts": {
+      "open": "显示键盘快捷键",
+      "title": "键盘快捷键",
+      "description": "当文本框、对话框或命令面板打开时，快捷键会被禁用。",
+      "then": "然后",
+      "groupNavigation": "导航",
+      "groupActions": "操作",
+      "groupView": "视图",
+      "groupEditor": "编辑器",
+      "goDashboard": "前往面板",
+      "goInbox": "前往请求",
+      "goNew": "前往新建请求表单",
+      "create": "创建新请求",
+      "openPalette": "打开命令面板",
+      "openPaletteAlt": "打开命令面板（备用）",
+      "help": "打开此帮助面板",
+      "themeToggle": "切换浅色/深色主题",
+      "submitComment": "提交评论",
+      "bold": "加粗",
+      "italic": "斜体",
+      "insertLink": "插入链接"
+    },
+    "draft": {
+      "title": "保留此草稿？",
+      "description": "下次打开表单时，您的标题和描述将已就绪。删除会重置整个表单。",
+      "discard": "删除",
+      "cancel": "取消",
+      "keep": "保留"
+    },
+    "version": {
+      "label": "版本 v{version}",
+      "notesAria": "版本 v{version} — 发行说明",
+      "notes": "发行说明"
+    },
+    "layout": {
+      "palette": {
+        "placeholder": "搜索命令或导航…",
+        "searching": "搜索中…",
+        "empty": "未找到结果",
+        "groupTasks": "任务",
+        "groupPages": "页面",
+        "groupTheme": "主题",
+        "groupAccount": "账户",
+        "dashboard": "面板",
+        "metrics": "指标",
+        "newTask": "新建任务",
+        "recentSearches": "最近搜索",
+        "recentCards": "最近查看",
+        "clear": "清除",
+        "logout": "退出登录"
+      },
+      "header": {
+        "searchLabel": "打开命令面板"
+      },
+      "push": {
+        "on": "推送通知已开启",
+        "off": "启用推送通知",
+        "denied": "浏览器设置中已阻止通知"
+      }
+    },
+    "metrics": {
+      "requests": "个请求",
+      "percentValue": "{value}%",
+      "completionRate": "{value}% 完成率",
+      "hero": {
+        "kicker": "指标",
+        "description": "面板请求的流转情况 — 数量、解决速度以及承担工作的人。",
+        "thisWeek": "本周",
+        "lastWeek": "上周",
+        "completionRate": "完成率",
+        "seeClosed": "查看已关闭的请求",
+        "requestsWord": "个请求"
+      },
+      "cards": {
+        "total": "请求总数",
+        "open": "进行中",
+        "completed": "已完成",
+        "avgResolution": "平均解决时间",
+        "openAge": "进行中的请求平均已等待 {age}"
+      },
+      "duration": {
+        "minutes": "{value} 分钟",
+        "hours": "{value} 小时",
+        "days": "{value} 天"
+      },
+      "chart": {
+        "bar": "柱状图",
+        "line": "折线图",
+        "requests": "请求",
+        "totalCenter": "总计"
+      },
+      "panels": {
+        "statesTitle": "按状态",
+        "statesSubtitle": "进行中与已关闭工作的分布",
+        "prioritiesTitle": "按优先级",
+        "prioritiesSubtitle": "工作负荷的紧急程度",
+        "creatorsTitle": "创建最多的人",
+        "creatorsSubtitle": "谁提交的请求最多",
+        "assigneesTitle": "负责最多的人",
+        "assigneesSubtitle": "谁承担了进行中的工作",
+        "completersTitle": "完成最多的人",
+        "completersSubtitle": "谁关闭的请求最多",
+        "labelsTitle": "热门标签",
+        "labelsSubtitle": "使用最多的标签",
+        "last30Title": "最近 30 天",
+        "last30Subtitle": "每日新增请求",
+        "staleTitle": "停滞的请求",
+        "staleSubtitle": "进行中且 14 天以上未处理",
+        "staleSubtitleEmpty": "没有停滞的请求 — 做得很好"
+      },
+      "empty": {
+        "noData": "暂无数据可显示",
+        "noAssigned": "没有已分配的请求",
+        "noCompleted": "尚未完成任何请求",
+        "noLabels": "尚未使用任何标签",
+        "noStale": "没有停滞的请求"
+      },
+      "people": {
+        "viewReport": "查看 {name} 的报告"
+      },
+      "priorities": {
+        "p0": "无优先级",
+        "p1": "紧急",
+        "p2": "高",
+        "p3": "中",
+        "p4": "低"
+      },
+      "states": {
+        "triage": "分诊",
+        "backlog": "待办储备",
+        "unstarted": "待办",
+        "started": "进行中",
+        "completed": "已完成",
+        "canceled": "已取消"
+      },
+      "report": {
+        "share": "占全部请求的 {pct}%",
+        "opened": "已创建",
+        "openedThisWeek": "本周 +{count}",
+        "assigned": "已分配",
+        "assignedOpen": "{count} 个仍在进行中",
+        "completed": "已完成",
+        "completionRate": "{value}% 完成率",
+        "avgResolution": "平均解决时间",
+        "recentTitle": "最近的请求",
+        "recentSubtitle": "此人的最新动态",
+        "timelineTitle": "动态",
+        "timelineSubtitle": "最近 30 天内创建的请求",
+        "topLabelsTitle": "热门标签",
+        "topLabelsSubtitle": "此人最常使用的标签"
+      },
+      "loadError": "无法从 Linear 加载指标"
+    },
+    "newTask": {
+      "subTaskTitle": "创建子请求",
+      "parentLabel": "父请求：",
+      "errors": {
+        "noTeams": "未找到 Linear 团队。",
+        "loadFailed": "无法连接到 Linear。"
+      }
+    },
+    "panel": {
+      "title": "问题",
+      "tagline": "由 Linear 驱动的 IT 请求管理",
+      "newTask": "新建请求",
+      "empty": {
+        "title": "暂无请求",
+        "description": "使用下方按钮创建您的第一个请求。",
+        "cta": "创建第一个请求"
+      },
+      "errorTitle": "出了点问题",
+      "connectionError": "无法连接到 Linear。",
+      "allTeams": "全部",
+      "titleWithTeam": "{team} 问题"
+    },
+    "settings": {
+      "title": "Linear 设置",
+      "description": "连接该公司的 Linear 工作区并配置面板的行为方式。",
+      "vaultWarning": {
+        "title": "密钥存储尚未配置",
+        "description": "服务器上未设置 SENTROY_ENV_MASTER_KEY，因此无法加密 API 密钥和 webhook 密钥。在运维人员完成配置之前，保存设置功能已被禁用。"
+      },
+      "connection": {
+        "title": "Linear 连接",
+        "description": "该公司所使用 Linear 工作区的个人 API 密钥。密钥将加密存储，且不会再次显示。",
+        "statusConnected": "已连接",
+        "statusNotConnected": "未连接",
+        "apiKeyLabel": "Linear API 密钥",
+        "apiKeyPlaceholder": "lin_api_…",
+        "apiKeyHint": "在 Linear 的“设置 → API → 个人 API 密钥”中创建一个。仅前几位字符会保持可见。",
+        "apiKeyChange": "更改",
+        "apiKeyCancel": "取消",
+        "panelLabelLabel": "面板标签",
+        "panelLabelHint": "带有此 Linear 标签的问题将显示在面板上。",
+        "teamLabel": "默认团队",
+        "teamNone": "无默认团队",
+        "teamEmptyHint": "保存有效的 API 密钥后，团队将显示在此处。",
+        "defaultLabelLabel": "默认标签",
+        "defaultLabelPlaceholder": "例如：分诊",
+        "defaultStateLabel": "默认状态",
+        "defaultStatePlaceholder": "例如：待办",
+        "actorAppLabel": "以应用身份操作",
+        "actorAppHint": "以应用主体而非密钥所有者的身份执行 Linear 变更操作。",
+        "save": "保存",
+        "saveVerify": "验证并保存",
+        "saving": "保存中…",
+        "saved": "连接设置已保存",
+        "saveError": "无法保存连接设置"
+      },
+      "webhook": {
+        "title": "Webhook",
+        "description": "Linear 会将问题和评论事件推送到此端点，以便面板实时更新。",
+        "statusActive": "已注册",
+        "statusMissing": "未注册",
+        "endpointLabel": "端点 URL",
+        "copy": "复制",
+        "copied": "端点已复制",
+        "lastEventLabel": "上次事件：",
+        "lastEventNever": "从未",
+        "notConnectedHint": "请先连接 Linear API 密钥以注册 webhook。",
+        "setup": "设置 webhook",
+        "renew": "续订 webhook",
+        "remove": "移除",
+        "setupSuccess": "Webhook 已注册",
+        "removeSuccess": "Webhook 已移除",
+        "error": "Webhook 操作失败"
+      },
+      "storage": {
+        "title": "文件存储",
+        "description": "上传的图片和附件的存储位置。",
+        "providerLabel": "提供方",
+        "providerLinear": "Linear（默认）",
+        "providerSentroy": "Sentroy Storage",
+        "providerHint": "Linear 将文件存储在您的工作区中（查看需要 Linear 会话）。Sentroy Storage 提供公开的 CDN URL。",
+        "apiKeyLabel": "Sentroy 访问令牌",
+        "apiKeyPlaceholder": "stk_…",
+        "apiKeyChange": "更改",
+        "apiKeyCancel": "取消",
+        "bucketLabel": "存储桶 ID",
+        "bucketPlaceholder": "存储桶标识符",
+        "companySlugLabel": "公司 slug",
+        "companySlugPlaceholder": "your-company",
+        "baseUrlLabel": "基础 URL",
+        "sentroyHint": "令牌、存储桶 ID 和公司 slug 均为必填项；存储桶必须为公开。对于 sentroy.com，基础 URL 可留空。",
+        "save": "保存",
+        "saving": "保存中…",
+        "saved": "存储设置已保存",
+        "saveError": "无法保存存储设置"
+      },
+      "telegram": {
+        "title": "Telegram 机器人",
+        "description": "运维人员可从 Telegram 打开面板请求。机器人从此应用轮询 Telegram，无需设置 webhook。机器人默认语言为英语。",
+        "statusEnabled": "已启用",
+        "statusDisabled": "已禁用",
+        "enabledLabel": "启用机器人",
+        "enabledHint": "保存后一分钟内开始轮询。需要机器人令牌。",
+        "tokenLabel": "机器人令牌",
+        "tokenPlaceholder": "123456789:AA…",
+        "tokenHint": "在 Telegram 中通过 @BotFather 创建机器人并粘贴其令牌。它将加密存储，仅最后 4 位字符保持可见。",
+        "tokenChange": "更改",
+        "tokenCancel": "取消",
+        "languageLabel": "机器人语言",
+        "languageHint": "机器人发送的所有消息所用的语言。无论如何，命令在两种语言下均可使用。",
+        "languageEn": "English",
+        "languageTr": "Türkçe",
+        "operatorsLabel": "运维人员",
+        "operatorsHint": "只有列出的 Telegram 用户才能使用机器人。可设置每条命令的权限，并可选择将运维人员与公司成员关联。",
+        "operatorsEmpty": "暂无运维人员。请在下方按 ID 添加，或使用监听模式。",
+        "operatorsInvalid": "运维人员 ID 必须为数字形式的 Telegram 用户 ID",
+        "operatorDuplicate": "此 Telegram 用户已是运维人员",
+        "operatorAdd": "添加",
+        "operatorAddPlaceholder": "Telegram 用户 ID，例如 123456789",
+        "operatorRemove": "移除",
+        "permCreate": "创建请求",
+        "permListAll": "列出所有请求",
+        "permCancel": "取消",
+        "memberLabel": "公司成员",
+        "memberNone": "未关联",
+        "discoveryTitle": "监听模式",
+        "discoveryHint": "在 5 分钟内，向机器人发送消息的未知用户会被收集到此处（仅身份信息），以便您将他们添加为运维人员。",
+        "discoveryStart": "开始监听",
+        "discoveryStop": "停止",
+        "discoveryActive": "监听中 — 剩余 {time}",
+        "discoverySeenEmpty": "暂无用户。请让对方向机器人发送任意消息。",
+        "discoveryAdd": "添加为运维人员",
+        "discoveryAdded": "运维人员已添加",
+        "discoveryError": "无法更新监听模式",
+        "lastPolledLabel": "上次轮询：",
+        "lastPolledNever": "从未",
+        "save": "保存",
+        "saveVerify": "验证并保存",
+        "saving": "保存中…",
+        "saved": "Telegram 设置已保存",
+        "saveError": "无法保存 Telegram 设置",
+        "operatorPerms": "{count}/3 项权限",
+        "memberLinked": "已关联",
+        "memberHint": "可选 — 将此运维人员与公司成员关联，使其在面板中创建的请求也出现在机器人中。",
+        "teamAccessLabel": "团队访问权限",
+        "teamAccessAll": "所有团队",
+        "teamAccessNone": "无团队访问权限",
+        "teamAccessHint": "此运维人员可为哪些团队打开和列出请求。若只有一个团队，则跳过团队选择步骤；若无访问权限，请求命令将被礼貌拒绝。",
+        "operatorRemoveConfirm": "确认移除",
+        "operatorAddHint": "数字形式的 Telegram 用户 ID（来自 @userinfobot）。新运维人员初始不具备团队访问权限。"
+      },
+      "appearance": {
+        "title": "外观与行为",
+        "description": "为该公司的所有人切换面板功能。更改将立即保存。",
+        "groups": {
+          "display": "显示",
+          "behavior": "行为",
+          "notifications": "桌面通知",
+          "view": "面板视图"
+        },
+        "flags": {
+          "showStatus": "显示状态",
+          "showAssignee": "显示负责人",
+          "showLabels": "显示标签",
+          "showLinkedIssues": "显示关联问题",
+          "showTeamPicker": "显示团队选择器",
+          "showArchive": "允许归档",
+          "kanbanDnd": "看板拖放",
+          "kanbanQuickAdd": "看板快速添加",
+          "listDnd": "列表重新排序",
+          "notifyCompleted": "完成时通知",
+          "notifyAssigned": "分配时通知",
+          "notifyCreated": "新问题时通知",
+          "notifyComment": "评论时通知",
+          "groupByTeam": "按团队分组任务",
+          "showAllIssues": "显示所有 Linear 任务（不仅是面板创建的）"
+        },
+        "saveError": "无法保存该设置"
+      },
+      "common": {
+        "notSet": "未设置",
+        "cancel": "取消",
+        "save": "保存",
+        "saving": "保存中…"
+      }
+    },
+    "motion": {
+      "working": "处理中"
+    }
+  }
+}

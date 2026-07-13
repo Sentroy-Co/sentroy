@@ -1,0 +1,17 @@
+{
+  "metaTitle": "品牌",
+  "metaDescription": "Sentroy 品牌素材 — 徽标、标识与配色。",
+  "title": "品牌",
+  "subtitle": "Sentroy 的徽标、标识与配色。预览素材、下载所需内容，并遵循配色规范。",
+  "back": "返回 Sentroy",
+  "logos": "徽标",
+  "logosDesc": "深色背景上使用浅色徽标，浅色背景上使用深色徽标。推荐使用 SVG；同时提供 PNG 以用于位图场景。",
+  "onDark": "深色背景",
+  "onLight": "浅色背景",
+  "colored": "彩色",
+  "download": "下载",
+  "colors": "配色",
+  "colorsDesc": "点击色块即可复制其十六进制值。",
+  "copied": "已复制",
+  "note": "在徽标周围保留足够的留白，切勿拉伸、改色或为标识添加特效。"
+}

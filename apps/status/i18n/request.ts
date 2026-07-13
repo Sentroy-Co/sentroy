@@ -13,13 +13,22 @@ import enConsole from "@workspace/console/messages/en/console.json"
 import trConsole from "@workspace/console/messages/tr/console.json"
 import enMain from "../messages/en/main.json"
 import trMain from "../messages/tr/main.json"
+import ruConsole from "@workspace/console/messages/ru/console.json"
+import ruMain from "../messages/ru/main.json"
+import zhConsole from "@workspace/console/messages/zh/console.json"
+import zhMain from "../messages/zh/main.json"
+import esConsole from "@workspace/console/messages/es/console.json"
+import esMain from "../messages/es/main.json"
 
-const SUPPORTED = ["en", "tr"] as const
+const SUPPORTED = ["en", "tr", "ru", "zh", "es"] as const
 type Locale = (typeof SUPPORTED)[number]
 
 const bundles: Record<Locale, Record<string, unknown>> = {
   en: { ...enConsole, ...enMain } as Record<string, unknown>,
   tr: { ...trConsole, ...trMain } as Record<string, unknown>,
+  ru: { ...ruConsole, ...ruMain } as Record<string, unknown>,
+  zh: { ...zhConsole, ...zhMain } as Record<string, unknown>,
+  es: { ...esConsole, ...esMain } as Record<string, unknown>,
 }
 
 export default getRequestConfig(async ({ requestLocale }) => {

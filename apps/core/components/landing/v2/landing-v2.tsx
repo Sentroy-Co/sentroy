@@ -47,7 +47,7 @@ const PricingGlass = dynamic(() => import("./sections/sdk-pricing").then((m) => 
 const ProofFaq = dynamic(() => import("./sections/proof-cta").then((m) => m.ProofFaq))
 const YourDesktop = dynamic(() => import("./sections/proof-cta").then((m) => m.YourDesktop))
 
-const CORE_LOCALES = ["en", "tr"] as const
+const CORE_LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 
 /** Dock tooltip adları — ürün/marka adları çevrilmez (bkz. landing-v2.json products). */
 function useProductNames(): Record<string, string> {

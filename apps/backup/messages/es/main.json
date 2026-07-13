@@ -1,0 +1,94 @@
+{
+  "backup": {
+    "title": "Copias de seguridad de MongoDB",
+    "subtitle": "Haz copias de seguridad de tus bases de datos MongoDB, restáuralas entre servidores o descarga un volcado a tu escritorio.",
+    "nav": {
+      "backups": "Copias de seguridad"
+    },
+    "tabs": {
+      "connections": "Conexiones",
+      "backups": "Copias de seguridad"
+    },
+    "actions": {
+      "refresh": "Actualizar",
+      "addConnection": "Añadir conexión",
+      "backupNow": "Hacer copia ahora",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "download": "Descargar",
+      "restore": "Restaurar",
+      "cancel": "Cancelar",
+      "save": "Guardar"
+    },
+    "fields": {
+      "db": "Base de datos",
+      "lastBackup": "Última copia de seguridad",
+      "label": "Etiqueta",
+      "labelPh": "Clúster de producción",
+      "uri": "URI de conexión",
+      "uriHint": "mongodb:// o mongodb+srv:// — se almacena cifrada y no se vuelve a mostrar.",
+      "uriEditHint": "Déjalo vacío para conservar la URI actual.",
+      "currentUri": "Actual",
+      "defaultDb": "Base de datos predeterminada",
+      "defaultDbHint": "Opcional — se usa cuando no especificas una al hacer la copia de seguridad.",
+      "source": "Copia de seguridad de origen",
+      "targetConnection": "Conexión de destino",
+      "targetDb": "Base de datos de destino",
+      "targetDbHint": "En qué base de datos restaurar (en la conexión de destino).",
+      "drop": "Eliminar las colecciones de destino antes de restaurar (restauración limpia)"
+    },
+    "empty": {
+      "connections": "Aún no hay conexiones. Añade una conexión de MongoDB para empezar a hacer copias de seguridad.",
+      "backups": "Aún no hay copias de seguridad. Ejecuta una copia desde la pestaña Conexiones."
+    },
+    "status": {
+      "queued": "En cola",
+      "running": "En curso",
+      "success": "Correcto",
+      "failed": "Fallido"
+    },
+    "kind": {
+      "restore": "restauración"
+    },
+    "stage": {
+      "dumping": "Volcando",
+      "uploading": "Subiendo",
+      "restoring": "Restaurando",
+      "done": "Completado"
+    },
+    "dialog": {
+      "addTitle": "Añadir conexión",
+      "editTitle": "Editar conexión",
+      "connDesc": "Registra una conexión de MongoDB. La URI se cifra en reposo y no se vuelve a mostrar.",
+      "restoreTitle": "Restaurar copia de seguridad",
+      "restoreDesc": "Restaura esta copia de seguridad en una conexión de destino — el mismo servidor u otro."
+    },
+    "confirm": {
+      "deleteConnTitle": "¿Eliminar conexión?",
+      "deleteConnBody": "Esto elimina \"{label}\" y todos sus registros de copias de seguridad y artefactos almacenados. Esta acción no se puede deshacer.",
+      "deleteJobTitle": "¿Eliminar copia de seguridad?",
+      "deleteJobBody": "Esto elimina el registro y su artefacto almacenado. Esta acción no se puede deshacer.",
+      "restoreTitle": "¿Restaurar en {target}?",
+      "restoreBody": "Esto restaurará en la base de datos \"{db}\" en {target}. Modo de eliminación: {drop}. Esto sobrescribe los datos del destino y no se puede deshacer.",
+      "dropOn": "ACTIVADO (las colecciones de destino se eliminan primero)",
+      "dropOff": "DESACTIVADO (fusionar con las existentes)"
+    },
+    "warnings": {
+      "restore": "La restauración sobrescribe los datos de la base de datos de destino. Asegúrate de haber seleccionado el destino correcto — esta acción no se puede deshacer."
+    },
+    "toast": {
+      "backupStarted": "Copia de seguridad iniciada — sigue su progreso en Copias de seguridad.",
+      "connDeleted": "Conexión eliminada.",
+      "jobDeleted": "Copia de seguridad eliminada.",
+      "connAdded": "Conexión añadida.",
+      "connUpdated": "Conexión actualizada.",
+      "restoreStarted": "Restauración iniciada — sigue su progreso en Copias de seguridad."
+    },
+    "errors": {
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "labelRequired": "La etiqueta es obligatoria.",
+      "uriRequired": "La URI de conexión es obligatoria.",
+      "targetRequired": "Selecciona una conexión de destino."
+    }
+  }
+}

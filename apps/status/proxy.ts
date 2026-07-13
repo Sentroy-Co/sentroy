@@ -11,7 +11,7 @@ import type { NextRequest } from "next/server"
  * API path'leri ve static asset'ler exclude.
  */
 
-const SUPPORTED = ["en", "tr"] as const
+const SUPPORTED = ["en", "tr", "ru", "zh", "es"] as const
 const DEFAULT_LOCALE = "en"
 
 function detectLocale(request: NextRequest): string {

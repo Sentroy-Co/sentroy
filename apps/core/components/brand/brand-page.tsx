@@ -16,7 +16,7 @@ import { cn } from "@workspace/ui/lib/utils"
  */
 
 const RED = "#FF1744"
-const LOCALES = ["en", "tr"] as const
+const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 
 const COLORS = [
   { name: "Sentroy Red", hex: "#FF1744" },

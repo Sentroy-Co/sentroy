@@ -27,7 +27,7 @@ import {
 const ROOT_DOMAIN = serverRootDomain()
 const ROOT = rootOrigin(ROOT_DOMAIN)
 const DOCS = `https://${docsHost(ROOT_DOMAIN)}`
-const LOCALES = ["en", "tr"] as const
+const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
 
 const DOCS_SECTIONS = [
   "/",
