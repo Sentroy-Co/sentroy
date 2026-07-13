@@ -16,6 +16,10 @@ import {
 } from "@hugeicons/core-free-icons"
 
 import { PageTransition, EmptyState } from "@workspace/console/components/shared"
+import { clientRootDomain } from "@workspace/auth/lib/domains"
+
+// SMTP host = mail.<root> (self-host: sentinel runtime'da yeniden yazılır).
+const SMTP_HOST = `mail.${clientRootDomain()}`
 import { Button } from "@workspace/ui/components/button"
 import {
   Dialog,
@@ -305,7 +309,7 @@ export function SmtpContent() {
                 {t("host")}
               </span>
               <code className="rounded-md border bg-muted px-3 py-2 text-sm">
-                mail.sentroy.com
+                {SMTP_HOST}
               </code>
             </div>
             <div className="flex flex-col gap-1">
@@ -494,7 +498,7 @@ export function SmtpContent() {
           </DialogHeader>
           {createdCredential && (
             <div className="flex flex-col gap-3">
-              <CopyField label={t("host")} value="mail.sentroy.com" />
+              <CopyField label={t("host")} value={SMTP_HOST} />
               <CopyField label={t("port")} value="587" />
               <CopyField
                 label={t("username")}

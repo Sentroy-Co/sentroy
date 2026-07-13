@@ -8,6 +8,7 @@ import {
   YoutubeIcon,
   InstagramIcon,
 } from "@hugeicons/core-free-icons"
+import { clientRootDomain } from "@workspace/auth/lib/domains"
 
 /**
  * Sentroy OS — tools.sentroy.com araç kataloğu (Launchpad + Spotlight için).
@@ -95,9 +96,12 @@ export interface PlatformApp {
   icon: typeof Image01Icon
   color: string
 }
+// Host'lar ROOT_DOMAIN'den türetilir (self-host: runtime-domain.sh sentinel'i
+// container başında gerçek domain'e yeniden yazar; hosted'da sentroy.com).
+const ROOT = clientRootDomain()
 export const PLATFORM_APPS: PlatformApp[] = [
-  { key: "youtube", label: "YouTube Downloader", host: "youtube.sentroy.com", icon: YoutubeIcon, color: "#ff0000" },
-  { key: "instagram", label: "Instagram Downloader", host: "instagram.sentroy.com", icon: InstagramIcon, color: "#e1306c" },
+  { key: "youtube", label: "YouTube Downloader", host: `youtube.${ROOT}`, icon: YoutubeIcon, color: "#ff0000" },
+  { key: "instagram", label: "Instagram Downloader", host: `instagram.${ROOT}`, icon: InstagramIcon, color: "#e1306c" },
 ]
 
 /** Platform host kökü — en prefix'siz, diğer diller /<lang>. */
@@ -106,7 +110,7 @@ export function platformUrl(p: PlatformApp, lang: string): string {
 }
 
 export function toolsBaseUrl(): string {
-  return process.env.NEXT_PUBLIC_TOOLS_APP_URL || "https://tools.sentroy.com"
+  return process.env.NEXT_PUBLIC_TOOLS_APP_URL || `https://tools.${clientRootDomain()}`
 }
 
 export function toolLocale(t: ToolEntry, lang: string): { slug: string; title: string; keyword: string } {
