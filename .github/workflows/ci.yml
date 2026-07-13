@@ -1,0 +1,51 @@
+#
+# PR quality gate: typecheck + lint on every PR (and main pushes). This is the
+# check CONTRIBUTING.md promises. Keep it fast + functional — no build here
+# (release builds run in publish-images.yml). pr-title is advisory only.
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.22
+      - name: Install
+        run: bun install --frozen-lockfile
+      - name: Typecheck
+        run: bun run typecheck
+      - name: Lint
+        # Run even if typecheck failed, so both signals surface in one run.
+        if: always()
+        run: bun run lint
+
+  pr-title:
+    # Advisory only: warns on a non-conventional title but never blocks the PR
+    # (friendly to first-time contributors — no auto-close, no red X).
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check conventional-commit title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if printf '%s' "$TITLE" | grep -qE '^(feat|fix|docs|chore|refactor|perf|test|build|ci|style|revert)(\([a-z0-9 ._/-]+\))?!?: .+'; then
+            echo "OK: conventional title — $TITLE"
+          else
+            echo "::warning title=PR title::'$TITLE' is not conventional-commit style (e.g. 'feat: add X'). Advisory only — not blocking."
+          fi
