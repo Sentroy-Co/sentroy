@@ -29,6 +29,7 @@ import { createMailWorker, closeMailQueue } from './services/queue';
 import { startDomainVerifier } from './services/domain-verifier';
 import { startLogWatcher } from './services/log-parser';
 import { startLmtpProxy } from './services/lmtp-proxy';
+import { startPushNotifier } from './services/push-notify';
 import { httpRequestsTotal, httpRequestDuration } from './services/metrics';
 import { createDovecotUser, deleteDovecotUser, updateDovecotPassword, listDovecotUsers } from './services/dovecot';
 import { readFileSync } from 'fs';
@@ -285,11 +286,20 @@ async function start() {
     redis,
   });
 
+  // Web push köprüsü — yeni mail geldiğinde core'a bildirim tetikler (kapalı
+  // sekme/uygulama için VAPID push). CORE_INTERNAL_URL + INTERNAL_API_SECRET
+  // env'i yoksa no-op (mevcut kurulumları bozmaz).
+  const pushNotifier = startPushNotifier({
+    prisma,
+    redisUrl: process.env.REDIS_URL || 'redis://localhost:6379',
+  });
+
   // Graceful shutdown
   const shutdown = async () => {
     app.log.info('Shutting down...');
     clearInterval(verifierTimer);
     logWatcher?.close();
+    pushNotifier();
     lmtpServer.close();
     await mailWorker.close();
     await closeMailQueue();

@@ -374,7 +374,9 @@
     "markAllRead": "全部标为已读",
     "clear": "清除",
     "empty": "暂无通知",
-    "remove": "移除"
+    "remove": "移除",
+    "mailPush": "新邮件通知",
+    "blocked": "通知已在浏览器设置中被阻止。"
   },
   "appLaunchFailed": "应用启动失败",
   "appLaunchRetry": "重试",

@@ -29,9 +29,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuGroup,
 } from "@workspace/ui/components/dropdown-menu"
+import { Switch } from "@workspace/ui/components/switch"
 import { WallpaperPicker } from "./wallpaper"
 import { CalendarPopover } from "./calendar-popover"
 import { AchievementsMenuPill } from "./achievements/menu-bar-pill"
+import { usePush } from "./use-push"
 import type { AppDescriptor } from "@workspace/console/components/layout/app-launcher"
 
 const LOCALES = ["en", "tr", "ru", "zh", "es"] as const
@@ -85,6 +87,9 @@ export function MenuBar({
   )
   const dark = resolvedTheme === "dark"
   const t = useTranslations("os")
+  // Web Push (yeni mail bildirimi) — abonelik VARLIĞI = opt-in. VAPID env yoksa
+  // supported=false → toggle hiç görünmez (çalışamayacak bir switch gösterme).
+  const push = usePush()
 
   const [now, setNow] = useState<Date | null>(null)
   useEffect(() => {
@@ -255,6 +260,35 @@ export function MenuBar({
                 {t("systemSettings")}
               </DropdownMenuItem>
             </DropdownMenuGroup>
+            {push.supported ? (
+              <>
+                <DropdownMenuSeparator />
+                {/* Yeni mail bildirimi (Web Push) — izin + abonelik toggle'ı.
+                    label + Switch bir menü satırı; tıklamada menü kapanmasın
+                    diye DropdownMenuItem DEĞİL (select emit etmez). */}
+                <label className="flex cursor-pointer items-center gap-2 px-2 py-1.5">
+                  <HugeiconsIcon
+                    icon={Notification03Icon}
+                    className="size-4 shrink-0"
+                    strokeWidth={2}
+                  />
+                  <span className="flex-1 text-sm">{t("notifications.mailPush")}</span>
+                  <Switch
+                    checked={push.subscribed}
+                    disabled={push.busy || push.permission === "denied"}
+                    onCheckedChange={(v) =>
+                      v ? void push.subscribe() : void push.unsubscribe()
+                    }
+                    aria-label={t("notifications.mailPush")}
+                  />
+                </label>
+                {push.permission === "denied" ? (
+                  <p className="px-2 pb-1 pl-8 text-[11px] leading-tight text-muted-foreground">
+                    {t("notifications.blocked")}
+                  </p>
+                ) : null}
+              </>
+            ) : null}
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem

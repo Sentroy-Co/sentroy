@@ -374,7 +374,9 @@
     "markAllRead": "Tümünü okundu işaretle",
     "clear": "Temizle",
     "empty": "Bildirim yok",
-    "remove": "Kaldır"
+    "remove": "Kaldır",
+    "mailPush": "Yeni mail bildirimleri",
+    "blocked": "Bildirimler tarayıcı ayarlarınızda engellenmiş."
   },
   "appLaunchFailed": "Uygulama başlatılamadı",
   "appLaunchRetry": "Yeniden dene",

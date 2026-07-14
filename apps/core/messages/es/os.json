@@ -374,7 +374,9 @@
     "markAllRead": "Marcar todo como leído",
     "clear": "Borrar",
     "empty": "No hay notificaciones",
-    "remove": "Eliminar"
+    "remove": "Eliminar",
+    "mailPush": "Notificaciones de correo nuevo",
+    "blocked": "Las notificaciones están bloqueadas en la configuración del navegador."
   },
   "appLaunchFailed": "No se pudo iniciar la app",
   "appLaunchRetry": "Reintentar",
