@@ -22,10 +22,10 @@ export default async function DesktopAuthPage({
   const { lang } = await params
   const session = await auth.api.getSession({ headers: await headers() })
 
-  // Not signed in → send them through the normal login, then they reopen the
-  // "Sign in with browser" action in the desktop app.
+  // Not signed in → normal login, then return here (login honours callbackURL)
+  // to mint the code and hand off to the desktop app.
   if (!session?.user?.id) {
-    redirect(`/${lang}/login`)
+    redirect(`/${lang}/login?callbackURL=${encodeURIComponent(`/${lang}/desktop-auth`)}`)
   }
 
   const code = await createDesktopAuthCode(session.user.id)

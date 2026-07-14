@@ -38,6 +38,16 @@ export function LoginForm({
   const t = useTranslations("auth")
   const router = useRouter()
   const locale = useLocale()
+  // Post-login destination — honours a same-origin `?callbackURL=` (the
+  // desktop-app handoff returns to /[lang]/desktop-auth), else the dashboard.
+  // Read at click time to avoid a useSearchParams Suspense boundary.
+  const dest = () => {
+    if (typeof window === "undefined") return `/${locale}/d`
+    const raw = new URLSearchParams(window.location.search).get("callbackURL")
+    return raw && raw.startsWith("/") && !raw.startsWith("//")
+      ? raw
+      : `/${locale}/d`
+  }
   const [loading, setLoading] = useState(false)
   const [socialLoading, setSocialLoading] = useState<string | null>(null)
   const [passkeySupported, setPasskeySupported] = useState(false)
@@ -80,8 +90,8 @@ export function LoginForm({
       if (!completeRes.ok)
         throw new Error(completeJson.error || t("passkeySignInFailed"))
 
-      // Cookie set edildi → dashboard'a tam refresh ile git.
-      window.location.href = `/${locale}/d`
+      // Cookie set edildi → hedefe tam refresh ile git (callbackURL varsa oraya).
+      window.location.href = dest()
     } catch (err: unknown) {
       const message =
         err instanceof Error && err.name === "NotAllowedError"
@@ -178,11 +188,17 @@ export function LoginForm({
       return
     }
 
-    // Login sonrası company picker'a git. next-intl router locale prefix
-    // otomatik ekler → /{locale}/d. ÖNEMLI: kendimiz `/${locale}/...`
-    // YAZMAYIN, çift prefix olur (örn /en/en/d).
-    router.push("/d")
-    router.refresh()
+    // Login sonrası hedefe git. Varsayılan /d için next-intl router locale
+    // prefix'i otomatik ekler (kendimiz `/${locale}/...` YAZMAYIN → çift
+    // prefix). callbackURL verildiyse (zaten locale-prefix'li) window.location
+    // ile git — i18n router çift-prefix'lemesin.
+    const d = dest()
+    if (d === `/${locale}/d`) {
+      router.push("/d")
+      router.refresh()
+    } else {
+      window.location.href = d
+    }
   }
 
   async function handleSocialSignIn(provider: string) {
@@ -190,8 +206,9 @@ export function LoginForm({
     try {
       await authClient.signIn.social({
         provider: provider as "google" | "github",
-        // better-auth callbackURL locale-aware değil → manuel prefix.
-        callbackURL: `/${locale}/d`,
+        // better-auth callbackURL locale-aware değil → manuel prefix. Desktop
+        // handoff'ta callbackURL=/[lang]/desktop-auth ile OAuth sonrası oraya döner.
+        callbackURL: dest(),
       })
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : t("loginError"))
