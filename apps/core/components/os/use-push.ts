@@ -17,11 +17,23 @@ function urlBase64ToUint8Array(base64: string): Uint8Array<ArrayBuffer> {
 export type PushState = {
   /** Tarayıcı push destekliyor + VAPID yapılandırılmış mı. */
   supported: boolean
+  /** Sentroy masaüstü (Electron) uygulamasında mıyız. VAPID/Web Push Electron'un
+   *  Chromium'unda push service (FCM) olmadığı için çalışmaz → toggle bu durumda
+   *  bilgilendirici/pasif gösterilir (sessizce patlamak yerine). */
+  isDesktop: boolean
   permission: NotificationPermission | "unsupported"
   subscribed: boolean
   busy: boolean
   subscribe: () => Promise<void>
   unsubscribe: () => Promise<void>
+}
+
+/** Electron kabuğu preload'da `window.sentroyDesktop` expose ediyor. */
+function detectDesktop(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    Boolean((window as { sentroyDesktop?: unknown }).sentroyDesktop)
+  )
 }
 
 /**
@@ -40,6 +52,7 @@ export function usePush(): PushState {
   >("unsupported")
   const [subscribed, setSubscribed] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [isDesktop] = useState(detectDesktop)
 
   // Tarayıcı yeteneği + VAPID public key'i tespit et.
   useEffect(() => {
@@ -116,5 +129,5 @@ export function usePush(): PushState {
     }
   }, [])
 
-  return { supported, permission, subscribed, busy, subscribe, unsubscribe }
+  return { supported, isDesktop, permission, subscribed, busy, subscribe, unsubscribe }
 }

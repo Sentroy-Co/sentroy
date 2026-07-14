@@ -7,6 +7,7 @@ import {
   useNotificationsStore,
   type AppNotification,
 } from "@workspace/console/stores/notifications"
+import { clientRootDomain, rootOrigin } from "@workspace/auth/lib/domains"
 
 interface MailDeliveredPayload {
   mailbox: string
@@ -113,18 +114,18 @@ export function NotificationsProvider() {
     }
   }, [slug])
 
-  /** Bildirimin hedef URL'sini olusturur — mailbox + subject parametreli inbox
-   *  linki. Inbox sayfası mail subdomain'inde, bu yüzden her zaman absolute
-   *  mail URL üretiyoruz: storage/core'dan tıklansa da doğru appe açılır. */
+  /** Bildirimin hedef URL'si — mail subdomain'i yerine Sentroy OS'a deep-link:
+   *  mail uygulamasını OS İÇİNDE bir pencerede açar (`?os-app=mail`, bkz.
+   *  sentroy-os deep-link effect). Absolute core URL üretiyoruz ki hangi
+   *  app'ten (core/mail/storage) tıklansa da OS'ta açılsın. */
   const buildNotifHref = useCallback(
     (payload: MailDeliveredPayload) => {
       const qs = new URLSearchParams()
-      qs.set("mailbox", payload.mailbox)
-      if (payload.subject) qs.set("subject", payload.subject)
-      const mailUrl =
-        process.env.NEXT_PUBLIC_MAIL_APP_URL || ""
-      const path = `/${lang}/d/${slug}/inbox?${qs.toString()}`
-      return mailUrl ? `${mailUrl}${path}` : path
+      qs.set("os-app", "mail")
+      if (payload.mailbox) qs.set("os-mailbox", payload.mailbox)
+      const coreUrl =
+        process.env.NEXT_PUBLIC_CORE_APP_URL || rootOrigin(clientRootDomain())
+      return `${coreUrl}/${lang}/d/${slug}?${qs.toString()}`
     },
     [lang, slug],
   )

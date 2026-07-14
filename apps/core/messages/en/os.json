@@ -376,7 +376,8 @@
     "empty": "No notifications",
     "remove": "Remove",
     "mailPush": "New mail notifications",
-    "blocked": "Notifications are blocked in your browser settings."
+    "blocked": "Notifications are blocked in your browser settings.",
+    "desktopSoon": "The desktop app shows notifications automatically when it's in the background."
   },
   "appLaunchFailed": "App failed to launch",
   "appLaunchRetry": "Try again",

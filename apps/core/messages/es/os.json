@@ -376,7 +376,8 @@
     "empty": "No hay notificaciones",
     "remove": "Eliminar",
     "mailPush": "Notificaciones de correo nuevo",
-    "blocked": "Las notificaciones están bloqueadas en la configuración del navegador."
+    "blocked": "Las notificaciones están bloqueadas en la configuración del navegador.",
+    "desktopSoon": "La app de escritorio muestra las notificaciones automáticamente cuando está en segundo plano."
   },
   "appLaunchFailed": "No se pudo iniciar la app",
   "appLaunchRetry": "Reintentar",

@@ -376,7 +376,8 @@
     "empty": "Bildirim yok",
     "remove": "Kaldır",
     "mailPush": "Yeni mail bildirimleri",
-    "blocked": "Bildirimler tarayıcı ayarlarınızda engellenmiş."
+    "blocked": "Bildirimler tarayıcı ayarlarınızda engellenmiş.",
+    "desktopSoon": "Masaüstü uygulaması arka plandayken bildirimleri otomatik gösterir."
   },
   "appLaunchFailed": "Uygulama başlatılamadı",
   "appLaunchRetry": "Yeniden dene",

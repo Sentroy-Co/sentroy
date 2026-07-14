@@ -7,6 +7,7 @@ import {
   inboxBlockModel,
 } from "@workspace/db/models"
 import { memberHasPermission } from "@workspace/auth/server/permissions"
+import { serverRootDomain, rootOrigin } from "@workspace/auth/lib/domains"
 import { dispatchToUsers } from "@/lib/push"
 
 export const runtime = "nodejs"
@@ -84,13 +85,13 @@ export async function POST(request: NextRequest) {
     return jsonSuccess({ sent: 0, skipped: "no-recipients" })
   }
 
-  // 3) Dispatch — mail uygulamasının ilgili şirket inbox'ına deep-link.
-  const mailBase = (
-    process.env.MAIL_APP_URL ||
-    process.env.NEXT_PUBLIC_MAIL_APP_URL ||
-    "https://mail.sentroy.com"
-  ).replace(/\/+$/, "")
-  const url = `${mailBase}/en/d/${company.slug}/inbox`
+  // 3) Dispatch — Sentroy OS'a deep-link: mail uygulamasını OS İÇİNDE açar
+  // (mail subdomain'e değil). OS `?os-app=mail` param'ını okuyup pencereyi
+  // açar (bkz. sentroy-os deep-link effect). Core origin proxy arkasında
+  // request.url'den değil root domain'den kurulur.
+  const coreBase = rootOrigin(serverRootDomain())
+  const qs = new URLSearchParams({ "os-app": "mail", "os-mailbox": mailbox })
+  const url = `${coreBase}/en/d/${company.slug}?${qs.toString()}`
 
   const subject = body?.subject?.trim() || "(no subject)"
   const sent = await dispatchToUsers(userIds, {

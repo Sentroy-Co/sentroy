@@ -205,6 +205,34 @@ export function SentroyOS({
     }
   }, [initialSettingsCategory, activeSlug, openSettings, t])
 
+  // App deep-link: `?os-app=<id>` ile bir uygulamayı OS penceresi olarak aç.
+  // Mail bildirimine (VAPID push / native) tıklanınca mail subdomain'e değil
+  // OS'a gelir + mail penceresi burada açılır. Apps async yüklendiğinden effect
+  // stageApps değişince tekrar dener; ref bir kez açılmasını garanti eder.
+  const deepAppRef = useRef(false)
+  useEffect(() => {
+    if (deepAppRef.current) return
+    let appId: string | null = null
+    try {
+      appId = new URLSearchParams(window.location.search).get("os-app")
+    } catch {
+      /* ignore */
+    }
+    if (!appId) return
+    const descriptor = stageApps.find((a) => a.id === appId) ?? dynamicApps[appId]
+    if (!descriptor) return // henüz yüklenmedi ya da erişim yok → deps'te tekrar
+    deepAppRef.current = true
+    openApp(appId, descriptor)
+    try {
+      const u = new URL(window.location.href)
+      u.searchParams.delete("os-app")
+      u.searchParams.delete("os-mailbox")
+      window.history.replaceState(null, "", u.pathname + (u.search || ""))
+    } catch {
+      /* ignore */
+    }
+  }, [stageApps, dynamicApps, openApp])
+
   // Tools/Launchpad ilk açılışında "explore-tools" başarımını yerel işaretle
   // (client-tarafı sinyal; use-achievements EXPLORED_TOOLS_EVENT ile okur).
   const toolsExplored = windows.some((w) => w.appId === "tools") || launchpadOpen

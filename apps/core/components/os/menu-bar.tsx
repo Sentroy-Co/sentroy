@@ -266,7 +266,11 @@ export function MenuBar({
                 {/* Yeni mail bildirimi (Web Push) — izin + abonelik toggle'ı.
                     label + Switch bir menü satırı; tıklamada menü kapanmasın
                     diye DropdownMenuItem DEĞİL (select emit etmez). */}
-                <label className="flex cursor-pointer items-center gap-2 px-2 py-1.5">
+                <label
+                  className={`flex items-center gap-2 px-2 py-1.5 ${
+                    push.isDesktop ? "cursor-default opacity-60" : "cursor-pointer"
+                  }`}
+                >
                   <HugeiconsIcon
                     icon={Notification03Icon}
                     className="size-4 shrink-0"
@@ -274,15 +278,19 @@ export function MenuBar({
                   />
                   <span className="flex-1 text-sm">{t("notifications.mailPush")}</span>
                   <Switch
-                    checked={push.subscribed}
-                    disabled={push.busy || push.permission === "denied"}
+                    checked={push.subscribed && !push.isDesktop}
+                    disabled={push.busy || push.permission === "denied" || push.isDesktop}
                     onCheckedChange={(v) =>
                       v ? void push.subscribe() : void push.unsubscribe()
                     }
                     aria-label={t("notifications.mailPush")}
                   />
                 </label>
-                {push.permission === "denied" ? (
+                {push.isDesktop ? (
+                  <p className="px-2 pb-1 pl-8 text-[11px] leading-tight text-muted-foreground">
+                    {t("notifications.desktopSoon")}
+                  </p>
+                ) : push.permission === "denied" ? (
                   <p className="px-2 pb-1 pl-8 text-[11px] leading-tight text-muted-foreground">
                     {t("notifications.blocked")}
                   </p>
