@@ -5,6 +5,7 @@ import {
   companyModel,
   companyMemberModel,
   inboxBlockModel,
+  mailPushEventModel,
 } from "@workspace/db/models"
 import { memberHasPermission } from "@workspace/auth/server/permissions"
 import { serverRootDomain, rootOrigin } from "@workspace/auth/lib/domains"
@@ -101,6 +102,17 @@ export async function POST(request: NextRequest) {
     // Aynı mailbox'a arka arkaya gelen mailler tek stack'te toplanır.
     tag: mailbox,
   })
+
+  // Electron masaüstü uygulaması VAPID push alamaz (Chromium'da push service
+  // yok) → her alıcı için kısa-ömürlü bir event bırak; OS sayfası (Electron)
+  // /api/push/recent'i poll'layıp native bildirim gösterir. TTL 10 dk.
+  await Promise.all(
+    userIds.map((uid) =>
+      mailPushEventModel
+        .create({ userId: uid, from: body?.from ?? null, subject, url, mailbox })
+        .catch(() => {}),
+    ),
+  )
 
   return jsonSuccess({ sent })
 }

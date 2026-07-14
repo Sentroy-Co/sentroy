@@ -11,6 +11,7 @@ import { useSentroyApps, type AppDescriptor } from "@workspace/console/component
 import { useOsStore } from "./os-store"
 import { MenuBar, type OsCompany, type OsUser } from "./menu-bar"
 import { GetAppPopup } from "@/components/download/get-app-popup"
+import { useMailDesktopNotify } from "./use-mail-desktop-notify"
 import { Dock } from "./dock"
 import { WindowManager } from "./window-manager"
 import { WallpaperLayer } from "./wallpaper"
@@ -155,6 +156,9 @@ export function SentroyOS({
   // availableAppIds yeni-hesap widget seed'inde permGate için kullanılır.
   const availableAppIds = useMemo(() => stageApps.map((a) => a.id), [stageApps])
   useOsPrefsSync(activeSlug, availableAppIds)
+  // Electron masaüstü uygulamasında yeni mail için native bildirim (VAPID
+  // Electron'da çalışmaz; tarayıcıda no-op). Bkz. use-mail-desktop-notify.
+  useMailDesktopNotify()
 
   const windows = useOsStore((s) => s.windows)
   const activeId = useOsStore((s) => s.activeId)

@@ -104,6 +104,7 @@ export * as linearSettingsModel from "./linear-settings"
 export * as linearImageAssetModel from "./linear-image-asset"
 export * as linearPushSubscriptionModel from "./linear-push-subscription"
 export * as pushSubscriptionModel from "./push-subscription"
+export * as mailPushEventModel from "./mail-push-event"
 export * as linearInboxSeenModel from "./linear-inbox-seen"
 
 export * as contactMessageModel from "./contact-message"
