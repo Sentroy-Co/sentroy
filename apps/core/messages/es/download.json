@@ -1,0 +1,23 @@
+{
+  "metaTitle": "Descargar Sentroy — apps de escritorio",
+  "metaDescription": "Consigue la app de escritorio de Sentroy para macOS, Windows y Linux — todo tu espacio de trabajo en una ventana nativa y rápida.",
+  "back": "Volver al inicio",
+  "title": "Lleva Sentroy a tu escritorio",
+  "subtitle": "Una ventana nativa y rápida para todo tu espacio de trabajo Sentroy — correo, almacenamiento, auth y tus apps.",
+  "versionLabel": "Versión {version}",
+  "desktopApp": "App de escritorio",
+  "forYourDevice": "Para tu dispositivo",
+  "comingSoon": "Muy pronto",
+  "allReleases": "Ver todas las versiones",
+  "mobileTitle": "Añade Sentroy a tu teléfono",
+  "mobileDesc": "Instala Sentroy en tu pantalla de inicio y ábrelo como una app nativa.",
+  "mobileInstall": "Añadir a pantalla de inicio",
+  "mobileManual": "Abre el menú Compartir y elige «Añadir a pantalla de inicio».",
+  "dismiss": "Cerrar",
+  "promoDesktopTitle": "Consigue la app de escritorio",
+  "promoDesktopDesc": "Una ventana nativa de Sentroy para {os}.",
+  "promoDesktopCta": "Descargar",
+  "promoMobileTitle": "Añade Sentroy a tu teléfono",
+  "promoMobileDesc": "Instálala en tu pantalla de inicio, ábrela como una app.",
+  "promoMobileCta": "Instalar"
+}

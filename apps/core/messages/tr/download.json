@@ -1,0 +1,23 @@
+{
+  "metaTitle": "Sentroy'u indir — masaüstü uygulamaları",
+  "metaDescription": "Sentroy masaüstü uygulamasını macOS, Windows ve Linux için edinin — tüm çalışma alanınız hızlı, native bir pencerede.",
+  "back": "Ana sayfaya dön",
+  "title": "Sentroy'u masaüstüne indir",
+  "subtitle": "Tüm Sentroy çalışma alanın için hızlı, native bir pencere — mail, depolama, auth ve uygulamaların.",
+  "versionLabel": "Sürüm {version}",
+  "desktopApp": "Masaüstü uygulaması",
+  "forYourDevice": "Cihazın için",
+  "comingSoon": "Yakında",
+  "allReleases": "Tüm sürümleri gör",
+  "mobileTitle": "Sentroy'u telefonuna ekle",
+  "mobileDesc": "Sentroy'u ana ekranına ekle, native bir uygulama gibi aç.",
+  "mobileInstall": "Ana ekrana ekle",
+  "mobileManual": "Paylaş menüsünü aç ve \"Ana Ekrana Ekle\"yi seç.",
+  "dismiss": "Kapat",
+  "promoDesktopTitle": "Masaüstü uygulamasını edin",
+  "promoDesktopDesc": "{os} için native bir Sentroy penceresi.",
+  "promoDesktopCta": "İndir",
+  "promoMobileTitle": "Sentroy'u telefonuna ekle",
+  "promoMobileDesc": "Ana ekrana ekle, uygulama gibi aç.",
+  "promoMobileCta": "Yükle"
+}

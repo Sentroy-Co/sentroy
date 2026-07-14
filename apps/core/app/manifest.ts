@@ -8,13 +8,19 @@ import type { MetadataRoute } from "next"
  * (icon-192/512); installability 192+512 ister.
  */
 export default function manifest(): MetadataRoute.Manifest {
+  // NEXT_PUBLIC_PWA_ENABLED=false → `display: browser` = installable DEĞİL
+  // (tarayıcı "uygulama olarak yükle" tamamen kapanır, her platformda).
+  // Varsayılan (installable): masaüstünde install beforeinstallprompt ile
+  // bastırılıp kullanıcı native uygulamaya yönlendirilir; mobilde PWA açık
+  // kalır (telefona "app gibi" yüklenir). Bkz. use-app-install + get-app-popup.
+  const installable = process.env.NEXT_PUBLIC_PWA_ENABLED !== "false"
   return {
     name: "Sentroy",
     short_name: "Sentroy",
     description: "Sentroy — email, storage, auth and your apps in one workspace.",
     start_url: "/",
     scope: "/",
-    display: "standalone",
+    display: installable ? "standalone" : "browser",
     background_color: "#0a0a0a",
     theme_color: "#0a0a0a",
     orientation: "any",

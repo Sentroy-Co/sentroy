@@ -1,0 +1,23 @@
+{
+  "metaTitle": "Download Sentroy — desktop apps",
+  "metaDescription": "Get the Sentroy desktop app for macOS, Windows and Linux — your whole workspace in a fast native window.",
+  "back": "Back to home",
+  "title": "Get Sentroy on your desktop",
+  "subtitle": "A fast, native window for your whole Sentroy workspace — mail, storage, auth and your apps.",
+  "versionLabel": "Version {version}",
+  "desktopApp": "Desktop app",
+  "forYourDevice": "For your device",
+  "comingSoon": "Coming soon",
+  "allReleases": "See all releases",
+  "mobileTitle": "Add Sentroy to your phone",
+  "mobileDesc": "Install Sentroy to your home screen and open it like a native app.",
+  "mobileInstall": "Add to home screen",
+  "mobileManual": "Open the Share menu and choose \"Add to Home Screen\".",
+  "dismiss": "Dismiss",
+  "promoDesktopTitle": "Get the desktop app",
+  "promoDesktopDesc": "A native Sentroy window for {os}.",
+  "promoDesktopCta": "Download",
+  "promoMobileTitle": "Add Sentroy to your phone",
+  "promoMobileDesc": "Install it to your home screen, open it like an app.",
+  "promoMobileCta": "Install"
+}

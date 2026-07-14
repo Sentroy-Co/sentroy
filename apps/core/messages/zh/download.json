@@ -1,0 +1,23 @@
+{
+  "metaTitle": "下载 Sentroy — 桌面应用",
+  "metaDescription": "获取适用于 macOS、Windows 和 Linux 的 Sentroy 桌面应用 — 在快速的原生窗口中使用整个工作区。",
+  "back": "返回首页",
+  "title": "在桌面上使用 Sentroy",
+  "subtitle": "为整个 Sentroy 工作区打造的快速原生窗口 — 邮件、存储、认证和你的应用。",
+  "versionLabel": "版本 {version}",
+  "desktopApp": "桌面应用",
+  "forYourDevice": "适合你的设备",
+  "comingSoon": "即将推出",
+  "allReleases": "查看所有版本",
+  "mobileTitle": "将 Sentroy 添加到手机",
+  "mobileDesc": "将 Sentroy 添加到主屏幕，像原生应用一样打开。",
+  "mobileInstall": "添加到主屏幕",
+  "mobileManual": "打开分享菜单并选择“添加到主屏幕”。",
+  "dismiss": "关闭",
+  "promoDesktopTitle": "获取桌面应用",
+  "promoDesktopDesc": "适用于 {os} 的原生 Sentroy 窗口。",
+  "promoDesktopCta": "下载",
+  "promoMobileTitle": "将 Sentroy 添加到手机",
+  "promoMobileDesc": "添加到主屏幕，像应用一样打开。",
+  "promoMobileCta": "安装"
+}

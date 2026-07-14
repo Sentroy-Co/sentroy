@@ -1,0 +1,23 @@
+{
+  "metaTitle": "Скачать Sentroy — приложения для рабочего стола",
+  "metaDescription": "Приложение Sentroy для macOS, Windows и Linux — всё ваше рабочее пространство в быстром нативном окне.",
+  "back": "На главную",
+  "title": "Установите Sentroy на рабочий стол",
+  "subtitle": "Быстрое нативное окно для всего рабочего пространства Sentroy — почта, хранилище, авторизация и ваши приложения.",
+  "versionLabel": "Версия {version}",
+  "desktopApp": "Приложение для рабочего стола",
+  "forYourDevice": "Для вашего устройства",
+  "comingSoon": "Скоро",
+  "allReleases": "Все версии",
+  "mobileTitle": "Добавьте Sentroy на телефон",
+  "mobileDesc": "Установите Sentroy на главный экран и открывайте как нативное приложение.",
+  "mobileInstall": "На главный экран",
+  "mobileManual": "Откройте меню «Поделиться» и выберите «На экран Домой».",
+  "dismiss": "Закрыть",
+  "promoDesktopTitle": "Приложение для рабочего стола",
+  "promoDesktopDesc": "Нативное окно Sentroy для {os}.",
+  "promoDesktopCta": "Скачать",
+  "promoMobileTitle": "Добавьте Sentroy на телефон",
+  "promoMobileDesc": "Установите на главный экран, открывайте как приложение.",
+  "promoMobileCta": "Установить"
+}

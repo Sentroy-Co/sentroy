@@ -10,6 +10,7 @@ import { NotificationsProvider } from "@workspace/console/components/layout/noti
 import { useSentroyApps, type AppDescriptor } from "@workspace/console/components/layout/app-launcher"
 import { useOsStore } from "./os-store"
 import { MenuBar, type OsCompany, type OsUser } from "./menu-bar"
+import { GetAppPopup } from "@/components/download/get-app-popup"
 import { Dock } from "./dock"
 import { WindowManager } from "./window-manager"
 import { WallpaperLayer } from "./wallpaper"
@@ -551,6 +552,8 @@ export function SentroyOS({
               bildirimleri; mail-delivered SSE). UI render etmez; menu-bar bell
               + WidgetPanel notifications view bu store'u okur. */}
           <NotificationsProvider />
+          {/* "Uygulamayı indir" promo — Electron/PWA'da otomatik gizlenir. */}
+          <GetAppPopup lang={lang} />
           <div className="absolute inset-x-0 top-0 z-30">
             <MenuBar
               lang={lang}

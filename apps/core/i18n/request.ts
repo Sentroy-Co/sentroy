@@ -66,6 +66,11 @@ import esInvestors from "../messages/es/investors.json"
 import esContact from "../messages/es/contact.json"
 import esBrand from "../messages/es/brand.json"
 import esVision from "../messages/es/vision.json"
+import enDownload from "../messages/en/download.json"
+import trDownload from "../messages/tr/download.json"
+import ruDownload from "../messages/ru/download.json"
+import zhDownload from "../messages/zh/download.json"
+import esDownload from "../messages/es/download.json"
 
 const bundles = {
   en: {
@@ -81,6 +86,7 @@ const bundles = {
     contact: enContact,
     brand: enBrand,
     vision: enVision,
+    download: enDownload,
   },
   tr: {
     ...trConsole,
@@ -95,6 +101,7 @@ const bundles = {
     contact: trContact,
     brand: trBrand,
     vision: trVision,
+    download: trDownload,
   },
   ru: {
     ...ruConsole,
@@ -109,6 +116,7 @@ const bundles = {
     contact: ruContact,
     brand: ruBrand,
     vision: ruVision,
+    download: ruDownload,
   },
   zh: {
     ...zhConsole,
@@ -123,6 +131,7 @@ const bundles = {
     contact: zhContact,
     brand: zhBrand,
     vision: zhVision,
+    download: zhDownload,
   },
   es: {
     ...esConsole,
@@ -137,6 +146,7 @@ const bundles = {
     contact: esContact,
     brand: esBrand,
     vision: esVision,
+    download: esDownload,
   },
 } as const
 
