@@ -2,8 +2,9 @@ import { setRequestLocale } from "next-intl/server"
 import { LandingPage } from "@/components/landing/landing-page"
 import { LandingV2 } from "@/components/landing/v2/landing-v2"
 
-// Landing her zaman görünür — session olsa bile (kullanıcı `/d`'ye manuel
-// giderek dashboard'a geçer). Navbar'da "Dashboard" link'i ile keşif korunur.
+// Yalnız ANONİM kullanıcılar landing'i görür — login olmuş kullanıcılar
+// proxy.ts'te locale-root'tan `/<lang>/d`'ye yönlendirilir (cookie-presence;
+// anon isteklerde cookie yok → CF-cached static landing korunur).
 //
 // v2 ("Web'de Sentroy OS" scroll-anlatısı) VARSAYILANDIR. Eski landing'e geri
 // dönüş: Coolify core env'ine LANDING_LEGACY=1 ekle + redeploy — kod silinmedi,

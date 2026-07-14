@@ -287,6 +287,18 @@ async function getEmbedOrigins(request: NextRequest): Promise<string[]> {
   }
 }
 
+/**
+ * Session-cookie presence (heuristic, no DB lookup). Matches better-auth's
+ * `[__Secure-]better-auth.session_token` + chunked variants. Used only to skip
+ * the marketing landing for signed-in users; a stale cookie just lands on /d
+ * which re-validates the real session.
+ */
+function hasSessionCookie(request: NextRequest): boolean {
+  return request.cookies
+    .getAll()
+    .some((c) => c.name.includes("better-auth.session_token"))
+}
+
 export default async function proxy(request: NextRequest) {
   const host = (request.headers.get("host") || "").split(":")[0].toLowerCase()
   const url = request.nextUrl
@@ -310,6 +322,14 @@ export default async function proxy(request: NextRequest) {
         buildSubdomainUrl(DOCS_HOST, clean, url.search),
         308,
       )
+    }
+    // Signed-in users skip the marketing landing → straight to the app.
+    // Only the locale roots (/en, /tr, …) are redirected; deeper marketing
+    // pages (/pricing, /investors, …) stay reachable. 307 (session-dependent,
+    // not cacheable). `/` first resolves to `/<locale>`, which re-enters here.
+    const localeRoot = path.match(/^\/(en|tr|ru|zh|es)$/)?.[1]
+    if (localeRoot && hasSessionCookie(request)) {
+      return NextResponse.redirect(new URL(`/${localeRoot}/d`, url), 307)
     }
   }
 
