@@ -77,18 +77,18 @@ catalog from Sentroy (opt-in, cryptographically signed).
 
 | | Product | What it does |
 |---|---|---|
-| 🖥️ | **The desktop + App Store** | The shell that ties it together: launch every product in a window, install first- and third-party apps from a signed catalog. |
-| 📧 | **Mail** | Transactional email with templates, audiences, real-time delivery status, and your own domain (SPF/DKIM handled). Send from the dashboard, the API, or the SDK. |
-| 🗂️ | **Storage + CDN** | Object storage with multipart upload, an instant CDN URL for every file, and image processing at the edge. |
-| 🔑 | **Auth** | An OAuth 2.0 / OIDC provider *and* Auth-as-a-Service — host your own end-user pools (sign-up, login, JWTs) the way you would with Firebase Auth. |
-| 🔐 | **Vault** | A secrets & environment-variable manager for your projects — encrypted at rest, pulled over an API at deploy time. |
-| 📊 | **Status** | A public status page with real-time uptime, plus multi-tenant status pages for your own customers (incidents, maintenance, subscribers). |
-| 🎧 | **Studio** | A DJ-first, browser-native music studio: multitrack timeline, 30+ effects, local-first projects. |
-| 💬 | **WhatsApp** | A multi-number WhatsApp inbox: templates, audiences, bulk send, delivery ticks — from the dashboard or the API. |
-| ✅ | **Linear Lite** | Lightweight issue triage wired to your Linear workspace. |
-| 🛠️ | **Tools** | ~30 browser tools (image / PDF / audio / video / developer) that run entirely client-side, plus a media downloader. |
-| 💾 | **Backup** | Scheduled, encrypted MongoDB backups with server-to-server restore and download-to-desktop. |
-| 🎬 | **Video editor** | A full timeline video editor — see [the note below](#video-editor-opencut). |
+| <img src="assets/apps/store.webp" width="26" height="26"> | **The desktop + App Store** | The shell that ties it together: launch every product in a window, install first- and third-party apps from a signed catalog. |
+| <img src="assets/apps/mail.webp" width="26" height="26"> | **Mail** | Transactional email with templates, audiences, real-time delivery status, and your own domain (SPF/DKIM handled). Send from the dashboard, the API, or the SDK. |
+| <img src="assets/apps/storage.webp" width="26" height="26"> | **Storage + CDN** | Object storage with multipart upload, an instant CDN URL for every file, and image processing at the edge. |
+| <img src="assets/apps/auth.webp" width="26" height="26"> | **Auth** | An OAuth 2.0 / OIDC provider *and* Auth-as-a-Service — host your own end-user pools (sign-up, login, JWTs) the way you would with Firebase Auth. |
+| <img src="assets/apps/vault.webp" width="26" height="26"> | **Vault** | A secrets & environment-variable manager for your projects — encrypted at rest, pulled over an API at deploy time. |
+| <img src="assets/apps/status.webp" width="26" height="26"> | **Status** | A public status page with real-time uptime, plus multi-tenant status pages for your own customers (incidents, maintenance, subscribers). |
+| <img src="assets/apps/studio.webp" width="26" height="26"> | **Studio** | A DJ-first, browser-native music studio: multitrack timeline, 30+ effects, local-first projects. |
+| <img src="assets/apps/whatsapp.webp" width="26" height="26"> | **WhatsApp** | A multi-number WhatsApp inbox: templates, audiences, bulk send, delivery ticks — from the dashboard or the API. |
+| <img src="assets/apps/linear.webp" width="26" height="26"> | **Linear Lite** | Lightweight issue triage wired to your Linear workspace. |
+| <img src="assets/apps/tools.webp" width="26" height="26"> | **Tools** | ~30 browser tools (image / PDF / audio / video / developer) that run entirely client-side, plus a media downloader. |
+| <img src="assets/apps/backup.webp" width="26" height="26"> | **Backup** | Scheduled, encrypted MongoDB backups with server-to-server restore and download-to-desktop. |
+| <img src="assets/apps/opencut.webp" width="26" height="26"> | **Video editor** | A full timeline video editor — see [the note below](#video-editor-opencut). |
 
 ## Quickstart (self-host)
 
