@@ -487,7 +487,13 @@
     "cannotUnlinkLast": "Необходимо оставить хотя бы один способ входа для доступа к аккаунту.",
     "setPassword": "Задать пароль",
     "setPasswordDesc": "Создайте пароль, чтобы также входить с помощью email и пароля.",
-    "passwordSet": "Пароль создан"
+    "passwordSet": "Пароль создан",
+    "deleteAccountSending": "Отправка кода…",
+    "deleteAccountCodeSent": "Мы отправили 6-значный код на вашу почту. Введите его ниже, чтобы навсегда удалить аккаунт.",
+    "deleteAccountOwnedWarning": "Будут безвозвратно удалены компании ({count}), которыми вы владеете, со всеми данными:",
+    "deleteAccountConfirm": "Удалить навсегда",
+    "deleteAccountDeleting": "Удаление…",
+    "deleteAccountDone": "Ваш аккаунт удалён."
   },
   "appPicker": {
     "title": "Открыть приложение",

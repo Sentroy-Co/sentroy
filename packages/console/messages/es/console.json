@@ -487,7 +487,13 @@
     "cannotUnlinkLast": "Debes conservar al menos un método de inicio de sesión para acceder a tu cuenta.",
     "setPassword": "Establecer una contraseña",
     "setPasswordDesc": "Crea una contraseña para poder iniciar sesión también con correo y contraseña.",
-    "passwordSet": "Contraseña creada"
+    "passwordSet": "Contraseña creada",
+    "deleteAccountSending": "Enviando código…",
+    "deleteAccountCodeSent": "Hemos enviado un código de 6 dígitos a tu correo. Introdúcelo abajo para eliminar tu cuenta de forma permanente.",
+    "deleteAccountOwnedWarning": "Se eliminarán permanentemente {count} empresa(s) de tu propiedad con todos sus datos:",
+    "deleteAccountConfirm": "Eliminar permanentemente",
+    "deleteAccountDeleting": "Eliminando…",
+    "deleteAccountDone": "Tu cuenta ha sido eliminada."
   },
   "appPicker": {
     "title": "Abrir una app",

@@ -128,6 +128,58 @@ function formatRelative(dateStr: string): string {
 export function ProfileContent() {
   const t = useTranslations("profile")
   const tCommon = useTranslations("common")
+
+  // ── Hesap silme (danger zone) — kod-doğrulamalı kalıcı silme akışı ──
+  const [deleteState, setDeleteState] = useState<{
+    phase: "idle" | "code"
+    busy: boolean
+    code: string
+    ownedCompanies: Array<{ slug: string; name: string }>
+  }>({ phase: "idle", busy: false, code: "", ownedCompanies: [] })
+
+  const requestAccountDeletion = useCallback(async () => {
+    const ok = await confirm({
+      title: t("deleteAccount"),
+      description: t("deleteAccountDescription"),
+      confirmText: t("deleteAccount"),
+      destructive: true,
+    })
+    if (!ok) return
+    setDeleteState((s) => ({ ...s, busy: true }))
+    try {
+      const res = await fetch("/api/user/delete-account/request", { method: "POST" })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || "Failed")
+      setDeleteState({
+        phase: "code",
+        busy: false,
+        code: "",
+        ownedCompanies: (json.data?.ownedCompanies ?? []) as Array<{ slug: string; name: string }>,
+      })
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed")
+      setDeleteState((s) => ({ ...s, busy: false }))
+    }
+  }, [t])
+
+  const confirmAccountDeletion = useCallback(async () => {
+    setDeleteState((s) => ({ ...s, busy: true }))
+    try {
+      const res = await fetch("/api/user/delete-account/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: deleteState.code }),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || "Failed")
+      toast.success(t("deleteAccountDone"))
+      // Hesap gitti — oturum kalıntısını bırakmadan köke dön.
+      window.location.href = "/"
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed")
+      setDeleteState((s) => ({ ...s, busy: false }))
+    }
+  }, [deleteState.code, t])
   const { data: session } = useSession()
 
   const [name, setName] = useState("")
@@ -1194,6 +1246,82 @@ export function ProfileContent() {
                   </CardHeader>
                   <CardContent>
                     <PasskeySection />
+                  </CardContent>
+                </Card>
+
+                {/* Danger zone — kalıcı hesap silme (e-posta kodu doğrulamalı).
+                    Akış: kod iste (sahip olunan şirketler listelenir) → koddan
+                    sonra kalıcı sil. Sunucu, sahibi olunan şirketleri tam
+                    kaskadla (mail/storage/tüm veri) siler. */}
+                <Card className="border-destructive/40">
+                  <CardHeader>
+                    <CardTitle className="text-destructive">{t("dangerZone")}</CardTitle>
+                    <CardDescription>{t("deleteAccountDescription")}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex flex-col gap-3">
+                    {deleteState.phase === "idle" && (
+                      <Button
+                        variant="destructive"
+                        className="w-fit"
+                        disabled={deleteState.busy}
+                        onClick={requestAccountDeletion}
+                      >
+                        {deleteState.busy ? t("deleteAccountSending") : t("deleteAccount")}
+                      </Button>
+                    )}
+                    {deleteState.phase === "code" && (
+                      <div className="flex flex-col gap-3">
+                        <p className="text-sm text-muted-foreground">
+                          {t("deleteAccountCodeSent")}
+                        </p>
+                        {deleteState.ownedCompanies.length > 0 && (
+                          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm">
+                            <p className="font-medium text-destructive">
+                              {t("deleteAccountOwnedWarning", {
+                                count: deleteState.ownedCompanies.length,
+                              })}
+                            </p>
+                            <ul className="mt-1 list-inside list-disc text-muted-foreground">
+                              {deleteState.ownedCompanies.map((c) => (
+                                <li key={c.slug}>{c.name}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <Input
+                            value={deleteState.code}
+                            onChange={(e) =>
+                              setDeleteState((s) => ({
+                                ...s,
+                                code: e.target.value.replace(/\D/g, "").slice(0, 6),
+                              }))
+                            }
+                            inputMode="numeric"
+                            placeholder="000000"
+                            className="w-32 text-center font-mono tracking-[0.3em]"
+                          />
+                          <Button
+                            variant="destructive"
+                            disabled={deleteState.code.length !== 6 || deleteState.busy}
+                            onClick={confirmAccountDeletion}
+                          >
+                            {deleteState.busy
+                              ? t("deleteAccountDeleting")
+                              : t("deleteAccountConfirm")}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            disabled={deleteState.busy}
+                            onClick={() =>
+                              setDeleteState({ phase: "idle", busy: false, code: "", ownedCompanies: [] })
+                            }
+                          >
+                            {tCommon("cancel")}
+                          </Button>
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
 

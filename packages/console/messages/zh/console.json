@@ -487,7 +487,13 @@
     "cannotUnlinkLast": "您必须保留至少一种登录方式才能访问账户。",
     "setPassword": "设置密码",
     "setPasswordDesc": "创建密码，以便您也可以使用邮箱和密码登录。",
-    "passwordSet": "密码已创建"
+    "passwordSet": "密码已创建",
+    "deleteAccountSending": "正在发送验证码……",
+    "deleteAccountCodeSent": "我们已向您的邮箱发送了 6 位验证码。在下方输入以永久删除您的账户。",
+    "deleteAccountOwnedWarning": "您拥有的 {count} 家公司及其所有数据将被永久删除：",
+    "deleteAccountConfirm": "永久删除",
+    "deleteAccountDeleting": "删除中……",
+    "deleteAccountDone": "您的账户已删除。"
   },
   "appPicker": {
     "title": "打开一个应用",

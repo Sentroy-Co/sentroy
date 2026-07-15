@@ -487,7 +487,13 @@
     "cannotUnlinkLast": "Hesabiniza erisim saglayabilmek icin en az bir giris yontemini korumalisiniz.",
     "setPassword": "Sifre olustur",
     "setPasswordDesc": "Hesabiniza e-posta ve sifre ile de giris yapabilmek icin bir sifre belirleyin.",
-    "passwordSet": "Sifre olusturuldu"
+    "passwordSet": "Sifre olusturuldu",
+    "deleteAccountSending": "Kod gönderiliyor…",
+    "deleteAccountCodeSent": "E-postanıza 6 haneli bir kod gönderdik. Hesabınızı kalıcı olarak silmek için aşağıya girin.",
+    "deleteAccountOwnedWarning": "Sahibi olduğunuz {count} şirket tüm verileriyle birlikte kalıcı olarak silinecek:",
+    "deleteAccountConfirm": "Kalıcı olarak sil",
+    "deleteAccountDeleting": "Siliniyor…",
+    "deleteAccountDone": "Hesabınız silindi."
   },
   "appPicker": {
     "title": "Open an app",

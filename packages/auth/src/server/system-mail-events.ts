@@ -681,6 +681,32 @@ export const SYSTEM_MAIL_EVENTS: SystemMailEventDefinition[] = [
     },
   },
   {
+    key: "account.deletion-code",
+    category: "otp",
+    label: "Account deletion code",
+    description:
+      "Sent to the user's registered email when they request permanent account deletion. Contains a 6-digit confirmation code, valid 15 minutes. Deletion removes the user's records and every company they solely own.",
+    variables: [
+      { name: "userName", description: "Display name of the account holder (recipient).", sample: "Alice" },
+      { name: "code", description: "6-digit confirmation code.", sample: "123456" },
+      { name: "companyCount", description: "Number of companies that will be deleted with the account.", sample: "2" },
+    ],
+    defaultSubject: {
+      en: "Confirm permanent account deletion",
+      tr: "Kalıcı hesap silmeyi onaylayın",
+    },
+    defaultHtmlBody: {
+      en: wrap(
+        "Confirm account deletion",
+        "Hi {userName} — you asked us to <strong>permanently delete your Sentroy account</strong>. This will also delete <strong>{companyCount}</strong> company/companies you own, including their mail, storage and all data. This cannot be undone.<br><br>Enter this code to confirm:<br><br><strong style=\"font-size:24px;letter-spacing:4px\">{code}</strong><br><br>This code expires in 15 minutes. If you didn't request this, ignore this email and change your password immediately.",
+      ),
+      tr: wrapTr(
+        "Hesap silmeyi onaylayın",
+        "Merhaba {userName} — Sentroy hesabınızın <strong>kalıcı olarak silinmesini</strong> istediniz. Bu işlem sahibi olduğunuz <strong>{companyCount}</strong> şirketi de (mail, depolama ve tüm verileriyle) silecek. Geri alınamaz.<br><br>Onaylamak için bu kodu girin:<br><br><strong style=\"font-size:24px;letter-spacing:4px\">{code}</strong><br><br>Kod 15 dakika geçerlidir. Bu isteği siz yapmadıysanız bu e-postayı yok sayın ve parolanızı hemen değiştirin.",
+      ),
+    },
+  },
+  {
     key: "app.submission.received",
     category: "notification",
     label: "App submission received",

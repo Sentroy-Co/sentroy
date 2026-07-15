@@ -487,7 +487,13 @@
     "cannotUnlinkLast": "You must keep at least one sign-in method to access your account.",
     "setPassword": "Set a password",
     "setPasswordDesc": "Create a password so you can also sign in with email and password.",
-    "passwordSet": "Password created"
+    "passwordSet": "Password created",
+    "deleteAccountSending": "Sending code…",
+    "deleteAccountCodeSent": "We sent a 6-digit code to your email. Enter it below to permanently delete your account.",
+    "deleteAccountOwnedWarning": "{count} company/companies you own will be permanently deleted with all their data:",
+    "deleteAccountConfirm": "Delete permanently",
+    "deleteAccountDeleting": "Deleting…",
+    "deleteAccountDone": "Your account has been deleted."
   },
   "appPicker": {
     "title": "Open an app",
