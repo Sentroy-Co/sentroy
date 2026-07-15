@@ -1,6 +1,6 @@
 {
   "name": "mail",
-  "version": "1.64.239",
+  "version": "1.64.241",
   "type": "module",
   "private": true,
   "scripts": {

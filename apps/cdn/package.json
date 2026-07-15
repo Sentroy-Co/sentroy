@@ -1,6 +1,6 @@
 {
   "name": "cdn",
-  "version": "1.64.239",
+  "version": "1.64.241",
   "private": true,
   "scripts": {
     "dev": "tsx watch src/server.ts",

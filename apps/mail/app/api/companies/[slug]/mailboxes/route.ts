@@ -59,8 +59,28 @@ export async function GET(
       result.companyId!,
     )
     const catchAllEmails = new Set(rules.map((r) => r.targetMailboxEmail))
+
+    // domainId zenginleştirmesi — upstream /mailboxes yalnız Dovecot user'ını
+    // ({email, domain, username}) döndürür, domainId İÇERMEZ. Send akışı
+    // domainId ister; client'ların (web fallback'i, mobil) domain listesini
+    // ayrıca çekip eşlemesi yerine burada tek sefer eşle.
+    let domainIdByName = new Map<string, string>()
+    if (filtered.some((m) => !m.domainId)) {
+      try {
+        const domains = await result.sentroy!.domains.list()
+        domainIdByName = new Map(
+          (domains.data ?? []).map((d) => [d.domain.toLowerCase(), d.id]),
+        )
+      } catch {
+        // Domain listesi alınamazsa mailbox listesi yine döner (domainId'siz).
+      }
+    }
+
     const enriched = filtered.map((m) => ({
       ...m,
+      domainId:
+        m.domainId ??
+        domainIdByName.get((m.email.split("@")[1] ?? "").toLowerCase()),
       isCatchAll: catchAllEmails.has(m.email),
     }))
 
