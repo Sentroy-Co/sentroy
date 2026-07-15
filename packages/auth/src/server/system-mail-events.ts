@@ -707,6 +707,33 @@ export const SYSTEM_MAIL_EVENTS: SystemMailEventDefinition[] = [
     },
   },
   {
+    key: "meet.invitation",
+    category: "invitation",
+    label: "Meeting invitation",
+    description:
+      "Sent when a user invites someone to a Sentroy Meet video call. Contains the join link.",
+    variables: [
+      { name: "inviterName", description: "Display name of the person sending the invite.", sample: "Alice" },
+      { name: "url", description: "Meeting join link (meet.sentroy.com).", sample: "https://meet.sentroy.com/call/sentroy-nova-1234", escape: false },
+    ],
+    defaultSubject: {
+      en: "{inviterName} invited you to a Sentroy Meet call",
+      tr: "{inviterName} sizi bir Sentroy Meet görüşmesine davet etti",
+    },
+    defaultHtmlBody: {
+      en: wrap(
+        "You're invited to a video call",
+        "<strong>{inviterName}</strong> invited you to a video meeting on Sentroy Meet. Click below to join from your browser — no account or download required.",
+        { url: "{url}", label: "Join meeting" },
+      ),
+      tr: wrapTr(
+        "Bir görüntülü görüşmeye davetlisiniz",
+        "<strong>{inviterName}</strong> sizi Sentroy Meet üzerinde bir görüntülü toplantıya davet etti. Tarayıcınızdan katılmak için aşağıya tıklayın — hesap veya indirme gerekmez.",
+        { url: "{url}", label: "Toplantıya katıl" },
+      ),
+    },
+  },
+  {
     key: "app.submission.received",
     category: "notification",
     label: "App submission received",
