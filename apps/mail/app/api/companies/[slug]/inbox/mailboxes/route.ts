@@ -13,6 +13,21 @@ interface FolderInfo {
   unreadMessages: number
 }
 
+// SDK'nın `listMailboxes()` metodu `mailbox` query'sini upstream'e İLETMİYOR —
+// upstream bu durumda sistem IMAP kullanıcısına bağlanıyor: klasör/unread
+// sayıları yanlış kutudan gelir ve kategori sanal klasörleri (__CAT_*) hiç
+// dönmez (sistem INBOX'u boş → nonEmpty filtresi düşürür). SDK bump'ı
+// yayınlanana dek upstream'e raw fetch ile gidiyoruz (drafts pattern).
+const MAIL_SERVER_BASE = (
+  process.env.SENTROY_MAIL_API_URL ||
+  process.env.NEXT_PUBLIC_SENTROY_API_URL ||
+  "http://localhost:3000/api/v1"
+).replace(/\/$/, "")
+
+const MAIL_SERVER_API = MAIL_SERVER_BASE.endsWith("/api/v1")
+  ? MAIL_SERVER_BASE
+  : `${MAIL_SERVER_BASE}/api/v1`
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
@@ -23,9 +38,27 @@ export async function GET(
   const result = await getSentroyForInbox(request, slug, mailbox)
   if ("error" in result && result.error) return result.error
 
+  const apiKey =
+    (result.company as { sentroyApiKey?: string } | undefined)
+      ?.sentroyApiKey || ""
+  if (!apiKey) {
+    return jsonError("Mail server not provisioned", 502)
+  }
+
   try {
-    const mailboxes = await result.sentroy!.inbox.listMailboxes()
-    const list = (mailboxes.data as unknown as FolderInfo[]) ?? []
+    const qs = mailbox ? `?mailbox=${encodeURIComponent(mailbox)}` : ""
+    const upstream = await fetch(`${MAIL_SERVER_API}/inbox/mailboxes${qs}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+      cache: "no-store",
+    })
+    const json = (await upstream.json().catch(() => ({}))) as {
+      data?: FolderInfo[]
+      error?: string
+    }
+    if (!upstream.ok) {
+      throw new Error(json.error || `Upstream ${upstream.status}`)
+    }
+    const list = json.data ?? []
 
     // Server-side mirror: fold in any custom folders the user created
     // from the dashboard but that the mail-server's IMAP `LIST` cache

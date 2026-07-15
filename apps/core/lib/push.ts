@@ -6,6 +6,7 @@
 // showNotification'a çevrilir.
 import webpush from "web-push"
 import { pushSubscriptionModel } from "@workspace/db/models"
+import { apnsConfigured, apnsTokenDead, sendApns } from "./apns"
 
 let configured = false
 
@@ -53,40 +54,65 @@ export async function dispatchToUsers(
   userIds: string[],
   payload: PushPayload,
 ): Promise<number> {
-  if (!ensureConfigured()) return 0
   if (userIds.length === 0) return 0
+  const webReady = ensureConfigured()
+  const apnsReady = apnsConfigured()
+  if (!webReady && !apnsReady) return 0
 
   const subs = await pushSubscriptionModel.findByUsers(userIds)
   if (subs.length === 0) return 0
 
+  // Missing `platform` on legacy rows = web (zero-migration).
+  const webSubs = subs.filter((s) => (s.platform ?? "web") === "web")
+  const apnsSubs = subs.filter((s) => s.platform === "apns")
+
   const body = JSON.stringify(payload)
   let sent = 0
 
-  await Promise.all(
-    subs.map(async (s) => {
-      try {
-        await webpush.sendNotification(
-          { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
-          body,
-        )
-        sent++
-      } catch (err) {
-        const status = (err as { statusCode?: number }).statusCode
-        if (status === 404 || status === 410) {
-          // Abonelik ölmüş (tarayıcı iptal etti / cihaz gitti) — temizle.
-          await pushSubscriptionModel
-            .deleteByEndpoint(s.endpoint)
-            .catch(() => {})
-        } else {
-          console.warn(
-            `[push] sendNotification failed (status=${status ?? "?"}): ${
-              (err as Error).message
-            }`,
-          )
-        }
-      }
-    }),
-  )
+  await Promise.all([
+    // ── Web Push (VAPID) ──
+    ...(webReady
+      ? webSubs.map(async (s) => {
+          if (!s.p256dh || !s.auth) return
+          try {
+            await webpush.sendNotification(
+              { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
+              body,
+            )
+            sent++
+          } catch (err) {
+            const status = (err as { statusCode?: number }).statusCode
+            if (status === 404 || status === 410) {
+              await pushSubscriptionModel.deleteByEndpoint(s.endpoint).catch(() => {})
+            } else {
+              console.warn(
+                `[push] web sendNotification failed (status=${status ?? "?"}): ${
+                  (err as Error).message
+                }`,
+              )
+            }
+          }
+        })
+      : []),
+    // ── APNs (mobile) ── endpoint holds the hex device token.
+    ...(apnsReady
+      ? apnsSubs.map(async (s) => {
+          const res = await sendApns(s.endpoint, {
+            title: payload.title,
+            body: payload.body,
+            url: payload.url,
+            tag: payload.tag,
+          })
+          if (res.ok) {
+            sent++
+          } else if (apnsTokenDead(res)) {
+            await pushSubscriptionModel.deleteByEndpoint(s.endpoint).catch(() => {})
+          } else if (res.status !== 0) {
+            console.warn(`[push] apns failed (status=${res.status} reason=${res.reason ?? "?"})`)
+          }
+        })
+      : []),
+  ])
 
   return sent
 }

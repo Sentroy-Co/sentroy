@@ -1,6 +1,7 @@
 import { FastifyPluginAsync } from 'fastify';
 import MailComposer from 'nodemailer/lib/mail-composer';
 import { ImapService } from '../services/imap';
+import type { MailCategory } from '../services/mail-categorizer';
 import {
   subscribeMailDelivered,
   type MailDeliveredEvent,
@@ -389,6 +390,38 @@ export const inboxRoutes: FastifyPluginAsync = async (fastify) => {
       return reply.send({ data: { message: 'Flag toggled' } });
     } catch (err) {
       fastify.log.error(err, 'IMAP toggleFlag failed');
+      return reply.code(503).send({
+        data: null,
+        error: 'IMAP service unavailable',
+      });
+    }
+  });
+
+  // POST /inbox/:uid/category — Kategori değiştir / kaldır
+  // Body: { category: 'promotions'|'updates'|'receipts'|'social'|'primary'|null }
+  // null/'primary' → $CatPrimary keyword'u (açık "kategorisiz" işareti).
+  fastify.post('/:uid/category', async (request, reply) => {
+    const { uid } = request.params as { uid: string };
+    const { mailbox, folder } = request.query as { mailbox?: string; folder?: string };
+    const { category } = (request.body ?? {}) as { category?: string | null };
+    const imapFolder = folder || (mailbox?.includes('@') ? 'INBOX' : mailbox);
+
+    const target = category == null || category === '' ? 'primary' : String(category);
+    const valid = new Set(['primary', 'promotions', 'updates', 'receipts', 'social']);
+    if (!valid.has(target)) {
+      return reply.code(400).send({
+        data: null,
+        error: `Invalid category — expected one of: ${[...valid].join(', ')}`,
+      });
+    }
+
+    try {
+      await withImap(extractEmail(mailbox), (imap) =>
+        imap.setCategory(Number(uid), target as MailCategory, imapFolder),
+      );
+      return reply.send({ data: { message: 'Category updated', category: target } });
+    } catch (err) {
+      fastify.log.error(err, 'IMAP setCategory failed');
       return reply.code(503).send({
         data: null,
         error: 'IMAP service unavailable',

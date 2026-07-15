@@ -2,6 +2,37 @@ import { ImapFlow, FetchMessageObject } from 'imapflow';
 import { simpleParser, ParsedMail } from 'mailparser';
 import { categorize, type MailCategory } from './mail-categorizer';
 
+// ── Category keywords ──────────────────────────────────────────────────────
+// Kategori, mesajin UZERINDE yasayan bir IMAP custom keyword'dur — teslimatta
+// damgalanir (category-stamper), klasor tasimalarinda mesajla birlikte gider
+// (IMAP MOVE keyword'leri korur; 3. parti client tasisa bile), kullanici
+// degisikligi ayni STORE mekanizmasidir. Keyword yoksa okuma yolunda
+// categorize() fallback'i calisir (damgasiz eski mail'ler icin).
+export const CATEGORY_KEYWORDS: Record<Exclude<MailCategory, 'primary'>, string> = {
+  promotions: '$CatPromotions',
+  updates: '$CatUpdates',
+  receipts: '$CatReceipts',
+  social: '$CatSocial',
+};
+
+/** Kullanicinin "kategorisiz / primary" tercihini ACIKCA isaretler — yoksa
+ *  read-fallback heuristigi kategoriyi geri diriltirdi. */
+export const PRIMARY_KEYWORD = '$CatPrimary';
+
+export const ALL_CATEGORY_KEYWORDS = [
+  ...Object.values(CATEGORY_KEYWORDS),
+  PRIMARY_KEYWORD,
+];
+
+/** Flags setinden kategori okur; keyword yoksa null (caller fallback yapar). */
+export function categoryFromFlags(flags: Set<string>): MailCategory | null {
+  if (flags.has(PRIMARY_KEYWORD)) return 'primary';
+  for (const [cat, kw] of Object.entries(CATEGORY_KEYWORDS)) {
+    if (flags.has(kw)) return cat as MailCategory;
+  }
+  return null;
+}
+
 // ── Types ──
 
 export interface ListOptions {
@@ -50,6 +81,8 @@ export interface MessageDetail {
   inReplyTo: string | null;
   /** Thread'deki onceki Message-ID'lerin tam zinciri */
   references: string[];
+  /** Kategori — keyword-first, damgasizsa heuristik */
+  category: MailCategory;
 }
 
 export interface AttachmentInfo {
@@ -288,6 +321,7 @@ function parseHeaderFieldsBuffer(buf: Buffer | string | undefined | null): Recor
 /** Kategorizasyon için yeterli olan minimum header seti. */
 const CATEGORIZE_HEADER_FIELDS = [
   'list-unsubscribe',
+  'list-id',
   'precedence',
   'auto-submitted',
 ];
@@ -422,12 +456,16 @@ export class ImapService {
         const msgSubject = envelope.subject || '';
         const msgInReplyTo = envelope.inReplyTo || null;
 
-        const category = categorize({
-          from: fromAddr.address,
-          subject: msgSubject,
-          headers: rawHeaders,
-          inReplyTo: msgInReplyTo,
-        });
+        // Keyword-first: teslimatta damgalanan / kullanicinin degistirdigi
+        // kategori kazanir; damgasiz (eski) mail'de heuristik fallback.
+        const category =
+          categoryFromFlags(flags) ??
+          categorize({
+            from: fromAddr.address,
+            subject: msgSubject,
+            headers: rawHeaders,
+            inReplyTo: msgInReplyTo,
+          });
 
         messages.push({
           uid: msg.uid,
@@ -574,10 +612,20 @@ export class ImapService {
         .map((s) => s.trim())
         .filter((s) => s.startsWith('<') && s.endsWith('>'));
 
+      const fromAddr = parseAddress(envelope.from);
+      const category =
+        categoryFromFlags(flags) ??
+        categorize({
+          from: fromAddr.address,
+          subject: envelope.subject || '',
+          headers,
+          inReplyTo: envelope.inReplyTo || null,
+        });
+
       return {
         uid: result.uid,
         subject: envelope.subject || '',
-        from: parseAddress(envelope.from),
+        from: fromAddr,
         to: parseAddressList(envelope.to),
         cc: parseAddressList(envelope.cc),
         replyTo: envelope.replyTo?.[0] ? parseAddress(envelope.replyTo) : null,
@@ -591,6 +639,7 @@ export class ImapService {
         messageId: envelope.messageId || null,
         inReplyTo: envelope.inReplyTo || null,
         references,
+        category,
       };
     } finally {
       lock.release();
@@ -629,6 +678,67 @@ export class ImapService {
       } else {
         await client.messageFlagsAdd(String(uid), [flag], { uid: true });
       }
+    } finally {
+      lock.release();
+    }
+  }
+
+  /**
+   * Kullanici kategori degisikligi — mesajin uzerindeki $Cat* keyword'unu
+   * degistirir. `category` null/'primary' → $CatPrimary (acik "kategorisiz"
+   * isareti; read-fallback'in kategoriyi geri diriltmesini engeller).
+   */
+  async setCategory(
+    uid: number,
+    category: MailCategory | null,
+    mailbox = 'INBOX',
+  ): Promise<void> {
+    const client = this.getClient();
+    const lock = await client.getMailboxLock(mailbox);
+    try {
+      await client.messageFlagsRemove(String(uid), ALL_CATEGORY_KEYWORDS, { uid: true });
+      const keyword =
+        category && category !== 'primary'
+          ? CATEGORY_KEYWORDS[category]
+          : PRIMARY_KEYWORD;
+      await client.messageFlagsAdd(String(uid), [keyword], { uid: true });
+    } finally {
+      lock.release();
+    }
+    // Kategori sayilari degisti — kullanicinin count cache'ini dusur.
+    const cacheKey = (this.client as any)?.options?.auth?.user;
+    if (cacheKey) categoryCountCache.delete(cacheKey);
+  }
+
+  /**
+   * Teslimat damgasi — Message-ID ile mesaji bulup kategori keyword'unu ekler
+   * (category-stamper cagirir). Mesaj henuz gorunmuyorsa false doner; caller
+   * retry eder. Mevcut bir $Cat* keyword'u varsa (ayni Message-ID'ye ikinci
+   * teslim vb.) dokunmaz — kullanici override'ini ezmemek icin.
+   */
+  async stampCategoryByMessageId(
+    messageId: string,
+    category: MailCategory,
+    folder = 'INBOX',
+  ): Promise<boolean> {
+    if (category === 'primary') return true; // keyword yoklugu = primary
+    const keyword = CATEGORY_KEYWORDS[category];
+    if (!keyword) return true;
+    const client = this.getClient();
+    const lock = await client.getMailboxLock(folder);
+    try {
+      const uids = await client.search(
+        { header: { 'message-id': messageId } },
+        { uid: true },
+      );
+      if (!uids || uids.length === 0) return false;
+      for (const uid of uids) {
+        const existing = await client.fetchOne(String(uid), { uid: true, flags: true }, { uid: true });
+        const flags = existing ? existing.flags : undefined;
+        if (flags && ALL_CATEGORY_KEYWORDS.some((kw) => flags.has(kw))) continue;
+        await client.messageFlagsAdd(String(uid), [keyword], { uid: true });
+      }
+      return true;
     } finally {
       lock.release();
     }
@@ -755,7 +865,9 @@ export class ImapService {
           preview: '',
           messageId: envelope.messageId || null,
           inReplyTo: irt,
-          category: categorize({ from: fromAddr.address, subject: subj, inReplyTo: irt }),
+          category:
+            categoryFromFlags(flags) ??
+            categorize({ from: fromAddr.address, subject: subj, inReplyTo: irt }),
         });
       }
 
@@ -1008,10 +1120,11 @@ export class ImapService {
             .map((s) => s.trim())
             .filter((s) => s.startsWith('<') && s.endsWith('>'));
 
+          const thrFrom = parseAddress(envelope.from);
           results.push({
             uid: msg.uid,
             subject: msgSubject,
-            from: parseAddress(envelope.from),
+            from: thrFrom,
             to: parseAddressList(envelope.to),
             cc: parseAddressList(envelope.cc),
             replyTo: envelope.replyTo?.[0] ? parseAddress(envelope.replyTo) : null,
@@ -1025,6 +1138,14 @@ export class ImapService {
             messageId: mid,
             inReplyTo: envelope.inReplyTo || null,
             references,
+            category:
+              categoryFromFlags(flags) ??
+              categorize({
+                from: thrFrom.address,
+                subject: msgSubject,
+                headers,
+                inReplyTo: envelope.inReplyTo || null,
+              }),
             folder,
           });
         }

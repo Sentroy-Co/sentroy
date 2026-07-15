@@ -5,6 +5,7 @@ import { Redis } from 'ioredis';
 import { Readable } from 'stream';
 import { publishMailDelivered } from './events';
 import { categorize } from './mail-categorizer';
+import { stampDeliveredCategory } from './category-stamper';
 
 /**
  * Inline LMTP proxy:
@@ -153,6 +154,17 @@ export function startLmtpProxy(config: LmtpProxyConfig): SMTPServer {
             ),
           ),
         );
+
+        // Kategori damgası — mesajın üzerine IMAP keyword yazar (kalıcı +
+        // kullanıcı-değiştirilebilir). Fire-and-forget: teslim yolunu asla
+        // beklemez; başarısızlıkta read-fallback kategoriyi yine gösterir.
+        for (const mailbox of recipients) {
+          void stampDeliveredCategory({
+            mailbox: mailbox.toLowerCase(),
+            messageId,
+            category,
+          }).catch(() => {});
+        }
 
         callback();
       });

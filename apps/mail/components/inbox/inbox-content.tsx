@@ -202,6 +202,9 @@ function mapSdkMessage(raw: Record<string, unknown>): MessageSummary {
     inReplyTo: (raw.inReplyTo as string | null) ?? null,
     preview: (raw.preview as string | null | undefined) ?? null,
     hasListUnsubscribe,
+    // Server-side kategori (mail-server keyword-first hesaplar) — artık
+    // sınıflandırmanın asıl kaynağı; sender-rule overlay üzerine yazabilir.
+    category: (raw.category as string | null | undefined) ?? null,
   }
 }
 
@@ -1194,14 +1197,14 @@ export function InboxContent() {
       const addr = m.from?.address?.toLowerCase()
       return !addr || !blockedSetForMailbox.has(addr)
     })
-    // Virtual category filter — `__CAT_promotions__` etc. show only
-    // messages the AI labeled with that bucket. Unknown UIDs (still
-    // classifying or classifier failed) drop out of the view; they
-    // reappear once the next batch resolves.
+    // Virtual category filter — `__CAT_promotions__` etc. Kaynak öncelik:
+    // sender-rule overlay (categorizations) → server kategorisi (mail-server
+    // teslimatta damgalıyor, list yanıtında `category`). Her mesajın artık
+    // deterministik bir kategorisi var; "hâlâ sınıflandırılıyor" durumu yok.
     if (selectedFolder.startsWith("__CAT_")) {
       const target = selectedFolder.replace(/^__CAT_/, "").replace(/__$/, "")
       return blockFiltered.filter(
-        (m) => categorizations[m.uid] === target,
+        (m) => (categorizations[m.uid] ?? m.category) === target,
       )
     }
     return blockFiltered
@@ -1627,6 +1630,51 @@ export function InboxContent() {
       }
     },
     [slug, selectedAccount, t],
+  )
+
+  // Tek mesajın kategorisini değiştirir/kaldırır — mail-server'daki IMAP
+  // keyword'ünü günceller (kalıcı; klasör taşımalarında mesajla birlikte
+  // gider). Sender-rule'dan farkı: yalnızca BU mesajı etkiler.
+  // `cat === "primary"` = kategoriyi kaldır.
+  const applyCategorize = useCallback(
+    async (uid: string, cat: string) => {
+      if (!slug || !selectedAccount) return
+      try {
+        const res = await fetch(
+          `/api/companies/${slug}/inbox/${uid}/category`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              mailbox: selectedAccount,
+              folder: resolveFolder(selectedFolder) ?? "INBOX",
+              category: cat,
+            }),
+          },
+        )
+        const json = await res.json()
+        if (!res.ok) throw new Error(json.error || "Failed")
+        // Local state'i hemen yansıt; rules-overlay'de bu uid varsa temizle
+        // ki yeni değer görünür olsun (rule tekrar eşleşirse sonraki
+        // categorize çağrısında geri gelir — pin kazanır semantiği).
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.uid === uid ? { ...msg, category: cat } : msg,
+          ),
+        )
+        setCategorizations((prev) => {
+          if (!(uid in prev)) return prev
+          const next = { ...prev }
+          delete next[uid]
+          return next
+        })
+        toast.success(t(`ruleCategory_${cat}`))
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : t("ruleFailed"))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [slug, selectedAccount, selectedFolder, t],
   )
 
   // ── Bulk selection handlers ───────────────────────────────────────────
@@ -2263,7 +2311,10 @@ export function InboxContent() {
                   messages.reduce(
                     (acc, m) =>
                       acc +
-                      (m.unread && categorizations[m.uid] === cat ? 1 : 0),
+                      (m.unread &&
+                      (categorizations[m.uid] ?? m.category) === cat
+                        ? 1
+                        : 0),
                     0,
                   )
               const virtualCategories: Folder[] = [
@@ -2678,7 +2729,7 @@ export function InboxContent() {
                       currentMailbox={selectedAccount}
                       isMultiSelected={isThreadMultiSelected}
                       selectionActive={selectionActive}
-                      category={categorizations[m.uid]}
+                      category={categorizations[m.uid] ?? m.category ?? undefined}
                       density={messageDensity}
                       onToggleMultiSelect={(evt) => {
                         setSelectedUids((prev) => {
@@ -2777,6 +2828,38 @@ export function InboxContent() {
                         {t("moveToSpam")}
                       </ContextMenuItem>
                     ) : null}
+                    {/* Tek-mesaj kategori değişikliği — server'daki IMAP
+                        keyword'ünü günceller (sender-rule'dan bağımsız). */}
+                    <ContextMenuSeparator />
+                    <ContextMenuSub>
+                      <ContextMenuSubTrigger>
+                        <HugeiconsIcon icon={Folder01Icon} strokeWidth={2} />
+                        {t("categorizeAs")}
+                      </ContextMenuSubTrigger>
+                      <ContextMenuSubContent>
+                        {(
+                          [
+                            "promotions",
+                            "updates",
+                            "receipts",
+                            "social",
+                          ] as const
+                        ).map((cat) => (
+                          <ContextMenuItem
+                            key={cat}
+                            onClick={() => applyCategorize(m.uid, cat)}
+                          >
+                            {t(`ruleCategory_${cat}`)}
+                          </ContextMenuItem>
+                        ))}
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          onClick={() => applyCategorize(m.uid, "primary")}
+                        >
+                          {t("removeCategory")}
+                        </ContextMenuItem>
+                      </ContextMenuSubContent>
+                    </ContextMenuSub>
                     {senderEmail ? (
                       <>
                         <ContextMenuSeparator />

@@ -45,6 +45,10 @@ export interface MessageSummary {
   /** True when `List-Unsubscribe` header is present — strong signal
    *  the message is bulk (Promotions/Updates/Social). */
   hasListUnsubscribe?: boolean
+  /** Server-side kategori — mail-server teslimatta IMAP keyword olarak
+   *  damgalar; list yanıtıyla gelir. Sender-rule overlay'i bunun üzerine
+   *  yazabilir. */
+  category?: string | null
 }
 
 interface MessageListItemProps {

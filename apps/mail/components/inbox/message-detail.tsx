@@ -309,10 +309,14 @@ export function MessageDetailView({
   const [loadImages, setLoadImages] = useState(false)
   const [blockedAssets, setBlockedAssets] = useState(0)
   const [threadBlocked, setThreadBlocked] = useState<Record<string, number>>({})
+  // Uzun sohbetlerde ortadaki mesajlar "… N more" satırının arkasına katlanır
+  // (ilk 2 + son 3 görünür); tıklayınca tamamı açılır. Mesaj değişince sıfırlanır.
+  const [showAllInThread, setShowAllInThread] = useState(false)
   useEffect(() => {
     setLoadImages(false)
     setBlockedAssets(0)
     setThreadBlocked({})
+    setShowAllInThread(false)
   }, [message.uid])
   const handleThreadBlockedChange = useCallback(
     (uid: string, count: number) => {
@@ -914,11 +918,30 @@ export function MessageDetailView({
             )
           })()}
 
-          {/* Thread: birden fazla mesaj varsa hepsini collapsible goster */}
+          {/* Thread: birden fazla mesaj varsa hepsini collapsible goster.
+              6+ mesajda ortadakiler tek bir "… N more" satirina katlanir
+              (ilk 2 + son 3 gorunur) — cok uzun sohbetlerde liste boyu
+              kontrol altinda kalir. */}
           {hasThread ? (
             <div className="flex flex-col gap-2">
               {threadMessages!.map((msg, idx) => {
-                const isLast = idx === threadMessages!.length - 1
+                const totalMsgs = threadMessages!.length
+                const collapseThread = totalMsgs > 6 && !showAllInThread
+                if (collapseThread && idx >= 2 && idx < totalMsgs - 3) {
+                  if (idx !== 2) return null
+                  return (
+                    <button
+                      key="thread-collapsed"
+                      type="button"
+                      onClick={() => setShowAllInThread(true)}
+                      className="flex h-10 items-center justify-center gap-2 rounded-xl border border-border bg-muted/60 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-muted"
+                    >
+                      <span aria-hidden>…</span>
+                      {t("threadShowMore", { count: totalMsgs - 5 })}
+                    </button>
+                  )
+                }
+                const isLast = idx === totalMsgs - 1
                 return (
                   <ThreadMessageSection
                     key={msg.uid}
@@ -1438,7 +1461,15 @@ function ThreadMessageSection({
 
   const snippet = useMemo(() => {
     if (!msg.text) return ""
-    return msg.text.slice(0, 120).replace(/\s+/g, " ").trim()
+    // mailparser'ın html→text çıktısındaki köşeli-parantezli link artıklarını
+    // ([https://…]) ve tracking URL'lerini snippet'ten temizle.
+    return msg.text
+      .replace(/\[(?:https?|mailto):[^\]]*\]/g, "")
+      .replace(/https?:\/\/\S*\/api\/v1\/t\/(?:open|click)\/\S+/g, "")
+      .slice(0, 160)
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 120)
   }, [msg.text])
 
   return (

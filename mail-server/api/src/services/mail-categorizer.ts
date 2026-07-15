@@ -81,6 +81,7 @@ export function categorize(input: CategorizationInput): MailCategory {
 
   const listUnsubscribe =
     headers['list-unsubscribe'] || headers['List-Unsubscribe'] || '';
+  const listId = headers['list-id'] || headers['List-Id'] || '';
   const precedence =
     (headers['precedence'] || headers['Precedence'] || '').toLowerCase();
   const autoSubmitted =
@@ -129,6 +130,11 @@ export function categorize(input: CategorizationInput): MailCategory {
     // Bulk + promo sender pattern → kesin promo
     if (PROMO_SENDER_PATTERNS.some((re) => re.test(fromLower))) {
       return 'promotions';
+    }
+    // Gercek mail listesi (List-Id, RFC 2919) ve promo sinyali yok →
+    // newsletter/duyuru niteligi agir basar → updates (Gmail paritesi)
+    if (listId && !PROMO_SUBJECT_RE.test(subject)) {
+      return 'updates';
     }
     // Bulk ama belirli bir kategori degil — genel promosyon
     return 'promotions';

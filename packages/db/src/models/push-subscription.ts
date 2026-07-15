@@ -17,12 +17,18 @@ export interface PushSubscription {
   id: string
   /** Sentroy kullanıcı id'si (better-auth user). */
   userId: string
-  /** Tarayıcı push endpoint'i (unique). */
+  /**
+   * Benzersiz abonelik kimliği. Web push → tarayıcı push endpoint URL'i;
+   * APNs (mobil) → hex device token. Tek `endpoint` unique index'i ikisini de
+   * kapsar (aynı token/endpoint tek kayıt).
+   */
   endpoint: string
-  /** Abonelik public key (p256dh) — payload şifrelemesi için. */
-  p256dh: string
-  /** Abonelik auth secret. */
-  auth: string
+  /** Transport. Yoksa (eski kayıtlar) `web` varsayılır — zero-migration. */
+  platform?: "web" | "apns"
+  /** Web push: abonelik public key (p256dh). APNs'te yok. */
+  p256dh?: string
+  /** Web push: abonelik auth secret. APNs'te yok. */
+  auth?: string
   /** Bilgi amaçlı — hangi tarayıcı/cihaz (debug + ileride cihaz listesi). */
   userAgent?: string | null
   createdAt: Date
@@ -52,6 +58,28 @@ export async function upsertByEndpoint(data: {
         userAgent: data.userAgent ?? null,
       },
       $setOnInsert: { endpoint: data.endpoint, createdAt: new Date() },
+    },
+    { upsert: true },
+  )
+}
+
+/** APNs (mobil) cihaz token'ını kaydet/güncelle. `endpoint` = device token;
+ *  aynı token tekrar gelirse userId sahipliği güncellenir (cihaz devri). */
+export async function upsertDevice(data: {
+  userId: string
+  deviceToken: string
+  userAgent?: string | null
+}): Promise<void> {
+  const c = await col()
+  await c.updateOne(
+    { endpoint: data.deviceToken },
+    {
+      $set: {
+        userId: data.userId,
+        platform: "apns",
+        userAgent: data.userAgent ?? null,
+      },
+      $setOnInsert: { endpoint: data.deviceToken, createdAt: new Date() },
     },
     { upsert: true },
   )
