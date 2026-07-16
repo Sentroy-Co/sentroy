@@ -44,6 +44,10 @@ const app = Fastify({
   logger: {
     level: process.env.LOG_LEVEL || 'info',
   },
+  // Fastify varsayilani 1 MB — base64 ekli mail gonderimi (dashboard/mobil
+  // 20 MB ek siniri, base64 ~%33 sismeyle ~27 MB) bunu asip
+  // FST_ERR_CTP_BODY_TOO_LARGE ile reddediliyordu. 32 MB pay birakir.
+  bodyLimit: 32 * 1024 * 1024,
 });
 
 async function start() {
