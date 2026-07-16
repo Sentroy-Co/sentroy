@@ -6,6 +6,8 @@ import { checkRateLimit, rateLimitResponse } from "@workspace/console/lib/rate-l
 import { sendSystemMailEvent } from "@workspace/auth/server/system-mail-events"
 import { serverRootDomain, subAppOrigin } from "@workspace/auth/lib/domains"
 import { audit } from "@workspace/console/lib/audit"
+import { authUserModel, companyModel, companyMemberModel } from "@workspace/db/models"
+import { pushMeetNotification } from "@/lib/meet-push"
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 // meet.sentroy.com/call/<oda> — sanitizeRoom ile aynı alfabe ([a-z0-9-], ≤64).
@@ -25,7 +27,7 @@ export async function POST(request: NextRequest) {
   const rl = checkRateLimit(request, { key: "meet-invite", window: 600, max: 10 })
   if (!rl.allowed) return rateLimitResponse(rl)
 
-  let body: { email?: string; url?: string } = {}
+  let body: { email?: string; url?: string; companySlug?: string } = {}
   try {
     body = await request.json()
   } catch {
@@ -46,15 +48,39 @@ export async function POST(request: NextRequest) {
   if (!ROOM_RE.test(room)) return jsonError("Invalid meeting room", 400)
   const url = `${meetOrigin}/call/${room}`
 
+  const inviterName = session.user.name || session.user.email || "A Sentroy user"
   const mail = await sendSystemMailEvent("meet.invitation", {
     to: email,
-    variables: {
-      inviterName: session.user.name || session.user.email || "A Sentroy user",
-      url,
-    },
+    variables: { inviterName, url },
   })
   if (!mail.sent) {
     return jsonError(`Invitation could not be sent (${mail.reason ?? "unknown"})`, 502)
+  }
+
+  // Davet edilen bir Sentroy kullanıcısıysa mail'e EK push + OS bildirimi.
+  // companySlug (davet eden mobil/OS istemcisinin aktif şirketi) verildiyse ve
+  // davetli o şirketin üyesiyse bildirim OS içinde meet penceresini açar.
+  let pushed = 0
+  const inviteeId = (await authUserModel.findIdsByEmails([email])).get(email)
+  if (inviteeId && inviteeId !== session.user.id) {
+    let companyId: string | null = null
+    const slug = (body.companySlug ?? "").trim().toLowerCase()
+    if (slug) {
+      const company = await companyModel.findBySlug(slug).catch(() => null)
+      if (company) {
+        const member = await companyMemberModel
+          .findByCompanyAndUser(company.id, inviteeId)
+          .catch(() => null)
+        if (member?.status === "active") companyId = company.id
+      }
+    }
+    pushed = await pushMeetNotification({
+      userIds: [inviteeId],
+      title: inviterName,
+      body: "Sentroy Meet invitation — tap to join",
+      room,
+      companyId,
+    })
   }
 
   await audit({
@@ -62,7 +88,7 @@ export async function POST(request: NextRequest) {
     action: "meet.invite-sent",
     resource: "meet",
     resourceId: room,
-    details: { recipient: email },
+    details: { recipient: email, pushed },
   })
 
   return jsonSuccess({ sent: true, url })

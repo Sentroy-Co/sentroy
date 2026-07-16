@@ -90,6 +90,26 @@ export async function findById(id: string): Promise<ScheduledMeeting | null> {
   return toId(await c.findOne({ _id: new ObjectId(id) })) as ScheduledMeeting | null
 }
 
+/**
+ * Oda için yaklaşan/devam-eden planlı toplantı — erken-katılım kapısı için
+ * (room-status endpoint'i + meet token gating). "Devam eden" payı: başlangıcı
+ * son 6 saatte olanlar da döner (uzun toplantı + geç katılan); daha eskiler
+ * bitti sayılır. Oda birden fazla kez planlandıysa en yakın başlangıç kazanır.
+ */
+export async function findUpcomingByRoom(room: string): Promise<ScheduledMeeting | null> {
+  const c = await col()
+  const doc = await c
+    .find({
+      room,
+      status: "scheduled",
+      startAt: { $gte: new Date(Date.now() - 6 * 60 * 60 * 1000) },
+    })
+    .sort({ startAt: 1 })
+    .limit(1)
+    .next()
+  return doc ? (toId(doc) as ScheduledMeeting) : null
+}
+
 /** Organizatörün toplantıları — varsayılan yalnız gelecekteki + iptal olmayanlar. */
 export async function listByOrganizer(
   organizerUserId: string,

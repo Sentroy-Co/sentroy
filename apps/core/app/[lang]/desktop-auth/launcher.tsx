@@ -10,11 +10,16 @@ import { useEffect, useState } from "react"
 export function DesktopAuthLauncher({
   code,
   email,
+  scheme = "sentroy",
+  appName = "Sentroy",
 }: {
   code: string
   email: string
+  /** Hedef uygulamanın deep-link şeması (allowlist: page.tsx HANDOFF_APPS). */
+  scheme?: string
+  appName?: string
 }) {
-  const deepLink = `sentroy://auth?code=${encodeURIComponent(code)}`
+  const deepLink = `${scheme}://auth?code=${encodeURIComponent(code)}`
   const [opened, setOpened] = useState(false)
 
   useEffect(() => {
@@ -40,7 +45,7 @@ export function DesktopAuthLauncher({
     >
       <div style={{ maxWidth: 380, textAlign: "center", display: "flex", flexDirection: "column", gap: 16, alignItems: "center" }}>
         <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff1744" }} />
-        <h1 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>Opening the Sentroy app…</h1>
+        <h1 style={{ fontSize: 18, fontWeight: 600, margin: 0 }}>Opening the {appName} app…</h1>
         <p style={{ fontSize: 14, lineHeight: 1.55, color: "#8b8b93", margin: 0 }}>
           {email ? <>Signed in as <b style={{ color: "#f2f2f4" }}>{email}</b>. </> : null}
           If the app doesn’t open automatically, use the button below. You can
@@ -60,11 +65,11 @@ export function DesktopAuthLauncher({
             textDecoration: "none",
           }}
         >
-          Open Sentroy
+          Open {appName}
         </a>
         {opened ? (
           <p style={{ fontSize: 12, color: "#8b8b93", margin: 0 }}>
-            You can return to the Sentroy app now.
+            You can return to the {appName} app now.
           </p>
         ) : null}
       </div>

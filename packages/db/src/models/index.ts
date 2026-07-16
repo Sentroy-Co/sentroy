@@ -107,6 +107,7 @@ export * as linearPushSubscriptionModel from "./linear-push-subscription"
 export * as pushSubscriptionModel from "./push-subscription"
 export * as mailPushEventModel from "./mail-push-event"
 export * as authSessionModel from "./auth-session"
+export * as authUserModel from "./auth-user"
 export * as linearInboxSeenModel from "./linear-inbox-seen"
 
 export * as contactMessageModel from "./contact-message"

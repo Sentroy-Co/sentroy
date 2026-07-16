@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic"
 import { NextRequest } from "next/server"
 import { getAuthSession, jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { checkRateLimit, rateLimitResponse } from "@workspace/console/lib/rate-limit"
-import { scheduledMeetingModel } from "@workspace/db/models"
+import { companyMemberModel, companyModel, scheduledMeetingModel } from "@workspace/db/models"
 import { audit } from "@workspace/console/lib/audit"
 import { generateRoom, mailParticipants, normalizeParticipants, roomUrl } from "@/lib/meet-schedule"
 
@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
     whenText?: string
     durationMin?: number
     participants?: unknown
+    companySlug?: string
   } = {}
   try {
     body = await request.json()
@@ -54,7 +55,23 @@ export async function POST(request: NextRequest) {
   const room = generateRoom()
   const url = roomUrl(room)
 
+  // Opsiyonel şirket bağlamı (mobil aktif şirketi yollar) — yalnız organizatör
+  // o şirketin AKTİF üyesiyse bağlanır. Hatırlatma push'unun OS deep-link'i
+  // bu bağlamı kullanır; verilmezse toplantı kullanıcı-kapsamlı kalır.
+  let companyId: string | null = null
+  const slug = (body.companySlug ?? "").trim().toLowerCase()
+  if (slug) {
+    const company = await companyModel.findBySlug(slug).catch(() => null)
+    if (company) {
+      const member = await companyMemberModel
+        .findByCompanyAndUser(company.id, session.user.id)
+        .catch(() => null)
+      if (member?.status === "active") companyId = company.id
+    }
+  }
+
   const meeting = await scheduledMeetingModel.create({
+    companyId,
     organizerUserId: session.user.id,
     organizerName: session.user.name || session.user.email || "A Sentroy user",
     organizerEmail: session.user.email || "",

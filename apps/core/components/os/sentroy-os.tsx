@@ -227,11 +227,32 @@ export function SentroyOS({
     const descriptor = stageApps.find((a) => a.id === appId) ?? dynamicApps[appId]
     if (!descriptor) return // henüz yüklenmedi ya da erişim yok → deps'te tekrar
     deepAppRef.current = true
-    openApp(appId, descriptor)
+    // Meet bildirimi doğrudan ODAYA götürür (`os-room`): statik descriptor
+    // lobby'yi yüklediğinden (window-manager'da statik liste kazanır) per-launch
+    // dynamic-id pencere açarız — href /call/<oda>, WindowFrame ?embed=1 ekler
+    // ve meet shell embed modda prejoin'i atlayıp odaya girer.
+    let room: string | null = null
+    try {
+      room = new URLSearchParams(window.location.search).get("os-room")
+    } catch {
+      /* ignore */
+    }
+    if (appId === "meet" && room && /^[a-z0-9-]{1,64}$/.test(room)) {
+      const base = descriptor.href.replace(/\/$/, "")
+      const d = {
+        ...descriptor,
+        id: `meet:${room}`,
+        href: `${base}/call/${encodeURIComponent(room)}`,
+      }
+      openApp(d.id, d)
+    } else {
+      openApp(appId, descriptor)
+    }
     try {
       const u = new URL(window.location.href)
       u.searchParams.delete("os-app")
       u.searchParams.delete("os-mailbox")
+      u.searchParams.delete("os-room")
       window.history.replaceState(null, "", u.pathname + (u.search || ""))
     } catch {
       /* ignore */
