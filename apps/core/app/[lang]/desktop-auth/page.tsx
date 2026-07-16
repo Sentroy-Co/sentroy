@@ -2,6 +2,7 @@ import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "@workspace/auth/server/auth"
 import { createDesktopAuthCode } from "@/lib/desktop-auth"
+import { resolveHandoffApp } from "@/lib/handoff-apps"
 import { DesktopAuthLauncher } from "./launcher"
 
 export const runtime = "nodejs"
@@ -14,14 +15,6 @@ export const dynamic = "force-dynamic"
  * exchanges it for its own session — see lib/desktop-auth.ts + the
  * /api/desktop-auth/verify route.
  */
-// Handoff yapan uygulamalar — şema allowlist'i. `?app=` paramı buradan
-// doğrulanır; bilinmeyen değer varsayılana (desktop/mail: sentroy://) düşer.
-// Yeni bir mobil/masaüstü uygulama eklerken buraya kaydet.
-const HANDOFF_APPS: Record<string, { scheme: string; appName: string }> = {
-  sentroy: { scheme: "sentroy", appName: "Sentroy" },
-  meet: { scheme: "sentroy-meet", appName: "Sentroy Meet" },
-}
-
 export default async function DesktopAuthPage({
   params,
   searchParams,
@@ -31,13 +24,19 @@ export default async function DesktopAuthPage({
 }) {
   const { lang } = await params
   const { app } = await searchParams
-  const target = HANDOFF_APPS[app ?? ""] ?? HANDOFF_APPS.sentroy
+  // Masaüstü/mail varsayılanı sentroy://. App-scoped handoff (Meet vb.) PATH
+  // route'unu kullanır (/[lang]/desktop-auth/[app]) — OAuth-güvenli. Buradaki
+  // `?app=` yalnız email-login akışı için korunur (geriye-uyum).
+  const target = resolveHandoffApp(app)
   const session = await auth.api.getSession({ headers: await headers() })
 
   // Not signed in → normal login, then return here (login honours callbackURL)
-  // to mint the code and hand off to the desktop app. `app` paramı korunur.
+  // to mint the code and hand off to the app. App verildiyse PATH route'una
+  // yönlendir (OAuth-güvenli); yoksa bu sayfaya dön.
   if (!session?.user?.id) {
-    const back = `/${lang}/desktop-auth${app ? `?app=${encodeURIComponent(app)}` : ""}`
+    const back = app
+      ? `/${lang}/desktop-auth/${encodeURIComponent(app)}`
+      : `/${lang}/desktop-auth`
     redirect(`/${lang}/login?callbackURL=${encodeURIComponent(back)}`)
   }
 
