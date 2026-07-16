@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => null)) as {
     platform?: string
     token?: string
+    deviceName?: string
   } | null
 
   const token = body?.token?.trim()
@@ -31,12 +32,17 @@ export async function POST(request: NextRequest) {
   if (!token || (!validApns && !validFcm)) {
     return jsonError("Invalid device registration", 400)
   }
+  // Cihaz listesi ekranında görünen ad — client bildirir, 80 char'a kırpılır.
+  const deviceName = body?.deviceName?.trim().slice(0, 80) || null
 
   await pushSubscriptionModel.upsertDevice({
     userId: session.user.id,
     deviceToken: token,
     platform: platform as "apns" | "fcm",
     userAgent: request.headers.get("user-agent"),
+    deviceName,
+    // Kaydı bu oturuma bağla — çıkış/revoke/expiry sonrası dispatch temizler.
+    sessionToken: session.session?.token ?? null,
   })
 
   return jsonSuccess({ registered: true })
@@ -48,7 +54,9 @@ export async function DELETE(request: NextRequest) {
 
   const body = (await request.json().catch(() => null)) as { token?: string } | null
   if (body?.token) {
-    await pushSubscriptionModel.deleteByEndpoint(body.token.trim())
+    // Sahiplik-korumalı: yalnız kendi kaydını silebilir (başkasının token'ını
+    // öğrenen bir kullanıcı onun aboneliğini öldüremesin).
+    await pushSubscriptionModel.deleteByEndpointForUser(body.token.trim(), session.user.id)
   }
   return jsonSuccess({ registered: false })
 }

@@ -5,7 +5,7 @@
 // sekmeye zaten SSE gidiyor). Payload service worker (public/sw.js) tarafından
 // showNotification'a çevrilir.
 import webpush from "web-push"
-import { pushSubscriptionModel } from "@workspace/db/models"
+import { authSessionModel, pushSubscriptionModel } from "@workspace/db/models"
 import { apnsConfigured, apnsTokenDead, sendApns } from "./apns"
 import { fcmConfigured, fcmTokenDead, sendFcm } from "./fcm"
 
@@ -61,7 +61,28 @@ export async function dispatchToUsers(
   const fcmReady = fcmConfigured()
   if (!webReady && !apnsReady && !fcmReady) return 0
 
-  const subs = await pushSubscriptionModel.findByUsers(userIds)
+  const allSubs = await pushSubscriptionModel.findByUsers(userIds)
+  if (allSubs.length === 0) return 0
+
+  // ── Session-canlılık kapısı ── Kayıt, kaydeden better-auth oturumuna bağlı
+  // (sessionToken). Oturum öldüyse (çıkış / güvenlik sayfasından revoke /
+  // süre dolumu) cihaza push GİTMEZ ve kayıt purge edilir — çıkış yapmış
+  // tarayıcı/telefon eski kullanıcının maillerini göremez. Legacy kayıtlar
+  // (sessionToken'sız) canlı sayılır (zero-migration).
+  const tokens = allSubs.map((s) => s.sessionToken).filter((t): t is string => Boolean(t))
+  const liveTokens = await authSessionModel.findLiveTokens(tokens)
+  const deadSubs = allSubs.filter((s) => s.sessionToken && !liveTokens.has(s.sessionToken))
+  if (deadSubs.length > 0) {
+    await Promise.all(
+      deadSubs.map((s) => pushSubscriptionModel.deleteByEndpoint(s.endpoint).catch(() => {})),
+    )
+  }
+
+  // ── Cihaz-bazlı tercih ── enabled:false = kullanıcı o cihazı sessize aldı
+  // (cihaz yönetim ekranı). Kayıt silinmez, gönderim atlanır.
+  const subs = allSubs.filter(
+    (s) => s.enabled !== false && !(s.sessionToken && !liveTokens.has(s.sessionToken)),
+  )
   if (subs.length === 0) return 0
 
   // Missing `platform` on legacy rows = web (zero-migration).

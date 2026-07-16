@@ -11,6 +11,35 @@ export const dynamic = "force-dynamic"
  * çık (opt-out). Session (cookie) yeterli; company scope YOK — abonelik
  * kullanıcı-seviye, mail geldiğinde hedef şirket dispatch anında çözülür.
  */
+
+/** UA'dan cihaz listesi için okunabilir ad üret ("Chrome · macOS" gibi). */
+function deviceNameFromUa(ua: string | null): string | null {
+  if (!ua) return null
+  const browser = /edg\//i.test(ua)
+    ? "Edge"
+    : /opr\//i.test(ua)
+      ? "Opera"
+      : /firefox\//i.test(ua)
+        ? "Firefox"
+        : /chrome\//i.test(ua)
+          ? "Chrome"
+          : /safari\//i.test(ua)
+            ? "Safari"
+            : "Browser"
+  const os = /windows/i.test(ua)
+    ? "Windows"
+    : /mac os x|macintosh/i.test(ua)
+      ? "macOS"
+      : /android/i.test(ua)
+        ? "Android"
+        : /iphone|ipad|ios/i.test(ua)
+          ? "iOS"
+          : /linux/i.test(ua)
+            ? "Linux"
+            : null
+  return os ? `${browser} · ${os}` : browser
+}
+
 export async function POST(request: NextRequest) {
   const session = await getAuthSession(request)
   if (!session?.user?.id) return jsonError("Unauthorized", 401)
@@ -26,12 +55,16 @@ export async function POST(request: NextRequest) {
     return jsonError("Invalid subscription", 400)
   }
 
+  const userAgent = request.headers.get("user-agent")
   await pushSubscriptionModel.upsertByEndpoint({
     userId: session.user.id,
     endpoint,
     p256dh,
     auth,
-    userAgent: request.headers.get("user-agent"),
+    userAgent,
+    deviceName: deviceNameFromUa(userAgent),
+    // Kaydı bu oturuma bağla — çıkış/revoke/expiry sonrası dispatch temizler.
+    sessionToken: session.session?.token ?? null,
   })
 
   return jsonSuccess({ subscribed: true })
@@ -45,7 +78,8 @@ export async function DELETE(request: NextRequest) {
     endpoint?: string
   } | null
   if (body?.endpoint) {
-    await pushSubscriptionModel.deleteByEndpoint(body.endpoint)
+    // Sahiplik-korumalı: yalnız kendi kaydını silebilir.
+    await pushSubscriptionModel.deleteByEndpointForUser(body.endpoint, session.user.id)
   }
   return jsonSuccess({ subscribed: false })
 }
