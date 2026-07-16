@@ -94,11 +94,17 @@ function emailShell(opts: {
   body: string
   cta?: { url: string; label: string }
   footerNote?: string
+  /** Opsiyonel ürün rozeti — Sentroy lockup'ının yanına ürün logosu+adı
+   *  ekler (ör. Meet mailleri: Sentroy · [Meet ikonu] Meet). */
+  product?: { name: string; logo: string }
 }): string {
-  const { lang, heading, body, cta, footerNote } = opts
+  const { lang, heading, body, cta, footerNote, product } = opts
   const root = rootOrigin(serverRootDomain())
   const docsUrl = `https://${docsHost(serverRootDomain())}`
   const logo = `${root}/business/sentroy-icon-colored.png`
+  const productBadge = product
+    ? `<span style="vertical-align:middle;margin:0 8px;color:#d4d4d8;font-size:16px">·</span><img src="${product.logo}" width="22" height="22" alt="" style="vertical-align:middle;border-radius:6px"><span style="vertical-align:middle;margin-left:7px;font-size:16px;font-weight:600;color:#0a0a0a">${product.name}</span>`
+    : ""
   const year = new Date().getFullYear()
   const L =
     lang === "tr"
@@ -115,7 +121,7 @@ function emailShell(opts: {
         <tr><td align="center" style="padding:2px 0 22px">
           <a href="${root}" style="text-decoration:none">
             <img src="${logo}" width="26" height="26" alt="" style="vertical-align:middle;border-radius:6px">
-            <span style="vertical-align:middle;margin-left:8px;font-size:18px;font-weight:700;letter-spacing:-0.01em;color:#0a0a0a">Sentroy</span>
+            <span style="vertical-align:middle;margin-left:8px;font-size:18px;font-weight:700;letter-spacing:-0.01em;color:#0a0a0a">Sentroy</span>${productBadge}
           </a>
         </td></tr>
         <tr><td style="background:#ffffff;border:1px solid #ececef;border-radius:16px;padding:40px 36px">
@@ -163,6 +169,30 @@ const wrapTr = (heading: string, body: string, cta?: { url: string; label: strin
     body,
     cta,
     footerNote: "Bu maili beklemiyorduysanız güvenle görmezden gelebilirsiniz.",
+  })
+
+// Meet mailleri — header'da Sentroy + Meet logosu birlikte görünür.
+const meetProduct = () => ({
+  name: "Meet",
+  logo: `${rootOrigin(serverRootDomain())}/os-app-icons/meet.png`,
+})
+const wrapMeet = (heading: string, body: string, cta?: { url: string; label: string }) =>
+  emailShell({
+    lang: "en",
+    heading,
+    body,
+    cta,
+    product: meetProduct(),
+    footerNote: "You're receiving this because you were invited to a Sentroy Meet call.",
+  })
+const wrapMeetTr = (heading: string, body: string, cta?: { url: string; label: string }) =>
+  emailShell({
+    lang: "tr",
+    heading,
+    body,
+    cta,
+    product: meetProduct(),
+    footerNote: "Bu maili bir Sentroy Meet görüşmesine davet edildiğiniz için alıyorsunuz.",
   })
 
 const otpBlock = (otp: string) => `
@@ -721,15 +751,127 @@ export const SYSTEM_MAIL_EVENTS: SystemMailEventDefinition[] = [
       tr: "{inviterName} sizi bir Sentroy Meet görüşmesine davet etti",
     },
     defaultHtmlBody: {
-      en: wrap(
+      en: wrapMeet(
         "You're invited to a video call",
         "<strong>{inviterName}</strong> invited you to a video meeting on Sentroy Meet. Click below to join from your browser — no account or download required.",
         { url: "{url}", label: "Join meeting" },
       ),
-      tr: wrapTr(
+      tr: wrapMeetTr(
         "Bir görüntülü görüşmeye davetlisiniz",
         "<strong>{inviterName}</strong> sizi Sentroy Meet üzerinde bir görüntülü toplantıya davet etti. Tarayıcınızdan katılmak için aşağıya tıklayın — hesap veya indirme gerekmez.",
         { url: "{url}", label: "Toplantıya katıl" },
+      ),
+    },
+  },
+  {
+    key: "meeting.scheduled",
+    category: "invitation",
+    label: "Meeting scheduled",
+    description:
+      "Sent to each participant when a Sentroy Meet call is scheduled. Contains the title, time and join link.",
+    variables: [
+      { name: "inviterName", description: "Organizer's display name.", sample: "Alice" },
+      { name: "title", description: "Meeting title.", sample: "Q3 Planning" },
+      { name: "whenText", description: "Human-readable date & time (recipient-facing).", sample: "Mon, Jul 21 · 14:00" },
+      { name: "url", description: "Join link.", sample: "https://meet.sentroy.com/call/sentroy-q3-1234", escape: false },
+    ],
+    defaultSubject: {
+      en: "Invitation: {title} — {whenText}",
+      tr: "Davet: {title} — {whenText}",
+    },
+    defaultHtmlBody: {
+      en: wrapMeet(
+        "You're invited to a meeting",
+        "<strong>{inviterName}</strong> scheduled <strong>{title}</strong> on Sentroy Meet.<br><br>🗓️ <strong>{whenText}</strong><br><br>Add it to your calendar and join from the link below when it's time — no account or download required.",
+        { url: "{url}", label: "Join meeting" },
+      ),
+      tr: wrapMeetTr(
+        "Bir toplantıya davetlisiniz",
+        "<strong>{inviterName}</strong> Sentroy Meet üzerinde <strong>{title}</strong> toplantısını planladı.<br><br>🗓️ <strong>{whenText}</strong><br><br>Takviminize ekleyin; zamanı gelince aşağıdaki bağlantıdan katılın — hesap veya indirme gerekmez.",
+        { url: "{url}", label: "Toplantıya katıl" },
+      ),
+    },
+  },
+  {
+    key: "meeting.reminder",
+    category: "notification",
+    label: "Meeting starting soon",
+    description:
+      "Sent to participants ~15 minutes before a scheduled Sentroy Meet call starts.",
+    variables: [
+      { name: "title", description: "Meeting title.", sample: "Q3 Planning" },
+      { name: "whenText", description: "Start time (recipient-facing).", sample: "14:00" },
+      { name: "url", description: "Join link.", sample: "https://meet.sentroy.com/call/sentroy-q3-1234", escape: false },
+    ],
+    defaultSubject: {
+      en: "Starting soon: {title}",
+      tr: "Yakında başlıyor: {title}",
+    },
+    defaultHtmlBody: {
+      en: wrapMeet(
+        "Your meeting starts soon",
+        "<strong>{title}</strong> starts at <strong>{whenText}</strong> — in about 15 minutes. Tap below to join.",
+        { url: "{url}", label: "Join now" },
+      ),
+      tr: wrapMeetTr(
+        "Toplantınız yakında başlıyor",
+        "<strong>{title}</strong> <strong>{whenText}</strong>'de — yaklaşık 15 dakika içinde başlıyor. Katılmak için aşağıya dokunun.",
+        { url: "{url}", label: "Şimdi katıl" },
+      ),
+    },
+  },
+  {
+    key: "meeting.updated",
+    category: "notification",
+    label: "Meeting updated",
+    description:
+      "Sent to participants when a scheduled meeting's time or details change.",
+    variables: [
+      { name: "inviterName", description: "Organizer's display name.", sample: "Alice" },
+      { name: "title", description: "Meeting title.", sample: "Q3 Planning" },
+      { name: "whenText", description: "New date & time.", sample: "Tue, Jul 22 · 15:30" },
+      { name: "url", description: "Join link.", sample: "https://meet.sentroy.com/call/sentroy-q3-1234", escape: false },
+    ],
+    defaultSubject: {
+      en: "Updated: {title} — {whenText}",
+      tr: "Güncellendi: {title} — {whenText}",
+    },
+    defaultHtmlBody: {
+      en: wrapMeet(
+        "A meeting was updated",
+        "<strong>{inviterName}</strong> updated <strong>{title}</strong>.<br><br>🗓️ New time: <strong>{whenText}</strong><br><br>Please update your calendar. The join link is unchanged.",
+        { url: "{url}", label: "Join meeting" },
+      ),
+      tr: wrapMeetTr(
+        "Bir toplantı güncellendi",
+        "<strong>{inviterName}</strong> <strong>{title}</strong> toplantısını güncelledi.<br><br>🗓️ Yeni zaman: <strong>{whenText}</strong><br><br>Lütfen takviminizi güncelleyin. Katılım bağlantısı değişmedi.",
+        { url: "{url}", label: "Toplantıya katıl" },
+      ),
+    },
+  },
+  {
+    key: "meeting.cancelled",
+    category: "notification",
+    label: "Meeting cancelled",
+    description:
+      "Sent to participants when a scheduled meeting is cancelled by the organizer.",
+    variables: [
+      { name: "inviterName", description: "Organizer's display name.", sample: "Alice" },
+      { name: "title", description: "Meeting title.", sample: "Q3 Planning" },
+      { name: "whenText", description: "The (now cancelled) date & time.", sample: "Mon, Jul 21 · 14:00" },
+    ],
+    defaultSubject: {
+      en: "Cancelled: {title} — {whenText}",
+      tr: "İptal edildi: {title} — {whenText}",
+    },
+    defaultHtmlBody: {
+      en: wrapMeet(
+        "A meeting was cancelled",
+        "<strong>{inviterName}</strong> cancelled <strong>{title}</strong>, which was scheduled for <strong>{whenText}</strong>. You can remove it from your calendar.",
+      ),
+      tr: wrapMeetTr(
+        "Bir toplantı iptal edildi",
+        "<strong>{inviterName}</strong>, <strong>{whenText}</strong> için planlanan <strong>{title}</strong> toplantısını iptal etti. Takviminizden kaldırabilirsiniz.",
       ),
     },
   },

@@ -9,6 +9,7 @@ import {
   checkMaintenanceNotifications,
 } from "./notify"
 import { maybeRunUptimeRollup } from "./rollup"
+import { checkMeetReminders } from "./meet-reminders"
 
 /**
  * Sentroy Status Worker — bağımsız Node.js process.
@@ -111,11 +112,15 @@ async function tick() {
   tickStats.totalFailed += failed
 
   // Notification scan (cheap — genelde 0-5 open incident)
-  const [incidentNotify, maintenanceNotify, rollup] = await Promise.all([
+  const [incidentNotify, maintenanceNotify, rollup, meetReminders] = await Promise.all([
     checkIncidentUpdateNotifications(),
     checkMaintenanceNotifications(Date.now()),
     maybeRunUptimeRollup(Date.now()),
+    checkMeetReminders(Date.now()),
   ])
+  if (meetReminders.processed > 0) {
+    console.log(`[worker] meet reminders dispatched=${meetReminders.processed}`)
+  }
 
   if (incidentNotify.dispatched > 0) {
     tickStats.lastIncidentNotifyAt = new Date()

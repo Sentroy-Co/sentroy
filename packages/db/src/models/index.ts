@@ -110,5 +110,7 @@ export * as linearInboxSeenModel from "./linear-inbox-seen"
 
 export * as contactMessageModel from "./contact-message"
 
+export * as scheduledMeetingModel from "./scheduled-meeting"
+
 export * as mongoConnectionModel from "./mongo-connection"
 export * as mongoBackupJobModel from "./mongo-backup-job"
