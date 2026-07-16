@@ -23,8 +23,9 @@ export interface PushSubscription {
    * kapsar (aynı token/endpoint tek kayıt).
    */
   endpoint: string
-  /** Transport. Yoksa (eski kayıtlar) `web` varsayılır — zero-migration. */
-  platform?: "web" | "apns"
+  /** Transport. Yoksa (eski kayıtlar) `web` varsayılır — zero-migration.
+   *  apns = iOS device token; fcm = Android FCM registration token. */
+  platform?: "web" | "apns" | "fcm"
   /** Web push: abonelik public key (p256dh). APNs'te yok. */
   p256dh?: string
   /** Web push: abonelik auth secret. APNs'te yok. */
@@ -63,11 +64,13 @@ export async function upsertByEndpoint(data: {
   )
 }
 
-/** APNs (mobil) cihaz token'ını kaydet/güncelle. `endpoint` = device token;
- *  aynı token tekrar gelirse userId sahipliği güncellenir (cihaz devri). */
+/** Mobil cihaz token'ını kaydet/güncelle. `endpoint` = device/registration
+ *  token; aynı token tekrar gelirse userId sahipliği güncellenir (cihaz devri).
+ *  platform: apns (iOS) | fcm (Android). */
 export async function upsertDevice(data: {
   userId: string
   deviceToken: string
+  platform?: "apns" | "fcm"
   userAgent?: string | null
 }): Promise<void> {
   const c = await col()
@@ -76,7 +79,7 @@ export async function upsertDevice(data: {
     {
       $set: {
         userId: data.userId,
-        platform: "apns",
+        platform: data.platform ?? "apns",
         userAgent: data.userAgent ?? null,
       },
       $setOnInsert: { endpoint: data.deviceToken, createdAt: new Date() },

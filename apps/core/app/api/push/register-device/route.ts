@@ -6,13 +6,13 @@ export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
 
 /**
- * Mobile (APNs) device-token registration — user-scoped, session (cookie) auth.
- * The Flutter mail app registers its APNs hex token here after sign-in; the same
- * mail-server→core dispatch that fans out Web Push also pushes to these tokens
- * (see lib/push.dispatchToUsers). POST → opt-in, DELETE → opt-out (logout/toggle).
- *
- * Mirrors /api/push/subscribe (web) but for native tokens: the token lives in
- * the shared `push_subscriptions` collection with `platform: "apns"`.
+ * Mobile device-token registration — user-scoped, session (cookie) auth.
+ * The Flutter mail app registers its push token here after sign-in:
+ *   • iOS   → APNs hex device token (platform "apns")
+ *   • Android → FCM registration token (platform "fcm")
+ * The same mail-server→core dispatch that fans out Web Push also pushes to these
+ * tokens (see lib/push.dispatchToUsers). POST → opt-in, DELETE → opt-out.
+ * Both live in the shared `push_subscriptions` collection.
  */
 export async function POST(request: NextRequest) {
   const session = await getAuthSession(request)
@@ -24,14 +24,18 @@ export async function POST(request: NextRequest) {
   } | null
 
   const token = body?.token?.trim()
-  // Only APNs today; the field is explicit so an FCM platform can slot in later.
-  if (body?.platform !== "apns" || !token || !/^[0-9a-fA-F]{16,200}$/.test(token)) {
+  const platform = body?.platform
+  // APNs: 16-200 hex. FCM: uzun opaque token (harf/rakam/-/_/:), 100-400 char.
+  const validApns = platform === "apns" && !!token && /^[0-9a-fA-F]{16,200}$/.test(token)
+  const validFcm = platform === "fcm" && !!token && /^[A-Za-z0-9_:.-]{100,400}$/.test(token)
+  if (!token || (!validApns && !validFcm)) {
     return jsonError("Invalid device registration", 400)
   }
 
   await pushSubscriptionModel.upsertDevice({
     userId: session.user.id,
     deviceToken: token,
+    platform: platform as "apns" | "fcm",
     userAgent: request.headers.get("user-agent"),
   })
 

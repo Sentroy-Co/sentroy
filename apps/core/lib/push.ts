@@ -7,6 +7,7 @@
 import webpush from "web-push"
 import { pushSubscriptionModel } from "@workspace/db/models"
 import { apnsConfigured, apnsTokenDead, sendApns } from "./apns"
+import { fcmConfigured, fcmTokenDead, sendFcm } from "./fcm"
 
 let configured = false
 
@@ -57,7 +58,8 @@ export async function dispatchToUsers(
   if (userIds.length === 0) return 0
   const webReady = ensureConfigured()
   const apnsReady = apnsConfigured()
-  if (!webReady && !apnsReady) return 0
+  const fcmReady = fcmConfigured()
+  if (!webReady && !apnsReady && !fcmReady) return 0
 
   const subs = await pushSubscriptionModel.findByUsers(userIds)
   if (subs.length === 0) return 0
@@ -65,6 +67,7 @@ export async function dispatchToUsers(
   // Missing `platform` on legacy rows = web (zero-migration).
   const webSubs = subs.filter((s) => (s.platform ?? "web") === "web")
   const apnsSubs = subs.filter((s) => s.platform === "apns")
+  const fcmSubs = subs.filter((s) => s.platform === "fcm")
 
   const body = JSON.stringify(payload)
   let sent = 0
@@ -94,7 +97,7 @@ export async function dispatchToUsers(
           }
         })
       : []),
-    // ── APNs (mobile) ── endpoint holds the hex device token.
+    // ── APNs (iOS) ── endpoint holds the hex device token.
     ...(apnsReady
       ? apnsSubs.map(async (s) => {
           const res = await sendApns(s.endpoint, {
@@ -109,6 +112,24 @@ export async function dispatchToUsers(
             await pushSubscriptionModel.deleteByEndpoint(s.endpoint).catch(() => {})
           } else if (res.status !== 0) {
             console.warn(`[push] apns failed (status=${res.status} reason=${res.reason ?? "?"})`)
+          }
+        })
+      : []),
+    // ── FCM (Android) ── endpoint holds the FCM registration token.
+    ...(fcmReady
+      ? fcmSubs.map(async (s) => {
+          const res = await sendFcm(s.endpoint, {
+            title: payload.title,
+            body: payload.body,
+            url: payload.url,
+            tag: payload.tag,
+          })
+          if (res.ok) {
+            sent++
+          } else if (fcmTokenDead(res)) {
+            await pushSubscriptionModel.deleteByEndpoint(s.endpoint).catch(() => {})
+          } else if (res.status !== 0) {
+            console.warn(`[push] fcm failed (status=${res.status} reason=${res.reason ?? "?"})`)
           }
         })
       : []),

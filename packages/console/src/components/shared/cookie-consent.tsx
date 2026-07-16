@@ -36,6 +36,13 @@ export function CookieConsent() {
   const openPreferences = useCookieConsent((s) => s.openPreferences)
   const closePreferences = useCookieConsent((s) => s.closePreferences)
   const hydrated = useHasHydrated()
+  // Sentroy OS embed modunda (iframe/?embed) consent banner'ı gösterme — host
+  // sayfa zaten kendi consent'ini yönetir, çift banner UX kirliliği olur.
+  // `[data-embedded]` UIProviders script'i paint'ten önce set eder.
+  const [embedded, setEmbedded] = useState(false)
+  useEffect(() => {
+    setEmbedded(document.documentElement.dataset.embedded === "1")
+  }, [])
 
   // Footer'dan tetiklenen "open preferences" event'i
   useEffect(() => {
@@ -44,7 +51,7 @@ export function CookieConsent() {
     return () => window.removeEventListener("open-cookie-preferences", onOpen)
   }, [openPreferences])
 
-  if (!hydrated) return null
+  if (!hydrated || embedded) return null
 
   const showBanner = !consent
 
