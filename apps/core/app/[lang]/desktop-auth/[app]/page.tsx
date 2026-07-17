@@ -3,7 +3,6 @@ import { redirect } from "next/navigation"
 import { auth } from "@workspace/auth/server/auth"
 import { createDesktopAuthCode } from "@/lib/desktop-auth"
 import { resolveHandoffApp } from "@/lib/handoff-apps"
-import { DesktopAuthLauncher } from "../launcher"
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -29,12 +28,9 @@ export default async function AppAuthPage({
   }
 
   const code = await createDesktopAuthCode(session.user.id)
-  return (
-    <DesktopAuthLauncher
-      code={code}
-      email={session.user.email ?? ""}
-      scheme={target.scheme}
-      appName={target.appName}
-    />
-  )
+  // Silent handoff — oturum varken interstitial GÖSTERMEDEN doğrudan şema
+  // deep-link'ine 307. iOS ASWebAuthenticationSession / Android Custom Tab bunu
+  // oturum-içi yakalar (flutter_web_auth_2); masaüstü Electron'da OS şemayı açar.
+  // Custom-scheme redirect JS window.location'dan daha güvenilir (tarayıcı bloklamaz).
+  redirect(`${target.scheme}://auth?code=${encodeURIComponent(code)}`)
 }
