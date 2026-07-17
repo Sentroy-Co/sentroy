@@ -93,9 +93,15 @@ export function apnsTokenDead(r: ApnsResult): boolean {
 
 /** Send one alert push. Opens a short-lived HTTP/2 connection (low volume; a
  *  pooled multiplexed client is a later optimization). Never throws. */
-export async function sendApns(deviceToken: string, payload: ApnsPayload): Promise<ApnsResult> {
+export async function sendApns(
+  deviceToken: string,
+  payload: ApnsPayload,
+  topic?: string | null,
+): Promise<ApnsResult> {
   const jwt = providerToken()
-  const bundleId = process.env.APNS_BUNDLE_ID
+  // apns-topic = hedef app'in bundle id'si. Token-başına saklanan bundleId
+  // önceliklidir (çok-app: mail ≠ meet); yoksa APNS_BUNDLE_ID env fallback.
+  const bundleId = topic || process.env.APNS_BUNDLE_ID
   if (!jwt || !bundleId) return { ok: false, status: 0, reason: "unconfigured" }
 
   const host =

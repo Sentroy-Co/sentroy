@@ -22,10 +22,15 @@ export async function POST(request: NextRequest) {
     platform?: string
     token?: string
     deviceName?: string
+    bundleId?: string
   } | null
 
   const token = body?.token?.trim()
   const platform = body?.platform
+  // APNs apns-topic = app bundle id (mail ≠ meet). iOS'ta client bildirir;
+  // yoksa dispatch APNS_BUNDLE_ID env'ine düşer (eski kayıtlar / geriye-uyum).
+  const rawBundle = body?.bundleId?.trim()
+  const bundleId = rawBundle && /^[A-Za-z0-9.-]{3,100}$/.test(rawBundle) ? rawBundle : null
   // APNs: 16-200 hex. FCM: uzun opaque token (harf/rakam/-/_/:), 100-400 char.
   const validApns = platform === "apns" && !!token && /^[0-9a-fA-F]{16,200}$/.test(token)
   const validFcm = platform === "fcm" && !!token && /^[A-Za-z0-9_:.-]{100,400}$/.test(token)
@@ -39,6 +44,7 @@ export async function POST(request: NextRequest) {
     userId: session.user.id,
     deviceToken: token,
     platform: platform as "apns" | "fcm",
+    bundleId: validApns ? bundleId : null,
     userAgent: request.headers.get("user-agent"),
     deviceName,
     // Kaydı bu oturuma bağla — çıkış/revoke/expiry sonrası dispatch temizler.

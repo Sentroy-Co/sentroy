@@ -36,6 +36,11 @@ export interface PushSubscription {
   p256dh?: string
   /** Web push: abonelik auth secret. APNs'te yok. */
   auth?: string
+  /** APNs (iOS) apns-topic = hedef app'in bundle id'si. Birden çok iOS app
+   *  (mail=com.sentroy.sentroyMail, meet=com.sentroy.meet) aynı team APNs
+   *  anahtarını paylaşır ama topic app-başına farklıdır → token-başına saklanır.
+   *  Yoksa (eski kayıtlar) dispatch APNS_BUNDLE_ID env'ine düşer (zero-migration). */
+  bundleId?: string | null
   /** Bilgi amaçlı — hangi tarayıcı/cihaz (debug + cihaz listesi fallback'i). */
   userAgent?: string | null
   /** Kullanıcıya gösterilen cihaz adı (client bildirir; ör. "iOS 18.5"). */
@@ -103,6 +108,7 @@ export async function upsertDevice(data: {
   userId: string
   deviceToken: string
   platform?: "apns" | "fcm"
+  bundleId?: string | null
   userAgent?: string | null
   deviceName?: string | null
   sessionToken?: string | null
@@ -115,6 +121,7 @@ export async function upsertDevice(data: {
       $set: {
         userId: data.userId,
         platform: data.platform ?? "apns",
+        ...(data.bundleId !== undefined ? { bundleId: data.bundleId } : {}),
         userAgent: data.userAgent ?? null,
         ...(data.deviceName !== undefined ? { deviceName: data.deviceName } : {}),
         sessionToken: data.sessionToken ?? null,
