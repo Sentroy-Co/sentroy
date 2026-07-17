@@ -15,6 +15,7 @@ export interface HandoffApp {
 const HANDOFF_APPS: Record<string, HandoffApp> = {
   sentroy: { scheme: "sentroy", appName: "Sentroy" },
   meet: { scheme: "sentroy-meet", appName: "Sentroy Meet" },
+  storage: { scheme: "sentroy-storage", appName: "Sentroy Storage" },
 }
 
 export function resolveHandoffApp(app: string | undefined | null): HandoffApp {
