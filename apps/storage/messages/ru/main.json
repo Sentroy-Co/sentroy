@@ -69,7 +69,8 @@
     },
     "folderCard": {
       "noDescription": "Без описания",
-      "info": "Сведения"
+      "info": "Сведения",
+      "fileCount": "{count, plural, one {# файл} few {# файла} many {# файлов} other {# файла}}"
     },
     "info": {
       "subtitle": "Сведения о бакете и его видимость.",
@@ -220,7 +221,9 @@
       "bulkDelete": "Удалить",
       "copySuccess": "URL скопирован в буфер обмена",
       "copyFailed": "Не удалось скопировать в буфер обмена",
-      "copyMultiSuccess": "Скопировано URL в буфер обмена: {count}"
+      "copyMultiSuccess": "Скопировано URL в буфер обмена: {count}",
+      "folderInfoDesc": "Содержимое и сведения о папке.",
+      "folderPathLabel": "Путь"
     }
   },
   "usage": {

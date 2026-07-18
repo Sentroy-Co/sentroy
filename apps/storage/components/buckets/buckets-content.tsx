@@ -4,17 +4,14 @@ import { useCallback, useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
-import { format, formatDistanceToNow } from "date-fns"
+import { format } from "date-fns"
 import { HugeiconsIcon } from "@hugeicons/react"
 import {
   Add01Icon,
-  File01Icon,
-  Folder01Icon,
   FolderLibraryIcon,
   InternetIcon,
   InformationCircleIcon,
   LockKeyIcon,
-  TimeScheduleIcon,
   HelpCircleIcon,
 } from "@hugeicons/core-free-icons"
 import {
@@ -42,6 +39,7 @@ import { useSession } from "@workspace/auth/client/auth-client"
 import { hasClientPermission } from "@workspace/auth/server/route-permissions"
 import { useCompanyStore } from "@workspace/console/stores/company"
 import { CreateBucketDialog } from "./create-bucket-dialog"
+import { FolderGlyph } from "./folder-glyph"
 import { useStorageTour } from "@/components/tour/storage-tour"
 
 function formatBytes(bytes: number): string {
@@ -134,7 +132,7 @@ export function BucketsContent() {
             }
           />
         ) : (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-3 gap-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
             {buckets.map((bucket) => (
               <BucketFolderCard
                 key={bucket.id}
@@ -174,99 +172,28 @@ function BucketFolderCard({
   onInfo: () => void
   t: ReturnType<typeof useTranslations>
 }) {
-  const tint = bucket.isPublic
-    ? {
-        tab: "border-emerald-500/35 bg-emerald-500/20",
-        body: "border-emerald-500/35 bg-emerald-500/10 hover:border-emerald-500/60 hover:bg-emerald-500/15",
-        icon: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
-        badge:
-          "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-      }
-    : {
-        tab: "border-amber-500/35 bg-amber-500/20",
-        body: "border-amber-500/35 bg-amber-500/10 hover:border-amber-500/60 hover:bg-amber-500/15",
-        icon: "bg-amber-500/15 text-amber-700 dark:text-amber-300",
-        badge:
-          "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-      }
-
+  // iCloud tarzı dolu glyph (public=yeşil / private=mavi) + ad + dosya sayısı.
+  // Detaylar (boyut/tarih/açıklama) sağ-tık → "Get info" sheet'inde.
   return (
     <ContextMenu>
       <ContextMenuTrigger className="block">
         <Link
           href={href}
-          className="group block pt-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="group flex flex-col items-center rounded-xl p-3 text-center transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <div
-            className={cn(
-              "ms-4 h-4 w-24 rounded-t-md border border-b-0 transition-colors",
-              tint.tab,
-            )}
+          <FolderGlyph
+            isPublic={bucket.isPublic}
+            className="w-full max-w-[92px] transition-transform group-hover:-translate-y-0.5"
           />
-          <div
-            className={cn(
-              "flex min-h-40 flex-col rounded-lg border p-4 transition-colors",
-              tint.body,
-            )}
+          <h2
+            className="mt-3 w-full truncate text-sm font-semibold"
+            title={bucket.name}
           >
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-3">
-                <div
-                  className={cn(
-                    "flex size-11 shrink-0 items-center justify-center rounded-md",
-                    tint.icon,
-                  )}
-                >
-                  <HugeiconsIcon icon={Folder01Icon} strokeWidth={1.8} />
-                </div>
-                <div className="min-w-0">
-                  <h2 className="truncate text-sm font-semibold">
-                    {bucket.name}
-                  </h2>
-                  <p className="truncate text-xs text-muted-foreground">
-                    {bucket.slug}
-                  </p>
-                </div>
-              </div>
-              <Badge
-                variant="outline"
-                className={cn("shrink-0 gap-1", tint.badge)}
-              >
-                <HugeiconsIcon
-                  icon={bucket.isPublic ? InternetIcon : LockKeyIcon}
-                  strokeWidth={2}
-                  className="size-3"
-                />
-                {bucket.isPublic
-                  ? t("visibility.public")
-                  : t("visibility.private")}
-              </Badge>
-            </div>
-
-            <p className="mt-4 line-clamp-2 min-h-10 text-sm text-muted-foreground">
-              {bucket.description || t("folderCard.noDescription")}
-            </p>
-
-            <div className="mt-auto grid grid-cols-3 gap-2 pt-4 text-xs">
-              <BucketStat
-                icon={File01Icon}
-                label={t("columns.files")}
-                value={String(bucket.fileCount)}
-              />
-              <BucketStat
-                icon={FolderLibraryIcon}
-                label={t("columns.size")}
-                value={formatBytes(bucket.storageUsed)}
-              />
-              <BucketStat
-                icon={TimeScheduleIcon}
-                label={t("columns.created")}
-                value={formatDistanceToNow(new Date(bucket.createdAt), {
-                  addSuffix: true,
-                })}
-              />
-            </div>
-          </div>
+            {bucket.name}
+          </h2>
+          <p className="w-full truncate text-xs text-muted-foreground">
+            {t("folderCard.fileCount", { count: bucket.fileCount })}
+          </p>
         </Link>
       </ContextMenuTrigger>
       <ContextMenuContent className="min-w-48">
@@ -276,26 +203,6 @@ function BucketFolderCard({
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
-  )
-}
-
-function BucketStat({
-  icon,
-  label,
-  value,
-}: {
-  icon: typeof File01Icon
-  label: string
-  value: string
-}) {
-  return (
-    <div className="min-w-0 rounded-md bg-muted/60 px-2.5 py-2">
-      <div className="mb-1 flex items-center gap-1.5 text-muted-foreground">
-        <HugeiconsIcon icon={icon} strokeWidth={2} className="size-3.5" />
-        <span className="truncate">{label}</span>
-      </div>
-      <div className="truncate font-medium tabular-nums">{value}</div>
-    </div>
   )
 }
 
@@ -321,23 +228,14 @@ function BucketInfoSheet({
         </SheetHeader>
         <div className="flex-1 overflow-y-auto p-6">
           <div className="mb-6 flex items-center gap-4">
-            <div
-              className={cn(
-                "flex size-14 items-center justify-center rounded-md",
-                bucket.isPublic
-                  ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
-                  : "bg-amber-500/15 text-amber-700 dark:text-amber-300",
-              )}
-            >
-              <HugeiconsIcon icon={Folder01Icon} strokeWidth={1.8} />
-            </div>
+            <FolderGlyph isPublic={bucket.isPublic} className="w-14 shrink-0" />
             <Badge
               variant="outline"
               className={cn(
                 "gap-1",
                 bucket.isPublic
                   ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-                  : "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+                  : "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300",
               )}
             >
               <HugeiconsIcon

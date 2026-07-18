@@ -69,7 +69,8 @@
     },
     "folderCard": {
       "noDescription": "无描述",
-      "info": "查看信息"
+      "info": "查看信息",
+      "fileCount": "{count, plural, other {# 个文件}}"
     },
     "info": {
       "subtitle": "存储桶详情与可见性。",
@@ -220,7 +221,9 @@
       "bulkDelete": "删除",
       "copySuccess": "URL 已复制到剪贴板",
       "copyFailed": "无法复制到剪贴板",
-      "copyMultiSuccess": "已将 {count} 个 URL 复制到剪贴板"
+      "copyMultiSuccess": "已将 {count} 个 URL 复制到剪贴板",
+      "folderInfoDesc": "文件夹内容和元数据。",
+      "folderPathLabel": "路径"
     }
   },
   "usage": {

@@ -69,7 +69,8 @@
     },
     "folderCard": {
       "noDescription": "No description",
-      "info": "Get info"
+      "info": "Get info",
+      "fileCount": "{count, plural, one {# file} other {# files}}"
     },
     "info": {
       "subtitle": "Bucket details and visibility.",
@@ -220,7 +221,9 @@
       "bulkDelete": "Delete",
       "copySuccess": "URL copied to clipboard",
       "copyFailed": "Could not copy to clipboard",
-      "copyMultiSuccess": "{count} URLs copied to clipboard"
+      "copyMultiSuccess": "{count} URLs copied to clipboard",
+      "folderInfoDesc": "Folder contents and metadata.",
+      "folderPathLabel": "Path"
     }
   },
   "usage": {

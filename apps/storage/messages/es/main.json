@@ -69,7 +69,8 @@
     },
     "folderCard": {
       "noDescription": "Sin descripción",
-      "info": "Ver información"
+      "info": "Ver información",
+      "fileCount": "{count, plural, one {# archivo} other {# archivos}}"
     },
     "info": {
       "subtitle": "Detalles y visibilidad del bucket.",
@@ -220,7 +221,9 @@
       "bulkDelete": "Eliminar",
       "copySuccess": "URL copiada al portapapeles",
       "copyFailed": "No se pudo copiar al portapapeles",
-      "copyMultiSuccess": "{count} URL copiadas al portapapeles"
+      "copyMultiSuccess": "{count} URL copiadas al portapapeles",
+      "folderInfoDesc": "Contenido y metadatos de la carpeta.",
+      "folderPathLabel": "Ruta"
     }
   },
   "usage": {

@@ -44,7 +44,8 @@
     },
     "folderCard": {
       "noDescription": "Açıklama yok",
-      "info": "Bilgi göster"
+      "info": "Bilgi göster",
+      "fileCount": "{count, plural, one {# dosya} other {# dosya}}"
     },
     "info": {
       "subtitle": "Bucket detayları ve görünürlük bilgisi.",
@@ -195,7 +196,9 @@
       "bulkDelete": "Sil",
       "copySuccess": "URL panoya kopyalandı",
       "copyFailed": "Panoya kopyalanamadı",
-      "copyMultiSuccess": "{count} URL panoya kopyalandı"
+      "copyMultiSuccess": "{count} URL panoya kopyalandı",
+      "folderInfoDesc": "Klasör içeriği ve bilgileri.",
+      "folderPathLabel": "Yol"
     }
   },
   "usage": {

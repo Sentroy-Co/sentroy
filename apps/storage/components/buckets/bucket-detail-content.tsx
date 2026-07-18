@@ -33,6 +33,7 @@ import {
   Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { FileIcon, defaultStyles } from "react-file-icon"
+import { FolderGlyph } from "./folder-glyph"
 import { EmbedBuilderDialog } from "@/components/buckets/embed-builder-dialog"
 import {
   DndContext,
@@ -401,6 +402,7 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const [infoMedia, setInfoMedia] = useState<Media | null>(null)
+  const [infoFolder, setInfoFolder] = useState<BucketFolderSummary | null>(null)
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [lastClickedId, setLastClickedId] = useState<string | null>(null)
@@ -1125,7 +1127,7 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
       : 0
   const visibilityBadgeClass = bucket.isPublic
     ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-    : "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
+    : "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300"
   const currentViewEmpty =
     displayMedia.length === 0 && displayFolders.length === 0
 
@@ -1450,7 +1452,9 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
                         canDrop={canReorderMedia}
                         canRename={canUploadMedia}
                         canDelete={canDeleteMedia}
+                        isPublic={bucket.isPublic}
                         onOpen={() => handleOpenFolder(folder.path)}
+                        onInfo={() => setInfoFolder(folder)}
                         onRename={openRenameFolderDialog}
                         onDelete={handleDeleteFolder}
                         t={t}
@@ -1481,7 +1485,9 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
                         canDrop={canReorderMedia}
                         canRename={canUploadMedia}
                         canDelete={canDeleteMedia}
+                        isPublic={bucket.isPublic}
                         onOpen={() => handleOpenFolder(folder.path)}
+                        onInfo={() => setInfoFolder(folder)}
                         onRename={openRenameFolderDialog}
                         onDelete={handleDeleteFolder}
                         t={t}
@@ -1767,6 +1773,14 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
         t={t}
       />
 
+      {/* ── Folder Get Info Sheet ──────────────────────────────── */}
+      <FolderInfoSheet
+        folder={infoFolder}
+        isPublic={bucket.isPublic}
+        onClose={() => setInfoFolder(null)}
+        t={t}
+      />
+
       {/* Image crop dialog — `FileUploader` preprocess akışında promise
           resolver pattern. Image dosyalar için yükleme öncesi açılır;
           PDF/video/diğer için preprocess hook direkt orijinal döner. */}
@@ -1904,7 +1918,9 @@ function FolderDropCard({
   canDrop,
   canRename,
   canDelete,
+  isPublic,
   onOpen,
+  onInfo,
   onRename,
   onDelete,
   t,
@@ -1916,7 +1932,10 @@ function FolderDropCard({
   canRename: boolean
   /** Sağ-tık menüsünde "Sil" görünür mü. */
   canDelete: boolean
+  /** Klasör bucket'ın görünürlüğünü miras alır (public=yeşil / private=mavi). */
+  isPublic: boolean
   onOpen: () => void
+  onInfo: () => void
   onRename: (path: string) => void
   onDelete: (path: string) => void
   t: ReturnType<typeof useTranslations>
@@ -1926,6 +1945,13 @@ function FolderDropCard({
     disabled: !canDrop,
   })
   const name = folderName(folder.path)
+  // Liste görünümü küçük ikon rozeti (grid glyph'i FolderGlyph'ten gelir).
+  // Mobil standardı: public=yeşil (emerald), private=mavi (blue).
+  const fc = {
+    icon: isPublic
+      ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+      : "bg-blue-500/15 text-blue-700 dark:text-blue-300",
+  }
 
   const inner =
     variant === "list" ? (
@@ -1943,7 +1969,8 @@ function FolderDropCard({
       >
         <span
           className={cn(
-            "flex size-10 shrink-0 items-center justify-center rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300",
+            "flex size-10 shrink-0 items-center justify-center rounded-md",
+            fc.icon,
             isOver && "bg-primary/15 text-primary",
           )}
         >
@@ -1961,61 +1988,33 @@ function FolderDropCard({
         </span>
       </button>
     ) : (
+      // iCloud tarzı dolu glyph + ad + dosya sayısı (detaylar → "Get info").
       <button
         ref={setNodeRef}
         type="button"
         onClick={onOpen}
-        className="group block w-full pt-3 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className={cn(
+          "group flex w-full flex-col items-center rounded-xl p-3 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          isOver ? "bg-primary/10 ring-2 ring-primary/40" : "hover:bg-muted/40",
+        )}
         aria-label={t("detail.openFolder", { name })}
       >
-        <div
+        <FolderGlyph
+          isPublic={isPublic}
           className={cn(
-            "ms-4 h-4 w-20 rounded-t-md border border-b-0 border-amber-500/35 bg-amber-500/20 transition-colors",
-            isOver && "border-primary/50 bg-primary/20",
+            "w-full max-w-[92px] transition-transform",
+            isOver ? "scale-105" : "group-hover:-translate-y-0.5",
           )}
         />
-        <div
-          className={cn(
-            "flex min-h-36 flex-col rounded-lg border border-amber-500/35 bg-amber-500/10 p-3 transition-colors hover:border-amber-500/60 hover:bg-amber-500/15",
-            isOver && "border-primary/60 bg-primary/10 ring-2 ring-primary/20",
-          )}
-        >
-          <div className="flex items-start gap-3">
-            <div
-              className={cn(
-                "flex size-10 shrink-0 items-center justify-center rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300",
-                isOver && "bg-primary/15 text-primary",
-              )}
-            >
-              <HugeiconsIcon
-                icon={isOver ? FolderOpenIcon : Folder01Icon}
-                strokeWidth={1.8}
-              />
-            </div>
-            <div className="min-w-0">
-              <div className="truncate text-sm font-semibold" title={name}>
-                {name}
-              </div>
-              <div className="truncate text-xs text-muted-foreground">
-                {folder.path}
-              </div>
-            </div>
-          </div>
-          <div className="mt-auto grid grid-cols-2 gap-2 pt-4 text-xs">
-            <BucketFolderStat
-              label={t("columns.files")}
-              value={String(folder.fileCount)}
-            />
-            <BucketFolderStat
-              label={t("columns.size")}
-              value={formatBytes(folder.storageUsed)}
-            />
-          </div>
+        <div className="mt-3 w-full truncate text-sm font-semibold" title={name}>
+          {name}
+        </div>
+        <div className="w-full truncate text-xs text-muted-foreground">
+          {t("folderCard.fileCount", { count: folder.fileCount })}
         </div>
       </button>
     )
 
-  if (!canRename && !canDelete) return inner
   return (
     <ContextMenu>
       <ContextMenuTrigger render={<div>{inner}</div>} />
@@ -2023,6 +2022,10 @@ function FolderDropCard({
         <ContextMenuItem onClick={onOpen}>
           <HugeiconsIcon icon={FolderOpenIcon} strokeWidth={2} />
           {t("detail.openFolder", { name })}
+        </ContextMenuItem>
+        <ContextMenuItem onClick={onInfo}>
+          <HugeiconsIcon icon={InformationCircleIcon} strokeWidth={2} />
+          {t("folderCard.info")}
         </ContextMenuItem>
         {canRename && (
           <ContextMenuItem onClick={() => onRename(folder.path)}>
@@ -2047,13 +2050,70 @@ function FolderDropCard({
   )
 }
 
-function BucketFolderStat({ label, value }: { label: string; value: string }) {
+function FolderInfoSheet({
+  folder,
+  isPublic,
+  onClose,
+  t,
+}: {
+  folder: BucketFolderSummary | null
+  isPublic: boolean
+  onClose: () => void
+  t: ReturnType<typeof useTranslations>
+}) {
+  if (!folder) return null
+  const name = folderName(folder.path)
+  const visibility = isPublic
+    ? t("visibility.public")
+    : t("visibility.private")
+
   return (
-    <div className="rounded-md bg-background/55 px-2 py-1.5">
-      <div className="truncate text-[10px] uppercase text-muted-foreground">
-        {label}
-      </div>
-      <div className="truncate font-medium tabular-nums">{value}</div>
+    <Sheet open onOpenChange={(open) => !open && onClose()}>
+      <SheetContent className="flex w-full flex-col gap-0 p-0 sm:max-w-md">
+        <SheetHeader className="border-b p-6">
+          <SheetTitle className="truncate pe-10">{name}</SheetTitle>
+          <SheetDescription>{t("detail.folderInfoDesc")}</SheetDescription>
+        </SheetHeader>
+        <div className="flex-1 overflow-y-auto p-6">
+          <div className="mb-6 flex items-center gap-4">
+            <FolderGlyph isPublic={isPublic} className="w-14 shrink-0" />
+            <Badge
+              variant="outline"
+              className={cn(
+                isPublic
+                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                  : "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300",
+              )}
+            >
+              {visibility}
+            </Badge>
+          </div>
+          <div className="divide-y rounded-lg border">
+            <FolderInfoRow
+              label={t("detail.folderPathLabel")}
+              value={folder.path}
+            />
+            <FolderInfoRow
+              label={t("columns.files")}
+              value={String(folder.fileCount)}
+            />
+            <FolderInfoRow
+              label={t("columns.size")}
+              value={formatBytes(folder.storageUsed)}
+            />
+            <FolderInfoRow label={t("columns.visibility")} value={visibility} />
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
+
+function FolderInfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="grid grid-cols-[120px_1fr] gap-3 px-4 py-3 text-sm">
+      <div className="text-muted-foreground">{label}</div>
+      <div className="min-w-0 break-words font-medium">{value}</div>
     </div>
   )
 }
