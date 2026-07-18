@@ -352,7 +352,15 @@
     "fmtMono": "Monoespaciado",
     "fmtBulleted": "Lista con viñetas",
     "fmtNumbered": "Lista numerada",
-    "fmtQuote": "Cita en bloque"
+    "fmtQuote": "Cita en bloque",
+    "groupLast7": "Últimos 7 días",
+    "groupLast30": "Últimos 30 días",
+    "trash": "Papelera",
+    "trashHint": "Las notas eliminadas se guardan aquí 30 días y luego se borran permanentemente.",
+    "trashEmpty": "La papelera está vacía",
+    "restore": "Restaurar",
+    "deleteForever": "Eliminar permanentemente",
+    "deletePermanentConfirm": "¿Eliminar permanentemente? Esta nota no se podrá recuperar."
   },
   "firstRun": {
     "welcomeTitle": "Te damos la bienvenida a Sentroy",

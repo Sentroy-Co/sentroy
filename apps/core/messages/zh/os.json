@@ -352,7 +352,15 @@
     "fmtMono": "等宽样式",
     "fmtBulleted": "项目符号列表",
     "fmtNumbered": "编号列表",
-    "fmtQuote": "块引用"
+    "fmtQuote": "块引用",
+    "groupLast7": "过去 7 天",
+    "groupLast30": "过去 30 天",
+    "trash": "回收站",
+    "trashHint": "已删除的笔记在此保留 30 天，之后将被永久删除。",
+    "trashEmpty": "回收站为空",
+    "restore": "恢复",
+    "deleteForever": "永久删除",
+    "deletePermanentConfirm": "永久删除？此笔记将无法恢复。"
   },
   "firstRun": {
     "welcomeTitle": "欢迎使用 Sentroy",

@@ -22,6 +22,8 @@ export interface NoteData {
   visibility: NoteVisibility
   color: NoteColor
   folderId: string | null
+  /** Sunucu türetimli tarih grup anahtarı: `last7`|`last30`|`m:YYYY-MM`|`y:YYYY`. */
+  group?: string
   createdAt: string
   updatedAt: string
 }
@@ -49,18 +51,25 @@ interface NoteState {
   placements: Record<string, WidgetGeo>
   /** Seçili klasör (null = All Notes). */
   selectedFolderId: string | null
+  /** Çöp kutusu görünümü aktif mi (klasör seçiminden bağımsız). */
+  viewTrash: boolean
+  /** Çöp kutusundaki notlar (silinen, son 30 gün) — tembel yüklenir. */
+  trash: NoteData[]
   loading: boolean
   loaded: boolean
   requestedOpenId: string | null
 
   load: (slug: string) => Promise<void>
   setFolder: (folderId: string | null) => void
+  openTrash: () => Promise<void>
+  restoreNote: (id: string) => Promise<void>
+  purgeNote: (id: string) => Promise<void>
   createNote: () => Promise<string | null>
   updateNote: (
     id: string,
     patch: Partial<Pick<NoteData, "text" | "bodyHtml" | "mentions" | "visibility" | "color">>,
   ) => void
-  deleteNote: (id: string) => Promise<void>
+  deleteNote: (id: string, permanent?: boolean) => Promise<void>
   moveNote: (id: string, folderId: string | null) => Promise<void>
   createFolder: (name: string) => Promise<string | null>
   renameFolder: (id: string, name: string) => Promise<void>
@@ -100,6 +109,8 @@ export const useNoteStore = create<NoteState>((set, get) => ({
   folders: [],
   placements: {},
   selectedFolderId: null,
+  viewTrash: false,
+  trash: [],
   loading: false,
   loaded: false,
   requestedOpenId: null,
@@ -118,6 +129,8 @@ export const useNoteStore = create<NoteState>((set, get) => ({
         folders: [],
         placements: {},
         selectedFolderId: null,
+        viewTrash: false,
+        trash: [],
         loaded: false,
         requestedOpenId: null,
       })
@@ -129,6 +142,9 @@ export const useNoteStore = create<NoteState>((set, get) => ({
         api(`/api/companies/${slug}/note-widgets`),
         api(`/api/companies/${slug}/note-folders`),
       ])
+      // Şirket bu await sırasında değiştiyse geç gelen sonucu YAZMA (yeni
+      // şirketin verisini ezmesin — hızlı A→B geçişinde A geç dönebilir).
+      if (get().slug !== slug) return
       const placements: Record<string, WidgetGeo> = {}
       for (const p of (placeData?.placements ?? []) as Placement[]) {
         placements[p.noteId] = { x: p.x, y: p.y, w: p.w, h: p.h }
@@ -140,11 +156,57 @@ export const useNoteStore = create<NoteState>((set, get) => ({
         loaded: true,
       })
     } finally {
-      set({ loading: false })
+      // Yalnız hâlâ bu slug için yükleniyorsak loading'i kapat.
+      if (get().slug === slug) set({ loading: false })
     }
   },
 
-  setFolder: (folderId) => set({ selectedFolderId: folderId }),
+  setFolder: (folderId) => set({ selectedFolderId: folderId, viewTrash: false }),
+
+  openTrash: async () => {
+    set({ viewTrash: true })
+    const slug = get().slug
+    if (!slug) return
+    // Her açılışta tazele (silinenler değişmiş olabilir) — 30 gün penceresi
+    // sunucuda tembel purge edilir.
+    try {
+      const data = await api(`/api/companies/${slug}/notes/trash`)
+      // Şirket await sırasında değiştiyse yazma (stale-slug).
+      if (get().slug !== slug) return
+      set({ trash: (data?.notes ?? []) as NoteData[] })
+    } catch {
+      /* boş bırak — kullanıcı tekrar deneyebilir */
+    }
+  },
+
+  restoreNote: async (id) => {
+    const slug = get().slug
+    if (!slug) return
+    // Optimistic: çöpten çıkar.
+    set((s) => ({ trash: s.trash.filter((n) => n.id !== id) }))
+    try {
+      const data = await api(`/api/companies/${slug}/notes/${id}/restore`, { method: "POST" })
+      // Şirket değiştiyse başka şirketin listesine yazma.
+      if (get().slug !== slug) return
+      const note = data?.note as NoteData | undefined
+      if (note) set((s) => ({ notes: [note, ...s.notes.filter((n) => n.id !== note.id)] }))
+    } catch {
+      // Başarısızsa çöpü yeniden çek (optimistic geri al).
+      if (get().slug === slug) void get().openTrash()
+    }
+  },
+
+  purgeNote: async (id) => {
+    const slug = get().slug
+    if (!slug) return
+    set((s) => ({ trash: s.trash.filter((n) => n.id !== id) }))
+    try {
+      await api(`/api/companies/${slug}/notes/${id}?permanent=1`, { method: "DELETE" })
+    } catch {
+      // Başarısızsa optimistic kaldırmayı geri al (restore ile simetrik).
+      if (get().slug === slug) void get().openTrash()
+    }
+  },
 
   createNote: async () => {
     const slug = get().slug
@@ -185,7 +247,7 @@ export const useNoteStore = create<NoteState>((set, get) => ({
     )
   },
 
-  deleteNote: async (id) => {
+  deleteNote: async (id, permanent = false) => {
     const slug = get().slug
     if (!slug) return
     const t = patchTimers.get(id)
@@ -193,12 +255,37 @@ export const useNoteStore = create<NoteState>((set, get) => ({
       clearTimeout(t)
       patchTimers.delete(id)
     }
+    // Geri alma için notu + placement'ı sakla (sunucu reddederse re-insert).
+    const prevNote = get().notes.find((n) => n.id === id)
+    const prevPlacement = get().placements[id]
     set((s) => {
       const placements = { ...s.placements }
       delete placements[id]
       return { notes: s.notes.filter((n) => n.id !== id), placements }
     })
-    await api(`/api/companies/${slug}/notes/${id}`, { method: "DELETE" }).catch(() => {})
+    // permanent=true → boş bırakılan yeni not (çöpe gitmeden kalıcı sil).
+    const qs = permanent ? "?permanent=1" : ""
+    try {
+      await api(`/api/companies/${slug}/notes/${id}${qs}`, { method: "DELETE" })
+    } catch {
+      // Sunucu reddettiyse (örn. 409: içerikli not çöpte değil) optimistic
+      // kaldırmayı geri al — UI sunucu gerçeğinden sessizce sapmasın.
+      if (get().slug === slug && prevNote) {
+        set((s) => {
+          if (s.notes.some((n) => n.id === id)) return {}
+          const epoch = 0
+          const notes = [prevNote, ...s.notes].sort(
+            (a, b) =>
+              (new Date(b.updatedAt).getTime() || epoch) -
+              (new Date(a.updatedAt).getTime() || epoch),
+          )
+          const placements = prevPlacement
+            ? { ...s.placements, [id]: prevPlacement }
+            : s.placements
+          return { notes, placements }
+        })
+      }
+    }
   },
 
   moveNote: async (id, folderId) => {

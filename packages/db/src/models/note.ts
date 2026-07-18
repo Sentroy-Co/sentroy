@@ -124,6 +124,60 @@ export async function softDelete(id: string): Promise<boolean> {
   return res.modifiedCount > 0
 }
 
+/** Çöp kutusu penceresi — silinen notlar bu süre sonunda kalıcı silinir. */
+export const TRASH_WINDOW_MS = 30 * 24 * 60 * 60 * 1000
+
+/**
+ * Çöp kutusu — son 30 gün içinde SİLİNEN notlar. Kullanıcı yalnız KENDİ sildiği
+ * (author) notları görür; owner/admin (isAdmin) şirketteki tümünü görür.
+ * `deletedAt` azalan, `before` cursor'ı (deletedAt) ile sayfalama.
+ */
+export async function findTrash(
+  companyId: string,
+  viewer: { userId: string; isAdmin: boolean },
+  opts?: { limit?: number; before?: Date },
+): Promise<Note[]> {
+  const c = await col()
+  const cutoff = new Date(Date.now() - TRASH_WINDOW_MS)
+  const deletedAt: Record<string, Date> = { $gte: cutoff }
+  if (opts?.before) deletedAt.$lt = opts.before
+  const filter: Record<string, unknown> = { companyId, deletedAt }
+  if (!viewer.isAdmin) filter.authorUserId = viewer.userId
+  const docs = await c
+    .find(filter)
+    .sort({ deletedAt: -1 })
+    .limit(opts?.limit ?? 100)
+    .toArray()
+  return docs.map(toId) as Note[]
+}
+
+/** Çöp kutusundan geri yükle — `deletedAt`'i temizle (nota geri döner). */
+export async function restore(id: string): Promise<boolean> {
+  if (!ObjectId.isValid(id)) return false
+  const c = await col()
+  const res = await c.updateOne(
+    { _id: new ObjectId(id), deletedAt: { $ne: null } },
+    { $set: { deletedAt: null, updatedAt: new Date() } },
+  )
+  return res.modifiedCount > 0
+}
+
+/** Kalıcı sil — belgeyi tamamen kaldır (çöp kutusundan "kalıcı sil"). */
+export async function hardDelete(id: string): Promise<boolean> {
+  if (!ObjectId.isValid(id)) return false
+  const c = await col()
+  const res = await c.deleteOne({ _id: new ObjectId(id) })
+  return res.deletedCount > 0
+}
+
+/** 30 günden eski silinmiş notları kalıcı kaldır (çöp okunurken tembel purge). */
+export async function purgeExpired(companyId: string): Promise<number> {
+  const c = await col()
+  const cutoff = new Date(Date.now() - TRASH_WINDOW_MS)
+  const res = await c.deleteMany({ companyId, deletedAt: { $lt: cutoff } })
+  return res.deletedCount
+}
+
 /** Klasör silinince o kullanıcının o klasördeki notlarını kategorisiz (null) yap. */
 export async function clearFolder(
   folderId: string,

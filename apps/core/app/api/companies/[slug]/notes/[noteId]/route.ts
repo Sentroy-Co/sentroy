@@ -161,10 +161,42 @@ export async function DELETE(
     return jsonError("Cannot delete this note", 403)
   }
 
+  // `?permanent=1` → çöp kutusundan KALICI sil (belgeyi kaldır). Aksi → soft.
+  const permanent =
+    new URL(request.url).searchParams.get("permanent") === "1"
+
+  // Her iki yolda da widget yerleşimlerini temizle.
+  await noteWidgetPlacementModel.removeAllForNote(noteId)
+
+  if (permanent) {
+    // Kalıcı sil: (a) çöp kutusundaki (soft-deleted) notlar VEYA (b) hiç içerik
+    // girilmemiş BOŞ not (Apple-Notes tarzı: boş bırakılan yeni not çöpe
+    // gitmeden doğrudan silinir). Dolu bir canlı notun tek çağrıda geri
+    // getirilemez şekilde yok edilmesi engellenir → önce çöpe (soft) gitmeli.
+    // Boşluk kontrolü metin + bodyHtml gövdesini (görsel/embed dahil) kapsar:
+    // metni boş ama görsel içeren bir not "boş" sayılmaz.
+    const bodyText = (note.bodyHtml ?? "").replace(/<[^>]*>/g, "").trim()
+    const hasMedia = /<(img|video|iframe|audio|embed|source)\b/i.test(note.bodyHtml ?? "")
+    const isEmpty =
+      !note.title?.trim() && !note.text?.trim() && !bodyText && !hasMedia
+    if (!note.deletedAt && !isEmpty) {
+      return jsonError("Note is not in the trash", 409)
+    }
+    const ok = await noteModel.hardDelete(noteId)
+    if (!ok) return jsonError("Note not found", 404)
+    audit({
+      request,
+      userId: access.session.user.id,
+      companyId: access.companyId,
+      action: "note.purge",
+      resource: "note",
+      resourceId: noteId,
+    })
+    return jsonSuccess({ deleted: true, permanent: true })
+  }
+
   const ok = await noteModel.softDelete(noteId)
   if (!ok) return jsonError("Already deleted", 409)
-  // Not silindiğinde tüm kullanıcılardaki masaüstü widget yerleşimlerini temizle.
-  await noteWidgetPlacementModel.removeAllForNote(noteId)
 
   audit({
     request,

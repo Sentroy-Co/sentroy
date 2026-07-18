@@ -352,7 +352,15 @@
     "fmtMono": "Tek Aralıklı",
     "fmtBulleted": "Madde İşaretli Liste",
     "fmtNumbered": "Numaralı Liste",
-    "fmtQuote": "Alıntı"
+    "fmtQuote": "Alıntı",
+    "groupLast7": "Son 7 Gün",
+    "groupLast30": "Son 30 Gün",
+    "trash": "Çöp Kutusu",
+    "trashHint": "Silinen notlar 30 gün burada tutulur, ardından kalıcı olarak silinir.",
+    "trashEmpty": "Çöp kutusu boş",
+    "restore": "Geri yükle",
+    "deleteForever": "Kalıcı olarak sil",
+    "deletePermanentConfirm": "Kalıcı olarak silinsin mi? Bu not geri getirilemez."
   },
   "firstRun": {
     "welcomeTitle": "Sentroy'a hoş geldin",

@@ -14,6 +14,7 @@ import {
   resolveFolderId,
   viewerIsCompanyAdmin,
 } from "@/lib/notes/shared"
+import { noteGroupKey } from "@/lib/notes/group"
 
 /**
  * GET — şirketteki görünür notlar (Notlar uygulaması listesi). Kendi notların
@@ -41,8 +42,16 @@ export async function GET(
     { limit, before },
   )
 
+  // Tarih grup anahtarını sunucuda türet (web + mobil aynı sınır). İstemci
+  // bölüm başlıklarını `group`'a göre çizer; ay adını lokalize eder.
+  const now = new Date()
+  const grouped = notes.map((n) => ({
+    ...n,
+    group: noteGroupKey(new Date(n.updatedAt), now),
+  }))
+
   return jsonSuccess({
-    notes,
+    notes: grouped,
     nextBefore:
       notes.length === limit ? notes[notes.length - 1]!.updatedAt : null,
   })

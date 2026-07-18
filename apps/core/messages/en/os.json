@@ -352,7 +352,15 @@
     "fmtMono": "Monostyled",
     "fmtBulleted": "Bulleted List",
     "fmtNumbered": "Numbered List",
-    "fmtQuote": "Block Quote"
+    "fmtQuote": "Block Quote",
+    "groupLast7": "Previous 7 Days",
+    "groupLast30": "Previous 30 Days",
+    "trash": "Trash",
+    "trashHint": "Deleted notes are kept here for 30 days, then permanently removed.",
+    "trashEmpty": "Trash is empty",
+    "restore": "Restore",
+    "deleteForever": "Delete permanently",
+    "deletePermanentConfirm": "Delete permanently? This note can't be recovered."
   },
   "firstRun": {
     "welcomeTitle": "Welcome to Sentroy",
