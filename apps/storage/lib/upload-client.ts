@@ -12,7 +12,7 @@
  * değişirse buradaki sabiti de güncellemek gerek; mismatch halinde server
  * yine 413 ile reject eder ve UI generic toast gösterir.
  */
-export const MAX_UPLOAD_BYTES = 50 * 1024 * 1024
+export const MAX_UPLOAD_BYTES = 500 * 1024 * 1024
 
 export function formatUploadBytes(bytes: number): string {
   if (bytes === 0) return "0 B"

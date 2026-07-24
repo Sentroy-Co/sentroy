@@ -78,6 +78,14 @@ export default function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // `/v/[id]` — link ile paylaşılan dosyanın zengin (Drive-tarzı) görüntüleyici
+  // sayfası. Public dosyada anonim erişilir → session cookie kontrolü + locale
+  // prefix uygulanmasın (aksi halde login'e redirect edilir, paylaşım linki
+  // kırılır). Erişim kontrolü sayfanın kendi public gate'inde yapılır.
+  if (pathname.startsWith("/v/")) {
+    return NextResponse.next()
+  }
+
   // `/api/companies/<slug>/buckets/<bucket>/media/<id>/download` — public
   // bucket modunda `*` wildcard ile herkesin erişebilmesi gerek; proxy
   // burada CORS'u handler'a bırakır ki public path Access-Control-Allow-

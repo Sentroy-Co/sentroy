@@ -19,8 +19,15 @@ export async function GET(
 
   const t0 = Date.now()
 
-  const result = await getSentroyForCompany(request, slug)
+  // Okuma → optional: mail hiç kurulmamış (sentroyApiKey yok, provision
+  // başarısız — ör. admin key eksik) şirket, 502 + ham "SENTROY_ADMIN_API_KEY
+  // not configured" yerine BOŞ domain listesi görsün. Kurulum eksikliği yazma
+  // (POST domain create) sırasında doğru yerde yüzeye çıkar.
+  const result = await getSentroyForCompany(request, slug, undefined, {
+    optional: true,
+  })
   if ("error" in result && result.error) return result.error
+  if (result.unprovisioned) return jsonSuccess([])
 
   console.log(`[domains:list] auth ${Date.now() - t0}ms`)
 

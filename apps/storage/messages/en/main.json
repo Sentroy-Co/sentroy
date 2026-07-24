@@ -67,6 +67,14 @@
       "public": "Public",
       "private": "Private"
     },
+    "access": {
+      "label": "Access",
+      "everyone": "Everyone",
+      "admins": "Only admins",
+      "owner": "Only me",
+      "updated": "Visibility updated",
+      "updateFailed": "Couldn't update visibility"
+    },
     "folderCard": {
       "noDescription": "No description",
       "info": "Get info",
@@ -168,7 +176,8 @@
         "info": "Get info",
         "copyUrl": "Copy URL",
         "download": "Download",
-        "delete": "Delete"
+        "delete": "Delete",
+        "share": "Share"
       },
       "info": {
         "subtitle": "File details and metadata.",
@@ -224,6 +233,23 @@
       "copyMultiSuccess": "{count} URLs copied to clipboard",
       "folderInfoDesc": "Folder contents and metadata.",
       "folderPathLabel": "Path"
+    },
+    "share": {
+      "title": "Share",
+      "company": "Your company",
+      "searchPeople": "Search people",
+      "noPeople": "No one to share with",
+      "shareWith": "Share with {count}",
+      "sharing": "Sharing…",
+      "sent": "Shared with {count} — they were notified",
+      "failed": "Couldn't share",
+      "link": "Link",
+      "copy": "Copy",
+      "copied": "Copied",
+      "linkCopied": "Link copied",
+      "email": "Email",
+      "save": "Save",
+      "privateHint": "Only the company members above can open this. Make the file public to share a link."
     }
   },
   "usage": {

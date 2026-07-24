@@ -28,7 +28,7 @@ interface SystemSettings {
 // limitleriyle açılır (admin → Plans → varsayılan plan). Eski "varsayılan
 // limitler" kartı hiçbir akışta kullanılmıyordu, kaldırıldı.
 const INITIAL_SETTINGS: SystemSettings = {
-  maxUploadBytes: 52428800,
+  maxUploadBytes: 524288000,
 }
 
 export function SettingsContent() {

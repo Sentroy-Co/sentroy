@@ -4,6 +4,7 @@ import { NextRequest } from "next/server"
 import { getAuthSession, jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { getDb } from "@workspace/db/client"
 import { sanitizeHtmlValue } from "@workspace/console/lib/sanitize-html"
+import { protectContent } from "@/lib/protect-emails"
 
 // GET /api/pages/:slug — Public: tek sayfa
 export async function GET(
@@ -21,7 +22,9 @@ export async function GET(
     id: page._id.toString(),
     title: page.title,
     slug: page.slug,
-    content: page.content,
+    // E-postalar public yanıttan çıkarılır (bot scraper koruması); gerçek
+    // adresler yalnız /reveal-emails'ten (Turnstile-gated) döner.
+    content: protectContent(page.content as Record<string, string> | string),
     updatedAt: page.updatedAt,
   })
 }

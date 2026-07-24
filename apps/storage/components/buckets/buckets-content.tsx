@@ -183,6 +183,7 @@ function BucketFolderCard({
         >
           <FolderGlyph
             isPublic={bucket.isPublic}
+            access={bucket.access}
             className="w-full max-w-[92px] transition-transform group-hover:-translate-y-0.5"
           />
           <h2
@@ -228,7 +229,11 @@ function BucketInfoSheet({
         </SheetHeader>
         <div className="flex-1 overflow-y-auto p-6">
           <div className="mb-6 flex items-center gap-4">
-            <FolderGlyph isPublic={bucket.isPublic} className="w-14 shrink-0" />
+            <FolderGlyph
+              isPublic={bucket.isPublic}
+              access={bucket.access}
+              className="w-14 shrink-0"
+            />
             <Badge
               variant="outline"
               className={cn(

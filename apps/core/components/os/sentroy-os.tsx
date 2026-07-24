@@ -245,6 +245,36 @@ export function SentroyOS({
         href: `${base}/call/${encodeURIComponent(room)}`,
       }
       openApp(d.id, d)
+    } else if (appId === "storage") {
+      // Storage bildirimi ("X seninle paylaştı") doğrudan dosyaya götürür:
+      // /buckets/<bucket>?folder=…&file=… (onOpenStoragePath ile aynı desen).
+      let bucket = ""
+      let folder = ""
+      let fileId = ""
+      try {
+        const sp = new URLSearchParams(window.location.search)
+        bucket = sp.get("os-bucket") || ""
+        folder = sp.get("os-folder") || ""
+        fileId = sp.get("os-file") || ""
+      } catch {
+        /* ignore */
+      }
+      if (bucket && /^[a-z0-9-]{1,64}$/.test(bucket)) {
+        const base = descriptor.href.replace(/\/$/, "")
+        const qs = new URLSearchParams()
+        if (folder) qs.set("folder", folder)
+        if (fileId) qs.set("file", fileId)
+        const query = qs.toString()
+        const d = {
+          ...descriptor,
+          id: `storage:${bucket}:${folder}`,
+          name: folder ? `Storage — ${folder}` : `Storage — ${bucket}`,
+          href: `${base}/buckets/${encodeURIComponent(bucket)}${query ? `?${query}` : ""}`,
+        }
+        openApp(d.id, d)
+      } else {
+        openApp(appId, descriptor)
+      }
     } else {
       openApp(appId, descriptor)
     }
@@ -253,6 +283,9 @@ export function SentroyOS({
       u.searchParams.delete("os-app")
       u.searchParams.delete("os-mailbox")
       u.searchParams.delete("os-room")
+      u.searchParams.delete("os-bucket")
+      u.searchParams.delete("os-folder")
+      u.searchParams.delete("os-file")
       window.history.replaceState(null, "", u.pathname + (u.search || ""))
     } catch {
       /* ignore */

@@ -11,7 +11,7 @@ import { getDb } from "@workspace/db/client"
  * Cache: 60s public — admin değişiklik 1 dakika içinde frontend'e yansır.
  */
 
-const DEFAULT_MAX_UPLOAD_BYTES = 52428800 // 50 MB
+const DEFAULT_MAX_UPLOAD_BYTES = 524288000 // 500 MB
 
 export async function GET() {
   const db = await getDb()

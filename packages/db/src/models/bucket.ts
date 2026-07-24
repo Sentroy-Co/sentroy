@@ -1,5 +1,6 @@
 import { getDb } from "../client"
-import type { Bucket } from "../types"
+import type { Bucket, StorageAccess } from "../types"
+import type { StorageViewer } from "./media"
 import { toId, toObjectId } from "./_helpers"
 import { isSystemManagedBucketSlug } from "../constants"
 
@@ -7,6 +8,20 @@ const COLLECTION = "buckets"
 
 function col() {
   return getDb().then((db) => db.collection(COLLECTION))
+}
+
+/**
+ * Bucket'ın şirket-içi erişim tier'ına göre izleyiciye görünür olup olmadığı
+ * (media/folder'daki canViewItem'ın JS eşiti). everyone/legacy → herkes; sahibi
+ * her tier'da; admins → yalnız admin; owner → yalnız sahip. Böylece kısıtlı bir
+ * bucket ne listede ne de slug'la (alt route'lar) erişilebilir olur.
+ */
+function canViewBucket(bucket: Bucket, viewer: StorageViewer): boolean {
+  const tier = bucket.access ?? "everyone"
+  if (tier === "everyone") return true
+  if (bucket.ownerUserId && bucket.ownerUserId === viewer.userId) return true
+  if (tier === "admins") return viewer.isAdmin
+  return false // "owner" → yalnız sahip (yukarıda döndü)
 }
 
 export async function findByCompany(companyId: string): Promise<Bucket[]> {
@@ -18,11 +33,21 @@ export async function findByCompany(companyId: string): Promise<Bucket[]> {
   return docs.map(toId)
 }
 
+/**
+ * Kullanıcıya görünür bucket'lar. `viewer` verilirse (session/token) erişim
+ * tier'ı filtresi uygulanır; null verilirse (sistem bağlamı) yalnız
+ * system-managed elenir (eski davranış).
+ */
 export async function findUserVisibleByCompany(
   companyId: string,
+  viewer: StorageViewer | null,
 ): Promise<Bucket[]> {
   const buckets = await findByCompany(companyId)
-  return buckets.filter((bucket) => !isSystemManagedBucketSlug(bucket.slug))
+  return buckets.filter(
+    (bucket) =>
+      !isSystemManagedBucketSlug(bucket.slug) &&
+      (viewer === null || canViewBucket(bucket, viewer)),
+  )
 }
 
 export async function findById(id: string): Promise<Bucket | null> {
@@ -40,12 +65,22 @@ export async function findBySlug(
   return toId(doc)
 }
 
+/**
+ * Slug ile kullanıcıya görünür bucket — TÜM bucket alt route'larının (media,
+ * folder, move, download …) tek bucket gate'i. `viewer` verilirse erişim tier'ı
+ * gate'i uygulanır (kısıtlı bucket → null → 404); null verilirse yalnız
+ * system-managed elenir (public serve / sistem bağlamı).
+ */
 export async function findUserVisibleBySlug(
   companyId: string,
   slug: string,
+  viewer: StorageViewer | null,
 ): Promise<Bucket | null> {
   if (isSystemManagedBucketSlug(slug)) return null
-  return findBySlug(companyId, slug)
+  const bucket = await findBySlug(companyId, slug)
+  if (!bucket) return null
+  if (viewer !== null && !canViewBucket(bucket, viewer)) return null
+  return bucket
 }
 
 export async function create(
@@ -53,16 +88,13 @@ export async function create(
 ): Promise<Bucket> {
   const c = await col()
   const now = new Date()
-  const result = await c.insertOne({
-    ...data,
-    createdAt: now,
-    updatedAt: now,
-  })
+  // Erişim tier'ı varsayılanı everyone (mevcut davranış: tüm üyeler görür).
+  const access: StorageAccess = data.access ?? "everyone"
+  const doc = { ...data, access, createdAt: now, updatedAt: now }
+  const result = await c.insertOne(doc)
   return {
     id: result.insertedId.toString(),
-    ...data,
-    createdAt: now,
-    updatedAt: now,
+    ...doc,
   }
 }
 

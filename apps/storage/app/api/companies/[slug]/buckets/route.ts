@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic"
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess, slugify } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
+import { storageViewer, parseStorageAccess } from "@/lib/storage-access"
 import { bucketModel } from "@workspace/db/models"
 import { isSystemManagedBucketSlug } from "@workspace/db/constants"
 
@@ -14,7 +15,7 @@ export async function GET(
   const access = await resolveCompanyAccess(request, slug, "storage.view")
   if ("error" in access) return access.error
 
-  const buckets = await bucketModel.findUserVisibleByCompany(access.companyId)
+  const buckets = await bucketModel.findUserVisibleByCompany(access.companyId, storageViewer(access))
   return jsonSuccess(buckets)
 }
 
@@ -31,6 +32,7 @@ export async function POST(
     slug?: string
     description?: string
     isPublic?: boolean
+    access?: unknown
   }
   try {
     body = await request.json()
@@ -67,6 +69,10 @@ export async function POST(
     slug: bucketSlug,
     description: body.description?.trim() || undefined,
     isPublic: Boolean(body.isPublic),
+    // "owner" (sadece ben) tier'ı için sahiplik referansı + varsayılan tier.
+    ownerUserId: access.callerUserId,
+    access:
+      body.access !== undefined ? parseStorageAccess(body.access) : "everyone",
     storageUsed: 0,
     fileCount: 0,
   })

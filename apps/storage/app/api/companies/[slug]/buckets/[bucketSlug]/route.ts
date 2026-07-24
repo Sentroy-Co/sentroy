@@ -3,6 +3,12 @@ export const dynamic = "force-dynamic"
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
+import {
+  storageViewer,
+  canManageItemAccess,
+  callerHasPermission,
+  parseStorageAccess,
+} from "@/lib/storage-access"
 import { bucketModel, mediaModel } from "@workspace/db/models"
 import { cdnPurgeBucket } from "@workspace/cdn-client"
 
@@ -18,7 +24,7 @@ export async function GET(
   const access = await resolveCompanyAccess(request, slug, "storage.view")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   return jsonSuccess(bucket)
@@ -33,17 +39,38 @@ export async function PATCH(
   },
 ) {
   const { slug, bucketSlug } = await params
-  const access = await resolveCompanyAccess(request, slug, "buckets.edit")
+  // Üyelik yeter; yetkiyi alana göre değerlendir: meta (ad/açıklama/isPublic)
+  // → buckets.edit; access tier → sahip/yönetici (canManageItemAccess).
+  const access = await resolveCompanyAccess(request, slug)
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
-  let body: { name?: string; description?: string; isPublic?: boolean }
+  let body: {
+    name?: string
+    description?: string
+    isPublic?: boolean
+    access?: unknown
+  }
   try {
     body = await request.json()
   } catch {
     return jsonError("Invalid JSON body")
+  }
+
+  const wantsMeta =
+    body.name !== undefined ||
+    body.description !== undefined ||
+    body.isPublic !== undefined
+  const wantsAccess = body.access !== undefined
+
+  // Meta düzenleme buckets.edit ister; access değişimi sahip/yönetici ister.
+  if (wantsMeta && !(await callerHasPermission(access, slug, "buckets.edit"))) {
+    return jsonError("Insufficient permissions", 403)
+  }
+  if (wantsAccess && !canManageItemAccess(bucket.ownerUserId, access)) {
+    return jsonError("Cannot change this bucket's visibility", 403)
   }
 
   const updates: Record<string, unknown> = {}
@@ -60,6 +87,9 @@ export async function PATCH(
     const newPublic = Boolean(body.isPublic)
     if (newPublic !== bucket.isPublic) visibilityChanged = newPublic
     updates.isPublic = newPublic
+  }
+  if (wantsAccess) {
+    updates.access = parseStorageAccess(body.access)
   }
 
   if (Object.keys(updates).length === 0)
@@ -98,7 +128,7 @@ export async function DELETE(
   const access = await resolveCompanyAccess(request, slug, "buckets.delete")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   const force =

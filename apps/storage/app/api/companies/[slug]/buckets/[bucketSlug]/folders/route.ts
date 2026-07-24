@@ -15,12 +15,24 @@ import {
   toMediaFolder,
 } from "@/lib/folders"
 import { cdnDelete } from "@workspace/cdn-client"
+import type { StorageAccess } from "@workspace/db/types"
+import {
+  storageViewer,
+  canViewItem,
+  canManageItemAccess,
+  callerHasPermission,
+  parseStorageAccess,
+} from "@/lib/storage-access"
 
 interface FolderSummary {
   path: string
   fileCount: number
   storageUsed: number
   explicit: boolean
+  /** Şirket-içi erişim tier'ı — UI markörü için. Derived klasörler everyone. */
+  access: StorageAccess
+  /** Klasörü oluşturan — "owner" tier + client-side "yönetebilir mi" için. */
+  ownerUserId?: string
 }
 
 function addFolderSummary(
@@ -41,6 +53,7 @@ function addFolderSummary(
         fileCount: 0,
         storageUsed: 0,
         explicit: false,
+        access: "everyone",
       } satisfies FolderSummary)
 
     existing.fileCount += data.fileCount ?? 0
@@ -62,17 +75,30 @@ export async function GET(
   const access = await resolveCompanyAccess(request, slug, "storage.view")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
+  // Erişim tier'ı: derived klasörler yalnız izleyicinin görebildiği
+  // media'lardan sayılır; explicit klasörler tier'a göre süzülür.
+  const viewer = storageViewer(access)
   const [explicitFolders, mediaFolders] = await Promise.all([
     bucketFolderModel.findByBucket(bucket.id),
-    mediaModel.aggregateFolders(bucket.id),
+    mediaModel.aggregateFolders(bucket.id, viewer),
   ])
 
   const summaries = new Map<string, FolderSummary>()
+  // Tier/sahip markörü yalnız klasörün TAM path'ine iliştirilir (ata'lara değil).
+  const accessByPath = new Map<string, StorageAccess>()
+  const ownerByPath = new Map<string, string>()
   for (const folder of explicitFolders) {
+    // Görünmüyorsa hiç ekleme — media zaten aggregateFolders'ta filtrelendi.
+    if (!canViewItem(folder.access, folder.ownerUserId, access)) continue
     addFolderSummary(summaries, folder.path, { explicit: true })
+    const np = normalizeFolderPath(folder.path)
+    if (folder.access && folder.access !== "everyone") {
+      accessByPath.set(np, folder.access)
+    }
+    if (folder.ownerUserId) ownerByPath.set(np, folder.ownerUserId)
   }
   for (const folder of mediaFolders) {
     addFolderSummary(summaries, fromMediaFolder(folder.folder), {
@@ -82,9 +108,13 @@ export async function GET(
   }
 
   return jsonSuccess({
-    folders: Array.from(summaries.values()).sort((a, b) =>
-      a.path.localeCompare(b.path),
-    ),
+    folders: Array.from(summaries.values())
+      .map((s) => ({
+        ...s,
+        access: accessByPath.get(s.path) ?? s.access,
+        ownerUserId: ownerByPath.get(s.path),
+      }))
+      .sort((a, b) => a.path.localeCompare(b.path)),
   })
 }
 
@@ -100,10 +130,10 @@ export async function POST(
   const access = await resolveCompanyAccess(request, slug, "media.upload")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
-  let body: { path?: string }
+  let body: { path?: string; access?: unknown }
   try {
     body = await request.json()
   } catch {
@@ -119,6 +149,10 @@ export async function POST(
     companyId: access.companyId,
     bucketId: bucket.id,
     path,
+    // "owner" (sadece ben) tier'ı için sahiplik referansı + varsayılan tier.
+    ownerUserId: access.callerUserId,
+    access:
+      body.access !== undefined ? parseStorageAccess(body.access) : "everyone",
   })
 
   return jsonSuccess(folder, 201)
@@ -143,19 +177,54 @@ export async function PATCH(
   },
 ) {
   const { slug, bucketSlug } = await params
-  // Folder rename "edit" benzeri bir mutasyon — media.upload yetkisi
-  // upload akışından gelen bir hak, organize etme için aynı sınıf.
-  const access = await resolveCompanyAccess(request, slug, "media.upload")
+  // Üyelik yeter; yetkiyi branch'e göre değerlendir (access → sahip/yönetici,
+  // rename → media.upload).
+  const access = await resolveCompanyAccess(request, slug)
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
-  let body: { from?: string; to?: string }
+  let body: { from?: string; to?: string; path?: string; access?: unknown }
   try {
     body = await request.json()
   } catch {
     return jsonError("Invalid JSON body")
+  }
+
+  // ── Erişim tier'ı ayarı: body { path, access } ──────────────────────────
+  // Klasörü (+ descendant media'yı) private/public yapar. Yalnız klasör
+  // sahibi veya şirket sahibi/yöneticisi. Rename ({from,to}) ile ayrı branch.
+  if (body.access !== undefined) {
+    const path = normalizeFolderPath(body.path ?? "")
+    if (!path || path === DEFAULT_MEDIA_FOLDER) {
+      return jsonError("Valid folder path required")
+    }
+    const nextAccess = parseStorageAccess(body.access)
+    const folderDoc = await bucketFolderModel.findByPath(bucket.id, path)
+    if (!canManageItemAccess(folderDoc?.ownerUserId, access)) {
+      return jsonError("Cannot change this folder's visibility", 403)
+    }
+    // 1) Klasör doc'unu upsert (derived-only ise oluşturur) + tier'ı yaz.
+    await bucketFolderModel.setAccess(
+      bucket.id,
+      access.companyId,
+      path,
+      nextAccess,
+      access.callerUserId,
+    )
+    // 2) İçerikteki media'ya cascade → dosya görünürlüğü tek kaynaktan yürür.
+    const mediaUpdated = await mediaModel.setFolderAccess(
+      bucket.id,
+      toMediaFolder(path),
+      nextAccess,
+    )
+    return jsonSuccess({ path, access: nextAccess, mediaUpdated })
+  }
+
+  // Rename bir organize/edit mutasyonu → media.upload yetkisi gerekir.
+  if (!(await callerHasPermission(access, slug, "media.upload"))) {
+    return jsonError("Insufficient permissions", 403)
   }
 
   const fromRaw = (body.from ?? "").trim()
@@ -229,10 +298,11 @@ export async function DELETE(
   },
 ) {
   const { slug, bucketSlug } = await params
-  const access = await resolveCompanyAccess(request, slug, "media.delete")
+  // Üyelik yeter; silme yetkisi "media.delete VEYA klasör sahipliği" ile.
+  const access = await resolveCompanyAccess(request, slug)
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   const url = new URL(request.url)
@@ -246,6 +316,29 @@ export async function DELETE(
   const companyId = access.companyId
   const callerUserId = access.callerUserId
   const bucketId = bucket.id
+
+  // Yetki yoksa: yalnız klasörün SAHİBİ ve ağaçta BAŞKASINA ait dosya yoksa
+  // silebilir (başkalarının dosyaları sahiplik üzerinden silinemesin).
+  if (!(await callerHasPermission(access, slug, "media.delete"))) {
+    const folderDoc = await bucketFolderModel.findByPath(bucketId, folderPath)
+    const isOwner =
+      !!folderDoc?.ownerUserId && folderDoc.ownerUserId === callerUserId
+    if (!isOwner) {
+      return jsonError("Cannot delete this folder", 403)
+    }
+    if (
+      await mediaModel.hasForeignInFolderTree(
+        bucketId,
+        toMediaFolder(folderPath),
+        callerUserId,
+      )
+    ) {
+      return jsonError(
+        "Folder contains files owned by others — delete permission required",
+        403,
+      )
+    }
+  }
 
   // Folder ağacındaki tüm media'lar.
   const mediaFolder = toMediaFolder(folderPath)

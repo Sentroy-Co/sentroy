@@ -195,6 +195,30 @@ const wrapMeetTr = (heading: string, body: string, cta?: { url: string; label: s
     footerNote: "Bu maili bir Sentroy Meet görüşmesine davet edildiğiniz için alıyorsunuz.",
   })
 
+// Storage mailleri — header'da Sentroy + Storage logosu.
+const storageProduct = () => ({
+  name: "Storage",
+  logo: `${rootOrigin(serverRootDomain())}/os-app-icons/storage.png`,
+})
+const wrapStorage = (heading: string, body: string, cta?: { url: string; label: string }) =>
+  emailShell({
+    lang: "en",
+    heading,
+    body,
+    cta,
+    product: storageProduct(),
+    footerNote: "You're receiving this because a colleague shared a file with you on Sentroy Storage.",
+  })
+const wrapStorageTr = (heading: string, body: string, cta?: { url: string; label: string }) =>
+  emailShell({
+    lang: "tr",
+    heading,
+    body,
+    cta,
+    product: storageProduct(),
+    footerNote: "Bu maili bir iş arkadaşınız Sentroy Storage'da sizinle bir dosya paylaştığı için alıyorsunuz.",
+  })
+
 const otpBlock = (otp: string) => `
 <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:28px;font-weight:700;letter-spacing:0.25em;padding:16px 20px;background:#f5f5f5;border-radius:12px;text-align:center;color:#111">${otp}</div>
 `.trim()
@@ -760,6 +784,34 @@ export const SYSTEM_MAIL_EVENTS: SystemMailEventDefinition[] = [
         "Bir görüntülü görüşmeye davetlisiniz",
         "<strong>{inviterName}</strong> sizi Sentroy Meet üzerinde bir görüntülü toplantıya davet etti. Tarayıcınızdan katılmak için aşağıya tıklayın — hesap veya indirme gerekmez.",
         { url: "{url}", label: "Toplantıya katıl" },
+      ),
+    },
+  },
+  {
+    key: "storage.shared",
+    category: "notification",
+    label: "File shared",
+    description:
+      "Sent when a user shares a Storage file with a colleague inside the company. Contains a viewer link.",
+    variables: [
+      { name: "sharerName", description: "Display name of the person sharing the file.", sample: "Alice" },
+      { name: "fileName", description: "Name of the shared file.", sample: "Q4-report.pdf" },
+      { name: "url", description: "Link that opens the file in the Storage viewer.", sample: "https://storage.sentroy.com/v/abc123", escape: false },
+    ],
+    defaultSubject: {
+      en: "{sharerName} shared \"{fileName}\" with you",
+      tr: "{sharerName} \"{fileName}\" dosyasını seninle paylaştı",
+    },
+    defaultHtmlBody: {
+      en: wrapStorage(
+        "A file was shared with you",
+        "<strong>{sharerName}</strong> shared <strong>{fileName}</strong> with you on Sentroy Storage. Open it below to view or download.",
+        { url: "{url}", label: "Open file" },
+      ),
+      tr: wrapStorageTr(
+        "Seninle bir dosya paylaşıldı",
+        "<strong>{sharerName}</strong> Sentroy Storage'da <strong>{fileName}</strong> dosyasını seninle paylaştı. Görüntülemek veya indirmek için aşağıdan aç.",
+        { url: "{url}", label: "Dosyayı aç" },
       ),
     },
   },

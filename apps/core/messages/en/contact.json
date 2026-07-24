@@ -9,7 +9,9 @@
     "verifying": "Verifying…",
     "humanCheck": "Confirm you're human to reveal our email",
     "error": "Could not verify — please try again",
-    "unavailable": "Contact is temporarily unavailable"
+    "unavailable": "Contact is temporarily unavailable",
+    "protectedOne": "This page has 1 protected email.",
+    "protectedMany": "This page has {count} protected emails."
   },
   "form": {
     "title": "Send us a message",

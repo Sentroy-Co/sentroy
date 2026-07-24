@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic"
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
+import { storageViewer } from "@/lib/storage-access"
 import { bucketModel, mediaModel } from "@workspace/db/models"
 import { cdnReplaceContent } from "@workspace/cdn-client"
 import { audit } from "@workspace/console/lib/audit"
@@ -47,7 +48,7 @@ export async function PUT(
   const access = await resolveCompanyAccess(request, slug, "media.upload")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   const media = await mediaModel.findById(mediaId)

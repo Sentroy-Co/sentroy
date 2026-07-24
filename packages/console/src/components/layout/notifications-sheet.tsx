@@ -9,6 +9,9 @@ import {
   Mail01Icon,
   Delete02Icon,
   CheckmarkCircle02Icon,
+  FolderShared01Icon,
+  UserGroupIcon,
+  LinkSquare02Icon,
 } from "@hugeicons/core-free-icons"
 import { Button } from "@workspace/ui/components/button"
 import {
@@ -25,6 +28,15 @@ import {
   useNotificationsStore,
   type AppNotification,
 } from "@workspace/console/stores/notifications"
+
+// Bildirim türüne göre ikon — varsayılan Mail (auth/sistem bildirimleri).
+const KIND_ICONS: Partial<Record<AppNotification["type"], typeof Mail01Icon>> = {
+  "storage-shared": FolderShared01Icon,
+  "company-invitation": UserGroupIcon,
+  "company-member-joined": UserGroupIcon,
+  "company-member-removed": UserGroupIcon,
+  linear: LinkSquare02Icon,
+}
 
 function NotificationRow({
   item,
@@ -60,7 +72,11 @@ function NotificationRow({
       )}
     >
       <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <HugeiconsIcon icon={Mail01Icon} strokeWidth={2} className="size-4" />
+        <HugeiconsIcon
+          icon={KIND_ICONS[item.type] ?? Mail01Icon}
+          strokeWidth={2}
+          className="size-4"
+        />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <div className="flex items-center gap-2">

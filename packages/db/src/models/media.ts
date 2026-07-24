@@ -1,7 +1,36 @@
 import { ObjectId } from "mongodb"
 import { getDb } from "../client"
-import type { Media, MediaType } from "../types"
+import type { Media, MediaType, StorageAccess } from "../types"
 import { toId, toObjectId } from "./_helpers"
+
+/**
+ * Şirket-içi erişim ($or) filtresi — hem media (ownerField="uploadedBy") hem
+ * folder (ownerField="ownerUserId") için. `everyone`/legacy-null herkese;
+ * sahiplik alanı eşleşen sahibe (her tier'da kendi öğesi); `admins` yalnız
+ * isAdmin'e. `owner` tier'ı SADECE sahiple eşleşir → yöneticiler bile göremez.
+ * (Notlardaki buildVisibilityFilter'ın storage muadili.)
+ */
+export function buildStorageAccessFilter(
+  viewerUserId: string,
+  isAdmin: boolean,
+  ownerField: "uploadedBy" | "ownerUserId" = "uploadedBy",
+): Record<string, unknown> {
+  const or: Record<string, unknown>[] = [
+    { access: { $in: ["everyone", null] } },
+    { [ownerField]: viewerUserId },
+    // Kişi-bazlı paylaşım grant'i (yalnız media'da; folder/bucket'ta alan yok
+    // → eşleşmez, zararsız). "X seninle paylaştı" ile eklenen kullanıcı görür.
+    { sharedWith: viewerUserId },
+  ]
+  if (isAdmin) or.push({ access: "admins" })
+  return { $or: or }
+}
+
+/** findByBucket / countByBucketFilter / aggregateFolders'a geçen izleyici. */
+export interface StorageViewer {
+  userId: string
+  isAdmin: boolean
+}
 
 // Mongoose'un default pluralizer'ı `media` kelimesini "uncountable"
 // listesine dahil ediyor (mongoose/lib/helpers/pluralize.js içinde),
@@ -110,6 +139,8 @@ export async function findByBucket(
     dir?: MediaSortDir
     limit?: number
     skip?: number
+    /** Set edilirse erişim ($or) filtresi uygulanır (owner/admins/everyone). */
+    viewer?: StorageViewer
   },
 ): Promise<Media[]> {
   const c = await col()
@@ -117,8 +148,16 @@ export async function findByBucket(
   if (opts?.type) filter.type = opts.type
   if (opts?.folder !== undefined) filter.folder = opts.folder
   if (opts?.tags?.length) filter.tags = { $all: opts.tags }
+  // Birden çok $or (arama + erişim) çakışmasın diye $and altında topla.
+  const and: Record<string, unknown>[] = []
   const search = buildSearchClause(opts?.q)
-  if (search) Object.assign(filter, search)
+  if (search) and.push(search)
+  if (opts?.viewer) {
+    and.push(
+      buildStorageAccessFilter(opts.viewer.userId, opts.viewer.isAdmin),
+    )
+  }
+  if (and.length) filter.$and = and
 
   const sortKey = opts?.sort ?? "displayOrder"
   const dirSign = opts?.dir === "desc" ? -1 : 1
@@ -172,6 +211,7 @@ export async function countByBucketFilter(
     folder?: string
     tags?: string[]
     q?: string
+    viewer?: StorageViewer
   },
 ): Promise<number> {
   const c = await col()
@@ -179,8 +219,15 @@ export async function countByBucketFilter(
   if (opts?.type) filter.type = opts.type
   if (opts?.folder !== undefined) filter.folder = opts.folder
   if (opts?.tags?.length) filter.tags = { $all: opts.tags }
+  const and: Record<string, unknown>[] = []
   const search = buildSearchClause(opts?.q)
-  if (search) Object.assign(filter, search)
+  if (search) and.push(search)
+  if (opts?.viewer) {
+    and.push(
+      buildStorageAccessFilter(opts.viewer.userId, opts.viewer.isAdmin),
+    )
+  }
+  if (and.length) filter.$and = and
   return c.countDocuments(filter)
 }
 
@@ -231,16 +278,13 @@ export async function create(
 ): Promise<Media> {
   const c = await col()
   const now = new Date()
-  const result = await c.insertOne({
-    ...data,
-    createdAt: now,
-    updatedAt: now,
-  })
+  // Erişim tier'ı varsayılanı everyone (mevcut davranış: tüm üyeler görür).
+  const access: StorageAccess = data.access ?? "everyone"
+  const doc = { ...data, access, createdAt: now, updatedAt: now }
+  const result = await c.insertOne(doc)
   return {
     id: result.insertedId.toString(),
-    ...data,
-    createdAt: now,
-    updatedAt: now,
+    ...doc,
   }
 }
 
@@ -310,6 +354,26 @@ export async function deleteById(id: string): Promise<void> {
 }
 
 /**
+ * Kişi-bazlı paylaşım grant'i — verilen kullanıcıları `sharedWith`'e ekler
+ * ($addToSet → duplike olmaz). "X seninle paylaştı" akışında alıcıya erişim.
+ */
+export async function addSharedWith(
+  id: string,
+  userIds: string[],
+): Promise<void> {
+  const ids = [...new Set(userIds)].filter(Boolean)
+  if (ids.length === 0) return
+  const c = await col()
+  await c.updateOne(
+    { _id: toObjectId(id) },
+    {
+      $addToSet: { sharedWith: { $each: ids } },
+      $set: { updatedAt: new Date() },
+    },
+  )
+}
+
+/**
  * Bucket-scoped bulk delete — verilen id setinden bucket'a ait olanları
  * tek query ile siler. Bucket dışı id'ler bilinçli olarak yok sayılır
  * (caller iki bucket'ı karıştırabilse bile cross-bucket leak olmaz).
@@ -363,6 +427,30 @@ export async function findIdsInFolderTree(
   return docs.map((d) => ({ id: d._id.toString(), size: d.size || 0 }))
 }
 
+/**
+ * Klasör (+ descendant) ağacında BAŞKASINA ait (uploadedBy != userId) en az
+ * bir media var mı? Klasör sahibinin, media.delete yetkisi olmadan yalnızca
+ * tamamen kendine ait bir klasörü silebilmesini güvenceye almak için — böylece
+ * başkalarının dosyaları sahiplik üzerinden silinemez.
+ */
+export async function hasForeignInFolderTree(
+  bucketId: string,
+  folderPath: string,
+  userId: string,
+): Promise<boolean> {
+  const c = await col()
+  const escaped = folderPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  const doc = await c.findOne({
+    bucketId: idMatch(bucketId),
+    uploadedBy: { $ne: userId },
+    $or: [
+      { folder: folderPath },
+      { folder: { $regex: `^${escaped}/` } },
+    ],
+  })
+  return doc != null
+}
+
 export async function deleteManyByIds(
   bucketId: string,
   ids: string[],
@@ -383,11 +471,18 @@ export async function countByBucket(bucketId: string): Promise<number> {
 
 export async function aggregateFolders(
   bucketId: string,
+  viewer?: StorageViewer,
 ): Promise<Array<{ folder: string; fileCount: number; storageUsed: number }>> {
   const c = await col()
+  const match: Record<string, unknown> = { bucketId: idMatch(bucketId) }
+  // Erişim filtresi: derived (media prefix'inden türeyen) klasörler yalnız
+  // izleyicinin görebildiği media'lardan sayılsın.
+  if (viewer) {
+    Object.assign(match, buildStorageAccessFilter(viewer.userId, viewer.isAdmin))
+  }
   const result = await c
     .aggregate([
-      { $match: { bucketId: idMatch(bucketId) } },
+      { $match: match },
       {
         $group: {
           _id: { $ifNull: ["$folder", ""] },
@@ -476,6 +571,34 @@ export async function setBucketVisibility(
     { $set: { isPublic, updatedAt: new Date() } },
   )
   return result.modifiedCount
+}
+
+/**
+ * Bir klasör (+ descendant'ları) altındaki TÜM media'nın `access` tier'ını
+ * ayarlar — folder private yapıldığında içeriğe cascade. Böylece dosya
+ * görünürlüğü tek kaynaktan (media.access) yürür; klasör private ise içindeki
+ * dosyalar da liste filtresinden düşer. `isPublic` (anonim CDN) DOKUNULMAZ.
+ * (setBucketVisibility'nin folder-scoped muadili; renameFolderPrefix ile aynı
+ * subtree eşleşmesi.)
+ */
+export async function setFolderAccess(
+  bucketId: string,
+  folderPath: string,
+  access: StorageAccess,
+): Promise<number> {
+  const c = await col()
+  const escaped = folderPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+  const result = await c.updateMany(
+    {
+      bucketId: idMatch(bucketId),
+      $or: [
+        { folder: folderPath },
+        { folder: { $regex: `^${escaped}/` } },
+      ],
+    },
+    { $set: { access, updatedAt: new Date() } },
+  )
+  return result.modifiedCount ?? 0
 }
 
 /**

@@ -9,7 +9,9 @@
     "verifying": "Doğrulanıyor…",
     "humanCheck": "E-postamızı görmek için insan olduğunu doğrula",
     "error": "Doğrulanamadı — tekrar dene",
-    "unavailable": "İletişim şu an kullanılamıyor"
+    "unavailable": "İletişim şu an kullanılamıyor",
+    "protectedOne": "Bu sayfada 1 korumalı e-posta var.",
+    "protectedMany": "Bu sayfada {count} korumalı e-posta var."
   },
   "form": {
     "title": "Bize mesaj gönderin",

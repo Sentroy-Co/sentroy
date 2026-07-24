@@ -46,7 +46,7 @@ const router = Router()
  * Storage app aynı sabiti consume edip UI tarafında pre-validate eder.
  */
 export const MAX_UPLOAD_BYTES = parseInt(
-  process.env.CDN_MAX_UPLOAD_BYTES || `${50 * 1024 * 1024}`,
+  process.env.CDN_MAX_UPLOAD_BYTES || `${500 * 1024 * 1024}`,
   10,
 )
 

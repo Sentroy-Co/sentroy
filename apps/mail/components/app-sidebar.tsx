@@ -28,8 +28,9 @@ import {
 } from "@workspace/console/nav/shared"
 import { useNotificationsStore } from "@workspace/console/stores/notifications"
 
-/** Mail-spesifik admin segment'leri — admin moduna otomatik geçiş için. */
-const MAIL_ADMIN_SEGMENTS = new Set([
+/** Mail-spesifik admin segment'leri — admin moduna otomatik geçiş + compose
+ * FAB'ının bu sayfalarda gizlenmesi için (layout `hideOnSegments`). */
+export const MAIL_ADMIN_SEGMENTS = new Set([
   ...SHARED_ADMIN_SEGMENTS,
   "domains",
   "mailboxes",

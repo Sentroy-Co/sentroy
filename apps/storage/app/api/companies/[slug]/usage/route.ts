@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic"
 import { NextRequest } from "next/server"
 import { jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
+import { storageViewer } from "@/lib/storage-access"
 import { bucketModel, mediaModel } from "@workspace/db/models"
 import { getStorageQuota } from "@/lib/quota"
 
@@ -27,7 +28,7 @@ export async function GET(
   const access = await resolveCompanyAccess(request, slug, "storage.view")
   if ("error" in access) return access.error
 
-  const buckets = await bucketModel.findUserVisibleByCompany(access.companyId)
+  const buckets = await bucketModel.findUserVisibleByCompany(access.companyId, storageViewer(access))
   const bucketIds = buckets.map((bucket) => bucket.id)
 
   const [quota, byType, timeSeries, recent] = await Promise.all([

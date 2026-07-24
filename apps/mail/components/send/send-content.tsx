@@ -32,6 +32,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@workspace/ui/components/select"
+import { resolveLocalized, type LocalizedString } from "@sentroy-co/sdk"
 import { JobStatusCard } from "@/components/send/job-status-card"
 
 const HugerteEditor = dynamic(() => import("@workspace/ui/components/hugerte-editor"), {
@@ -46,8 +47,11 @@ interface Mailbox {
 
 interface Template {
   id: string
-  name: string
-  subject: string
+  // ⚠ Çok-dilli editörde yazılan template'lerde name/subject LocalizedString
+  // ({tr,en}) OLABİLİR — düz string sanıp raw render edersen React "Objects are
+  // not valid as a React child" ile CRASH eder. Render'da resolveLocalized() kullan.
+  name: LocalizedString
+  subject: LocalizedString
   domainId?: string
 }
 
@@ -147,8 +151,8 @@ export function SendContent() {
           (templatesJson.data as Array<Record<string, unknown>>).map(
             (tpl) => ({
               id: tpl.id as string,
-              name: tpl.name as string,
-              subject: tpl.subject as string,
+              name: tpl.name as LocalizedString,
+              subject: tpl.subject as LocalizedString,
               domainId: tpl.domainId as string | undefined,
             })
           )
@@ -196,7 +200,7 @@ export function SendContent() {
     setSelectedTemplateId(templateId)
     if (templateId && templateId !== "none") {
       const tpl = templates.find((t) => t.id === templateId)
-      if (tpl) setSubject(tpl.subject)
+      if (tpl) setSubject(resolveLocalized(tpl.subject))
     }
   }
 
@@ -482,9 +486,10 @@ export function SendContent() {
                 <SelectTrigger className="h-8 border-0 bg-transparent px-0 shadow-none focus:ring-0">
                   <span className="truncate text-sm">
                     {selectedTemplateId && selectedTemplateId !== "none"
-                      ? templates.find(
-                          (tpl) => tpl.id === selectedTemplateId
-                        )?.name
+                      ? resolveLocalized(
+                          templates.find((tpl) => tpl.id === selectedTemplateId)
+                            ?.name
+                        )
                       : t("noTemplate")}
                   </span>
                 </SelectTrigger>
@@ -492,7 +497,7 @@ export function SendContent() {
                   <SelectItem value="none">{t("noTemplate")}</SelectItem>
                   {templates.map((tpl) => (
                     <SelectItem key={tpl.id} value={tpl.id}>
-                      {tpl.name}
+                      {resolveLocalized(tpl.name)}
                     </SelectItem>
                   ))}
                 </SelectContent>

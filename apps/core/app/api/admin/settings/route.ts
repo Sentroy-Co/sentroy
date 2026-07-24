@@ -14,9 +14,9 @@ const DEFAULT_SETTINGS = {
   /**
    * Storage tek dosya upload üst sınırı (byte). Storage app'in upload
    * endpoint'i bu değeri runtime'da okur; UI'da `useMaxUploadBytes()`
-   * hook'u layout-fetched değerden alır. Default 50 MB.
+   * hook'u layout-fetched değerden alır. Default 500 MB.
    */
-  maxUploadBytes: 52428800,
+  maxUploadBytes: 524288000,
 }
 
 export async function GET(request: NextRequest) {

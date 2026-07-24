@@ -26,7 +26,6 @@ import {
   InstagramIcon,
 } from "@hugeicons/core-free-icons"
 
-import { GetAppPopup } from "@/components/download/get-app-popup"
 import { LandingV2Provider } from "./landing-context"
 import { ParallaxWallpaper } from "./primitives/parallax-wallpaper"
 import { DockNav } from "./primitives/dock-nav"
@@ -122,7 +121,6 @@ export function LandingV2({ lang }: { lang: string }) {
         <FooterAdapter lang={lang} />
         <DockNavAdapter />
         <CookieConsent />
-        <GetAppPopup lang={lang} />
       </div>
     </LandingV2Provider>
   )

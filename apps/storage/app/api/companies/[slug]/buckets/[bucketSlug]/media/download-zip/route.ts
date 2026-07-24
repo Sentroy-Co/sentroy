@@ -5,6 +5,7 @@ import { Readable } from "node:stream"
 import archiver from "archiver"
 import { jsonError } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
+import { storageViewer } from "@/lib/storage-access"
 import { bucketModel, mediaModel } from "@workspace/db/models"
 import { cdnFetchFile } from "@workspace/cdn-client"
 
@@ -37,7 +38,7 @@ export async function GET(
   const access = await resolveCompanyAccess(request, slug, "storage.view")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   const idsParam = request.nextUrl.searchParams.get("ids")

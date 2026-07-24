@@ -139,6 +139,35 @@ export async function removeFolderTree(
   return result.deletedCount ?? 0
 }
 
+/**
+ * Klasörün erişim tier'ını ayarlar. Derived-only klasörler (yalnız media
+ * prefix'inden türeyen, doc'u olmayan) için doc'u upsert eder — yeni doc'ta
+ * `ownerUserId` ilk kez yazan kullanıcıdır ("owner" tier sahiplik referansı).
+ * Media içeriğine cascade AYRICA `mediaModel.setFolderAccess` ile yapılır.
+ */
+export async function setAccess(
+  bucketId: string,
+  companyId: string,
+  path: string,
+  access: import("../types").StorageAccess,
+  ownerUserIdIfNew: string,
+): Promise<void> {
+  const c = await col()
+  const now = new Date()
+  await c.updateOne(
+    { bucketId, path },
+    {
+      $set: { access, updatedAt: now },
+      $setOnInsert: {
+        companyId,
+        ownerUserId: ownerUserIdIfNew,
+        createdAt: now,
+      },
+    },
+    { upsert: true },
+  )
+}
+
 export async function createIndexes(): Promise<void> {
   const c = await col()
   await c.createIndex({ bucketId: 1, path: 1 }, { unique: true })

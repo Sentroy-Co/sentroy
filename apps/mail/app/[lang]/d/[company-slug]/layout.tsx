@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { headers } from "next/headers"
 import { auth } from "@workspace/auth/server/auth"
 import { getDb } from "@workspace/db/client"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar, MAIL_ADMIN_SEGMENTS } from "@/components/app-sidebar"
 import { CompanyProvider } from "@workspace/console/components/layout/company-provider"
 import { RouteGuard } from "@workspace/console/components/layout/route-guard"
 import { NotificationsProvider } from "@workspace/console/components/layout/notifications-provider"
@@ -175,7 +175,11 @@ export default async function DashboardLayout({
           <div className="flex flex-1 flex-col p-4 pt-0">{children}</div>
         </SidebarInset>
       </SidebarProvider>
-      <FloatingComposeButton isMailApp label="Compose mail" />
+      <FloatingComposeButton
+        isMailApp
+        label="Compose mail"
+        hideOnSegments={Array.from(MAIL_ADMIN_SEGMENTS)}
+      />
       <GlobalComposeMount />
     </CompanyProvider>
   )

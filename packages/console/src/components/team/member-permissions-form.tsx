@@ -139,20 +139,33 @@ export function MemberPermissionsForm({
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([
-      fetch(`/api/companies/${companySlug}/domains`)
-        .then((r) => (r.ok ? r.json() : { data: [] }))
-        .catch(() => ({ data: [] })),
-      fetch(`/api/companies/${companySlug}/mailboxes`)
-        .then((r) => (r.ok ? r.json() : { data: [] }))
-        .catch(() => ({ data: [] })),
-    ]).then(([dd, mm]) => {
-      if (cancelled) return
-      setDomains((dd.data as DomainItem[]) ?? [])
-      setDomainsLoading(false)
-      setMailboxes((mm.data as MailboxItem[]) ?? [])
-      setMailboxesLoading(false)
-    })
+    // domains/mailboxes MAIL'e aittir. Mail app'inde `/api/companies/...` yerel
+    // olarak servis eder; diğer host'larda (core "os ayarları", storage) bu
+    // route yoktur → 404. O durumda `/api/mail/companies/...` gateway rewrite'ına
+    // düşeriz (core/storage next.config bunu mail'e proxy'ler). Bu olmadan
+    // core team ekranında kayıtlı domain bile listelenemiyordu.
+    async function fetchMailOwned(
+      path: string,
+    ): Promise<{ data?: unknown }> {
+      try {
+        let res = await fetch(`/api/companies/${companySlug}/${path}`)
+        if (res.status === 404) {
+          res = await fetch(`/api/mail/companies/${companySlug}/${path}`)
+        }
+        return res.ok ? await res.json() : { data: [] }
+      } catch {
+        return { data: [] }
+      }
+    }
+    Promise.all([fetchMailOwned("domains"), fetchMailOwned("mailboxes")]).then(
+      ([dd, mm]) => {
+        if (cancelled) return
+        setDomains((dd.data as DomainItem[]) ?? [])
+        setDomainsLoading(false)
+        setMailboxes((mm.data as MailboxItem[]) ?? [])
+        setMailboxesLoading(false)
+      },
+    )
     return () => {
       cancelled = true
     }

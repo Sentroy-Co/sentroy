@@ -5,6 +5,7 @@ import { jsonError } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
 import { bucketModel, companyModel, mediaModel } from "@workspace/db/models"
 import { cdnFetchFile, cdnFetchConverted } from "@workspace/cdn-client"
+import { canViewItem } from "@/lib/storage-access"
 
 /**
  * Auth'lu indirme/görüntüleme proxy'si. Public bucket/medya için istemci
@@ -42,7 +43,9 @@ export async function GET(
   const company = await companyModel.findBySlug(slug)
   if (!company) return jsonError("Not found", 404)
 
-  const bucket = await bucketModel.findUserVisibleBySlug(company.id, bucketSlug)
+  // viewer=null: sistem bağlamında (public hızlı yol için) yalnız
+  // system-managed elenir; bucket erişim gate'i authed dalda uygulanır.
+  const bucket = await bucketModel.findUserVisibleBySlug(company.id, bucketSlug, null)
   if (!bucket) return jsonError("Bucket not found", 404)
 
   const media = await mediaModel.findById(mediaId)
@@ -53,6 +56,15 @@ export async function GET(
   if (!isPublicAccess) {
     const access = await resolveCompanyAccess(request, slug, "storage.view")
     if ("error" in access) return access.error
+    // Şirket-içi erişim tier'ı: hem bucket hem dosya "owner"/"admins" ise
+    // yetkisiz üyeye servis edilmez. (isPublic dosyalar orthogonal — yukarıdaki
+    // hızlı yol paylaşım linkini tier'dan bağımsız açık tutar.)
+    if (
+      !canViewItem(bucket.access, bucket.ownerUserId, access) ||
+      !canViewItem(media.access, media.uploadedBy, access, media.sharedWith)
+    ) {
+      return jsonError("Media not found", 404)
+    }
   }
 
   const sp = request.nextUrl.searchParams
@@ -91,6 +103,10 @@ export async function GET(
       upstream = await cdnFetchFile(media.id, quality, {
         download: wantDownload,
         filename: clientFilename,
+        // Range'i CDN'e ilet → audio/video oynatıcı seek + duration (206).
+        // Bunsuz iOS AVPlayer (video_player/just_audio) progressive medyayı
+        // OYNATMAZ; public `/f` route'u zaten iletiyordu, private burası eksikti.
+        range: request.headers.get("range") ?? undefined,
       })
     }
   } catch (err) {
@@ -112,6 +128,9 @@ export async function GET(
     "content-disposition",
     "etag",
     "last-modified",
+    // Range/seek — audio/video oynatıcı 206 + bu header'larla duration+seek yapar.
+    "content-range",
+    "accept-ranges",
   ]
   for (const h of passthrough) {
     const v = upstream.headers.get(h)

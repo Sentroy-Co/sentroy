@@ -33,6 +33,7 @@ export async function create(data: {
   companyId: string
   userId: string
   name: string
+  color?: string
 }): Promise<NoteFolder> {
   const c = await col()
   const now = new Date()
@@ -40,6 +41,7 @@ export async function create(data: {
     companyId: data.companyId,
     userId: data.userId,
     name: data.name,
+    color: data.color ?? "default",
     createdAt: now,
     updatedAt: now,
   }
@@ -47,12 +49,19 @@ export async function create(data: {
   return { id: result.insertedId.toString(), ...doc }
 }
 
-export async function rename(id: string, name: string): Promise<NoteFolder | null> {
+/** Ad ve/veya renk güncelle (ikisi de opsiyonel — verilen alan yazılır). */
+export async function update(
+  id: string,
+  patch: { name?: string; color?: string },
+): Promise<NoteFolder | null> {
   if (!ObjectId.isValid(id)) return null
   const c = await col()
+  const set: Record<string, unknown> = { updatedAt: new Date() }
+  if (patch.name !== undefined) set.name = patch.name
+  if (patch.color !== undefined) set.color = patch.color
   const result = await c.findOneAndUpdate(
     { _id: new ObjectId(id) },
-    { $set: { name, updatedAt: new Date() } },
+    { $set: set },
     { returnDocument: "after" },
   )
   return result ? (toId(result) as NoteFolder) : null

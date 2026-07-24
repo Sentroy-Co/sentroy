@@ -16,7 +16,7 @@ export interface SiteSettings {
 }
 
 const DEFAULT_SETTINGS: SiteSettings = {
-  maxUploadBytes: 52428800, // 50 MB fallback (admin override etmediyse)
+  maxUploadBytes: 524288000, // 500 MB fallback (admin override etmediyse)
 }
 
 const SiteSettingsContext = createContext<SiteSettings>(DEFAULT_SETTINGS)

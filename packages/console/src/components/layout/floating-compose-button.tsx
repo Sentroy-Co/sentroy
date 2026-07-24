@@ -86,12 +86,19 @@ export interface FloatingComposeButtonProps {
   isMailApp?: boolean
   /** Erişim aria-label (i18n caller tarafından çözülür). */
   label?: string
+  /**
+   * Bu segment'lerde FAB gizlenir (ör. mail admin sayfaları:
+   * domains/mailboxes/logs/webhooks/team/settings/access-tokens). Compose
+   * mail bu sayfalarda bağlam dışı. `/d/[slug]/<segment>` path'inden çözülür.
+   */
+  hideOnSegments?: string[]
 }
 
 export function FloatingComposeButton({
   mailAppUrl = "",
   isMailApp = false,
   label = "Compose mail",
+  hideOnSegments,
 }: FloatingComposeButtonProps) {
   const params = useParams<{ lang: string; "company-slug": string }>()
   const lang = params?.lang || "en"
@@ -103,6 +110,14 @@ export function FloatingComposeButton({
   // `/[lang]/d/[slug]/vault` path'ine düşüyor, bu yüzden pathname check
   // hem direct route hem subdomain proxy'i kapsıyor.
   const isVaultRoute = pathname?.endsWith(`/d/${slug}/vault`) ?? false
+
+  // Admin/yapılandırma sayfalarında (caller `hideOnSegments` ile geçer) FAB
+  // gizlenir. `/d/[slug]/<segment>/...` path'inin ilk segment'ini çözer.
+  const currentSegment =
+    slug && pathname
+      ? (pathname.split(`/d/${slug}/`)[1]?.split(/[/?#]/)[0] ?? "")
+      : ""
+  const isHiddenSegment = hideOnSegments?.includes(currentSegment) ?? false
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
@@ -179,7 +194,7 @@ export function FloatingComposeButton({
     }
   }
 
-  if (!slug || !mounted || isVaultRoute) return null
+  if (!slug || !mounted || isVaultRoute || isHiddenSegment) return null
 
   return (
     <motion.button

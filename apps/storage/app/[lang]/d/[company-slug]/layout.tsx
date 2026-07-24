@@ -79,7 +79,7 @@ export default async function DashboardLayout({
     maxUploadBytes:
       typeof siteSettingsDoc?.maxUploadBytes === "number"
         ? (siteSettingsDoc.maxUploadBytes as number)
-        : 52428800,
+        : 524288000,
   }
 
   const member = (await db.collection("company_members").findOne({

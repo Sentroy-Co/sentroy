@@ -5,6 +5,7 @@
 // çağrılır (push dispatch ile aynı alıcılar).
 import { getDb } from "@workspace/db/client"
 import { userNotificationModel } from "@workspace/db/models"
+import { internalAuthHeaders } from "@workspace/console/lib/internal-auth"
 import { getLinearContext } from "./linear/context"
 import { getAllLinearUsers } from "./linear/users"
 import {
@@ -75,27 +76,64 @@ export async function createLinearNotifications(
   const title = notificationTitle(event)
   const body = event.issueTitle || ""
 
+  const targetUserIds = sentroyUsers
+    .filter((u) => memberIds.has(String(u._id)))
+    .map((u) => String(u._id))
+
   await Promise.all(
-    sentroyUsers
-      .filter((u) => memberIds.has(String(u._id)))
-      .map((u) =>
-        userNotificationModel
-          .create({
-            userId: String(u._id),
-            type: "linear",
-            title,
-            body,
-            href,
-            meta: { companyId, issueId: event.issueId ?? null, slug },
+    targetUserIds.map((userId) =>
+      userNotificationModel
+        .create({
+          userId,
+          type: "linear",
+          title,
+          body,
+          href,
+          meta: { companyId, issueId: event.issueId ?? null, slug },
+        })
+        .catch((err) => {
+          logger.warn({
+            source: "linear",
+            route: "notify",
+            companyId,
+            message: `notification create failed: ${(err as Error).message}`,
           })
-          .catch((err) => {
-            logger.warn({
-              source: "linear",
-              route: "notify",
-              companyId,
-              message: `notification create failed: ${(err as Error).message}`,
-            })
-          }),
-      ),
+        }),
+    ),
   )
+
+  // Native cihaz push'u (APNs/FCM/VAPID) — core `dispatchToUsers` core app'te
+  // olduğundan (mobil cihaz kaydı orada) linear app internal endpoint'e POST'lar.
+  // Best-effort: INTERNAL_API_SECRET yoksa / core erişilemezse sessizce atla
+  // (in-app bildirim + web push zaten yazıldı). SSE ise foreground'u kaplar.
+  void dispatchNativePush(targetUserIds, title, body, href).catch(() => {})
+}
+
+/**
+ * Hedef Sentroy kullanıcılarının cihazlarına native push (mobil/masaüstü) —
+ * core `/api/internal/linear-push` (x-internal-secret) üzerinden. Ayrı app
+ * olduğumuz için `dispatchToUsers`'a doğrudan erişemeyiz.
+ */
+async function dispatchNativePush(
+  userIds: string[],
+  title: string,
+  body: string,
+  url: string,
+): Promise<void> {
+  if (userIds.length === 0) return
+  const coreUrl =
+    process.env.CORE_APP_URL ||
+    process.env.NEXT_PUBLIC_CORE_APP_URL ||
+    "https://sentroy.com"
+  let headers: Record<string, string>
+  try {
+    headers = { "Content-Type": "application/json", ...internalAuthHeaders() }
+  } catch {
+    return // INTERNAL_API_SECRET yapılandırılmamış → native push atla
+  }
+  await fetch(`${coreUrl}/api/internal/linear-push`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ userIds, title, body, url, tag: "linear" }),
+  })
 }

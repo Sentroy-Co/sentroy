@@ -36,6 +36,11 @@ export type {
   MediaThumbnail,
   MediaImageMeta,
 } from "./media"
+export type { StorageAccess } from "./storage-access"
+export {
+  STORAGE_ACCESS_VALUES,
+  normalizeStorageAccess,
+} from "./storage-access"
 export type {
   SocialPost,
   SocialPostAttachment,

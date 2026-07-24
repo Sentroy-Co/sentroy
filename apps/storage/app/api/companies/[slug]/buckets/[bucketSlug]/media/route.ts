@@ -3,15 +3,20 @@ export const dynamic = "force-dynamic"
 import { NextRequest } from "next/server"
 import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { resolveCompanyAccess } from "@workspace/console/lib/access-token"
-import { bucketModel, mediaModel } from "@workspace/db/models"
-import type { Media, MediaType } from "@workspace/db/types"
+import { bucketModel, mediaModel, bucketFolderModel } from "@workspace/db/models"
+import type { Media, MediaType, StorageAccess } from "@workspace/db/types"
 import { cdnUpload, cdnDelete } from "@workspace/cdn-client"
 import { getDb } from "@workspace/db/client"
 import { getStorageQuota, checkQuotaHeadroom } from "@/lib/quota"
 import { formatUploadBytes } from "@/lib/upload-client"
-import { toMediaFolder } from "@/lib/folders"
+import { toMediaFolder, fromMediaFolder } from "@/lib/folders"
+import {
+  storageViewer,
+  parseStorageAccess,
+  callerHasPermission,
+} from "@/lib/storage-access"
 
-const DEFAULT_MAX_UPLOAD_BYTES = 52428800 // 50 MB fallback
+const DEFAULT_MAX_UPLOAD_BYTES = 524288000 // 500 MB fallback
 
 /**
  * Admin'in `system_settings.maxUploadBytes` değerini in-memory cache ile
@@ -47,7 +52,7 @@ export async function GET(
   const access = await resolveCompanyAccess(request, slug, "storage.view")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   const sp = request.nextUrl.searchParams
@@ -65,10 +70,15 @@ export async function GET(
   const limit = Math.min(Math.max(Number(sp.get("limit") || "60"), 1), 200)
   const skip = Math.max(Number(sp.get("skip") || "0"), 0)
 
+  // Erişim tier'ı filtresi — izleyici yalnız görebildiği (everyone / sahibi
+  // olduğu / admin'se admins) dosyaları görür. "owner" (sadece ben) dosyaları
+  // yöneticilere bile görünmez.
+  const viewer = storageViewer(access)
   const filterOpts = {
     type: type ?? undefined,
     folder: folder ?? undefined,
     q,
+    viewer,
   } as const
 
   const [items, total] = await Promise.all([
@@ -109,7 +119,7 @@ export async function POST(
   const access = await resolveCompanyAccess(request, slug, "media.upload")
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   let form: FormData
@@ -159,6 +169,21 @@ export async function POST(
       : undefined
   const requestedPublic = form.get("public") === "true"
   const isPublic = bucket.isPublic && requestedPublic
+
+  // Şirket-içi erişim tier'ı (isPublic'ten ayrı eksen). İstemci belirtmezse
+  // hedef klasörün tier'ını miras al (klasör private ise dosya da private
+  // yüklensin), o da yoksa "everyone".
+  let mediaAccess: StorageAccess = "everyone"
+  const requestedAccessRaw = form.get("access")
+  if (typeof requestedAccessRaw === "string" && requestedAccessRaw) {
+    mediaAccess = parseStorageAccess(requestedAccessRaw)
+  } else if (folder && folder !== toMediaFolder("")) {
+    const folderDoc = await bucketFolderModel.findByPath(
+      bucket.id,
+      fromMediaFolder(folder),
+    )
+    if (folderDoc?.access) mediaAccess = folderDoc.access
+  }
   const alt =
     typeof form.get("alt") === "string" ? (form.get("alt") as string) : undefined
   const caption =
@@ -236,6 +261,7 @@ export async function POST(
       alt: media.alt,
       caption: media.caption,
       isPublic: media.isPublic,
+      access: mediaAccess,
       // CDN-server thumbnail'ları `url` ile döndürür; bizim Media schema'sı
       // `fileName` ister. URL'in son segment'inden türetip iki alanı da
       // (forward-compat için url'i opaque saklayacak şekilde) yansıtıyoruz.
@@ -309,10 +335,11 @@ export async function DELETE(
   },
 ) {
   const { slug, bucketSlug } = await params
-  const access = await resolveCompanyAccess(request, slug, "media.delete")
+  // Üyelik yeter; silme yetkisi aşağıda "media.delete VEYA sahiplik" ile.
+  const access = await resolveCompanyAccess(request, slug)
   if ("error" in access) return access.error
 
-  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug)
+  const bucket = await bucketModel.findUserVisibleBySlug(access.companyId, bucketSlug, storageViewer(access))
   if (!bucket) return jsonError("Bucket not found", 404)
 
   let body: { ids?: unknown }
@@ -334,9 +361,26 @@ export async function DELETE(
   const docs = await Promise.all(
     body.ids.map((id) => mediaModel.findById(id)),
   )
-  const eligible = docs.filter(
+  let eligible = docs.filter(
     (m): m is NonNullable<typeof m> => m !== null && m.bucketId === bucket.id,
   )
+  // Yetki yoksa yalnızca KENDİ dosyalarını silebilir; başkalarınınkiler
+  // (forbidden) sessizce atlanır ve raporlanır.
+  const permitted = await callerHasPermission(access, slug, "media.delete")
+  let forbidden: string[] = []
+  if (!permitted) {
+    const own = eligible.filter((m) => m.uploadedBy === access.callerUserId)
+    forbidden = eligible
+      .filter((m) => m.uploadedBy !== access.callerUserId)
+      .map((m) => m.id)
+    eligible = own
+    if (eligible.length === 0) {
+      if (forbidden.length > 0) {
+        return jsonError("Cannot delete files you don't own", 403)
+      }
+      return jsonSuccess({ deleted: 0, failed: [], totalRequested: body.ids.length })
+    }
+  }
   if (eligible.length === 0) {
     return jsonSuccess({ deleted: 0, failed: [], totalRequested: body.ids.length })
   }
@@ -395,6 +439,7 @@ export async function DELETE(
   return jsonSuccess({
     deleted: succeededIds.length,
     failed,
+    forbidden,
     totalRequested: body.ids.length,
   })
 }

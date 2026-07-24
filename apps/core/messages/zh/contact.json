@@ -9,7 +9,9 @@
     "verifying": "正在验证…",
     "humanCheck": "确认您是真人后即可查看邮箱",
     "error": "无法验证，请重试",
-    "unavailable": "联系方式暂时不可用"
+    "unavailable": "联系方式暂时不可用",
+    "protectedOne": "此页面有 1 个受保护的邮箱。",
+    "protectedMany": "此页面有 {count} 个受保护的邮箱。"
   },
   "form": {
     "title": "给我们留言",

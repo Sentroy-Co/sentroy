@@ -116,6 +116,10 @@ const nextConfig: NextConfig = {
   // Kaynak değişikliği yok; webpack + Turbopack ile çalışır.
   experimental: {
     optimizePackageImports: ["@hugeicons/core-free-icons", "@hugeicons/react"],
+    // SDK/tarayıcı upload'ları `sentroy.com/api/storage/*` rewrite'ıyla storage
+    // app'e PROXY'lenir; core'un proxy body limit'i de büyük dosyayı (500MB'a
+    // kadar) geçirebilmeli — yoksa Next default'unda büyük upload burada takılır.
+    proxyClientMaxBodySize: "512mb",
   },
   output: "standalone",
   // Monorepo root — standalone output workspace packages'ı bu path'ten

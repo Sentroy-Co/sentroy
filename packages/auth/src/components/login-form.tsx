@@ -52,6 +52,11 @@ export function LoginForm({
   const [socialLoading, setSocialLoading] = useState<string | null>(null)
   const [passkeySupported, setPasskeySupported] = useState(false)
   const [passkeyLoading, setPasskeyLoading] = useState(false)
+  // Sentroy masaüstü (Electron) içinde çalışıyor muyuz? contentView remote
+  // sentroy.com'u ayrı bir WebContents'te yükler ve `window.sentroyDesktop`
+  // orada YOK; tek güvenilir sinyal UA (setUserAgent override edilmez, default
+  // UA "Electron/<sürüm>" içerir).
+  const [isElectron, setIsElectron] = useState(false)
   // Turnstile token — env'de site key set edilmediyse `null` kalır,
   // submit guard'ı isTurnstileEnabled()'a bakar (bkz. canSubmit).
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
@@ -59,9 +64,26 @@ export function LoginForm({
 
   useEffect(() => {
     setPasskeySupported(browserSupportsWebAuthn())
+    if (
+      typeof navigator !== "undefined" &&
+      /electron/i.test(navigator.userAgent)
+    ) {
+      setIsElectron(true)
+    }
   }, [])
 
   async function handlePasskeySignIn() {
+    // Electron masaüstü: browserSupportsWebAuthn() true döner (Chromium API'yi
+    // sunar) ama contentView'a bağlı gerçek bir authenticator YOKtur, dolayısıyla
+    // navigator.credentials.get() (startAuthentication) asla resolve/reject olmaz
+    // → buton sonsuz "loading"de kalır. Bunun yerine OAuth ile aynı sistem-tarayıcı
+    // handoff'una yönlendir: kullanıcı tarayıcıda passkey ile giriş yapar, dönüşte
+    // sentroy://auth?code=… deep-link'iyle oturum app'e taşınır.
+    if (isElectron) {
+      toast.message(t("passkeyDesktopHandoff"))
+      window.location.href = `${window.location.origin}/${locale}/desktop-auth`
+      return
+    }
     setPasskeyLoading(true)
     try {
       // Discoverable credential — email vermeden browser kullanıcıya

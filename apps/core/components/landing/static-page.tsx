@@ -1,21 +1,18 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useParams } from "next/navigation"
 import { Logo, PageLoading } from "@workspace/console/components/shared"
 import { Button } from "@workspace/ui/components/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons"
+import { ProtectedEmailsGate } from "./protected-emails-gate"
+import { resolveLocalized } from "@/lib/protect-emails"
 
 interface Page {
   title: Record<string, string> | string
   content: Record<string, string> | string
   updatedAt: string
-}
-
-function resolve(val: Record<string, string> | string, lang: string): string {
-  if (typeof val === "string") return val
-  return val[lang] || val.en || Object.values(val)[0] || ""
 }
 
 export function StaticPageContent() {
@@ -26,6 +23,7 @@ export function StaticPageContent() {
   const [page, setPage] = useState<Page | null>(null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     fetch(`/api/pages/${slug}`)
@@ -52,12 +50,15 @@ export function StaticPageContent() {
     )
   }
 
-  const title = resolve(page!.title, lang)
-  const content = resolve(page!.content, lang)
+  const title = resolveLocalized(page!.title, lang)
+  const content = resolveLocalized(page!.content, lang)
 
   return (
     <div className="flex min-h-svh flex-col">
-      <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
+      <header
+        data-app-chrome
+        className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl"
+      >
         <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-6">
           <a href={`/${lang}`}>
             <Logo size="md" />
@@ -75,11 +76,14 @@ export function StaticPageContent() {
           </p>
         )}
         <div
+          ref={contentRef}
           className="prose prose-neutral dark:prose-invert mt-8 max-w-none"
           dangerouslySetInnerHTML={{ __html: content }}
         />
+        {/* İçerikteki korumalı e-postalar (.sp-email span'leri) → Turnstile ile aç. */}
+        <ProtectedEmailsGate slug={slug} lang={lang} containerRef={contentRef} />
       </main>
-      <footer className="mt-auto border-t">
+      <footer data-app-chrome className="mt-auto border-t">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-6">
           <Logo size="sm" />
           <p className="text-xs text-muted-foreground">

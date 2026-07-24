@@ -1,6 +1,6 @@
 {
   "name": "sentroy-monorepo",
-  "version": "1.64.241",
+  "version": "1.64.271",
   "license": "FSL-1.1-ALv2",
   "devDependencies": {
     "@types/three": "^0.184.0",

@@ -9,7 +9,9 @@
     "verifying": "Verificando…",
     "humanCheck": "Confirma que eres humano para ver nuestro correo",
     "error": "No se pudo verificar; inténtalo de nuevo",
-    "unavailable": "El contacto no está disponible temporalmente"
+    "unavailable": "El contacto no está disponible temporalmente",
+    "protectedOne": "Esta página tiene 1 correo protegido.",
+    "protectedMany": "Esta página tiene {count} correos protegidos."
   },
   "form": {
     "title": "Envíanos un mensaje",

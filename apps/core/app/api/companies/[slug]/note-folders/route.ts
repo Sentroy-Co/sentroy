@@ -5,6 +5,12 @@ import { jsonError, jsonSuccess } from "@workspace/console/lib/api-helpers"
 import { assertCompanyAccess } from "@workspace/console/lib/company-access"
 import { noteFolderModel } from "@workspace/db/models"
 
+/** Klasör rengi paleti — not renkleriyle aynı (`default` = nötr). */
+const FOLDER_COLORS = new Set(["default", "yellow", "blue", "green", "pink", "purple"])
+function normColor(v: unknown): string {
+  return typeof v === "string" && FOLDER_COLORS.has(v) ? v : "default"
+}
+
 /** GET — caller'ın bu şirketteki not klasörleri (per-user). */
 export async function GET(
   request: NextRequest,
@@ -32,7 +38,7 @@ export async function POST(
   if ("error" in access) return access.error
   if (!access.session) return jsonError("Unauthorized", 401)
 
-  let body: { name?: string }
+  let body: { name?: string; color?: string }
   try {
     body = await request.json()
   } catch {
@@ -45,6 +51,7 @@ export async function POST(
     companyId: access.companyId,
     userId: access.session.user.id,
     name,
+    color: normColor(body.color),
   })
   return jsonSuccess({ folder })
 }

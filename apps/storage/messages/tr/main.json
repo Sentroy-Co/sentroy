@@ -42,6 +42,14 @@
       "public": "Herkese açık",
       "private": "Gizli"
     },
+    "access": {
+      "label": "Erişim",
+      "everyone": "Herkes",
+      "admins": "Sadece yöneticiler",
+      "owner": "Sadece ben",
+      "updated": "Görünürlük güncellendi",
+      "updateFailed": "Görünürlük güncellenemedi"
+    },
     "folderCard": {
       "noDescription": "Açıklama yok",
       "info": "Bilgi göster",
@@ -143,7 +151,8 @@
         "info": "Bilgi göster",
         "copyUrl": "URL'yi kopyala",
         "download": "İndir",
-        "delete": "Sil"
+        "delete": "Sil",
+        "share": "Paylaş"
       },
       "info": {
         "subtitle": "Dosya detayları ve meta verisi.",
@@ -199,6 +208,23 @@
       "copyMultiSuccess": "{count} URL panoya kopyalandı",
       "folderInfoDesc": "Klasör içeriği ve bilgileri.",
       "folderPathLabel": "Yol"
+    },
+    "share": {
+      "title": "Paylaş",
+      "company": "Şirketin",
+      "searchPeople": "Kişi ara",
+      "noPeople": "Paylaşılacak kişi yok",
+      "shareWith": "{count} kişiyle paylaş",
+      "sharing": "Paylaşılıyor…",
+      "sent": "{count} kişiyle paylaşıldı — bildirim gönderildi",
+      "failed": "Paylaşılamadı",
+      "link": "Bağlantı",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "linkCopied": "Bağlantı kopyalandı",
+      "email": "E-posta",
+      "save": "Kaydet",
+      "privateHint": "Bunu yalnız yukarıdaki şirket üyeleri açabilir. Link paylaşmak için dosyayı herkese açık yap."
     }
   },
   "usage": {

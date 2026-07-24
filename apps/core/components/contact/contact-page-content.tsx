@@ -85,7 +85,10 @@ export function ContactPageContent({ lang }: { lang: string }) {
       <style>{`.lv2-root ::selection{background:rgba(255,23,68,0.85);color:#fff;-webkit-text-fill-color:#fff;}`}</style>
       <ParallaxWallpaper />
 
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0A0A0A]/75 backdrop-blur-xl">
+      <header
+        data-app-chrome
+        className="sticky top-0 z-40 border-b border-white/10 bg-[#0A0A0A]/75 backdrop-blur-xl"
+      >
         <div className="mx-auto flex h-14 w-full max-w-5xl items-center gap-4 px-6">
           <Link href={`/${lang}`} className="flex items-center gap-2"><Logo size="md" /></Link>
           <div className="ml-auto flex items-center gap-2">

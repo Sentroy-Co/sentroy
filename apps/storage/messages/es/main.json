@@ -67,6 +67,14 @@
       "public": "Público",
       "private": "Privado"
     },
+    "access": {
+      "label": "Acceso",
+      "everyone": "Todos",
+      "admins": "Solo administradores",
+      "owner": "Solo yo",
+      "updated": "Visibilidad actualizada",
+      "updateFailed": "No se pudo actualizar la visibilidad"
+    },
     "folderCard": {
       "noDescription": "Sin descripción",
       "info": "Ver información",
@@ -168,7 +176,8 @@
         "info": "Ver información",
         "copyUrl": "Copiar URL",
         "download": "Descargar",
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "share": "Compartir"
       },
       "info": {
         "subtitle": "Detalles y metadatos del archivo.",
@@ -224,6 +233,23 @@
       "copyMultiSuccess": "{count} URL copiadas al portapapeles",
       "folderInfoDesc": "Contenido y metadatos de la carpeta.",
       "folderPathLabel": "Ruta"
+    },
+    "share": {
+      "title": "Compartir",
+      "company": "Tu empresa",
+      "searchPeople": "Buscar personas",
+      "noPeople": "Nadie con quien compartir",
+      "shareWith": "Compartir con {count}",
+      "sharing": "Compartiendo…",
+      "sent": "Compartido con {count} — se les notificó",
+      "failed": "No se pudo compartir",
+      "link": "Enlace",
+      "copy": "Copiar",
+      "copied": "Copiado",
+      "linkCopied": "Enlace copiado",
+      "email": "Correo",
+      "save": "Guardar",
+      "privateHint": "Solo los miembros de la empresa de arriba pueden abrirlo. Haz el archivo público para compartir un enlace."
     }
   },
   "usage": {

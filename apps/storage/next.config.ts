@@ -39,11 +39,12 @@ const nextConfig: NextConfig = {
     APP_VERSION: pkg.version,
   },
   devIndicators: false,
-  // Next.js 16 default 10MB body limit'i — 100MB'a kadar audio/video upload
-  // kabul etsin (cdn-server'ın kendi limit'i çok daha üstte). Bu hem doğrudan
-  // POST'lar hem de proxy üzerinden gelenler için geçerli.
+  // Next.js 16 default 10MB body limit'i — 500MB'a kadar audio/video upload
+  // kabul etsin (CDN multer limit'i + storage route limit'i de 500MB). Bu hem
+  // doğrudan POST'lar hem de proxy üzerinden gelenler için geçerli. 512mb =
+  // 500MB dosya + multipart overhead için pay.
   experimental: {
-    proxyClientMaxBodySize: "100mb",
+    proxyClientMaxBodySize: "512mb",
   },
   transpilePackages: [
     "@workspace/ui",
@@ -131,6 +132,13 @@ const nextConfig: NextConfig = {
       {
         source: "/api/companies/:slug/inbox/:path*",
         destination: `${mailUrl}/api/companies/:slug/inbox/:path*`,
+      },
+      // Mail gateway — team üyesi yetki formu domains/mailboxes'ı buradan
+      // listeler (bu route'lar storage'da yok, mail'e proxy). Core'daki aynı
+      // rewrite'la paralel.
+      {
+        source: "/api/mail/companies/:path*",
+        destination: `${mailUrl}/api/companies/:path*`,
       },
     ]
   },

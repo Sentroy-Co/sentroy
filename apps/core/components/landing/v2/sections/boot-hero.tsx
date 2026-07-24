@@ -33,7 +33,7 @@ import {
 } from "framer-motion"
 import { useLocale, useTranslations } from "next-intl"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { ArrowDown01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons"
+import { ArrowDown01Icon, ArrowRight01Icon, Download04Icon } from "@hugeicons/core-free-icons"
 import { Button } from "@workspace/ui/components/button"
 import { ScrollScene } from "../primitives/scroll-scene"
 import { Magnetic } from "../primitives/magnetic"
@@ -306,7 +306,7 @@ function HeroCopy() {
 
       <SubtitleCarousel />
 
-      <div className="mt-9">
+      <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
         <Magnetic strength={10}>
           <Button
             size="lg"
@@ -317,6 +317,21 @@ function HeroCopy() {
             <HugeiconsIcon icon={ArrowRight01Icon} className="h-4 w-4" strokeWidth={2} />
           </Button>
         </Magnetic>
+        {/* Masaüstü/mobil uygulama — eski sol-alt promo popup'ının yerine; hero'da
+            Get Started'ın yanında, daha erişilebilir. /download tüm platformları
+            listeler. NEXT_PUBLIC_APP_DOWNLOAD_ENABLED=false → tamamen gizli (build
+            zamanı sabit → CLS yok). */}
+        {process.env.NEXT_PUBLIC_APP_DOWNLOAD_ENABLED !== "false" && (
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-12 rounded-full border-white/20 bg-white/[0.03] px-6 text-[15px] font-medium text-white backdrop-blur-sm hover:bg-white/[0.08] hover:text-white"
+            render={<a href={`/${locale}/download`} />}
+          >
+            <HugeiconsIcon icon={Download04Icon} className="h-4 w-4" strokeWidth={2} />
+            {t("boot.getApp")}
+          </Button>
+        )}
       </div>
     </>
   )

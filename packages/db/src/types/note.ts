@@ -60,6 +60,8 @@ export interface NoteFolder {
   userId: string
   companyId: string
   name: string
+  /** Klasör rengi — not renk paletiyle aynı (`default` = nötr). */
+  color?: string
   createdAt: Date
   updatedAt: Date
 }

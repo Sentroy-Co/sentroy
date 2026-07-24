@@ -16,6 +16,11 @@ const HANDOFF_APPS: Record<string, HandoffApp> = {
   sentroy: { scheme: "sentroy", appName: "Sentroy" },
   meet: { scheme: "sentroy-meet", appName: "Sentroy Meet" },
   storage: { scheme: "sentroy-storage", appName: "Sentroy Storage" },
+  notes: { scheme: "sentroy-notes", appName: "Sentroy Notes" },
+  // Sentroy Tasks (mobil) — altyapı slug'ı `linear`, deep-link şeması
+  // `sentroy-tasks`. Eksikti → handoff `sentroy://`'ya düşüp mail app'ini
+  // açıyordu (login sonrası yanlış app). Şimdi Tasks'a döner.
+  linear: { scheme: "sentroy-tasks", appName: "Sentroy Tasks" },
 }
 
 export function resolveHandoffApp(app: string | undefined | null): HandoffApp {

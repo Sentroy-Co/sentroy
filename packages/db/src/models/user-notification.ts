@@ -19,6 +19,7 @@ export type NotificationType =
   | "company-member-joined"
   | "company-member-removed"
   | "linear"
+  | "storage-shared"
   | "system"
 
 export interface UserNotification {

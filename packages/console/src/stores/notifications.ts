@@ -13,6 +13,7 @@ export type NotificationKind =
   | "company-member-joined"
   | "company-member-removed"
   | "linear"
+  | "storage-shared"
   | "system"
 
 export interface AppNotification {

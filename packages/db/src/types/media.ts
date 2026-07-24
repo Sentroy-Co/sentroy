@@ -1,3 +1,5 @@
+import type { StorageAccess } from "./storage-access"
+
 export type MediaType = "image" | "video" | "audio" | "document" | "other"
 
 export interface MediaThumbnail {
@@ -93,6 +95,20 @@ export interface Media {
   alt?: string
   caption?: string
   isPublic: boolean
+  /**
+   * Şirket-içi erişim kapsamı — `isPublic`'ten AYRI eksen (bkz.
+   * types/storage-access.ts). Legacy doc'larda alan yoktur → sorgular ve UI
+   * bunu `everyone` kabul eder. "owner" tier'ında yükleyen (`uploadedBy`)
+   * dışında kimse (yöneticiler dahil) göremez.
+   */
+  access?: StorageAccess
+  /**
+   * Kişi-bazlı paylaşım grant listesi (auth user id) — "X seninle paylaştı"
+   * akışı. access tier'ı kullanıcıyı dışarıda bıraksa bile bu listedeki
+   * kullanıcı dosyayı görür (canViewItem + liste filtresi bunu OR'lar).
+   * Drive/Instagram mantığı: dosyayı tüm tier'a açmadan tek kişiye ver.
+   */
+  sharedWith?: string[]
   imageMeta?: MediaImageMeta
   videoMeta?: MediaVideoMeta
   audioMeta?: MediaAudioMeta

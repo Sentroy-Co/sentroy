@@ -31,10 +31,17 @@ import {
   PencilEdit01Icon,
   MoreHorizontalIcon,
   Tick02Icon,
+  Globe02Icon,
+  Shield01Icon,
+  SquareLock02Icon,
+  MusicNote01Icon,
+  PlayIcon,
+  SentIcon,
 } from "@hugeicons/core-free-icons"
 import { FileIcon, defaultStyles } from "react-file-icon"
 import { FolderGlyph } from "./folder-glyph"
 import { EmbedBuilderDialog } from "@/components/buckets/embed-builder-dialog"
+import { ShareDialog } from "@/components/buckets/share-dialog"
 import {
   DndContext,
   PointerSensor,
@@ -97,12 +104,19 @@ import {
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
+  ContextMenuSub,
+  ContextMenuSubTrigger,
+  ContextMenuSubContent,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
 } from "@workspace/ui/components/context-menu"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from "@workspace/ui/components/dropdown-menu"
 import {
   Sheet,
@@ -128,7 +142,8 @@ import {
   type FilePreviewItem,
 } from "@workspace/ui/components/file-preview-lightbox"
 import { cn } from "@workspace/ui/lib/utils"
-import type { Bucket, Media } from "@workspace/db/types"
+import type { Bucket, Media, StorageAccess } from "@workspace/db/types"
+import { STORAGE_ACCESS_VALUES } from "@workspace/db/types"
 import { useSession } from "@workspace/auth/client/auth-client"
 import { hasClientPermission } from "@workspace/auth/server/route-permissions"
 import { useCompanyStore } from "@workspace/console/stores/company"
@@ -272,6 +287,23 @@ interface BucketFolderSummary {
   fileCount: number
   storageUsed: number
   explicit: boolean
+  access?: StorageAccess
+  ownerUserId?: string
+}
+
+// ── Erişim tier'ı (şirket-içi görünürlük) — ikon + i18n etiket eşlemesi ──
+const ACCESS_ICON: Record<StorageAccess, typeof Globe02Icon> = {
+  everyone: Globe02Icon,
+  admins: Shield01Icon,
+  owner: SquareLock02Icon,
+}
+
+/** buckets namespace altındaki etiket anahtarı (access.everyone/admins/owner). */
+function accessLabel(
+  t: ReturnType<typeof useTranslations>,
+  access: StorageAccess,
+): string {
+  return t(`access.${access}`)
 }
 
 interface FolderListResponse {
@@ -305,6 +337,9 @@ function MediaTypeIcon({
   width: number
   className?: string
 }) {
+  // Ses dosyaları: mobildeki gibi rose müzik-notası çipi (jenerik dosya ikonu
+  // yerine) — mobil ile görsel bütünlük.
+  if (media.type === "audio") return <AudioBadge width={width} className={className} />
   const ext = getExtension(media.originalName) || "file"
   const style = (defaultStyles as Record<string, unknown>)[ext] ?? {}
   return (
@@ -316,6 +351,30 @@ function MediaTypeIcon({
         extension={ext}
         {...style}
         labelUppercase
+      />
+    </div>
+  )
+}
+
+/**
+ * Ses dosyası rozeti — mobil `FileTypeBadge` (audio) ile aynı görünüm: rose
+ * tonlu kare disk + müzik notası. Boyut çağırana göre (grid 64 / liste 26 /
+ * bilgi 120). rose = #F43F5E (rose-500), tint %15.
+ */
+function AudioBadge({ width, className }: { width: number; className?: string }) {
+  return (
+    <div
+      className={cn(
+        "flex items-center justify-center rounded-[22%] bg-rose-500/15",
+        className,
+      )}
+      style={{ width, height: width }}
+    >
+      <HugeiconsIcon
+        icon={MusicNote01Icon}
+        strokeWidth={2}
+        className="text-rose-500 dark:text-rose-400"
+        style={{ width: width * 0.42, height: width * 0.42 }}
       />
     </div>
   )
@@ -402,6 +461,7 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const [infoMedia, setInfoMedia] = useState<Media | null>(null)
+  const [shareMedia, setShareMedia] = useState<Media | null>(null)
   const [infoFolder, setInfoFolder] = useState<BucketFolderSummary | null>(null)
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
@@ -471,6 +531,12 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
     "media.reorder",
     systemRole,
   )
+  // "admins" tier + başkalarının öğelerinin erişimini yönetme yetkisi.
+  const currentUserId = session?.user?.id
+  const isCompanyAdmin =
+    membership?.role === "owner" ||
+    membership?.role === "admin" ||
+    systemRole === "admin"
 
   // Sayfa-geneli sürükle-bırak yükleme — OS'tan sürüklenen dosyalar upload
   // butonuna basmadan yakalanır. dnd-kit reorder PointerSensor kullandığı için
@@ -831,6 +897,84 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
     }
   }
 
+  // Bucket'ın şirket-içi erişim tier'ını değiştir (isPublic'ten ayrı eksen).
+  // Optimistic; 403'te geri alır.
+  async function handleBucketAccessChange(access: StorageAccess) {
+    if (!bucket || (bucket.access ?? "everyone") === access) return
+    const previous = bucket
+    setBucket({ ...bucket, access })
+    try {
+      const res = await fetch(bucketBase, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ access }),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json.error || t("access.updateFailed"))
+      if (json.data) setBucket(json.data as Bucket)
+      toast.success(t("access.updated"))
+    } catch (err: unknown) {
+      setBucket(previous)
+      toast.error(err instanceof Error ? err.message : t("access.updateFailed"))
+    }
+  }
+
+  // Dosyanın şirket-içi erişim tier'ını değiştir (Herkes/Yöneticiler/Ben).
+  // isPublic (anonim CDN) ekseninden ayrı. Optimistic; 403'te geri alır.
+  async function handleMediaAccessChange(m: Media, access: StorageAccess) {
+    if ((m.access ?? "everyone") === access) return
+    const previous = media
+    setMedia((items) =>
+      items.map((it) => (it.id === m.id ? { ...it, access } : it)),
+    )
+    try {
+      const res = await fetch(`${mediaBase}/${m.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ access }),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json.error || t("access.updateFailed"))
+      toast.success(t("access.updated"))
+    } catch (err: unknown) {
+      setMedia(previous)
+      toast.error(err instanceof Error ? err.message : t("access.updateFailed"))
+    }
+  }
+
+  // Klasörün erişim tier'ını değiştir — içindeki dosyalara cascade eder.
+  async function handleFolderAccessChange(path: string, access: StorageAccess) {
+    const normalized = normalizeFolderPath(path)
+    const previousFolders = folders
+    const previousMedia = media
+    const mediaPrefix = toMediaFolder(normalized)
+    setFolders((fs) =>
+      fs.map((f) => (f.path === normalized ? { ...f, access } : f)),
+    )
+    // Cascade optimistic: bu klasör alt ağacındaki media.
+    setMedia((items) =>
+      items.map((it) =>
+        it.folder === mediaPrefix || it.folder.startsWith(`${mediaPrefix}/`)
+          ? { ...it, access }
+          : it,
+      ),
+    )
+    try {
+      const res = await fetch(foldersBase, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path: normalized, access }),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json.error || t("access.updateFailed"))
+      toast.success(t("access.updated"))
+    } catch (err: unknown) {
+      setFolders(previousFolders)
+      setMedia(previousMedia)
+      toast.error(err instanceof Error ? err.message : t("access.updateFailed"))
+    }
+  }
+
   async function handleMoveToFolder(ids: string[], targetFolder: string) {
     if (!canReorderMedia || ids.length === 0) return
     const normalizedTarget = normalizeFolderPath(targetFolder)
@@ -875,6 +1019,10 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
 
   function handleInfo(m: Media) {
     setInfoMedia(m)
+  }
+
+  function handleShare(m: Media) {
+    setShareMedia(m)
   }
 
   async function handleCopyUrl(m: Media) {
@@ -1136,9 +1284,13 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
   const itemActions: MediaItemActions = {
     onPreview: handlePreview,
     onInfo: handleInfo,
+    onShare: handleShare,
     onCopyUrl: handleCopyUrl,
     onDownload: handleDownload,
     onDelete: handleDelete,
+    onAccessChange: handleMediaAccessChange,
+    currentUserId,
+    isCompanyAdmin,
     canDelete: canDeleteMedia,
     t,
   }
@@ -1211,6 +1363,46 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
                   disabled={visibilityBusy}
                   aria-label={t("detail.visibilityToggle")}
                 />
+              )}
+              {/* Şirket-içi erişim tier'ı (isPublic'ten ayrı) — bucket sahibi
+                  veya şirket yöneticisi. */}
+              {(isCompanyAdmin ||
+                (currentUserId != null &&
+                  bucket.ownerUserId === currentUserId)) && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger
+                    render={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-8 gap-1.5 text-xs"
+                        title={t("access.label")}
+                      >
+                        <HugeiconsIcon
+                          icon={ACCESS_ICON[bucket.access ?? "everyone"]}
+                          strokeWidth={2}
+                          className="size-3.5"
+                        />
+                        <span>{accessLabel(t, bucket.access ?? "everyone")}</span>
+                      </Button>
+                    }
+                  />
+                  <DropdownMenuContent align="end" className="min-w-48">
+                    <DropdownMenuRadioGroup
+                      value={bucket.access ?? "everyone"}
+                      onValueChange={(v) =>
+                        handleBucketAccessChange(v as StorageAccess)
+                      }
+                    >
+                      {STORAGE_ACCESS_VALUES.map((a) => (
+                        <DropdownMenuRadioItem key={a} value={a}>
+                          <HugeiconsIcon icon={ACCESS_ICON[a]} strokeWidth={2} />
+                          {accessLabel(t, a)}
+                        </DropdownMenuRadioItem>
+                      ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               )}
               {/* Aktif klasör action menüsü — bucket içinde bir folder
                   açıkken; "Yeniden adlandır" + "Sil" + breadcrumb'da
@@ -1452,11 +1644,16 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
                         canDrop={canReorderMedia}
                         canRename={canUploadMedia}
                         canDelete={canDeleteMedia}
+                        canManageAccess={isCompanyAdmin || canUploadMedia}
+                        ownedByMe={
+                          !!currentUserId && folder.ownerUserId === currentUserId
+                        }
                         isPublic={bucket.isPublic}
                         onOpen={() => handleOpenFolder(folder.path)}
                         onInfo={() => setInfoFolder(folder)}
                         onRename={openRenameFolderDialog}
                         onDelete={handleDeleteFolder}
+                        onAccessChange={handleFolderAccessChange}
                         t={t}
                       />
                     ))}
@@ -1485,11 +1682,16 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
                         canDrop={canReorderMedia}
                         canRename={canUploadMedia}
                         canDelete={canDeleteMedia}
+                        canManageAccess={isCompanyAdmin || canUploadMedia}
+                        ownedByMe={
+                          !!currentUserId && folder.ownerUserId === currentUserId
+                        }
                         isPublic={bucket.isPublic}
                         onOpen={() => handleOpenFolder(folder.path)}
                         onInfo={() => setInfoFolder(folder)}
                         onRename={openRenameFolderDialog}
                         onDelete={handleDeleteFolder}
+                        onAccessChange={handleFolderAccessChange}
                         t={t}
                       />
                     ))}
@@ -1773,6 +1975,23 @@ export function BucketDetailContent({ bucketSlug }: { bucketSlug: string }) {
         t={t}
       />
 
+      {/* ── Instagram-tarzı paylaşım sheet'i ───────────────────── */}
+      {shareMedia && (
+        <ShareDialog
+          open={Boolean(shareMedia)}
+          onOpenChange={(o) => {
+            if (!o) setShareMedia(null)
+          }}
+          mediaId={shareMedia.id}
+          fileName={shareMedia.originalName}
+          companySlug={companySlug}
+          bucketSlug={bucketSlug}
+          isPublic={shareMedia.isPublic}
+          viewerUrl={absoluteUrl(`/v/${shareMedia.id}`)}
+          downloadUrl={absoluteUrl(downloadUrl(companySlug, bucketSlug, shareMedia))}
+        />
+      )}
+
       {/* ── Folder Get Info Sheet ──────────────────────────────── */}
       <FolderInfoSheet
         folder={infoFolder}
@@ -1918,11 +2137,14 @@ function FolderDropCard({
   canDrop,
   canRename,
   canDelete,
+  canManageAccess,
+  ownedByMe,
   isPublic,
   onOpen,
   onInfo,
   onRename,
   onDelete,
+  onAccessChange,
   t,
 }: {
   folder: BucketFolderSummary
@@ -1930,14 +2152,19 @@ function FolderDropCard({
   canDrop: boolean
   /** Sağ-tık menüsünde "Yeniden adlandır" görünür mü. */
   canRename: boolean
-  /** Sağ-tık menüsünde "Sil" görünür mü. */
+  /** Sağ-tık menüsünde "Sil" görünür mü (yetki). */
   canDelete: boolean
+  /** Erişim tier'ı alt menüsü görünür mü (yetki/admin). */
+  canManageAccess: boolean
+  /** Bu klasörü bu kullanıcı mı oluşturdu — sahip her zaman sil/erişim yönetir. */
+  ownedByMe: boolean
   /** Klasör bucket'ın görünürlüğünü miras alır (public=yeşil / private=mavi). */
   isPublic: boolean
   onOpen: () => void
   onInfo: () => void
   onRename: (path: string) => void
   onDelete: (path: string) => void
+  onAccessChange: (path: string, access: StorageAccess) => void
   t: ReturnType<typeof useTranslations>
 }) {
   const { isOver, setNodeRef } = useDroppable({
@@ -1988,29 +2215,37 @@ function FolderDropCard({
         </span>
       </button>
     ) : (
-      // iCloud tarzı dolu glyph + ad + dosya sayısı (detaylar → "Get info").
+      // Medya tile ile AYNI kart yapısı (kare alan + metin bloğu) → grid'de eşit
+      // yükseklik. Kare içinde ortalanmış iCloud folder glyph'i.
       <button
         ref={setNodeRef}
         type="button"
         onClick={onOpen}
         className={cn(
-          "group flex w-full flex-col items-center rounded-xl p-3 text-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-          isOver ? "bg-primary/10 ring-2 ring-primary/40" : "hover:bg-muted/40",
+          "group relative flex w-full flex-col overflow-hidden rounded-xl border bg-card text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          isOver
+            ? "border-primary/60 ring-2 ring-primary/40"
+            : "hover:border-foreground/20 hover:shadow-md",
         )}
         aria-label={t("detail.openFolder", { name })}
       >
-        <FolderGlyph
-          isPublic={isPublic}
-          className={cn(
-            "w-full max-w-[92px] transition-transform",
-            isOver ? "scale-105" : "group-hover:-translate-y-0.5",
-          )}
-        />
-        <div className="mt-3 w-full truncate text-sm font-semibold" title={name}>
-          {name}
+        <div className="flex aspect-square w-full items-center justify-center bg-muted p-6">
+          <FolderGlyph
+            isPublic={isPublic}
+            access={folder.access}
+            className={cn(
+              "w-full max-w-[84px] transition-transform",
+              isOver ? "scale-105" : "group-hover:-translate-y-0.5",
+            )}
+          />
         </div>
-        <div className="w-full truncate text-xs text-muted-foreground">
-          {t("folderCard.fileCount", { count: folder.fileCount })}
+        <div className="space-y-0.5 p-2">
+          <div className="truncate text-xs font-medium" title={name}>
+            {name}
+          </div>
+          <div className="truncate text-[10px] text-muted-foreground">
+            {t("folderCard.fileCount", { count: folder.fileCount })}
+          </div>
         </div>
       </button>
     )
@@ -2033,7 +2268,17 @@ function FolderDropCard({
             {t("detail.renameFolderCta")}
           </ContextMenuItem>
         )}
-        {canDelete && (
+        {(canManageAccess || ownedByMe) && (
+          <>
+            <ContextMenuSeparator />
+            <AccessSubmenu
+              value={folder.access ?? "everyone"}
+              onChange={(a) => onAccessChange(folder.path, a)}
+              t={t}
+            />
+          </>
+        )}
+        {(canDelete || ownedByMe) && (
           <>
             <ContextMenuSeparator />
             <ContextMenuItem
@@ -2076,7 +2321,11 @@ function FolderInfoSheet({
         </SheetHeader>
         <div className="flex-1 overflow-y-auto p-6">
           <div className="mb-6 flex items-center gap-4">
-            <FolderGlyph isPublic={isPublic} className="w-14 shrink-0" />
+            <FolderGlyph
+              isPublic={isPublic}
+              access={folder.access}
+              className="w-14 shrink-0"
+            />
             <Badge
               variant="outline"
               className={cn(
@@ -2102,6 +2351,10 @@ function FolderInfoSheet({
               value={formatBytes(folder.storageUsed)}
             />
             <FolderInfoRow label={t("columns.visibility")} value={visibility} />
+            <FolderInfoRow
+              label={t("access.label")}
+              value={accessLabel(t, folder.access ?? "everyone")}
+            />
           </div>
         </div>
       </SheetContent>
@@ -2331,11 +2584,51 @@ function QuotaPill({
 interface MediaItemActions {
   onPreview: (m: Media) => void
   onInfo: (m: Media) => void
+  onShare: (m: Media) => void
   onCopyUrl: (m: Media) => void
   onDownload: (m: Media) => void
   onDelete: (m: Media) => void
+  onAccessChange: (m: Media, access: StorageAccess) => void
+  // Erişim tier'ını değiştirebilme, öğe bazında hesaplanır: sahip VEYA admin.
+  currentUserId?: string
+  isCompanyAdmin: boolean
   canDelete: boolean
   t: ReturnType<typeof useTranslations>
+}
+
+// ─── Sub: Erişim tier'ı seçici (context menu alt menüsü) ────────────────
+// Şirket-içi görünürlük: Herkes / Sadece yöneticiler / Sadece ben.
+// `isPublic` (anonim CDN) ekseninden AYRI.
+function AccessSubmenu({
+  value,
+  onChange,
+  t,
+}: {
+  value: StorageAccess
+  onChange: (access: StorageAccess) => void
+  t: ReturnType<typeof useTranslations>
+}) {
+  return (
+    <ContextMenuSub>
+      <ContextMenuSubTrigger>
+        <HugeiconsIcon icon={ACCESS_ICON[value]} strokeWidth={2} />
+        {t("access.label")}
+      </ContextMenuSubTrigger>
+      <ContextMenuSubContent className="min-w-48">
+        <ContextMenuRadioGroup
+          value={value}
+          onValueChange={(v) => onChange(v as StorageAccess)}
+        >
+          {STORAGE_ACCESS_VALUES.map((a) => (
+            <ContextMenuRadioItem key={a} value={a}>
+              <HugeiconsIcon icon={ACCESS_ICON[a]} strokeWidth={2} />
+              {accessLabel(t, a)}
+            </ContextMenuRadioItem>
+          ))}
+        </ContextMenuRadioGroup>
+      </ContextMenuSubContent>
+    </ContextMenuSub>
+  )
 }
 
 // ─── Sub: Item context menu ─────────────────────────────────────────────
@@ -2349,8 +2642,22 @@ function MediaContextMenu({
   actions: MediaItemActions
   children: React.ReactNode
 }) {
-  const { onPreview, onInfo, onCopyUrl, onDownload, onDelete, canDelete, t } =
-    actions
+  const {
+    onPreview,
+    onInfo,
+    onShare,
+    onCopyUrl,
+    onDownload,
+    onDelete,
+    onAccessChange,
+    currentUserId,
+    isCompanyAdmin,
+    canDelete,
+    t,
+  } = actions
+  const canManageAccess =
+    isCompanyAdmin ||
+    (currentUserId != null && media.uploadedBy === currentUserId)
   return (
     <ContextMenu>
       <ContextMenuTrigger className="block">{children}</ContextMenuTrigger>
@@ -2364,6 +2671,10 @@ function MediaContextMenu({
           {t("detail.menu.info")}
         </ContextMenuItem>
         <ContextMenuSeparator />
+        <ContextMenuItem onClick={() => onShare(media)}>
+          <HugeiconsIcon icon={SentIcon} strokeWidth={2} />
+          {t("detail.menu.share")}
+        </ContextMenuItem>
         <ContextMenuItem onClick={() => onCopyUrl(media)}>
           <HugeiconsIcon icon={Copy01Icon} strokeWidth={2} />
           {t("detail.menu.copyUrl")}
@@ -2372,7 +2683,18 @@ function MediaContextMenu({
           <HugeiconsIcon icon={Download01Icon} strokeWidth={2} />
           {t("detail.menu.download")}
         </ContextMenuItem>
-        {canDelete && (
+        {canManageAccess && (
+          <>
+            <ContextMenuSeparator />
+            <AccessSubmenu
+              value={media.access ?? "everyone"}
+              onChange={(a) => onAccessChange(media, a)}
+              t={t}
+            />
+          </>
+        )}
+        {/* Silme: yetki VEYA kendi dosyan (sahip her zaman silebilir). */}
+        {(canDelete || canManageAccess) && (
           <>
             <ContextMenuSeparator />
             <ContextMenuItem
@@ -2474,7 +2796,31 @@ function SortableMediaTile({
               <MediaTypeIcon media={media} width={64} />
             </div>
           )}
+          {/* Ses dosyası: hover'da oynat göstergesi — tık lightbox oynatıcıyı açar. */}
+          {media.type === "audio" && (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+              <span className="flex size-11 items-center justify-center rounded-full bg-background/85 shadow-md backdrop-blur">
+                <HugeiconsIcon
+                  icon={PlayIcon}
+                  strokeWidth={2}
+                  className="size-5 text-rose-500 dark:text-rose-400"
+                />
+              </span>
+            </div>
+          )}
         </div>
+        {(media.access ?? "everyone") !== "everyone" && (
+          <div
+            className="absolute left-1.5 top-1.5 z-10 flex size-6 items-center justify-center rounded-full bg-background/85 text-foreground/80 shadow-sm backdrop-blur"
+            title={accessLabel(actions.t, media.access ?? "everyone")}
+          >
+            <HugeiconsIcon
+              icon={ACCESS_ICON[media.access ?? "everyone"]}
+              className="size-3.5"
+              strokeWidth={2}
+            />
+          </div>
+        )}
         <div className="space-y-0.5 p-2">
           <div className="truncate text-xs font-medium" title={media.originalName}>
             {media.originalName}
@@ -2781,6 +3127,10 @@ function SortableMediaTableRow({
           {actions.t("detail.menu.info")}
         </ContextMenuItem>
         <ContextMenuSeparator />
+        <ContextMenuItem onClick={() => actions.onShare(media)}>
+          <HugeiconsIcon icon={SentIcon} strokeWidth={2} />
+          {actions.t("detail.menu.share")}
+        </ContextMenuItem>
         <ContextMenuItem onClick={() => actions.onCopyUrl(media)}>
           <HugeiconsIcon icon={Copy01Icon} strokeWidth={2} />
           {actions.t("detail.menu.copyUrl")}
@@ -2789,7 +3139,22 @@ function SortableMediaTableRow({
           <HugeiconsIcon icon={Download01Icon} strokeWidth={2} />
           {actions.t("detail.menu.download")}
         </ContextMenuItem>
-        {actions.canDelete && (
+        {(actions.isCompanyAdmin ||
+          (actions.currentUserId != null &&
+            media.uploadedBy === actions.currentUserId)) && (
+          <>
+            <ContextMenuSeparator />
+            <AccessSubmenu
+              value={media.access ?? "everyone"}
+              onChange={(a) => actions.onAccessChange(media, a)}
+              t={actions.t}
+            />
+          </>
+        )}
+        {(actions.canDelete ||
+          actions.isCompanyAdmin ||
+          (actions.currentUserId != null &&
+            media.uploadedBy === actions.currentUserId)) && (
           <>
             <ContextMenuSeparator />
             <ContextMenuItem
@@ -2899,6 +3264,10 @@ function MediaInfoSheet({
             <Field
               label={t("detail.info.visibility")}
               value={media.isPublic ? t("visibility.public") : t("visibility.private")}
+            />
+            <Field
+              label={t("access.label")}
+              value={accessLabel(t, media.access ?? "everyone")}
             />
             <Field
               label={t("detail.info.bucket")}
